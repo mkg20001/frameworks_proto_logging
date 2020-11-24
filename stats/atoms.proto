@@ -20,7 +20,7 @@ package android.os.statsd;
 option java_package = "com.android.os";
 option java_outer_classname = "AtomsProto";
 
-import "frameworks/base/cmds/statsd/src/atom_field_options.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/base/core/proto/android/app/enums.proto";
 import "frameworks/base/core/proto/android/app/job/enums.proto";
 import "frameworks/base/core/proto/android/app/settings_enums.proto";
