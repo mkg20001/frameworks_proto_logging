@@ -487,6 +487,7 @@ message Atom {
             303 [(module) = "network_tethering"];
         ImeTouchReported ime_touch_reported = 304 [(module) = "sysui"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
+        PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -9589,27 +9590,89 @@ message AppCompatibilityChangeReported {
 /**
  * Logged from
  *     external/perfetto/src/perfetto_cmd/perfetto_cmd.cc
+ *     external/perfetto/src/tracing/service/tracing_service_impl.cc
  */
 message PerfettoUploaded {
+    // TODO(lalitm): many of the atoms below should be renamed to have a
+    // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
+    // This will be done after the server side is ready for this change.
+    // Next id: 43.
     enum Event {
         PERFETTO_UNDEFINED = 0;
+
+        // Checkpoints inside perfetto_cmd before tracing is finished.
         PERFETTO_TRACE_BEGIN = 1;
         PERFETTO_BACKGROUND_TRACE_BEGIN = 2;
         PERFETTO_ON_CONNECT = 3;
-        PERFETTO_ON_TRACING_DISABLED = 4;
-        PERFETTO_UPLOAD_DROPBOX_BEGIN = 5;
-        PERFETTO_UPLOAD_DROPBOX_SUCCESS = 6;
-        PERFETTO_UPLOAD_DROPBOX_FAILURE = 7;
-        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
-        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9;
-        PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
-        PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
-        PERFETTO_TRIGGER_BEGIN = 12;
-        PERFETTO_TRIGGER_SUCCESS = 13;
-        PERFETTO_TRIGGER_FAILURE = 14;
-        PERFETTO_HIT_GUARDRAILS = 15;
+
+        // Guardrails inside perfetto_cmd before tracing is finished.
         PERFETTO_ON_TIMEOUT = 16;
+        PERFETTO_CMD_USER_BUILD_TRACING_NOT_ALLOWED = 42;
+        PERFETTO_CMD_FAILED_TO_INIT_GUARDRAIL_STATE = 43;
+        PERFETTO_CMD_INVALID_GUARDRAIL_STATE = 44;
+        PERFETTO_CMD_HIT_UPLOAD_LIMIT = 45;
+
+        // Checkpoints inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING = 37;
+        PERFETTO_TRACED_START_TRACING = 38;
+        PERFETTO_TRACED_DISABLE_TRACING = 39;
+        PERFETTO_TRACED_NOTIFY_TRACING_DISABLED = 40;
+
+        // Trigger checkpoints inside traced.
+        // These atoms are special because, along with the UUID,
+        // they log the trigger name.
+        PERFETTO_TRACED_TRIGGER_START_TRACING = 41;
+        PERFETTO_TRACED_TRIGGER_STOP_TRACING = 42;
+
+        // Guardrails inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING_EXISTING_TRACE_SESSION = 18;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_LONG_TRACE = 19;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_TRIGGER_TIMEOUT = 20;
+        PERFETTO_TRACED_ENABLE_TRACING_DURATION_WITH_TRIGGER = 21;
+        PERFETTO_TRACED_ENABLE_TRACING_STOP_TRACING_WRITE_INTO_FILE = 22;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_TRIGGER_NAME = 23;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_DEFERRED_START = 24;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_BUFFER_SIZE = 25;
+        PERFETTO_TRACED_ENABLE_TRACING_BUFFER_SIZE_TOO_LARGE = 26;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_BUFFERS = 27;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_SESSION_NAME = 28;
+        PERFETTO_TRACED_ENABLE_TRACING_SESSION_NAME_TOO_RECENT = 29;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_SESSIONS_FOR_UID = 30;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_CONCURRENT_SESSIONS = 31;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_FD_OUTPUT_FILE = 32;
+        PERFETTO_TRACED_ENABLE_TRACING_FAILED_TO_CREATE_FILE = 33;
+        PERFETTO_TRACED_ENABLE_TRACING_OOM = 34;
+        PERFETTO_TRACED_ENABLE_TRACING_UNKNOWN_ERROR = 35;
+        PERFETTO_TRACED_START_TRACING_INVALID_SESSION_STATE = 36;
+
+        // Checkpoints inside perfetto_cmd after tracing has finished.
+        PERFETTO_ON_TRACING_DISABLED = 4;
+        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
+        PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
         PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17;
+
+        // Guardrails inside perfetto_cmd after tracing has finished.
+        PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
+
+        // Deprecated as "success" is misleading; it simply means we were
+        // able to communicate with incidentd. Will be removed once
+        // incidentd is properly instrumented.
+        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9 [deprecated = true];
+
+        // Deprecated as has the potential to be too spammy. Will be
+        // replaced with a whole new atom proto which uses a count metric
+        // instead of the event metric used for this proto.
+        PERFETTO_TRIGGER_BEGIN = 12 [deprecated = true];
+        PERFETTO_TRIGGER_SUCCESS = 13 [deprecated = true];
+        PERFETTO_TRIGGER_FAILURE = 14  [deprecated = true];
+
+        // Deprecated as too coarse grained to be useful. Will be replaced
+        // with better broken down atoms as we do with traced.
+        PERFETTO_HIT_GUARDRAILS = 15 [deprecated = true];
+
+        // Contained status of Dropbox uploads. Removed as Perfetto no
+        // longer supports uploading traces using Dropbox.
+        reserved 5, 6, 7;
     }
 
     // Which stage of the pipeline we are reporting from.
@@ -9618,6 +9681,32 @@ message PerfettoUploaded {
     // UUID matching the one set inside the SystemInfo trace packet.
     optional int64 trace_uuid_lsb = 2;
     optional int64 trace_uuid_msb = 3;
+
+    // For trigger checkpoints inside traced, contains the trigger name
+    // associated with this trace UUID.
+    optional string trigger_name = 4;
+}
+
+/**
+ * Logged from
+ *     external/perfetto/src/tracing/service/tracing_service_impl.cc
+ */
+message PerfettoTrigger {
+    enum Event {
+        PERFETTO_UNDEFINED = 0;
+
+        PERFETTO_CMD_TRIGGER = 1;
+        PERFETTO_CMD_TRIGGER_FAIL = 2;
+
+        PERFETTO_TRIGGER_PERFETTO_TRIGGER = 3;
+        PERFETTO_TRIGGER_PERFETTO_TRIGGER_FAIL = 4;
+    }
+
+    // The event which fired.
+    optional Event event = 1;
+
+    // The name of the trigger which fired.
+    optional string trigger_name = 2;
 }
 
 /**
