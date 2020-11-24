@@ -9585,25 +9585,70 @@ message AppCompatibilityChangeReported {
  *     external/perfetto/src/perfetto_cmd/perfetto_cmd.cc
  */
 message PerfettoUploaded {
+    // Next id: 38.
     enum Event {
         PERFETTO_UNDEFINED = 0;
+
+        // Checkpoints inside perfetto_cmd.
+        // TODO(lalitm): these should be renamed to have a "PERFETTO_CMD"
+        // prefix to make clear they are specific to perfetto_cmd. This will
+        // be done after the server side is ready for this change.
         PERFETTO_TRACE_BEGIN = 1;
         PERFETTO_BACKGROUND_TRACE_BEGIN = 2;
         PERFETTO_ON_CONNECT = 3;
         PERFETTO_ON_TRACING_DISABLED = 4;
-        PERFETTO_UPLOAD_DROPBOX_BEGIN = 5;
-        PERFETTO_UPLOAD_DROPBOX_SUCCESS = 6;
-        PERFETTO_UPLOAD_DROPBOX_FAILURE = 7;
         PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
-        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9;
         PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
         PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
         PERFETTO_TRIGGER_BEGIN = 12;
-        PERFETTO_TRIGGER_SUCCESS = 13;
         PERFETTO_TRIGGER_FAILURE = 14;
-        PERFETTO_HIT_GUARDRAILS = 15;
         PERFETTO_ON_TIMEOUT = 16;
-        PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17;
+
+        // Checkpoints inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING = 36;
+
+        // Guardrails inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING_EXISTING_TRACE_SESSION = 18;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_LONG_TRACE = 19;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_TRIGGER_TIMEOUT = 20;
+        PERFETTO_TRACED_ENABLE_TRACING_DURATION_WITH_TRIGGER = 21;
+        PERFETTO_TRACED_ENABLE_TRACING_STOP_TRACING_WRITE_INTO_FILE = 22;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_TRIGGER_NAME = 23;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_DEFERRED_START = 24;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_BUFFER_SIZE = 25;
+        PERFETTO_TRACED_ENABLE_TRACING_BUFFER_SIZE_TOO_LARGE = 26;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_BUFFERS = 27;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_SESSION_NAME = 28;
+        PERFETTO_TRACED_ENABLE_TRACING_SESSION_NAME_TOO_RECENT = 29;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_SESSIONS_FOR_UID = 30;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_CONCURRENT_SESSIONS = 31;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_FD_OUTPUT_FILE = 32;
+        PERFETTO_TRACED_ENABLE_TRACING_FAILED_TO_CREATE_FILE = 33;
+        PERFETTO_TRACED_ENABLE_TRACING_OOM = 34;
+        PERFETTO_TRACED_START_TRACING_INVALID_SESSION_STATE = 35;
+
+        // Deprecated as "success" is misleading; it simply means we were
+        // able to communicate with incidentd. Will be removed once
+        // incidentd is properly instrumented.
+        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9 [deprecated = true];
+
+        // Deprecated as "success" is misleading; it simply means we were
+        // able to communicate with traced. Will be removed once traced's 
+        // triggering code is properly instrumented.
+        PERFETTO_TRIGGER_SUCCESS = 13 [deprecated = true];
+
+        // Deprecated as too coarse grained to be useful. Will be replaced
+        // with better broken down atoms as we do with traced.
+        PERFETTO_HIT_GUARDRAILS = 15 [deprecated = true];
+
+        // Deprecated as the true cause of this error is usually a guardrail
+        // inside traced. Will be removed once server side has been updated
+        // to handle traced guardrails.
+        PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17 [deprecated = true];
+
+        // Contained status of Dropbox uploads. Removed as Perfetto no
+        // longer supports uploading traces using Dropbox.
+        reserved 5, 6, 7;
     }
 
     // Which stage of the pipeline we are reporting from.
