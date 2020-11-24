@@ -1,0 +1,10 @@
+Code-Review+1: Baligh Uddin <baligh@google.com>
+Code-Review+2: Howard Ro <yro@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Submitted-by: Jeffrey Huang <jeffreyhuang@google.com>
+Submitted-at: Tue, 24 Nov 2020 21:24:22 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/proto_logging/+/1508746
+Project: platform/frameworks/proto_logging
+Branch: refs/heads/master
