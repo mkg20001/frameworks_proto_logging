@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d853fd6c_e0189cdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018026
+      },
+      "writtenOn": "2020-11-24T18:14:26Z",
+      "side": 1,
+      "message": "\u003cNot blocking\u003e One thing which did not migrate over is the OWNERS file.  Would recommend adding one here.",
+      "revId": "8608627642fe652a6dd7b8eee5ea60ed3ea94342",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
