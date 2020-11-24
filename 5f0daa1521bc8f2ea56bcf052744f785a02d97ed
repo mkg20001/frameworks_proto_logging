@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17949de2_89b6472e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018026
+      },
+      "writtenOn": "2020-11-24T22:48:17Z",
+      "side": 1,
+      "message": "@Alex Light - the breakage was not due to this CL, but a manifest change which was stuck in the merger queue.",
+      "revId": "5f0daa1521bc8f2ea56bcf052744f785a02d97ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
