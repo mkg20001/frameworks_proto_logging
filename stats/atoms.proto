@@ -21,50 +21,50 @@ option java_package = "com.android.os";
 option java_outer_classname = "AtomsProto";
 
 import "frameworks/proto_logging/stats/atom_field_options.proto";
-import "frameworks/base/core/proto/android/app/enums.proto";
-import "frameworks/base/core/proto/android/app/job/enums.proto";
-import "frameworks/base/core/proto/android/app/settings_enums.proto";
-import "frameworks/base/core/proto/android/app/media_output_enum.proto";
-import "frameworks/base/core/proto/android/app/tvsettings_enums.proto";
-import "frameworks/base/core/proto/android/bluetooth/a2dp/enums.proto";
-import "frameworks/base/core/proto/android/bluetooth/enums.proto";
-import "frameworks/base/core/proto/android/bluetooth/hci/enums.proto";
-import "frameworks/base/core/proto/android/bluetooth/hfp/enums.proto";
-import "frameworks/base/core/proto/android/bluetooth/smp/enums.proto";
-import "frameworks/base/core/proto/android/debug/enums.proto";
-import "frameworks/base/core/proto/android/hardware/biometrics/enums.proto";
-import "frameworks/base/core/proto/android/hardware/sensor/assist/enums.proto";
-import "frameworks/base/core/proto/android/net/networkcapabilities.proto";
-import "frameworks/base/core/proto/android/os/enums.proto";
-import "frameworks/base/core/proto/android/server/connectivity/data_stall_event.proto";
-import "frameworks/base/core/proto/android/server/enums.proto";
-import "frameworks/base/core/proto/android/server/job/enums.proto";
-import "frameworks/base/core/proto/android/server/location/enums.proto";
-import "frameworks/base/core/proto/android/service/procstats_enum.proto";
-import "frameworks/base/core/proto/android/service/usb.proto";
-import "frameworks/base/core/proto/android/stats/connectivity/network_stack.proto";
-import "frameworks/base/core/proto/android/stats/connectivity/tethering.proto";
-import "frameworks/base/core/proto/android/stats/dnsresolver/dns_resolver.proto";
-import "frameworks/base/core/proto/android/stats/devicepolicy/device_policy.proto";
-import "frameworks/base/core/proto/android/stats/devicepolicy/device_policy_enums.proto";
-import "frameworks/base/core/proto/android/stats/docsui/docsui_enums.proto";
-import "frameworks/base/core/proto/android/stats/accessibility/accessibility_enums.proto";
-import "frameworks/base/core/proto/android/stats/enums.proto";
-import "frameworks/base/core/proto/android/stats/intelligence/enums.proto";
-import "frameworks/base/core/proto/android/stats/launcher/launcher.proto";
-import "frameworks/base/core/proto/android/stats/location/location_enums.proto";
-import "frameworks/base/core/proto/android/stats/mediametrics/mediametrics.proto";
-import "frameworks/base/core/proto/android/stats/mediaprovider/mediaprovider_enums.proto";
-import "frameworks/base/core/proto/android/stats/storage/storage_enums.proto";
-import "frameworks/base/core/proto/android/stats/style/style_enums.proto";
-import "frameworks/base/core/proto/android/stats/sysui/notification_enums.proto";
-import "frameworks/base/core/proto/android/stats/tls/enums.proto";
-import "frameworks/base/core/proto/android/telecomm/enums.proto";
-import "frameworks/base/core/proto/android/telephony/enums.proto";
-import "frameworks/base/core/proto/android/view/enums.proto";
-import "frameworks/base/core/proto/android/wifi/enums.proto";
-import "frameworks/base/core/proto/android/stats/textclassifier/textclassifier_enums.proto";
-import "frameworks/base/core/proto/android/stats/otaupdate/updateengine_enums.proto";
+import "frameworks/proto_logging/stats/enums/app/enums.proto";
+import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
+import "frameworks/proto_logging/stats/enums/app/settings_enums.proto";
+import "frameworks/proto_logging/stats/enums/app/media_output_enum.proto";
+import "frameworks/proto_logging/stats/enums/app/tvsettings_enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/a2dp/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/hfp/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
+import "frameworks/proto_logging/stats/enums/debug/enums.proto";
+import "frameworks/proto_logging/stats/enums/hardware/biometrics/enums.proto";
+import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto";
+import "frameworks/proto_logging/stats/enums/net/networkcapabilities.proto";
+import "frameworks/proto_logging/stats/enums/os/enums.proto";
+import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
+import "frameworks/proto_logging/stats/enums/server/enums.proto";
+import "frameworks/proto_logging/stats/enums/server/job/enums.proto";
+import "frameworks/proto_logging/stats/enums/server/location/enums.proto";
+import "frameworks/proto_logging/stats/enums/service/procstats_enum.proto";
+import "frameworks/proto_logging/stats/enums/service/usb.proto";
+import "frameworks/proto_logging/stats/enums/stats/connectivity/network_stack.proto";
+import "frameworks/proto_logging/stats/enums/stats/connectivity/tethering.proto";
+import "frameworks/proto_logging/stats/enums/stats/dnsresolver/dns_resolver.proto";
+import "frameworks/proto_logging/stats/enums/stats/devicepolicy/device_policy.proto";
+import "frameworks/proto_logging/stats/enums/stats/devicepolicy/device_policy_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/docsui/docsui_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/intelligence/enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/launcher/launcher.proto";
+import "frameworks/proto_logging/stats/enums/stats/location/location_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/mediametrics/mediametrics.proto";
+import "frameworks/proto_logging/stats/enums/stats/mediaprovider/mediaprovider_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/storage/storage_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/style/style_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/sysui/notification_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/tls/enums.proto";
+import "frameworks/proto_logging/stats/enums/telecomm/enums.proto";
+import "frameworks/proto_logging/stats/enums/telephony/enums.proto";
+import "frameworks/proto_logging/stats/enums/view/enums.proto";
+import "frameworks/proto_logging/stats/enums/wifi/enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/textclassifier/textclassifier_enums.proto";
+import "frameworks/proto_logging/stats/enums/stats/otaupdate/updateengine_enums.proto";
 
 /**
  * The primary atom class. This message defines all of the available
@@ -685,7 +685,7 @@ message ThermalThrottlingStateChanged {
  *   frameworks/base/services/core/java/com/android/server/am/BatteryStatsService.java
  */
 message ScreenStateChanged {
-    // New screen state, from frameworks/base/core/proto/android/view/enums.proto.
+    // New screen state, from frameworks/proto_logging/stats/enums/view/enums.proto.
     optional android.view.DisplayStateEnum state = 1
             [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
@@ -700,7 +700,7 @@ message ScreenStateChanged {
 message UidProcessStateChanged {
     optional int32 uid = 1 [(state_field_option).primary_field = true, (is_uid) = true];
 
-    // The state, from frameworks/base/core/proto/android/app/enums.proto.
+    // The state, from frameworks/proto_logging/stats/enums/app/enums.proto.
     optional android.app.ProcessStateEnum state = 2
             [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
@@ -717,7 +717,7 @@ message ProcessStateChanged {
     optional string package_name = 3;
     // TODO: remove this when validation is done
     optional int64 version = 5;
-    // The state, from frameworks/base/core/proto/android/app/enums.proto.
+    // The state, from frameworks/proto_logging/stats/enums/app/enums.proto.
     optional android.app.ProcessStateEnum state = 4;
 }
 
@@ -1186,7 +1186,7 @@ message WakelockStateChanged {
             [(state_field_option).primary_field_first_uid = true];
 
     // The type (level) of the wakelock; e.g. a partial wakelock or a full wakelock.
-    // From frameworks/base/core/proto/android/os/enums.proto.
+    // From frameworks/proto_logging/stats/enums/os/enums.proto.
     optional android.os.WakeLockLevelEnum type = 2 [(state_field_option).primary_field = true];
 
     // The wakelock tag (Called tag in the Java API, sometimes name elsewhere).
@@ -1308,7 +1308,7 @@ message BatteryLevelChanged {
  *   frameworks/base/core/java/com/android/internal/os/BatteryStatsImpl.java
  */
 message ChargingStateChanged {
-    // State of the battery, from frameworks/base/core/proto/android/os/enums.proto.
+    // State of the battery, from frameworks/proto_logging/stats/enums/os/enums.proto.
     optional android.os.BatteryStatusEnum state = 1
             [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
@@ -1320,7 +1320,7 @@ message ChargingStateChanged {
  *   frameworks/base/core/java/com/android/internal/os/BatteryStatsImpl.java
  */
 message PluggedStateChanged {
-    // Whether the device is plugged in, from frameworks/base/core/proto/android/os/enums.proto.
+    // Whether the device is plugged in, from frameworks/proto_logging/stats/enums/os/enums.proto.
     optional android.os.BatteryPluggedStateEnum state = 1
             [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
@@ -1354,7 +1354,7 @@ message WakeupAlarmOccurred {
 message MobileRadioPowerStateChanged {
     repeated AttributionNode attribution_node = 1;
 
-    // Power state, from frameworks/base/core/proto/android/telephony/enums.proto.
+    // Power state, from frameworks/proto_logging/stats/enums/telephony/enums.proto.
     optional android.telephony.DataConnectionPowerStateEnum state = 2;
 }
 
@@ -1368,7 +1368,7 @@ message MobileRadioPowerStateChanged {
 message WifiRadioPowerStateChanged {
     repeated AttributionNode attribution_node = 1;
 
-    // Power state, from frameworks/base/core/proto/android/telephony/enums.proto.
+    // Power state, from frameworks/proto_logging/stats/enums/telephony/enums.proto.
     optional android.telephony.DataConnectionPowerStateEnum state = 2;
 }
 
@@ -1436,7 +1436,7 @@ message WifiLockStateChanged {
     }
     optional State state = 2;
 
-    // WifiLock type, from frameworks/base/core/proto/android/wifi/enums.proto.
+    // WifiLock type, from frameworks/proto_logging/stats/enums/wifi/enums.proto.
     optional android.net.wifi.WifiModeEnum mode = 3;
 }
 
@@ -1447,7 +1447,7 @@ message WifiLockStateChanged {
  *   frameworks/opt/net/wifi/service/java/com/android/server/wifi/ClientModeImpl.java
  */
 message WifiSignalStrengthChanged {
-    // Signal strength, from frameworks/base/core/proto/android/telephony/enums.proto.
+    // Signal strength, from frameworks/proto_logging/stats/enums/telephony/enums.proto.
     optional android.telephony.SignalStrengthEnum signal_strength = 1;
 }
 
@@ -1544,13 +1544,13 @@ message BootSequenceReported {
  */
 message CallStateChanged {
     // The state of the call. Eg. DIALING, ACTIVE, ON_HOLD, DISCONNECTED.
-    // From frameworks/base/core/proto/android/telecomm/enums.proto.
+    // From frameworks/proto_logging/stats/enums/telecomm/enums.proto.
     optional android.telecom.CallStateEnum call_state = 1;
 
     // The reason the call disconnected. Eg. ERROR, MISSED, REJECTED, BUSY.
     // This value is only applicable when the call_state is DISCONNECTED, and
     // should always be UNKNOWN if the call_state is not DISCONNECTED.
-    // From frameworks/base/core/proto/android/telecomm/enums.proto.
+    // From frameworks/proto_logging/stats/enums/telecomm/enums.proto.
     optional android.telecom.DisconnectCauseEnum disconnect_cause = 2;
 
     // True if the call is self-managed, which are apps that use the
@@ -2986,7 +2986,7 @@ message DaveyOccurred {
  *   frameworks/base/core/java/com/android/internal/os/BatteryStatsImpl.java
  */
 message PhoneSignalStrengthChanged {
-    // Signal strength, from frameworks/base/core/proto/android/telephony/enums.proto.
+    // Signal strength, from frameworks/proto_logging/stats/enums/telephony/enums.proto.
     optional android.telephony.SignalStrengthEnum signal_strength = 1;
 }
 
@@ -7656,7 +7656,7 @@ message AdbConnectionChanged {
     // to reconnect via adb without user interaction.
     optional int64 auth_window_millis = 2;
 
-    // The state of the adb connection from frameworks/base/core/proto/android/debug/enums.proto.
+    // The state of the adb connection from frameworks/proto_logging/stats/enums/debug/enums.proto.
     optional android.debug.AdbConnectionStateEnum state = 3;
 
     // True if the 'always allow' option was selected for this system.
@@ -10539,11 +10539,11 @@ message AccessibilityShortcutReported {
     optional string package_name = 1;
 
     // The definition of the accessibility shortcut.
-    // From frameworks/base/core/proto/android/stats/accessibility/accessibility_enums.proto.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
     optional android.stats.accessibility.ShortcutType shortcut_type = 2;
 
     // The definition of the service status.
-    // From frameworks/base/core/proto/android/stats/accessibility/accessibility_enums.proto.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
     optional android.stats.accessibility.ServiceStatus service_status = 3;
 }
 
@@ -10558,7 +10558,7 @@ message AccessibilityServiceReported {
     optional string package_name = 1;
 
     // The definition of the service status.
-    // From frameworks/base/core/proto/android/stats/accessibility/accessibility_enums.proto.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
     optional android.stats.accessibility.ServiceStatus service_status = 2;
 }
 
@@ -11133,7 +11133,7 @@ message KeystoreKeyEventReported {
 
 // Blob Committer stats
 // Keep in sync between:
-//     frameworks/base/core/proto/android/server/blobstoremanagerservice.proto
+//     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
 //     frameworks/base/cmds/statsd/src/atoms.proto
 message BlobCommitterProto {
     // Committer app's uid
@@ -11151,7 +11151,7 @@ message BlobCommitterProto {
 
 // Blob Leasee stats
 // Keep in sync between:
-//     frameworks/base/core/proto/android/server/blobstoremanagerservice.proto
+//     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
 //     frameworks/base/cmds/statsd/src/atoms.proto
 message BlobLeaseeProto {
     // Leasee app's uid
@@ -11163,7 +11163,7 @@ message BlobLeaseeProto {
 
 // List of Blob Committers
 // Keep in sync between:
-//     frameworks/base/core/proto/android/server/blobstoremanagerservice.proto
+//     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
 //     frameworks/base/cmds/statsd/src/atoms.proto
 message BlobCommitterListProto {
     repeated BlobCommitterProto committer = 1;
@@ -11171,7 +11171,7 @@ message BlobCommitterListProto {
 
 // List of Blob Leasees
 // Keep in sync between:
-//     frameworks/base/core/proto/android/server/blobstoremanagerservice.proto
+//     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
 //     frameworks/base/cmds/statsd/src/atoms.proto
 message BlobLeaseeListProto {
     repeated BlobLeaseeProto leasee = 1;

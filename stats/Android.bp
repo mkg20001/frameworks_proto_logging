@@ -42,6 +42,22 @@ cc_library_host_shared {
 
 }
 
+cc_library_static {
+    name: "libbt-platform-protos-lite",
+    host_supported: true,
+    proto: {
+        export_proto_headers: true,
+        type: "lite",
+    },
+    srcs: [
+        "enums/bluetooth/a2dp/enums.proto",
+        "enums/bluetooth/enums.proto",
+        "enums/bluetooth/hci/enums.proto",
+        "enums/bluetooth/hfp/enums.proto",
+        "enums/bluetooth/smp/enums.proto",
+    ],
+}
+
 filegroup {
     name: "libstats_atoms_proto",
     srcs: [
@@ -56,3 +72,12 @@ filegroup {
         "atom_field_options.proto",
     ],
 }
+
+filegroup {
+    name: "libstats_atom_enum_protos",
+    srcs: [
+        "enums/**/*.proto",
+    ],
+}
+
+
