@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e97aed_5492aa29",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 9607,
+      "author": {
+        "id": 1047376
+      },
+      "writtenOn": "2020-11-25T16:04:21Z",
+      "side": 1,
+      "message": "Excited for this! Do you have a diagram of the flow of the various events? That way it might be easier to see if we\u0027re missing anything (no need to put in all the various failure modes probably just the happy path would be enough)",
+      "revId": "a47b7a9982746c5e9800ca95d9cd30ad4bbf2150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd29b55_6c7d40cb",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 9642,
+      "author": {
+        "id": 1047376
+      },
+      "writtenOn": "2020-11-25T16:04:21Z",
+      "side": 1,
+      "message": "Are the perfetto_cmd failures above? Or do we not have any any more?",
+      "range": {
+        "startLine": 9642,
+        "startChar": 0,
+        "endLine": 9642,
+        "endChar": 57
+      },
+      "revId": "a47b7a9982746c5e9800ca95d9cd30ad4bbf2150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
