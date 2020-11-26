@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44d8300d_2562fb3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047376
+      },
+      "writtenOn": "2020-11-26T13:54:43Z",
+      "side": 1,
+      "message": "All of these seem reasonable, however (as you mentioned offline) it seems like we\u0027re going to need a bunch more also at some point.",
+      "revId": "893827affc61be0e1b8ce239dff60561f808eaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7172415_613c94e7",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 9615,
+      "author": {
+        "id": 1047376
+      },
+      "writtenOn": "2020-11-26T13:54:43Z",
+      "side": 1,
+      "message": "I get most of these but what would cause this error condition?",
+      "range": {
+        "startLine": 9615,
+        "startChar": 39,
+        "endLine": 9615,
+        "endChar": 67
+      },
+      "revId": "893827affc61be0e1b8ce239dff60561f808eaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
