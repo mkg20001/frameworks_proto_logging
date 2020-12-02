@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89886545_55189d01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1258293
+      },
+      "writtenOn": "2020-12-02T12:46:06Z",
+      "side": 1,
+      "message": "what does this do? If this is preventing the downstream merger into the subsequent branches, why do you need this?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "58a9d405b65d379a1515146eca07b6bfbbceeb5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
