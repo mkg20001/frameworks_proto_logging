@@ -46,6 +46,30 @@
       },
       "revId": "58a9d405b65d379a1515146eca07b6bfbbceeb5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "711b7418_a810b88c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1320563
+      },
+      "writtenOn": "2020-12-02T12:52:32Z",
+      "side": 1,
+      "message": "It was added by ag/12791802 before moving to frameworks/proto_logging.",
+      "parentUuid": "0f417ebd_587789f0",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "58a9d405b65d379a1515146eca07b6bfbbceeb5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
