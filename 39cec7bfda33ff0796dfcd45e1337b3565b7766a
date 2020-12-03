@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99289afa_dbff0ae5",
+        "filename": "stats/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-03T02:48:55Z",
+      "side": 1,
+      "message": "nit: should these two be named lib* if theyre just file groups? I dunno if theres a naming convention but it was a little confusing to see them in the other cl.",
+      "revId": "39cec7bfda33ff0796dfcd45e1337b3565b7766a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
