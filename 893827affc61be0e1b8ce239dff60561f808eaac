@@ -39,6 +39,30 @@
       },
       "revId": "893827affc61be0e1b8ce239dff60561f808eaac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3048d6d3_afd84f9a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 9615,
+      "author": {
+        "id": 1080238
+      },
+      "writtenOn": "2020-12-08T17:50:22Z",
+      "side": 1,
+      "message": "STOP_TRACING triggers and WRTIE_INTO_FILE is not supported simultaneously because of some constraints around the trace needing to be sorted. Since we never expect both of these to happen at the same time, I made it an error when I implemented lifecycle events.",
+      "parentUuid": "a7172415_613c94e7",
+      "range": {
+        "startLine": 9615,
+        "startChar": 39,
+        "endLine": 9615,
+        "endChar": 67
+      },
+      "revId": "893827affc61be0e1b8ce239dff60561f808eaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
