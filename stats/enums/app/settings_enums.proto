@@ -2688,4 +2688,9 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: R QPR
     ADAPTIVE_CONNECTIVITY_CATEGORY = 1850;
+
+    // OPEN: Settings > System -> Reset options > Erase downloaded SIMs
+    // CATEGORY: SETTINGS
+    // OS: S
+    RESET_EUICC = 1857;
 }
