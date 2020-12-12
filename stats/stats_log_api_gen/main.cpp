@@ -268,7 +268,7 @@ static int run(int argc, char const* const* argv) {
         }
 
         errorCount = android::stats_log_api_gen::write_stats_log_java(
-                out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
+                out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel, compileApiLevel,
                 supportWorkSource);
 
         fclose(out);
