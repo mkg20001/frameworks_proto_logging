@@ -18,7 +18,7 @@
 #include <stdio.h>
 
 #include "Collation.h"
-#include "frameworks/base/tools/stats_log_api_gen/test.pb.h"
+#include "frameworks/proto_logging/stats/stats_log_api_gen/test.pb.h"
 
 namespace android {
 namespace stats_log_api_gen {
