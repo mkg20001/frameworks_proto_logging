@@ -488,6 +488,7 @@ message Atom {
         ImeTouchReported ime_touch_reported = 304 [(module) = "sysui"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
+        GeotzLocationListeningReported geotz_location_listening_reported = 330 [(module) = "geotz"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -11309,4 +11310,46 @@ message BlobInfo {
     optional android.stats.tls.CipherSuite cipher_suite = 3;
 
     optional int32 handshake_duration_millis = 4;
+}
+
+/**
+ * Logs when the com.android.geotz module's LocationTimeZoneProvider listens for location and for
+ * how long.
+ *
+ * Logged from:
+ * system/timezone/geolocation/apex/com.android.geotz/src/main/java/com/android/geotz/
+ *   StatsLoggerImpl.java
+ */
+message GeotzLocationListeningReported {
+    enum ListenMode {
+        MODE_UNKNOWN= 0;
+
+        // Corresponds to OfflineLocationTimeZoneDelegate.LOCATION_LISTEN_MODE_LOW
+        MODE_LOW = 1;
+
+        // Corresponds to OfflineLocationTimeZoneDelegate.LOCATION_LISTEN_MODE_HIGH
+        MODE_HIGH = 2;
+    }
+
+    // Used for location listening events.
+    optional ListenMode listen_mode = 1;
+
+    enum End {
+        END_UNKNOWN = 0;
+
+        // The listening was stopped.
+        END_CANCELLED = 1;
+
+        // A location was received.
+        END_LOCATION_RECEIVED = 2;
+    }
+
+    // Indicates how a period of location listening ended.
+    optional End end = 2;
+
+    // Indicates how long listening was enabled (including periods of suspend / sleep).
+    optional int64 duration_including_sleep_millis = 3;
+
+    // Indicates how long listening was enabled (excluding periods of suspend / sleep).
+    optional int64 duration_excluding_sleep_millis = 4;
 }
