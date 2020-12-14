@@ -512,6 +512,9 @@ message Atom {
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
         RkpErrorReported rkp_error_reported = 363;
         OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
+        NetworkIpReachabilityMonitorReported network_ip_reachability_monitor_reported =
+            367 [(module) = "network_stack"];
+
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -7302,6 +7305,22 @@ message NetworkStackQuirkReported {
 
     // Record each Quirk event
     optional android.stats.connectivity.NetworkQuirkEvent event = 2;
+}
+
+/**
+ * Logs Neighbor Unreachability Detection event
+ * Logged from:
+ * packages/modules/NetworkStack/src/com/android/networkstack/metrics/NetworkIpReachabilityMonitorMetrics.java
+ */
+message NetworkIpReachabilityMonitorReported {
+    // Neighbor Unreachability Detection event.
+    optional android.stats.connectivity.NudEventType event_type = 1;
+
+    // NUD probe based on IPv4 ARP or IPv6 ND packet.
+    optional android.stats.connectivity.IpType ip_type = 2;
+
+    // NUD neighbor type, default gateway, DNS server or both.
+    optional android.stats.connectivity.NudNeighborType neighbor_type = 3;
 }
 
 /**
