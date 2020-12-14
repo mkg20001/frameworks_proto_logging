@@ -488,6 +488,8 @@ message Atom {
         ImeTouchReported ime_touch_reported = 304 [(module) = "sysui"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
+        NetworkIpReachabilityMonitorReported network_ip_reachability_monitor_reported =
+            330 [(module) = "network_stack"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -7193,6 +7195,22 @@ message NetworkStackQuirkReported {
 
     // Record each Quirk event
     optional android.stats.connectivity.NetworkQuirkEvent event = 2;
+}
+
+/**
+ * Logs Neighbor Unreachability Detection event
+ * Logged from:
+ * packages/modules/NetworkStack/src/com/android/networkstack/metrics/NetworkIpReachabilityMonitorMetrics.java
+ */
+message NetworkIpReachabilityMonitorReported {
+    // Neighbor Unreachability Detection event.
+    optional android.stats.connectivity.NudEventType event_type = 1;
+
+    // NUD probe based on IPv4 ARP or IPv6 ND packet.
+    optional android.stats.connectivity.NudIpType ip_type = 2;
+
+    // NUD neighbor type, default gateway or DNS server.
+    optional android.stats.connectivity.NudNeighborType neighbor_type = 3;
 }
 
 /**
