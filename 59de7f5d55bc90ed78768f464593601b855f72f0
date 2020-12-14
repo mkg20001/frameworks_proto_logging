@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000006741022",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1526461?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "80dd82b1_992cc85e",
+          "description": "Change to \"stats/enums/stats/connectivity/network_stack.proto\"",
+          "replacements": [
+            {
+              "path": "stats/enums/stats/connectivity/network_stack.proto",
+              "range": {
+                "startLine": 179,
+                "startChar": 20,
+                "endLine": 179,
+                "endChar": 26
+              },
+              "replacement": "UNKNOWN"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "7046b8fd_88568b47",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2020-12-14T01:39:40Z",
+      "side": 1,
+      "message": "Common typo found: \"UNKNOW\" -- should it be \"UNKNOWN\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027NO_TYPO_CHECK\u003d\u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 179,
+        "startChar": 20,
+        "endLine": 179,
+        "endChar": 26
+      },
+      "revId": "59de7f5d55bc90ed78768f464593601b855f72f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000006741022",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1526461?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "836a7a6f_d5a633ec",
+          "description": "Change to \"stats/enums/stats/connectivity/network_stack.proto\"",
+          "replacements": [
+            {
+              "path": "stats/enums/stats/connectivity/network_stack.proto",
+              "range": {
+                "startLine": 196,
+                "startChar": 11,
+                "endLine": 196,
+                "endChar": 17
+              },
+              "replacement": "UNKNOWN"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "b997b5af_488c7e81",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2020-12-14T01:39:40Z",
+      "side": 1,
+      "message": "Common typo found: \"UNKNOW\" -- should it be \"UNKNOWN\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027NO_TYPO_CHECK\u003d\u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 196,
+        "startChar": 11,
+        "endLine": 196,
+        "endChar": 17
+      },
+      "revId": "59de7f5d55bc90ed78768f464593601b855f72f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
