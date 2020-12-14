@@ -174,6 +174,46 @@ enum NetworkQuirkEvent {
     QE_IPV6_PROVISIONING_ROUTER_LOST = 1;
 }
 
+enum NudEventType {
+    // unknown event type;
+    NUD_EVENT_UNKNOWN = 0;
+    // forced nud probe after roaming from IpReachabilityMonitor, neighbor is unreachable;
+    NUD_POST_ROAMING_FAILED = 1;
+    // forced nud probe after roaming from IpReachabilityMonitor, neighbor is unreachable and
+    // provisioning lost;
+    NUD_POST_ROAMING_PROVISIONING_LOST = 2;
+    // forced nud probe after receiving CMD_CONFIRM from IpReachabilityMonitor, neighbor is
+    // unreachable;
+    NUD_CONFIRM_FAILED = 3;
+    // forced nud probe after receiving CMD_CONFIRM from IpReachabilityMonitor, neighbor is
+    // unreachable and provisioning lost;
+    NUD_CONFIRM_PROVISIONING_LOST = 4;
+    // Neighbor unreachable notification from kernel
+    NUD_FAILED_ORGANIC = 5;
+    // Neighbor unreachable notification from kernel, IP provisioning is also lost.
+    NUD_PROVISIONING_LOST_ORGANIC = 6;
+}
+
+enum NudIpType {
+    // unknown IP type;
+    NUD_IP_UNKNOWN = 0;
+    // unicast ARP requests for IPv4 NUD probe;
+    NUD_IPV4_PROBE = 1;
+    // unicast NS packets for IPv6 NUD probe;
+    NUD_IPV6_PROBE = 2;
+}
+
+enum NudNeighborType {
+    // unknown neighbor type;
+    NUD_NEIGHBOR_UNKNOWN = 0;
+    // neighbor is default gateway;
+    NUD_NEIGHBOR_GATEWAY = 1;
+    // neighbor is DNS server;
+    NUD_NEIGHBOR_DNS = 2;
+    // nieghbor is both a default gateway and DNS server;
+    NUD_NEIGHBOR_ALL = 3;
+}
+
 message NetworkStackEventData {
 
 }
