@@ -494,6 +494,8 @@ message Atom {
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+        SimSpecificSettingsRestored sim_specific_settings_restored = 334
+            [(module) = "telephony"];
         PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
         BluetoothHALCrashReasonReported bluetooth_hal_crash_reason_reported =
             338 [(module) = "bluetooth"];
@@ -12461,4 +12463,21 @@ message ArtDatumReported {
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
+}
+
+/**
+ * Logged when a SIM-specific settings restore was attempted.
+ *
+ * Logged from:
+ *    packages/providers/TelephonyProvider/src/com/android/providers/telephony/TelephonyProvider.java
+ */
+message SimSpecificSettingsRestored {
+    optional android.telephony.SimSpecfifcSettingsRestoreResult result = 1;
+
+    // Indicates which restore flow was followed.
+    optional android.telephony.SimSpecificSettingsRestoreCase restored_from_suw = 2;
+
+    // Indicates which criteria was used to match the inserted SIM to backed up
+    // SIM. Only relevant when result is SUCCESS
+    optional android.telephony.SimSpecificSettingsRestoreMatchingCriteria matching_criteria = 3;
 }
