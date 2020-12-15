@@ -16,6 +16,23 @@
       "message": "Waiting for downstream to submit before submitting this change",
       "revId": "774c7f47ce69df7e991b4f16abb76134c1713f04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5037a3c3_a70cb613",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018026
+      },
+      "writtenOn": "2020-12-15T06:59:30Z",
+      "side": 1,
+      "message": "Holding submit until downstreams have merged.\nWill un-do -2 once ready",
+      "revId": "774c7f47ce69df7e991b4f16abb76134c1713f04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
