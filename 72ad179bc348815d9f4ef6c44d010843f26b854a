@@ -1,0 +1,9 @@
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Jeffrey Huang <jeffreyhuang@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Baligh Uddin <baligh@google.com>
+Submitted-at: Tue, 15 Dec 2020 15:06:34 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/proto_logging/+/1526265
+Project: platform/frameworks/proto_logging
+Branch: refs/heads/master
