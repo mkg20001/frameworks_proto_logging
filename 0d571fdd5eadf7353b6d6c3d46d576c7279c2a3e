@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5dac46_8457ed4b",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-22T20:04:18Z",
+      "side": 1,
+      "message": "can we get these constants from somewhere official?",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
