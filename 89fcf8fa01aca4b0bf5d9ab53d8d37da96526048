@@ -16,6 +16,24 @@
       "message": "just double checking, but we cant remove any of these helpers since \"supportQ\" or minApiLevel \u003d 29 is still needed, right?",
       "revId": "89fcf8fa01aca4b0bf5d9ab53d8d37da96526048",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba1f5656_db5a4f97",
+        "filename": "stats/stats_log_api_gen/java_writer_q.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 0,
+      "message": "yeah, still need them for clients running on Q platform",
+      "parentUuid": "d874c36c_f4c73908",
+      "revId": "89fcf8fa01aca4b0bf5d9ab53d8d37da96526048",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

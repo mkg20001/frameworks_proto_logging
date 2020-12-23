@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f55dd01_887cbfee",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "This is/was only being used by NetworkStack\u0027s java code. So we only added java support",
+      "parentUuid": "f48ae733_732701c7",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4142ff72_cf862a82",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-12-23T00:28:44Z",
       "side": 1,
       "message": "Is the idea here to support this to ease transition/not require everything to be in the same topic? \nAnd remove support later?\n\nSide note: update the docs here once complete: go/westworld-create-atom#step-2-add-your-atom-logging-code",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3da33bc_73531004",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "Yeah, I initially removed this but some clients like DnsResolver automerge into mainline-prod from aosp-master so I was getting merge conflicts. So I decided to keep this for now so I can make client build file changes separately.\n\nAdded a note to the tracking bug to update the docs in b/175314831",
+      "parentUuid": "4142ff72_cf862a82",
       "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -69,6 +105,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccad49f6_d042c515",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "Yeah I think we wanted to get rid of it at some point. libstatslog is used in a bunch of places so we haven\u0027t gotten around to it yet.",
+      "parentUuid": "5c9411de_b6f8f88b",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d95682ec_b503531b",
@@ -82,6 +136,24 @@
       "writtenOn": "2020-12-23T00:28:44Z",
       "side": 1,
       "message": "Consider making this stronger and just saying compileApiLevel isnt supported right now?",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74ad17e4_1f6e5d6f",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "We\u0027ll need it for annotation id API change for NetworkStack",
+      "parentUuid": "d95682ec_b503531b",
       "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -103,6 +175,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caeae39a_6ab889af",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "We\u0027ll have a use case for having both set as soon as we add annotation ids as API. NetworkStack will need to set both. They build two versions of binaries, one compiled against system_30 (without annotation id @SystemApi) and another one compiled against system_current which would have the new annotation id @SystemApi symbols. They\u0027ll use \"--minApiLevel 29 --compileApiLevel 30\" for the former binary and just \"--minApiLevel 29\" for the latter binary.\n\nThe assumption is {min|compile}ApiLevel being unset means you\u0027re targeting API_LEVEL_CURRENT. And it\u0027s an easier default to work with because it is possible for clients to use \"--minApiLevel 31+\" even though it would be redundant. So we\u0027d still need to do the same checks.",
+      "parentUuid": "eec209cb_86013177",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd5dac46_8457ed4b",
@@ -116,6 +206,24 @@
       "writtenOn": "2020-12-22T20:04:18Z",
       "side": 1,
       "message": "can we get these constants from somewhere official?",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6334e305_c77068c0",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2020-12-23T20:08:34Z",
+      "side": 1,
+      "message": "It seems like these constants aren\u0027t available on host for some reason. I tried adding libcutils_headers as a dependency to be able to include \u003candroid/api-level.h\u003e but it didn\u0027t work. And I think it\u0027s okay this way too since clients are hardcoding the number in the genrule anyway when specifying --minApiLevel or --compileApiLevel. In fact, other Android.bp build properties also rely on hardcoded sdk version numbers as well like for min_sdk_version, sdk_version, target_sdk_version etc.",
+      "parentUuid": "dd5dac46_8457ed4b",
       "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
