@@ -1,6 +1,108 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af172cb_9e4c2170",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "Few small comments, most are questions for my understanding.",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48ae733_732701c7",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "Did not know this was only java.",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4142ff72_cf862a82",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "Is the idea here to support this to ease transition/not require everything to be in the same topic? \nAnd remove support later?\n\nSide note: update the docs here once complete: go/westworld-create-atom#step-2-add-your-atom-logging-code",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9411de_b6f8f88b",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "Do you know if you want to get rid of the default one at some point? I think now it is only libstatslog using it. I don\u0027t have strong opinions, just curious.",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95682ec_b503531b",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "Consider making this stronger and just saying compileApiLevel isnt supported right now?",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eec209cb_86013177",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2020-12-23T00:28:44Z",
+      "side": 1,
+      "message": "can you explain why there is a usecase for both to be set? Why not keep the same error as before where if both are set we error?\n\nAlso, I think it\u0027s fine as is, but you could consider a default of -1 (or similar) for unset, if it would be cleaner to differentiate unset from API_LEVEL_CURRENT",
+      "revId": "0d571fdd5eadf7353b6d6c3d46d576c7279c2a3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd5dac46_8457ed4b",
