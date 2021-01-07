@@ -1,0 +1,8 @@
+Code-Review+2: Tej Singh <singhtejinder@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+2: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Muhammad Qureshi <muhammadq@google.com>
+Submitted-at: Thu, 07 Jan 2021 18:53:32 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/proto_logging/+/1530704
+Project: platform/frameworks/proto_logging
+Branch: refs/heads/master
