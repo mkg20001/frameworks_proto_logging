@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32b48ff7_6481fbad",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-01-08T02:21:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8abaccea_b7481ffd",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 52
+      },
+      "revId": "074e2de0b07c97f94b07876e9e2be37e91942c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f3c7c54_e0a66a8f",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-28T15:12:58Z",
       "side": 1,
       "message": "Nit: Keep the format the same as previous.\nChange \";\" at the end of the sentence.",
+      "range": {
+        "startLine": 193,
+        "startChar": 3,
+        "endLine": 193,
+        "endChar": 83
+      },
+      "revId": "074e2de0b07c97f94b07876e9e2be37e91942c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f131ac69_31c3e63e",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-01-08T02:21:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f3c7c54_e0a66a8f",
       "range": {
         "startLine": 193,
         "startChar": 3,
