@@ -16,6 +16,24 @@
       "message": "Should this field be marked as deprecated?",
       "revId": "05237f57434f1925ccea8b6817e21b23ed4da28f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba839992_faa05cae",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 10649,
+      "author": {
+        "id": 1633930
+      },
+      "writtenOn": "2021-01-08T00:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8058badc_2267af1f",
+      "revId": "05237f57434f1925ccea8b6817e21b23ed4da28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
