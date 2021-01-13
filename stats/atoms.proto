@@ -493,6 +493,7 @@ message Atom {
         DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
+        MediaSessionManagerVolumeLevelChanged media_session_manager_volume_level_changed = 330 [(module) = "framework"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -605,6 +606,7 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
+        MediaSessionManagerVolumeLevelStats media_session_manager_volume_level_stats = 10095 [(module) = "framework"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -9723,6 +9725,18 @@ message PerfettoTrigger {
 }
 
 /**
+ * Logged from
+ *     frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java
+ */
+ message MediaSessionManagerVolumeLevelChanged {
+  // The package name initiated event.
+  optional string package_name = 1;
+
+  // The direction of level change.
+  optional int32 direction = 2;
+}
+
+/**
  * Pulls client metrics on data transferred via Vehicle Maps Service.
  * Metrics are keyed by uid + layer.
  *
@@ -10799,6 +10813,18 @@ message ImsRegistrationStats {
     optional int32 video_available_seconds = 10;
     optional int32 ut_capable_seconds = 11;
     optional int32 ut_available_seconds = 12;
+}
+
+/**
+ * Pulls MediaSessionManager Volume level event changed stats
+ *
+ * Pulled from:
+ *   frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java
+ */
+message MediaSessionManagerVolumeLevelStats {
+    optional string package_name = 1;
+
+    optional int32 direction = 2;
 }
 
 /**
