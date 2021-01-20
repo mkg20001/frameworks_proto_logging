@@ -1,0 +1,29 @@
+import("//common-mk/proto_library.gni")
+
+group("libbt-platform-protos-lite") {
+  deps = [
+    ":enums",
+  ]
+}
+
+proto_library("enums") {
+  proto_in_dir = "enums/bluetooth"
+  proto_out_dir = "include/frameworks/proto_logging/stats/enums/bluetooth"
+
+  sources = [
+    "${proto_in_dir}/enums.proto",
+  ]
+
+  configs = [ "//bt:target_defaults" ]
+}
+
+proto_library("enums-hci") {
+  proto_in_dir = "enums/bluetooth/hci"
+  proto_out_dir = "include/frameworks/proto_logging/stats/enums/bluetooth/hci"
+
+  sources = [
+    "${proto_in_dir}/enums.proto",
+  ]
+
+  configs = [ "//bt:target_defaults" ]
+}
