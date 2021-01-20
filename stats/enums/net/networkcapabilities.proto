@@ -112,6 +112,10 @@ message NetworkCapabilitiesProto {
         // network that is being kept up in the background to facilitate fast
         // network switching.
         NET_CAPABILITY_FOREGROUND = 19;
+        // Indicates that this network has ability to access the carrier's virtual sim service.
+        NET_CAPABILITY_VSIM = 28;
+        // Indicates that this network has ability to support Bearer Independent Protol.
+        NET_CAPABILITY_BIP = 29;
     }
     repeated NetCapability capabilities = 2;
 
