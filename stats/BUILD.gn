@@ -1,0 +1,16 @@
+import("//common-mk/proto_library.gni")
+
+proto_library("libbt-platform-protos") {
+  proto_in_dir = "."
+  proto_out_dir = "include/frameworks/proto_logging/stats"
+
+  sources = [
+    "enums/bluetooth/a2dp/enums.proto",
+    "enums/bluetooth/enums.proto",
+    "enums/bluetooth/hci/enums.proto",
+    "enums/bluetooth/hfp/enums.proto",
+    "enums/bluetooth/smp/enums.proto",
+  ]
+
+  configs = [ "//common-mk:pic" ]
+}
