@@ -9426,7 +9426,29 @@ message UpdateEngineSuccessfulUpdateReported {
  *   frameworks/base/services/core/java/com/android/server/locksettings/RebootEscrowManager.java
  */
 message RebootEscrowRecoveryReported {
+    // Type of the resume on reboot backend provider.
+    enum ServiceType {
+        UNKNOWN = 0;
+        HAL = 1;
+        SERVER_BASED = 2;
+    }
+
+    // Whether the vbmeta digest of the current slot matches a precomputed value before reboot.
+    enum VbmetaDigestStatus {
+        MATCH_EXPECTED_SLOT = 0;
+        MATCH_FALLBACK_SLOT = 1;
+        MISMATCH = 2;
+    }
+
     optional bool successful = 1;
+
+    optional ServiceType type = 2;
+
+    // The duration between storing of reboot escrow key ->
+    // use of reboot escrow key to unlock CE after reboot
+    optional int32 duration_escrow_key_storage_to_unlock_seconds = 3;
+
+    optional VbmetaDigestStatus vbmeta_digest_status = 4;
 }
 
 /**
