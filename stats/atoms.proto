@@ -494,6 +494,10 @@ message Atom {
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
 
+        RebootEscrowPreparationRequested reboot_escrow_preparation_requested = 350 [(module) = "framework"];
+        RebootEscrowLskfCaptured reboot_escrow_lskf_captured = 351 [(module) = "framework"];
+        RebootEscrowRebootRequested resume_escrow_reboot_requested = 352 [(module) = "framework"];
+
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -9419,6 +9423,65 @@ message UpdateEngineSuccessfulUpdateReported {
 }
 
 /**
+ * Reported when a client requests to prepare for resume on reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowPreparationRequested {
+  enum Result {
+    ROR_NEED_PREPARATION = 0;
+    ROR_SKIP_PREPARATION_AND_NOTIFY = 1;
+    ROR_SKIP_PREPARATION_NOT_NOTIFY = 2;
+  }
+
+  optional string client_name = 1;
+  optional Result result = 2;
+  optional string other_requested_client = 3;
+}
+
+/**
+ * Reported when the lock screen knowledge factor is captured, while there are clients of
+ * resume on reboot to notify.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowLskfCaptured {
+  optional string requested_clients = 1;
+  optional string clients_to_notify = 2;
+
+  // The duration between RoR request - current LSKF capture event.
+  optional int32 duration_ror_requested_to_lskf_captured_seconds = 3;
+}
+
+/* Reported when a client (e.g. gmscore) requests to reboot with Resume on Reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowRebootRequested {
+  optional int32 error_code = 1;
+
+  // Clients who request the reboot
+  optional string client_name = 2;
+
+  // All clients that have prepared for RoR before this reboot
+  optional string prepared_clients = 3;
+
+  // The RoR request counts for each client above.
+  optional string request_counts = 4;
+
+  optional bool slot_switch = 5;
+
+  // The duration between last LSKF captured - reboot requests
+  optional int32 duration_lskf_captured_to_reboot_seconds = 6;
+
+  // The count of LSKF captured since preparation
+  optional int32 lskf_captured_counts = 7;
+}
+
+/**
  * Reported when the RebootEscrow HAL has attempted to recover the escrowed
  * key to indicate whether it was successful or not.
  *
@@ -9426,7 +9489,29 @@ message UpdateEngineSuccessfulUpdateReported {
  *   frameworks/base/services/core/java/com/android/server/locksettings/RebootEscrowManager.java
  */
 message RebootEscrowRecoveryReported {
+    // Type of the resume on reboot backend provider.
+    enum ServiceType {
+        UNKNOWN = 0;
+        HAL = 1;
+        SERVER_BASED = 2;
+    }
+
+    // Whether the vbmeta digest of the current slot matches a precomputed value before reboot.
+    enum VbmetaDigestStatus {
+        MATCH_EXPECTED_SLOT = 0;
+        MATCH_FALLBACK_SLOT = 1;
+        MISMATCH = 2;
+    }
+
     optional bool successful = 1;
+    optional int32 error_code = 2;
+    optional ServiceType type = 3;
+
+    // The duration between storing of reboot escrow key ->
+    // use of reboot escrow key to unlock CE after reboot
+    optional int32 duration_escrow_key_storage_to_unlock_seconds = 4;
+
+    optional VbmetaDigestStatus vbmeta_digest_status = 5;
 }
 
 /**
