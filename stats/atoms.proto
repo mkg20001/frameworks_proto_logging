@@ -492,6 +492,7 @@ message Atom {
         CarrierIdMismatchReported carrier_id_mismatch_reported = 313 [(module) = "telephony"];
         CarrierIdTableUpdated carrier_id_table_updated = 314 [(module) = "telephony"];
         DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
+        MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
@@ -505,8 +506,7 @@ message Atom {
         RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
             340 [(module) = "framework"];
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
-
-        MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
+        BinderLatencyReported binder_latency_reported = 342 [(module) = "framework"];
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
@@ -12536,6 +12536,83 @@ message SimSpecificSettingsRestored {
     // Indicates which criteria was used to match the inserted SIM to backed up
     // SIM. Only relevant when result is SUCCESS
     optional android.telephony.SimSpecificSettingsRestoreMatchingCriteria matching_criteria = 3;
+}
+
+/**
+ * The latency of Binder calls broken down by calling API and method name.
+ * This is different from BinderCalls as it collects a histogram of the
+ * latencies (to get more detailed data) not just the count, sum, and maximum.
+ *
+ * Logged from:
+ * frameworks/base/core/java/com/android/internal/os/BinderLatencyObserver.java
+ */
+message BinderLatencyReported {
+    enum ProcessSource {
+        UNKNOWN_PROCESS_SOURCE = 0;
+        SYSTEM_SERVER = 1;
+        TELEPHONY = 2;
+    }
+
+    message Dims {
+        enum ServiceClassName {
+            UNKNOWN_CLASS = 0;
+        }
+        enum ServiceMethodName {
+            UNKNOWN_METHOD = 0;
+        }
+
+        // Required.
+        optional ProcessSource process_source = 1;
+
+        // The class name of the API making the call to Binder. Enum value
+        // is preferred as uses much less data to store.
+        // This field does not contain PII.
+        oneof service_class {
+            ServiceClassName service_class_name_as_enum = 2;
+            string service_class_name = 3;
+        }
+
+        // Method name of the API call. It can also be a transaction code if we
+        // cannot resolve it to a name. See Binder#getTransactionName. Enum value
+        // is preferred as uses much less data to store.
+        // This field does not contain PII.
+        oneof service_method {
+            ServiceMethodName service_method_name_as_enum = 4;
+            string service_method_name = 5;
+        }
+    }
+
+    message ApiStats {
+        // required.
+        optional Dims dims = 1;
+
+        // Indicates the first bucket that had any data. Allows omitting any empty
+        // buckets at the start of the bucket list and thus save on data size.
+        optional int32 first_bucket_index = 2;
+        // Stores the count of samples for each bucket. The number of buckets and
+        // their sizes are controlled server side with a flag.
+        repeated int32 buckets = 3;
+    }
+
+    message RepeatedApiStats {
+        repeated ApiStats api_stats = 1;
+    }
+
+    // The binder latency data broken down by the dimensions specified above.
+    // The message wrapper is used for the repeated field as top level repeated
+    // fields are not allowed.
+    // MODE_BYTES is used as nested messages are not allowed otherwise.
+    // Required.
+    optional RepeatedApiStats repeated_api_stats = 1 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The fraction of samples that are recorded in the histogram.
+    // Required.
+    optional float sampling_rate = 2;
+
+    // Indicates how many shards the APIs are divided in - e.g. for 3 every
+    // 3rd API will be included in the data for this shard.
+    // Required.
+    optional int32 sharding_modulo = 3;
 }
 
 /*
