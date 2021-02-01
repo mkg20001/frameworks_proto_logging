@@ -486,14 +486,20 @@ message Atom {
         NetworkTetheringReported  network_tethering_reported =
             303 [(module) = "network_tethering"];
         ImeTouchReported ime_touch_reported = 304 [(module) = "sysui"];
+        AirplaneMode airplane_mode = 311 [(module) = "telephony"];
+        ModemRestart modem_restart = 312 [(module) = "telephony"];
+        CarrierIdMismatchReported carrier_id_mismatch_reported = 313 [(module) = "telephony"];
+        CarrierIdTableUpdated carrier_id_table_updated = 314 [(module) = "telephony"];
+        DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
+        PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
     // Pulled events will start at field 10000.
-    // Next: 10084
+    // Next: 10095
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -591,6 +597,14 @@ message Atom {
         DNDModeProto dnd_mode_rule = 10084 [(module) = "framework"];
         GeneralExternalStorageAccessStats general_external_storage_access_stats =
             10085 [(module) = "mediaprovider"];
+        IncomingSms incoming_sms = 10086 [(module) = "telephony"];
+        OutgoingSms outgoing_sms = 10087 [(module) = "telephony"];
+        CarrierIdTableVersion carrier_id_table_version = 10088 [(module) = "telephony"];
+        DataCallSession data_call_session = 10089 [(module) = "telephony"];
+        CellularServiceState cellular_service_state = 10090 [(module) = "telephony"];
+        CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
+        ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
+        ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -4605,7 +4619,7 @@ message GeneralExternalStorageAccessStats {
     // Includes file path and ContentResolver accesses
     optional uint32 secondary_storage_accesses = 4;
     // Comma-separated list of mime types that were accessed.
-    optional MimeTypes mime_types_accessed = 5;
+    optional MimeTypes mime_types_accessed = 5 [(log_mode) = MODE_BYTES];
 }
 
 /**
@@ -6195,7 +6209,7 @@ message ProcessStatsAvailablePagesProto {
  * Pulled from ProcessStatsService.java
  */
 message ProcStats {
-    optional ProcessStatsSectionProto proc_stats_section = 1;
+    optional ProcessStatsSectionProto proc_stats_section = 1 [(log_mode) = MODE_BYTES];
     // Data pulled from device into this is sometimes sharded across multiple atoms to work around
     // a size limit. When this happens, this shard ID will contain an increasing 1-indexed integer
     // with the number of this shard.
@@ -6206,7 +6220,7 @@ message ProcStats {
  * Pulled from ProcessStatsService.java
  */
 message ProcStatsPkgProc {
-    optional ProcessStatsSectionProto proc_stats_section = 1;
+    optional ProcessStatsSectionProto proc_stats_section = 1 [(log_mode) = MODE_BYTES];
 }
 
 // Next Tag: 2
@@ -6224,7 +6238,7 @@ message NotificationRemoteViewsProto {
  * Pulled from NotificationManagerService.java
  */
 message NotificationRemoteViews {
-    optional NotificationRemoteViewsProto notification_remote_views = 1;
+    optional NotificationRemoteViewsProto notification_remote_views = 1 [(log_mode) = MODE_BYTES];
 }
 
 /**
@@ -6292,7 +6306,7 @@ message DNDModeProto {
     // May also be "MANUAL_RULE" to indicate app-activation of the manual rule.
     optional string id = 5;
     optional int32 uid = 6 [(is_uid) = true]; // currently only SYSTEM_UID or 0 for other
-    optional DNDPolicyProto policy = 7;
+    optional DNDPolicyProto policy = 7 [(log_mode) = MODE_BYTES];
 }
 
 /**
@@ -6457,7 +6471,7 @@ message PowerProfileProto {
  * Pulled from PowerProfile.java
  */
 message PowerProfile {
-    optional PowerProfileProto power_profile = 1;
+    optional PowerProfileProto power_profile = 1 [(log_mode) = MODE_BYTES];
 }
 
 /**
@@ -8152,7 +8166,7 @@ message DeviceIdentifierAccessDenied {
 message TrainInfo {
     optional int64 train_version_code = 1;
 
-    optional TrainExperimentIds train_experiment_id = 2;
+    optional TrainExperimentIds train_experiment_id = 2 [(log_mode) = MODE_BYTES];
 
     optional string train_name = 3;
 
@@ -9589,27 +9603,89 @@ message AppCompatibilityChangeReported {
 /**
  * Logged from
  *     external/perfetto/src/perfetto_cmd/perfetto_cmd.cc
+ *     external/perfetto/src/tracing/service/tracing_service_impl.cc
  */
 message PerfettoUploaded {
+    // TODO(lalitm): many of the atoms below should be renamed to have a
+    // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
+    // This will be done after the server side is ready for this change.
+    // Next id: 47.
     enum Event {
         PERFETTO_UNDEFINED = 0;
+
+        // Checkpoints inside perfetto_cmd before tracing is finished.
         PERFETTO_TRACE_BEGIN = 1;
         PERFETTO_BACKGROUND_TRACE_BEGIN = 2;
         PERFETTO_ON_CONNECT = 3;
-        PERFETTO_ON_TRACING_DISABLED = 4;
-        PERFETTO_UPLOAD_DROPBOX_BEGIN = 5;
-        PERFETTO_UPLOAD_DROPBOX_SUCCESS = 6;
-        PERFETTO_UPLOAD_DROPBOX_FAILURE = 7;
-        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
-        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9;
-        PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
-        PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
-        PERFETTO_TRIGGER_BEGIN = 12;
-        PERFETTO_TRIGGER_SUCCESS = 13;
-        PERFETTO_TRIGGER_FAILURE = 14;
-        PERFETTO_HIT_GUARDRAILS = 15;
+
+        // Guardrails inside perfetto_cmd before tracing is finished.
         PERFETTO_ON_TIMEOUT = 16;
+        PERFETTO_CMD_USER_BUILD_TRACING_NOT_ALLOWED = 43;
+        PERFETTO_CMD_FAILED_TO_INIT_GUARDRAIL_STATE = 44;
+        PERFETTO_CMD_INVALID_GUARDRAIL_STATE = 45;
+        PERFETTO_CMD_HIT_UPLOAD_LIMIT = 46;
+
+        // Checkpoints inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING = 37;
+        PERFETTO_TRACED_START_TRACING = 38;
+        PERFETTO_TRACED_DISABLE_TRACING = 39;
+        PERFETTO_TRACED_NOTIFY_TRACING_DISABLED = 40;
+
+        // Trigger checkpoints inside traced.
+        // These atoms are special because, along with the UUID,
+        // they log the trigger name.
+        PERFETTO_TRACED_TRIGGER_START_TRACING = 41;
+        PERFETTO_TRACED_TRIGGER_STOP_TRACING = 42;
+
+        // Guardrails inside traced.
+        PERFETTO_TRACED_ENABLE_TRACING_EXISTING_TRACE_SESSION = 18;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_LONG_TRACE = 19;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_TRIGGER_TIMEOUT = 20;
+        PERFETTO_TRACED_ENABLE_TRACING_DURATION_WITH_TRIGGER = 21;
+        PERFETTO_TRACED_ENABLE_TRACING_STOP_TRACING_WRITE_INTO_FILE = 22;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_TRIGGER_NAME = 23;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_DEFERRED_START = 24;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_BUFFER_SIZE = 25;
+        PERFETTO_TRACED_ENABLE_TRACING_BUFFER_SIZE_TOO_LARGE = 26;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_BUFFERS = 27;
+        PERFETTO_TRACED_ENABLE_TRACING_DUPLICATE_SESSION_NAME = 28;
+        PERFETTO_TRACED_ENABLE_TRACING_SESSION_NAME_TOO_RECENT = 29;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_SESSIONS_FOR_UID = 30;
+        PERFETTO_TRACED_ENABLE_TRACING_TOO_MANY_CONCURRENT_SESSIONS = 31;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_FD_OUTPUT_FILE = 32;
+        PERFETTO_TRACED_ENABLE_TRACING_FAILED_TO_CREATE_FILE = 33;
+        PERFETTO_TRACED_ENABLE_TRACING_OOM = 34;
+        PERFETTO_TRACED_ENABLE_TRACING_UNKNOWN_ERROR = 35;
+        PERFETTO_TRACED_START_TRACING_INVALID_SESSION_STATE = 36;
+
+        // Checkpoints inside perfetto_cmd after tracing has finished.
+        PERFETTO_ON_TRACING_DISABLED = 4;
+        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
+        PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
         PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17;
+
+        // Guardrails inside perfetto_cmd after tracing has finished.
+        PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
+
+        // Deprecated as "success" is misleading; it simply means we were
+        // able to communicate with incidentd. Will be removed once
+        // incidentd is properly instrumented.
+        PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9 [deprecated = true];
+
+        // Deprecated as has the potential to be too spammy. Will be
+        // replaced with a whole new atom proto which uses a count metric
+        // instead of the event metric used for this proto.
+        PERFETTO_TRIGGER_BEGIN = 12 [deprecated = true];
+        PERFETTO_TRIGGER_SUCCESS = 13 [deprecated = true];
+        PERFETTO_TRIGGER_FAILURE = 14  [deprecated = true];
+
+        // Deprecated as too coarse grained to be useful. Will be replaced
+        // with better broken down atoms as we do with traced.
+        PERFETTO_HIT_GUARDRAILS = 15 [deprecated = true];
+
+        // Contained status of Dropbox uploads. Removed as Perfetto no
+        // longer supports uploading traces using Dropbox.
+        reserved 5, 6, 7;
     }
 
     // Which stage of the pipeline we are reporting from.
@@ -9618,6 +9694,32 @@ message PerfettoUploaded {
     // UUID matching the one set inside the SystemInfo trace packet.
     optional int64 trace_uuid_lsb = 2;
     optional int64 trace_uuid_msb = 3;
+
+    // For trigger checkpoints inside traced, contains the trigger name
+    // associated with this trace UUID.
+    optional string trigger_name = 4;
+}
+
+/**
+ * Logged from
+ *     external/perfetto/src/tracing/service/tracing_service_impl.cc
+ */
+message PerfettoTrigger {
+    enum Event {
+        PERFETTO_UNDEFINED = 0;
+
+        PERFETTO_CMD_TRIGGER = 1;
+        PERFETTO_CMD_TRIGGER_FAIL = 2;
+
+        PERFETTO_TRIGGER_PERFETTO_TRIGGER = 3;
+        PERFETTO_TRIGGER_PERFETTO_TRIGGER_FAIL = 4;
+    }
+
+    // The event which fired.
+    optional Event event = 1;
+
+    // The name of the trigger which fired.
+    optional string trigger_name = 2;
 }
 
 /**
@@ -10134,7 +10236,7 @@ message VoiceCallSession {
     // Number of other calls going on during call termination, for the same SIM slot.
     optional int32 concurrent_call_count_at_end = 14;
 
-    // Index of the SIM is used, 0 for single-SIM devices.
+    // Index of the SIM used, 0 for single-SIM devices.
     optional int32 sim_slot_index = 15;
 
     // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
@@ -10168,6 +10270,32 @@ message VoiceCallSession {
 
     // A random number used as the dimension field to pull multiple atoms.
     optional int32 dimension = 25;
+
+    // Signal strength at the end of the call. This value is applicable to both cellular and WiFi.
+    optional android.telephony.SignalStrengthEnum signal_strength_at_end = 26;
+
+    // Band at the end of the call. Value 0 is used if the band is unknown.
+    // See GeranBands, UtranBands and EutranBands in IRadio interface, depending on the RAT at
+    // the end of the call.
+    optional int32 band_at_end = 27;
+
+    // Time spent setting up the call in milliseconds.
+    // The time is measured from dial to ringing for outgoing calls, and from answer to connected
+    // for incoming calls.
+    optional int32 setup_duration_millis = 28;
+
+    // Main codec quality. The codec quality was equal to or greater than this value for at least
+    // 70% of the call.
+    optional android.telephony.CodecQuality main_codec_quality = 29;
+
+    // Whether video was enabled at any point during the call.
+    optional bool video_enabled = 30;
+
+    // Radio access technology (RAT) used when call is connected.
+    optional android.telephony.NetworkTypeEnum rat_at_connected = 31;
+
+    // Whether the call was a conference call (applicable only for calls over IMS).
+    optional bool is_multiparty = 32;
 }
 
 /**
@@ -10186,12 +10314,88 @@ message VoiceCallRatUsage {
     // Radio access technology.
     optional android.telephony.NetworkTypeEnum rat = 2;
 
-    // Total duration that voice calls spent on this carrier and RAT.
+    // Total duration that voice calls spent on this carrier and RAT, rounded to 5 minutes.
     optional int64 total_duration_seconds = 3;
 
     // Total number of calls using this carrier and RAT.
     // A call is counted once even if it used the RAT multiple times.
     optional int64 call_count = 4;
+}
+
+/**
+ * Pulls amount of time spend in each cellular service state.
+ *
+ * Each pull creates multiple atoms, one for each SIM slot/carrier/RAT(including ENDC), the order of
+ * which is irrelevant to time. If multi SIM settings changes during the period, durations will be
+ * counted separately before and after the change. Airplane mode does not count towards durations.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message CellularServiceState {
+    // Radio access technology (RAT) for voice.
+    // NETWORK_TYPE_UNKNOWN when the device is out of service.
+    // NETWORK_TYPE_IWLAN when the device is using VoWiFi.
+    optional android.telephony.NetworkTypeEnum voice_rat = 1;
+
+    // Radio access technology (RAT) for data.
+    // NETWORK_TYPE_UNKNOWN when the device is out of service.
+    // Only cellular RATs are valid and show where the device is camped.
+    optional android.telephony.NetworkTypeEnum data_rat = 2;
+
+    // Whether the device was in roaming (domestic or international) for voice.
+    optional android.telephony.RoamingTypeEnum voice_roaming_type = 3;
+
+    // Whether the device was in roaming (domestic or international) for data.
+    optional android.telephony.RoamingTypeEnum data_roaming_type = 4;
+
+    // Whether the device is on LTE and has access to NR NSA, i.e. cell supports 5G (ENDC) and UE
+    // registration (attach/TAU) indicates ENDC is not restricted.
+    optional bool is_endc = 5;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 6;
+
+    // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
+    optional bool is_multi_sim = 7;
+
+    // Carrier ID of the SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 8;
+
+    // Total time spent in this service state, rounded to 5 minutes.
+    optional int32 total_time_seconds = 9;
+}
+
+/**
+ * Pulls the number of times cellular data service state switches.
+ *
+ * Each pull creates multiple atoms, one for each RAT combination, the order of which is irrelevant
+ * to time. Switches for different SIM slots, carrier IDs, or multi-SIM settings are counted
+ * separately.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message CellularDataServiceSwitch {
+    // Cellular RAT of the DATA domain from where the switch occurred.
+    optional android.telephony.NetworkTypeEnum rat_from = 1;
+
+    // Cellular RAT of the DATA domain to where the switch occurred.
+    optional android.telephony.NetworkTypeEnum rat_to = 2;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 3;
+
+    // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
+    optional bool is_multi_sim = 4;
+
+    // Carrier ID of the SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 5;
+
+    // Number of switches from rat_from to rat_to.
+    optional int32 switch_count = 6;
 }
 
 /**
@@ -10225,6 +10429,387 @@ message SupportedRadioAccessFamily {
     // A bitmask of supported radio technologies.
     // See android.telephony.TelephonyManager.NetworkTypeBitMask.
     optional int64 network_type_bitmask = 1;
+}
+
+/**
+ * Pulls information for a single incoming SMS.
+ *
+ * Each pull creates multiple atoms, one for each SMS. The sequence is randomized when pulled.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message IncomingSms {
+    // Format of the SMS (3GPP or 3GPP2).
+    optional android.telephony.SmsFormatEnum sms_format = 1;
+
+    // Technology of the SMS (CS or IMS).
+    optional android.telephony.SmsTechEnum sms_tech = 2;
+
+    // Radio access technology (RAT) used for the SMS. It can be IWLAN in case of IMS.
+    optional android.telephony.NetworkTypeEnum rat = 3;
+
+    // Type the SMS.
+    optional android.telephony.SmsTypeEnum sms_type = 4;
+
+    // Number of total parts.
+    optional int32 total_parts = 5;
+
+    // Number of received parts (if smaller than total parts, the SMS was dropped).
+    optional int32 received_parts = 6;
+
+    // Indicates if the incoming SMS was blocked.
+    optional bool blocked = 7;
+
+    // Indicate a specific error handling the SMS
+    optional android.telephony.SmsIncomingErrorEnum error = 8;
+
+    // Whether the SMS was received while roaming.
+    optional bool is_roaming = 9;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 10;
+
+    // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
+    optional bool is_multi_sim = 11;
+
+    // Whether the message was received with an eSIM profile.
+    optional bool is_esim = 12;
+
+    // Carrier ID of the SIM card used for the SMS.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 13;
+
+    // Random message ID.
+    optional int64 message_id = 14;
+}
+
+/**
+ * Pulls information for a single outgoing SMS.
+ *
+ * Each pull creates multiple atoms, one for each SMS. The sequence is randomized when pulled.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message OutgoingSms {
+    // Format of the SMS (3GPP or 3GPP2).
+    optional android.telephony.SmsFormatEnum sms_format = 1;
+
+    // Technology of the SMS (CS or IMS).
+    optional android.telephony.SmsTechEnum sms_tech = 2;
+
+    // Radio access technology (RAT) used for the SMS. It can be IWLAN in case of IMS.
+    optional android.telephony.NetworkTypeEnum rat = 3;
+
+    // Result of the SMS sending.
+    optional android.telephony.SmsSendResultEnum send_result = 4;
+
+    // Error code
+    // For IMS technology, see @SmsManager.Result in
+    // http://cs/android/frameworks/base/telephony/java/android/telephony/SmsManager.java
+    // For CS technology:
+    //  - GSM format: see GsmSmsErrorCode (3GPP 27.005 clause 3.2.5)
+    //  - CDMA format: see CdmaSmsErrorCode (3GPP2 N.S0005 (IS-41-C) Table 171)
+    optional int32 error_code = 5;
+
+    // Whether the SMS was sent while roaming.
+    optional bool is_roaming = 6;
+
+    // Whether the default SMS application generated the SMS (regardless of which application).
+    optional bool is_from_default_app = 7;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 8;
+
+    // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
+    optional bool is_multi_sim = 9;
+
+    // Whether the message was sent with an eSIM profile.
+    optional bool is_esim = 10;
+
+    // Carrier ID of the SIM card used for the SMS.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 11;
+
+    // Random message ID.
+    optional int64 message_id = 12;
+
+    // Retry count: 0 for the first attempt and then increasing for each attempt.
+    optional int32 retry_id = 13;
+}
+
+/**
+ * Logs information about usage of airplane mode.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/AirplaneModeStats.java
+ */
+message AirplaneMode {
+    // Status of airplane mode
+    optional bool is_enabled = 1;
+
+    // When is_enabled is false, indicates if this was a very short airplane mode toggle
+    // (i.e. airplane mode was disabled after less than 10 seconds from enablement).
+    optional bool short_toggle = 2;
+
+    // Carrier ID of the SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 3;
+}
+
+/**
+ * Logs information about modem restarts.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/ModemRestartStats.java
+ */
+message ModemRestart {
+    // Software version of the modem, as provided by android.os.Build.getRadioVersion().
+    optional string baseband_version = 1;
+
+    // Reason of the modem restart, as provided in the modemReset indication of IRadio HAL.
+    optional string reason = 2;
+
+    // Carrier ID of the first SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 3;
+}
+
+/**
+ * Logs the SIM card details when the carrier ID match is not complete.
+ *
+ * The atom is pushed when a SIM card is initialized and the MCC/MNC is not present in the
+ * carrier ID table, or the SIM card contains a GID1 value that is not present in the carrier ID
+ * table. This atom is pushed only once for each type of SIM card.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/CarrierIdMatchStats.java
+ */
+message CarrierIdMismatchReported {
+    // Matched carrier ID. The value -1 is used if no match is found.
+    optional int32 carrier_id = 1;
+
+    // MCC/MNC of the SIM card.
+    optional string mcc_mnc = 2;
+
+    // Group identifier (level 1) of the SIM card.
+    optional string gid1 = 3;
+
+    // SPN value of the SIM card.
+    optional string spn = 4;
+
+    // First record of the PNN in the SIM card. This field is populated only if the SPN is missing
+    // or empty.
+    optional string pnn = 5;
+}
+
+/**
+ * Logs the version of the carrier ID matching table at first power up and when it is updated.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/CarrierIdMatchStats.java
+ */
+message CarrierIdTableUpdated {
+    // Version of the CarrierId matching table.
+    optional int32 table_version = 1;
+}
+
+/**
+ * Pulls the version of the carrier ID matching table.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message CarrierIdTableVersion {
+    // Version of the CarrierId matching table.
+    optional int32 table_version = 1;
+}
+
+/**
+ * Pulls information for a single data call session
+ *
+ * Each pull creates multiple atoms, one for each data call session.
+ * The sequence is randomized when pulled.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message DataCallSession {
+    // A random number to be used as dimension to capture multiple atoms
+    optional int32 dimension = 1;
+
+    // Whether the device was in multi-SIM mode (with multiple active SIM profiles).
+    optional bool is_multi_sim = 2;
+
+    // Whether the call was made with an eSIM profile.
+    optional bool is_esim = 3;
+
+    // Data profile of this call (for what purpose this call was made)
+    optional android.telephony.DataProfileEnum profile = 4 [deprecated = true];
+
+    // APN type bitmask of the APN used:
+    // @ApnType in frameworks/base/telephony/java/android/telephony/Annotation.java.
+    optional int32 apn_type_bitmask = 5;
+
+    // Carrier ID of the SIM
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 6;
+
+    // Whether the subscription is roaming
+    optional bool is_roaming = 7;
+
+    // Data RAT when the call ended, can be IWLAN for IMS/MMS, otherwise should be WWAN PS RAT.
+    // In the case that the connection hasn't ended yet, this field holds the current RAT.
+    // In the case the call ended due to Out Of Service (OOS),
+    // this field should be the last known RAT.
+    optional android.telephony.NetworkTypeEnum rat_at_end = 8;
+
+    // Was the data call ended due to OOS
+    optional bool oos_at_end = 9;
+
+    // Number of RAT switches during the data call
+    optional int64 rat_switch_count = 10;
+
+    // Whether the call is on an opportunistic subscription
+    optional bool is_opportunistic = 11;
+
+    // Packet data protocol used
+    optional android.telephony.ApnProtocolEnum ip_type = 12;
+
+    // Whether the data call terminated before being established
+    optional bool setup_failed = 13;
+
+    // Reason why the data call terminated, as in RIL_DataCallFailCause from ril.h
+    optional int32 failure_cause = 14;
+
+    // Suggested retry back-off timer value from RIL
+    optional int32 suggested_retry_millis = 15;
+
+    // Why the data call was deactivated
+    // Set by telephony for MO deactivations (unrelated to failure_cause)
+    optional android.telephony.DataDeactivateReasonEnum deactivate_reason = 16;
+
+    // Duration of the data call, rounded into the closest 5 minutes.
+    optional int64 duration_minutes = 17;
+
+    // Whether the data call is still connected when the atom is collected.
+    optional bool ongoing = 18;
+
+    // Band at the end of the data call. Value 0 is used if the band is unknown.
+    // See GeranBands, UtranBands and EutranBands in IRadio interface, depending
+    // on the RAT at the end of the data call.
+    optional int32 band_at_end = 19;
+}
+
+/**
+ * Logs data stall recovery event
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
+ */
+message DataStallRecoveryReported {
+    // Carrier ID of the SIM
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 1;
+
+    // Data RAT when the stall happened
+    optional android.telephony.NetworkTypeEnum rat = 2;
+
+    // Signal strength when stall happened
+    optional android.telephony.SignalStrengthEnum signal_strength = 3;
+
+    // Action taken to recover
+    optional android.telephony.DataStallRecoveryActionEnum action = 4;
+
+    // Whether the subscription is opportunistic
+    optional bool is_opportunistic = 5;
+
+    // Whether the device is in multi-SIM mode
+    optional bool is_multi_sim = 6;
+
+    // Band used when the stall/recovery took place.
+    // Value 0 is used if the band is unknown.
+    // See GeranBands, UtranBands and EutranBands in IRadio interface, depending
+    // on the RAT used at the time.
+    optional int32 band = 7;
+}
+
+/**
+ * Pulls IMS registration terminations.
+ *
+ * Each pull generates multiple atoms, one for each termination condition happened during the day.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message ImsRegistrationTermination {
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 1;
+
+    // Whether the device is in multi-SIM mode when the registration terminated.
+    optional bool is_multi_sim = 2;
+
+    // Radio access technology (RAT) used by the registration when it terminated.
+    // This can be IWLAN if IMS was registered over Wifi.
+    optional android.telephony.NetworkTypeEnum rat_at_end = 3;
+
+    // Whether the IMS registration failed before it was established.
+    optional bool setup_failed = 4;
+
+    // IMS reason code indicating the termination reason.
+    // See: frameworks/base/telephony/java/android/telephony/ims/ImsReasonInfo.java
+    optional int32 reason_code = 5;
+
+    // IMS extra code indicating the termination reason.
+    optional int32 extra_code = 6;
+
+    // IMS extra message indicating the termination reason.
+    // This string is truncated to 128 characters if its length exceeds the limit.
+    optional string extra_message = 7;
+
+    // Total number of instances of registration termination that matches the above conditions.
+    optional int32 count = 8;
+}
+
+/**
+ * Pulls IMS registration statistics.
+ *
+ * Each pull generates multiple atoms, one for each carrier, SIM slot, and radio access technology
+ * (RAT) combination. Durations are aggregated from all registrations with matching criteria,
+ * including ones that are currently active.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message ImsRegistrationStats {
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 2;
+
+    // Radio access technology (RAT) used by the registration.
+    // This can be IWLAN if IMS was registered over Wifi.
+    optional android.telephony.NetworkTypeEnum rat = 3;
+
+    // Total time IMS was registered (connected time), rounded to 5 minutes.
+    optional int32 registered_seconds = 4;
+
+    // Durations that each feature (Voice, Video, UT, SMS) is capable (supported/enabled by the
+    // network/device) and available (registered and ready to use).
+    // All durations are rounded to 5 minutes and should be equal to or shorter than
+    // registered_seconds.
+    optional int32 voice_capable_seconds = 5;
+    optional int32 voice_available_seconds = 6;
+    optional int32 sms_capable_seconds = 7;
+    optional int32 sms_available_seconds = 8;
+    optional int32 video_capable_seconds = 9;
+    optional int32 video_available_seconds = 10;
+    optional int32 ut_capable_seconds = 11;
+    optional int32 ut_available_seconds = 12;
 }
 
 /**
@@ -11200,10 +11785,10 @@ message BlobInfo {
     optional int64 expiry_timestamp_millis = 3;
 
     // List of committers of this Blob
-    optional BlobCommitterListProto committers = 4;
+    optional BlobCommitterListProto committers = 4 [(log_mode) = MODE_BYTES];
 
     // List of leasees of this Blob
-    optional BlobLeaseeListProto leasees = 5;
+    optional BlobLeaseeListProto leasees = 5 [(log_mode) = MODE_BYTES];
 }
 
 /**
