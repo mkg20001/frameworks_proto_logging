@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f0d4f7_58fadde3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4de91a32_c0c72bc5",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e17e8fee_75da2045",
@@ -37,6 +61,24 @@
       "writtenOn": "2021-02-03T22:26:23Z",
       "side": 1,
       "message": "As said in another comment below, I suggest testing the binary by copying it from the out tree to some other location and try running it from there. If it starts without linker errors it\u0027s fine.",
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc5c840d_76766099",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e17e8fee_75da2045",
       "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "621d733c_ee5308fd",
+        "filename": "stats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "My understanding is that whatever gets linked into libplatformprotos in the frameworks doesn\u0027t get propagated to here, so we have to include the protobuf runtime anyway. At any rate, this seems to be working now based on the ldd output.",
+      "parentUuid": "fdb3bfab_494fcf6e",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbcb263c_b25ce2ec",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ccc7b2_24f76d7f",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "Done.\n\nHere\u0027s the output of ldd after copying the binary to another location:\n\n        linux-vdso.so.1 (0x00007ffc2d0a8000)\n        libdl.so.2 \u003d\u003e /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f9d2e072000)\n        libpthread.so.0 \u003d\u003e /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f9d2e050000)\n        libm.so.6 \u003d\u003e /lib/x86_64-linux-gnu/libm.so.6 (0x00007f9d2df0c000)\n        librt.so.1 \u003d\u003e /lib/x86_64-linux-gnu/librt.so.1 (0x00007f9d2df01000)\n        libgcc_s.so.1 \u003d\u003e /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f9d2dee7000)\n        libc.so.6 \u003d\u003e /lib/x86_64-linux-gnu/libc.so.6 (0x00007f9d2dd20000)\n        /lib64/ld-linux-x86-64.so.2 (0x00007f9d2e5db000)",
+      "parentUuid": "cbcb263c_b25ce2ec",
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4afcb8ba_5896f2cc",
@@ -94,6 +178,30 @@
       "writtenOn": "2021-02-03T22:26:23Z",
       "side": 1,
       "message": "This links libz dynamically. I\u0027m not sure if that may be a problem, but you can try by copying the built binary to some other location and run it from there.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8700609e_8768ef16",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "Copying the binary to another location to run it and also check what libraries it uses with ldd was really helpful. Basically I had to make everything static, but now the only dynamic libraries I\u0027m seeing are things like libc and libm.",
+      "parentUuid": "4afcb8ba_5896f2cc",
       "range": {
         "startLine": 37,
         "startChar": 9,
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3916b7e_a6e5e154",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "I moved it to whole_static_libs.",
+      "parentUuid": "a9326504_ce447efd",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e529fe53_02a4a0e9",
@@ -140,6 +272,30 @@
       "writtenOn": "2021-02-03T22:26:23Z",
       "side": 1,
       "message": "Suggest moving this to packages/modules/StatsD/apex/Android.bp - it\u0027s also part of the SDK definition for the statsd module and it\u0027s better to have it all in one place.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eeefb40_f6bf5858",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-03T23:58:55Z",
+      "side": 1,
+      "message": "In that case, does it make sense to include it in the `sdk` entry we\u0027ll have to add to StatsD, or should it stay separate as a `module_exports`?",
+      "parentUuid": "e529fe53_02a4a0e9",
       "range": {
         "startLine": 53,
         "startChar": 0,
