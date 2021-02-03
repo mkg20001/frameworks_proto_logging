@@ -4991,6 +4991,12 @@ message SnapshotMergeReported {
     // containing the dm-snapshot's copy-on-write data generated during a
     // Virtual A/B update.
     optional int64 cow_file_size_bytes = 5;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 6;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 7;
 }
 
 /**
@@ -9385,6 +9391,12 @@ message UpdateEngineUpdateAttemptReported {
 
     // Free space available in the super partition.
     optional int64 super_free_space_bytes = 11;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 12;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 13;
 }
 
 /**
