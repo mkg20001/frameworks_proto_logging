@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de91a32_c0c72bc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "No, separate prebuilts for frameworks/base wouldn\u0027t make any difference. The reason it\u0027s necessary is because we currently don\u0027t package shared lib dependencies correctly for host binaries in prebuilt snapshots.\n\nSee also b/178691801 - I suggest referencing that ticket here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17e8fee_75da2045",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "As said in another comment below, I suggest testing the binary by copying it from the out tree to some other location and try running it from there. If it starts without linker errors it\u0027s fine.",
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb3bfab_494fcf6e",
+        "filename": "stats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "I\u0027m not entirely sure this lib in frameworks/base/Android.bp links the proto runtime statically - it doesn\u0027t set proto.static. If it doesn\u0027t work then maybe you can extend libplatformprotos-static to host and use that instead.",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbcb263c_b25ce2ec",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "All libraries have to be linked statically except for system libs (i.e. libc etc). So these have to go into static_libs as well.\n\nYou also need\n\n  stl: \"c++_static\"\n\nI suggest using \"readelf -d\" on the built binary to check that it doesn\u0027t link any android-specific libs dynamically.",
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4afcb8ba_5896f2cc",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "This links libz dynamically. I\u0027m not sure if that may be a problem, but you can try by copying the built binary to some other location and run it from there.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9326504_ce447efd",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "This may lead to duplicate linking since it\u0027s also in libstats_proto_host. If it doesn\u0027t work without it here then try using whole_static_libs for it in libstats_proto_host instead.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e529fe53_02a4a0e9",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-03T22:26:23Z",
+      "side": 1,
+      "message": "Suggest moving this to packages/modules/StatsD/apex/Android.bp - it\u0027s also part of the SDK definition for the statsd module and it\u0027s better to have it all in one place.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
