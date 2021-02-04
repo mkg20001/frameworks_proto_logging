@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7814d8_839f65a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T12:44:26Z",
+      "side": 1,
+      "message": "To make it more clear, I suggest adding: \"because the SDK prebuilt snapshot generation currently does not support host tools with dynamic library dependencies (b/178691801)\"",
+      "revId": "df7563cdf89698332d91afb215e072295eb9265f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0183335_d47c6466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T12:44:26Z",
+      "side": 1,
+      "message": "No longer done in this CL, though.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "df7563cdf89698332d91afb215e072295eb9265f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
