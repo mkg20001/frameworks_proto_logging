@@ -130,6 +130,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7311cc1_9c553f5d",
+        "filename": "stats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T00:19:45Z",
+      "side": 1,
+      "message": "Yeah, that seems reasonable.",
+      "parentUuid": "621d733c_ee5308fd",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbcb263c_b25ce2ec",
@@ -161,6 +185,24 @@
       "side": 1,
       "message": "Done.\n\nHere\u0027s the output of ldd after copying the binary to another location:\n\n        linux-vdso.so.1 (0x00007ffc2d0a8000)\n        libdl.so.2 \u003d\u003e /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f9d2e072000)\n        libpthread.so.0 \u003d\u003e /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f9d2e050000)\n        libm.so.6 \u003d\u003e /lib/x86_64-linux-gnu/libm.so.6 (0x00007f9d2df0c000)\n        librt.so.1 \u003d\u003e /lib/x86_64-linux-gnu/librt.so.1 (0x00007f9d2df01000)\n        libgcc_s.so.1 \u003d\u003e /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f9d2dee7000)\n        libc.so.6 \u003d\u003e /lib/x86_64-linux-gnu/libc.so.6 (0x00007f9d2dd20000)\n        /lib64/ld-linux-x86-64.so.2 (0x00007f9d2e5db000)",
       "parentUuid": "cbcb263c_b25ce2ec",
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2f8c5e5_07bc6e66",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T00:19:45Z",
+      "side": 1,
+      "message": "Yes, that looks good, I\u0027m glad it didn\u0027t get more complicated than this. :)",
+      "parentUuid": "c2ccc7b2_24f76d7f",
       "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -202,6 +244,30 @@
       "side": 1,
       "message": "Copying the binary to another location to run it and also check what libraries it uses with ldd was really helpful. Basically I had to make everything static, but now the only dynamic libraries I\u0027m seeing are things like libc and libm.",
       "parentUuid": "4afcb8ba_5896f2cc",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c3c603_da1bf5fa",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T00:19:45Z",
+      "side": 1,
+      "message": "Ok, so I take it all the code that references libz in libprotobuf-cpp-full is dead and got pruned then.",
+      "parentUuid": "8700609e_8768ef16",
       "range": {
         "startLine": 37,
         "startChar": 9,
@@ -296,6 +362,30 @@
       "side": 1,
       "message": "In that case, does it make sense to include it in the `sdk` entry we\u0027ll have to add to StatsD, or should it stay separate as a `module_exports`?",
       "parentUuid": "e529fe53_02a4a0e9",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565db509_ccb62a8d",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T00:19:45Z",
+      "side": 1,
+      "message": "They should be separate. sdk{} is for the \"real\" SDK used directly with the module, i.e. the stubs for the exported libs. module_exports{} is for everything else.",
+      "parentUuid": "5eeefb40_f6bf5858",
       "range": {
         "startLine": 53,
         "startChar": 0,

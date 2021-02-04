@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db483bda_021e6eac",
+        "filename": "stats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-02-04T00:19:45Z",
+      "side": 1,
+      "message": "I think the only reason you need this is because there\u0027s no export_whole_static_lib_headers. Could be worth a comment to point that out.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 6
+      },
+      "revId": "1be1418840ed3509a957f510ed42109ad7792b90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
