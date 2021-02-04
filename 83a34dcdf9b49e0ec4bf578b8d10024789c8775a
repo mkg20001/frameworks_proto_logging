@@ -418,6 +418,30 @@
       },
       "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "554eb538_ea58f4ca",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-04T00:35:24Z",
+      "side": 1,
+      "message": "CL is here: https://r.android.com/1573375",
+      "parentUuid": "4e08ecd6_0cf5aabe",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 1
+      },
+      "revId": "83a34dcdf9b49e0ec4bf578b8d10024789c8775a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
