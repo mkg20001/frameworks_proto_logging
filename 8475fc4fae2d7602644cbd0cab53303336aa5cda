@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "469fcdf8_3d69b326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-05T03:21:17Z",
+      "side": 1,
+      "message": "TreeHugger was failing due to linking libplatformprotos into the stats-log-api-gen-test twice. It should be fixed now.",
+      "revId": "8475fc4fae2d7602644cbd0cab53303336aa5cda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
