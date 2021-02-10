@@ -16,6 +16,24 @@
       "message": "Is network stack the only dependency here...? I thought there were others if we\u0027re reverting this cl.",
       "revId": "07675ea4275d822b4ce2966b5fb1618e0192051d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "082659aa_f8be9c00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-10T07:52:13Z",
+      "side": 1,
+      "message": "Yeah, NetworkStack is the only dependency that is unique in the way that it actually compiles against R- SystemApi for one of its targets. I had tried to decouple changing stats-log-api-gen parameters and actually generating code for using the new Annotation Id constants in separate CLs. This CL only reverts the generated code to go back to using hardcoded Annotation Id constants without reverting the parameters. Other clients are automatically reverted to using the hardcoded Annotation Ids by just reverting this CL. Only NetworkStack needs its Android.bp reverted as well.",
+      "parentUuid": "3e8d9f85_f4b3b718",
+      "revId": "07675ea4275d822b4ce2966b5fb1618e0192051d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
