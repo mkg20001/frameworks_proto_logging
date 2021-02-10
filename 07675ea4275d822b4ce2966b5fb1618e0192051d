@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e8d9f85_f4b3b718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-02-10T07:08:56Z",
+      "side": 1,
+      "message": "Is network stack the only dependency here...? I thought there were others if we\u0027re reverting this cl.",
+      "revId": "07675ea4275d822b4ce2966b5fb1618e0192051d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
