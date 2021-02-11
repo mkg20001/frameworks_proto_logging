@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b883a2_becb7bbb",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 6
+      },
+      "lineNbr": 9519,
+      "author": {
+        "id": 1286860
+      },
+      "writtenOn": "2021-02-11T22:10:32Z",
+      "side": 1,
+      "message": "Should we have RebootEscrowRebootReported as well if not all the related atoms ?.",
+      "range": {
+        "startLine": 9519,
+        "startChar": 13,
+        "endLine": 9519,
+        "endChar": 24
+      },
+      "revId": "4a8247552482b8e4a4da41b3823ab5ca24082dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
