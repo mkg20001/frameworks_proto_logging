@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5a23a1_380d18bb",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-02-11T01:58:55Z",
+      "side": 1,
+      "message": "good catch - i think this tool needs better E2E tests....its gotten much more complicated since the early days.",
+      "revId": "c4f1b1f2706eccd182bd925bd9a833302082f3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2dda411_98f927a7",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-02-11T01:58:55Z",
+      "side": 1,
+      "message": "are these for building the pulled events? I think this naming is a bit obscure (using _build to indicate it\u0027s for pulled. We can change it later though.",
+      "revId": "c4f1b1f2706eccd182bd925bd9a833302082f3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
