@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63110d4c_989147f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-02-12T21:46:51Z",
+      "side": 1,
+      "message": "This cherry-picks the ART atom change from the internal tree to the AOSP tree. It also includes the default values from http://ag/13498358 needed to match the google3 definition.\n\nThis is needed because ART prebuilts are built from AOSP sources, so we need the ART atoms available in AOSP.",
+      "revId": "4925c6aaf16330cede38a8d8d88e6574ea960280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
