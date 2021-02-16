@@ -9726,6 +9726,9 @@ message PerfettoTrigger {
 
         PERFETTO_TRIGGER_PERFETTO_TRIGGER = 3;
         PERFETTO_TRIGGER_PERFETTO_TRIGGER_FAIL = 4;
+
+        PERFETTO_TRACED_LIMIT_PROBABILITY = 5;
+        PERFETTO_TRACED_LIMIT_MAX_PER_24_H = 6;
     }
 
     // The event which fired.
