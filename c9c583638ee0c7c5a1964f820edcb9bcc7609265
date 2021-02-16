@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7574816_c983e8c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1080238
+      },
+      "writtenOn": "2021-02-16T13:34:43Z",
+      "side": 1,
+      "message": "PTAL thanks! Internal change is ag/13580731 and G3 change is cl/357697570",
+      "revId": "c9c583638ee0c7c5a1964f820edcb9bcc7609265",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
