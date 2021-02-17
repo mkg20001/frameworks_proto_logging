@@ -13,6 +13,7 @@
 #include "java_writer.h"
 #include "java_writer_q.h"
 #include "native_writer.h"
+#include "rust_writer.h"
 #include "utils.h"
 
 namespace android {
@@ -28,6 +29,7 @@ static void print_usage() {
     fprintf(stderr, "  --header FILENAME    the cpp file to output for write helpers\n");
     fprintf(stderr, "  --help               this message\n");
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
+    fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
     fprintf(stderr, "  --module NAME        optional, module name to generate outputs for\n");
     fprintf(stderr,
             "  --namespace COMMA,SEP,NAMESPACE   required for cpp/header with "
@@ -63,6 +65,7 @@ static int run(int argc, char const* const* argv) {
     string javaFilename;
     string javaPackage;
     string javaClass;
+    string rustFilename;
 
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
@@ -97,6 +100,13 @@ static int run(int argc, char const* const* argv) {
                 return 1;
             }
             javaFilename = argv[index];
+        } else if (0 == strcmp("--rust", argv[index])) {
+            index++;
+            if (index >= argc) {
+                print_usage();
+                return 1;
+            }
+            rustFilename = argv[index];
         } else if (0 == strcmp("--module", argv[index])) {
             index++;
             if (index >= argc) {
@@ -159,7 +169,8 @@ static int run(int argc, char const* const* argv) {
         index++;
     }
 
-    if (cppFilename.empty() && headerFilename.empty() && javaFilename.empty()) {
+    if (cppFilename.empty() && headerFilename.empty()
+        && javaFilename.empty() && rustFilename.empty()) {
         print_usage();
         return 1;
     }
@@ -274,6 +285,20 @@ static int run(int argc, char const* const* argv) {
         errorCount = android::stats_log_api_gen::write_stats_log_java(
                 out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel, compileApiLevel,
                 supportWorkSource);
+
+        fclose(out);
+    }
+
+    // Write the .rs file
+    if (!rustFilename.empty()) {
+        FILE* out = fopen(rustFilename.c_str(), "w");
+        if (out == nullptr) {
+            fprintf(stderr, "Unable to open file for write: %s\n", rustFilename.c_str());
+            return 1;
+        }
+
+        errorCount += android::stats_log_api_gen::write_stats_log_rust(
+                out, atoms, attributionDecl, minApiLevel);
 
         fclose(out);
     }
