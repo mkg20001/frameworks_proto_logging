@@ -494,6 +494,7 @@ message Atom {
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+        KeystoreEventReported keystore_event_reported = 338;
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -11630,9 +11631,13 @@ message MediametricsAudioDeviceConnectionReported {
 /**
  * Logs: i) creation of different types of cryptographic keys in the keystore,
  * ii) operations performed using the keys,
- * iii) attestation of the keys
+ * iii) attestation of the keys (in keystore 1 only)
+ * iv) key upgrade (in keystore 2 only)
+ * v) key delete (in keystore 2 only)
  * Logged from: system/security/keystore/key_event_log_handler.cpp
+ * and system/security/keystore2
  */
+
 message KeystoreKeyEventReported {
 
     enum Algorithm {
@@ -11724,6 +11729,8 @@ message KeystoreKeyEventReported {
         key_operation = 0;
         key_creation = 1;
         key_attestation = 2;
+        key_upgrade = 3;
+        key_delete = 4;
     }
     /** Key creation event, operation event or attestation event? */
     optional Type type = 12;
@@ -11733,6 +11740,52 @@ message KeystoreKeyEventReported {
 
     /** Response code or error code */
     optional int32 error_code = 14;
+
+    enum KeyFormat {
+        X509 = 0;
+        PKCS8 =  1;
+        RAW = 3;
+    }
+    /** Key formats used for key imports*/
+    optional KeyFormat key_format = 15;
+
+    /** If the key event type is key_operation, we log the time elapsed to complete the operation.*/
+    optional int32 key_operation_elapsed_time = 16;
+}
+
+/**
+ * Logs: Keystore 2 related metrics which are not specific to a key.
+ * Logged from: system/security/keystore2
+ */
+message KeystoreEventReported {
+    enum Type {
+        keystore_crash = 0;
+        keystore_db_stats = 1;
+    }
+    /** Keystore crash event, storage stats reporting event? */
+    optional Type type = 1;
+
+    enum Storage {
+       keyentry = 1;
+       keyentry_id_index = 2;
+       keyentry_domain_namespace_index = 3;
+       blobentry = 4;
+       blobentry_keyentryid_index = 5;
+       keyparameter = 6;
+       keyparameter_keyentryid_index = 7;
+       keymetadata = 8;
+       keymetadata_keyentryid_index = 9;
+       grant = 10;
+       authtoken = 11;
+       metadata = 12;
+       legacy = 13;
+    }
+    /**Type of the storage (database table or legacy storage) of which the size is reported.*/
+    optional Storage storage_type = 2;
+    /**Storage size*/
+    optional int32 size = 3;
+    /**Number of keys recently used*/
+    optional int32 count_recently_used_keys = 4;
 }
 
 // Blob Committer stats
