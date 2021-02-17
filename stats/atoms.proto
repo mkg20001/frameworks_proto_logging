@@ -495,7 +495,8 @@ message Atom {
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
         PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
-
+		Keystore2KeyEventReported keystore2_key_event_reported = 338;
+        Keystore2EventReported keystore_event_reported = 339;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -11759,6 +11760,155 @@ message KeystoreKeyEventReported {
 
     /** Response code or error code */
     optional int32 error_code = 14;
+}
+
+/**
+ * Logs: i) creation of different types of cryptographic keys in the keystore,
+ * ii) operations performed using the keys,
+ * iii) key upgrade,
+ * iv) key delete,
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyEventReported {
+
+    enum Algorithm {
+        /** Asymmetric algorithms. */
+        RSA = 1;
+        // 2 removed, do not reuse.
+        EC = 3;
+        /** Block cipher algorithms */
+        AES = 32;
+        TRIPLE_DES = 33;
+        /** MAC algorithms */
+        HMAC = 128;
+    };
+    /** Algorithm associated with the key */
+    optional Algorithm algorithm = 1;
+
+    /** Size of the key */
+    optional int32 key_size = 2;
+
+    enum KeyOrigin {
+        /** Generated in keymaster.  Should not exist outside the TEE. */
+        GENERATED = 0;
+        /** Derived inside keymaster.  Likely exists off-device. */
+        DERIVED = 1;
+        /** Imported into keymaster.  Existed as cleartext in Android. */
+        IMPORTED = 2;
+        /** Keymaster did not record origin. */
+        UNKNOWN = 3;
+        /** Securely imported into Keymaster. */
+        SECURELY_IMPORTED = 4;
+    };
+    /* Logs whether the key was generated, imported, securely imported, or derived.*/
+    optional KeyOrigin key_origin = 3;
+
+    enum HardwareAuthenticatorType {
+        NONE = 0;
+        PASSWORD = 1;
+        FINGERPRINT = 2;
+        // Additional entries must be powers of 2.
+    };
+    /**
+     * What auth types does this key require? If none,
+     * then no auth required.
+     */
+    optional HardwareAuthenticatorType user_auth_type = 4;
+
+    /**
+     * If user authentication is required, is the requirement time based? If it
+     * is not time based then this field will not be used and the key is per
+     * operation. Per operation keys must be user authenticated on each usage.
+     */
+    optional int32 user_auth_key_timeout = 5;
+
+    /**
+     * padding mode, digest, block_mode and purpose should ideally be repeated
+     * fields. However, since statsd does not support repeated fields in
+     * pushed atoms, they are represented using bitmaps.
+     */
+
+    /** Track which padding mode is being used.*/
+    optional int32 padding_mode_bitmap = 6;
+
+    /** Track which digest is being used. */
+    optional int32 digest_bitmap = 7;
+
+    /** Track what block mode is being used (for encryption). */
+    optional int32 block_mode_bitmap = 8;
+
+    /** Track what purpose is this key serving. */
+    optional int32 purpose_bitmap = 9;
+
+    enum EcCurve {
+        P_224 = 0;
+        P_256 = 1;
+        P_384 = 2;
+        P_521 = 3;
+    };
+    /** Which ec curve was selected if elliptic curve cryptography is in use **/
+    optional EcCurve ec_curve = 10;
+
+    enum Type {
+        key_operation = 0;
+        key_creation = 1;
+        key_upgrade = 2;
+        key_delete = 3;
+    }
+    /** Key creation event, operation event or attestation event? */
+    optional Type type = 11;
+
+    /** Was the key creation, operation, or attestation successful? */
+    optional bool was_successful = 12;
+
+    /** Response code or error code */
+    optional int32 error_code = 13;
+
+    enum KeyFormat {
+        X509 = 0;
+        PKCS8 =  1;
+        RAW = 3;
+    }
+    /** Key formats used for key imports*/
+    optional KeyFormat key_format = 14;
+
+    /** If the key event type is key_operation, we log the time elapsed to complete the operation.*/
+    optional int32 key_operation_elapsed_time = 15;
+}
+
+/**
+ * Logs: Keystore 2 related metrics which are not specific to a key.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2EventReported {
+    enum Type {
+        keystore_crash = 0;
+        keystore_db_stats = 1;
+    }
+    /** Keystore crash event, storage stats reporting event? */
+    optional Type type = 1;
+
+    enum Storage {
+       keyentry = 1;
+       keyentry_id_index = 2;
+       keyentry_domain_namespace_index = 3;
+       blobentry = 4;
+       blobentry_keyentryid_index = 5;
+       keyparameter = 6;
+       keyparameter_keyentryid_index = 7;
+       keymetadata = 8;
+       keymetadata_keyentryid_index = 9;
+       grant = 10;
+       authtoken = 11;
+       metadata = 12;
+       legacy = 13;
+    }
+    /**Type of the storage (database table or legacy storage) of which the size is reported.*/
+    optional Storage storage_type = 2;
+    /**Storage size*/
+    optional int32 size = 3;
+    /**Number of keys recently used*/
+    optional int32 count_recently_used_keys = 4;
 }
 
 // Blob Committer stats
