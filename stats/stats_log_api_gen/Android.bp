@@ -25,6 +25,7 @@ cc_binary_host {
         "java_writer_q.cpp",
         "main.cpp",
         "native_writer.cpp",
+        "rust_writer.cpp",
         "utils.cpp",
     ],
     cflags: [
@@ -150,3 +151,53 @@ cc_library {
     },
 }
 
+// ==========================================================
+// Rust library
+// ==========================================================
+
+genrule {
+    name: "statslog.rs",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --rust $(genDir)/statslog.rs",
+    out: [
+        "statslog.rs",
+    ],
+}
+
+rust_bindgen {
+    name: "libstatslog_bindgen",
+    wrapper_src: "rust_wrapper.hpp",
+    crate_name: "statslog_bindgen",
+    source_stem: "bindings",
+    bindgen_flags: [
+        "--size_t-is-usize",
+        "--whitelist-var", "android::util::.*",
+        "--opaque-type", "std::.*",
+    ],
+    shared_libs: [
+        "libc++",
+        "libstatslog",
+    ],
+}
+
+rust_library {
+    name: "libstatslog_rust",
+    crate_name: "statslog_rust",
+    srcs: [
+        "rust_wrapper.rs",
+        ":statslog.rs",
+    ],
+    rustlibs: [
+        "libstatslog_bindgen",
+        "libstatspull_bindgen",
+        "libthiserror",
+    ],
+    target: {
+        android: {
+            shared_libs: ["libstatspull"],
+        },
+        host: {
+            static_libs: ["libstatspull"],
+        },
+    },
+}

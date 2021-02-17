@@ -47,6 +47,7 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       name(that.name),
       message(that.message),
       fields(that.fields),
+      oneOfName(that.oneOfName),
       fieldNumberToAnnotations(that.fieldNumberToAnnotations),
       primaryFields(that.primaryFields),
       exclusiveField(that.exclusiveField),
@@ -56,7 +57,7 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       uidField(that.uidField) {
 }
 
-AtomDecl::AtomDecl(int c, const string& n, const string& m) : code(c), name(n), message(m) {
+AtomDecl::AtomDecl(int c, const string& n, const string& m, const string &o) : code(c), name(n), message(m), oneOfName(o) {
 }
 
 AtomDecl::~AtomDecl() {
@@ -514,7 +515,8 @@ int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms*
 
         const Descriptor* atom = atomField->message_type();
         shared_ptr<AtomDecl> atomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name());
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                  atomField->containing_oneof()->name());
 
         if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
             addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
@@ -556,7 +558,8 @@ int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms*
         atoms->decls.insert(atomDecl);
 
         shared_ptr<AtomDecl> nonChainedAtomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name());
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                  atomField->containing_oneof()->name());
         vector<java_type_t> nonChainedSignature;
         if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
             FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
