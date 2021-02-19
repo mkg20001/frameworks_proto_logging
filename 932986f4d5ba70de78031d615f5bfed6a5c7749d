@@ -33,6 +33,24 @@
       "message": "Is this needed to log a specific atom to statsd? I\u0027m not familiar with Rust and your use case in particular here. Can you schedule a time to meet during Android Metrics Client Office Hours (go/amc-oh) so we can better understand your use case? Thanks",
       "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ee064a5_b47b9727",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-19T21:31:03Z",
+      "side": 1,
+      "message": "Rust programs in general will presumably want to log things, and so to support all possible atoms we implemented a Rust backend.",
+      "parentUuid": "b7faf92b_9b7fa8be",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
