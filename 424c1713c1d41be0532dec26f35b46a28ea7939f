@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee95017_d6383445",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1242539
+      },
+      "writtenOn": "2021-02-19T21:22:29Z",
+      "side": 1,
+      "message": "Reminder to add merged-in here",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "424c1713c1d41be0532dec26f35b46a28ea7939f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
