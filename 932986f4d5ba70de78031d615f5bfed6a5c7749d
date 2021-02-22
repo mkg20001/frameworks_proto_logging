@@ -51,6 +51,23 @@
       "parentUuid": "b7faf92b_9b7fa8be",
       "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5e17e9a_9b146242",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-22T17:19:56Z",
+      "side": 1,
+      "message": "Some relevant samples of the generated Rust code are at https://paste.googleplex.com/4642731377819648.",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
