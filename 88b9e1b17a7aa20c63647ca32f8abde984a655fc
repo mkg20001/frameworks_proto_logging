@@ -50,6 +50,24 @@
       "message": "Could you move this into the enums/bluetooth directory? Looking at the layout of this repo, that seems to be convention. As an example, https://source.corp.google.com/android/frameworks/proto_logging/stats/enums/stats/style/Android.bp.\n\nWhen you do this, could you also move the android.bp equivalent into the enums/bluetooth directory as well? Thanks!",
       "revId": "88b9e1b17a7aa20c63647ca32f8abde984a655fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3988888_a31dfc47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-02-22T22:01:19Z",
+      "side": 1,
+      "message": "Marking as unresolved.",
+      "parentUuid": "fbeaa790_06ba4dd0",
+      "revId": "88b9e1b17a7aa20c63647ca32f8abde984a655fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
