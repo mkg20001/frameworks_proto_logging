@@ -68,6 +68,24 @@
       "message": "Some relevant samples of the generated Rust code are at https://paste.googleplex.com/4642731377819648.",
       "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed1fe5ac_92a4258c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-22T22:32:23Z",
+      "side": 1,
+      "message": "Friendly ping.\n\nThe office hours are full this week, but I don\u0027t think we need to delay this CL for two weeks for them.  For code written in Rust to be able to use this library, we need a Rust interface such as this.",
+      "parentUuid": "8ee064a5_b47b9727",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
