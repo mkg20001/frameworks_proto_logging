@@ -493,6 +493,8 @@ message Atom {
         DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
+        ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+        PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -4991,6 +4993,12 @@ message SnapshotMergeReported {
     // containing the dm-snapshot's copy-on-write data generated during a
     // Virtual A/B update.
     optional int64 cow_file_size_bytes = 5;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 6;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 7;
 }
 
 /**
@@ -9385,6 +9393,12 @@ message UpdateEngineUpdateAttemptReported {
 
     // Free space available in the super partition.
     optional int64 super_free_space_bytes = 11;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 12;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 13;
 }
 
 /**
@@ -10812,6 +10826,31 @@ message ImsRegistrationStats {
     optional int32 ut_available_seconds = 12;
 }
 
+/*
+ * Logs information related to PIN storage and automatic PIN operations.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/uicc/PinStorage.java
+ */
+message PinStorageEvent {
+    // The type of event.
+    enum Event {
+        UNKNOWN = 0;
+        // The PIN was verified automatically successfully.
+        PIN_VERIFICATION_SUCCESS = 1;
+        // The PIN was verified automatically unsuccessfully.
+        PIN_VERIFICATION_FAILURE = 2;
+        // The PIN was cached, but discarded after reboot.
+        CACHED_PIN_DISCARDED = 3;
+        // The PIN was stored to be used after OTA reboot.
+        PIN_STORED_FOR_VERIFICATION = 4;
+    }
+    optional Event event = 1;
+
+    // Number of PINs stored or discarded.
+    optional int32 number_of_pins = 2;
+}
+
 /**
  * Logs gnss stats from location service provider
  *
@@ -11805,4 +11844,85 @@ message BlobInfo {
     optional android.stats.tls.CipherSuite cipher_suite = 3;
 
     optional int32 handshake_duration_millis = 4;
+}
+
+// Indicates which compile filter was used for the package being loaded in an ART session.
+enum ArtCompileFilter {
+    ART_COMPILATION_FILTER_UNSPECIFIED = 0;
+    ART_COMPILATION_FILTER_ERROR = 1;
+    ART_COMPILATION_FILTER_UNKNOWN = 2;
+    ART_COMPILATION_FILTER_ASSUMED_VERIFIED = 3;
+    ART_COMPILATION_FILTER_EXTRACT = 4;
+    ART_COMPILATION_FILTER_VERIFY = 5;
+    ART_COMPILATION_FILTER_QUICKEN = 6;
+    ART_COMPILATION_FILTER_SPACE_PROFILE = 7;
+    ART_COMPILATION_FILTER_SPACE = 8;
+    ART_COMPILATION_FILTER_SPEED_PROFILE = 9;
+    ART_COMPILATION_FILTER_SPEED = 10;
+    ART_COMPILATION_FILTER_EVERYTHING_PROFILE = 11;
+    ART_COMPILATION_FILTER_EVERYTHING = 12;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_APK = 13;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_APK_FALLBACK = 14;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_VDEX_FALLBACK = 15;
+}
+
+enum ArtCompilationReason {
+    ART_COMPILATION_REASON_UNSPECIFIED = 0;
+    ART_COMPILATION_REASON_ERROR = 1;
+    ART_COMPILATION_REASON_UNKNOWN = 2;
+    ART_COMPILATION_REASON_FIRST_BOOT = 3;
+    ART_COMPILATION_REASON_BOOT = 4;
+    ART_COMPILATION_REASON_INSTALL = 5;
+    ART_COMPILATION_REASON_BG_DEXOPT = 6;
+    ART_COMPILATION_REASON_AB_OTA = 7;
+    ART_COMPILATION_REASON_INACTIVE = 8;
+    ART_COMPILATION_REASON_SHARED = 9;
+    ART_COMPILATION_REASON_INSTALL_WITH_DEX_METADATA = 10;
+}
+
+// Indicates which kind of measurement ART is reporting.
+enum ArtDatumId {
+    ART_DATUM_INVALID = 0;
+    ART_DATUM_GC_MUTATOR_PAUSE_TIME = 1;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME = 2;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME = 4;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_COUNT = 5;
+    ART_DATUM_JIT_METHOD_COMPILE_TIME = 6;
+    ART_DATUM_AOT_COMPILE_TIME = 7;
+    ART_DATUM_CLASS_VERIFICATION_TIME = 8;
+    ART_DATUM_CLASS_LOADING_TIME = 9;
+}
+
+// Indicates what class of thread the reported values apply to.
+enum ArtThreadType {
+    ART_THREAD_UNKNOWN = 0;
+    ART_THREAD_MAIN = 1;
+    ART_THREAD_BACKGROUND = 2;
+}
+
+message ArtDatumReported {
+    // The session ID is used to correlate this report with others from the same ART instance.
+    optional int64 session_id = 1;
+
+    // The UID of the app that ART is running on behalf of.
+    optional int32 uid = 2 [(is_uid) = true];
+
+    // What compiler filter the APK or DEX file was compiled with.
+    optional ArtCompileFilter compile_filter = 3;
+
+    // Why the package was compiled the way it was.
+    optional ArtCompilationReason compilation_reason = 4;
+
+    // The number of milliseconds since the ART runtime instance was started.
+    optional int64 timestamp_millis = 5;
+
+    // What kind of thread (UI or background) this metric corresponds to.
+    optional ArtThreadType thread_type = 6;
+
+    // Which counter this is that is being reported.
+    optional ArtDatumId kind = 7;
+
+    // The value of the counter.
+    optional int64 value = 8;
 }
