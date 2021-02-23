@@ -86,6 +86,47 @@
       "parentUuid": "8ee064a5_b47b9727",
       "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6cd5161_3052aeaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-23T20:25:09Z",
+      "side": 1,
+      "message": "I\u0027ve set up a meeting for tomorrow. Our main concerns are related to maintenance and to better understand how Rust programs will log to statsd.\n\nIt seems like we\u0027re depending on C++ generated code. Generated Rust code is calling generated C++ code. Ideally, we\u0027d want generated Rust code to use libstatspush and libstatspull directly like C++ generated code does.",
+      "parentUuid": "ed1fe5ac_92a4258c",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff47e3f6_87993265",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-23T20:25:09Z",
+      "side": 1,
+      "message": "FYI, not all atoms are logged from libstatslog. For example lmkd related atoms use libstatslog_lmkd:\nhttps://source.corp.google.com/android/system/memory/lmkd/Android.bp;rcl\u003d1bce47b66fe9246def651cbe856f89264859f83a;l\u003d75\n\nFor atoms that are currently being logged using libstatslog, this is fine. For atoms that are not logged using libstatslog, we probably don\u0027t want to log them through libstatslog when logging from Rust programs.",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 20
+      },
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
