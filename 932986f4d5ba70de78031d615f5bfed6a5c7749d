@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2b12e98_50c677bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-23T20:35:58Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027re depending on generated C++ code?  The Rust code directly calls into libstats* just like the C++ code.\n\nAnd I assume that Rust programs will log to statsd the same way C++ programs do, i.e., they\u0027ll log whatever data they have.  Or did you mean something else?",
+      "parentUuid": "f6cd5161_3052aeaf",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff47e3f6_87993265",
         "filename": "stats/stats_log_api_gen/Android.bp",
         "patchSetId": 2
@@ -119,6 +137,30 @@
       "writtenOn": "2021-02-23T20:25:09Z",
       "side": 1,
       "message": "FYI, not all atoms are logged from libstatslog. For example lmkd related atoms use libstatslog_lmkd:\nhttps://source.corp.google.com/android/system/memory/lmkd/Android.bp;rcl\u003d1bce47b66fe9246def651cbe856f89264859f83a;l\u003d75\n\nFor atoms that are currently being logged using libstatslog, this is fine. For atoms that are not logged using libstatslog, we probably don\u0027t want to log them through libstatslog when logging from Rust programs.",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 20
+      },
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18e75d0a_f77aecce",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-23T20:35:58Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t see any mention of lmkd in the generated C++ code.  How does it handle that case?  I tried to mirror its approach as much as possible.",
+      "parentUuid": "ff47e3f6_87993265",
       "range": {
         "startLine": 183,
         "startChar": 9,
