@@ -495,6 +495,11 @@ message Atom {
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
         PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
+        RebootEscrowPreparationReported reboot_escrow_preparation_reported =
+            339 [(module) = "framework"];
+        RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
+            340 [(module) = "framework"];
+        RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -9433,6 +9438,76 @@ message UpdateEngineSuccessfulUpdateReported {
 }
 
 /**
+ * Reported when a client requests to prepare for resume on reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowPreparationReported {
+  enum Result {
+    ROR_NEED_PREPARATION = 0;
+    ROR_SKIP_PREPARATION_AND_NOTIFY = 1;
+    ROR_SKIP_PREPARATION_NOT_NOTIFY = 2;
+  }
+
+  // The uid of the client who requests ror.
+  optional int32 requesting_uid = 1 [(is_uid) = true];
+
+  optional Result result = 2;
+
+  // The number of clients who has requested ror, including the current caller.
+  optional int32 requested_client_count = 3;
+}
+
+/**
+ * Reported when the lock screen knowledge factor is captured, while there are clients of
+ * resume on reboot to notify.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowLskfCaptureReported {
+  // The uid of the client to notify about the Lskf capture.
+  optional int32 uid_to_notify = 1 [(is_uid) = true];
+
+  // The total number of clients who have requested ror.
+  optional int32 requested_client_count = 2;
+
+  // The duration between RoR request - current LSKF capture event.
+  optional int32 duration_ror_requested_to_lskf_captured_seconds = 3;
+}
+
+/* Reported when a client (e.g. gmscore) requests to reboot with Resume on Reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowRebootReported {
+  optional int32 error_code = 1;
+
+  // The uid of clients who requested the reboot
+  optional int32 request_uid = 2;
+
+  // All clients that have prepared for RoR before this reboot
+  optional int32 prepared_clients_count = 3;
+
+  // The RoR request count for the client who requests reboot.
+  optional int32 request_count = 4;
+
+  // Whether the reboot request assumes a slot switch on a/b devices.
+  optional bool slot_switch = 5;
+
+  // True if the DeviceConfig shows the device is using server based RoR.
+  optional bool server_based = 6;
+
+  // The duration between last LSKF captured - reboot requests
+  optional int32 duration_lskf_captured_to_reboot_seconds = 7;
+
+  // The count of LSKF captured since preparation
+  optional int32 lskf_captured_counts = 8;
+}
+
+/**
  * Reported when the RebootEscrow HAL has attempted to recover the escrowed
  * key to indicate whether it was successful or not.
  *
@@ -9440,7 +9515,34 @@ message UpdateEngineSuccessfulUpdateReported {
  *   frameworks/base/services/core/java/com/android/server/locksettings/RebootEscrowManager.java
  */
 message RebootEscrowRecoveryReported {
+    // Type of the resume on reboot backend provider.
+    enum ServiceType {
+        UNKNOWN = 0;
+        HAL = 1;
+        SERVER_BASED = 2;
+    }
+
+    // Whether the vbmeta digest of the current slot matches a precomputed value before reboot.
+    enum VbmetaDigestStatus {
+        MATCH_EXPECTED_SLOT = 0;
+        MATCH_FALLBACK_SLOT = 1;
+        MISMATCH = 2;
+    }
+
     optional bool successful = 1;
+    // The error code for escrow data recovery failure
+    optional int32 error_code = 2;
+
+    optional ServiceType type = 3;
+
+    // Number of retries to unwrap the escrow key asynchronously.
+    optional int32 get_escrow_key_retry_count = 4;
+
+    // The duration between storing of reboot escrow key ->
+    // use of reboot escrow key to unlock CE after reboot
+    optional int32 duration_escrow_key_storage_to_unlock_seconds = 5;
+
+    optional VbmetaDigestStatus vbmeta_digest_status = 6;
 }
 
 /**
