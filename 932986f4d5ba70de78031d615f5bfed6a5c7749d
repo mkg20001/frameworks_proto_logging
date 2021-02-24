@@ -160,6 +160,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f623cc03_a9ed433b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-24T23:59:59Z",
+      "side": 1,
+      "message": "Okay, as we discussed earlier, I removed the entire dependence and use of libstatslog and instead modified the writer to generate the enums, constants, and annotations.  Thanks for suggesting that!\n\nFun fact: I spent the most time trying to get the comments to look right. \u003d)",
+      "parentUuid": "2078cb42_60cd1c7d",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff47e3f6_87993265",
