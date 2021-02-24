@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6be29d36_b8a43d83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-24T19:32:28Z",
+      "side": 1,
+      "message": "I guess I\u0027m confused about why libstatslog is a dependency for libstatslog_bindgen since libstatslog already consists of generated code.",
+      "parentUuid": "a2b12e98_50c677bc",
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff47e3f6_87993265",
         "filename": "stats/stats_log_api_gen/Android.bp",
         "patchSetId": 2
@@ -161,6 +179,30 @@
       "side": 1,
       "message": "Hmm, I don\u0027t see any mention of lmkd in the generated C++ code.  How does it handle that case?  I tried to mirror its approach as much as possible.",
       "parentUuid": "ff47e3f6_87993265",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 20
+      },
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e7f148_cfb75139",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-24T19:32:28Z",
+      "side": 1,
+      "message": "The atom names themselves aren\u0027t mentioned in the generated code. You\u0027ll notice, the generated method names and method parameter names are all generic: arg1, arg2, etc. This is because a stats_write method could be used for logging multiple atoms if they have the same field types.\n\nLMKD doesn\u0027t use this generated statslog.h/cpp here. They specify which atoms they care about by adding a \"module\" annotation in the atoms.proto file. In the LMKD build file at system/memory/lmkd/Android.bp, there\u0027s a separate genrule which invokes stats-log-api-gen with the given \"module\" annotation parameter. This generates a separate source file with stats_write methods for only the atoms that have the annotation.",
+      "parentUuid": "18e75d0a_f77aecce",
       "range": {
         "startLine": 183,
         "startChar": 9,
