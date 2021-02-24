@@ -10842,8 +10842,12 @@ message PinStorageEvent {
         PIN_VERIFICATION_FAILURE = 2;
         // The PIN was cached, but discarded after reboot.
         CACHED_PIN_DISCARDED = 3;
-        // The PIN was stored to be used after OTA reboot.
+        // The PIN was stored to be used after unattended reboot.
         PIN_STORED_FOR_VERIFICATION = 4;
+        // The PIN is not available for storage and will be required after unattended reboot.
+        PIN_REQUIRED_AFTER_REBOOT = 5;
+        // The PIN was not verified automatically because the SIM card did not match.
+        PIN_VERIFICATION_SKIPPED_SIM_CARD_MISMATCHING = 6;
     }
     optional Event event = 1;
 
