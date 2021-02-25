@@ -12034,6 +12034,14 @@ enum ArtDatumId {
     ART_DATUM_AOT_COMPILE_TIME = 7;
     ART_DATUM_CLASS_VERIFICATION_TIME = 8;
     ART_DATUM_CLASS_LOADING_TIME = 9;
+
+    // Metrics IDs for dex2oat.
+    ART_DATUM_DEX2OAT_RESULT_CODE = 10;
+    ART_DATUM_DEX2OAT_DEX_CODE_BYTES = 11;
+    ART_DATUM_DEX2OAT_TOTAL_TIME = 12;
+    ART_DATUM_DEX2OAT_VERIFY_DEX_FILE_TIME = 13;
+    ART_DATUM_DEX2OAT_FAST_VERIFY_TIME = 14;
+    ART_DATUM_DEX2OAT_RESOLVE_METHODS_AND_FIELDS_TIME = 15;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -12041,6 +12049,14 @@ enum ArtThreadType {
     ART_THREAD_UNKNOWN = 0;
     ART_THREAD_MAIN = 1;
     ART_THREAD_BACKGROUND = 2;
+}
+
+// Indicates the type of dex metadata.
+enum ArtDexMetadataType {
+    UNKNOWN_DEX_METADATA = 0;
+    PROFILE = 1;
+    VDEX = 2;
+    PROFILE_AND_VDEX = 3;
 }
 
 message ArtDatumReported {
@@ -12067,4 +12083,7 @@ message ArtDatumReported {
 
     // The value of the counter.
     optional int64 value = 8;
+
+    // The type of dex metadata
+    optional ArtDexMetadataType dex_metadata_type = 9;
 }
