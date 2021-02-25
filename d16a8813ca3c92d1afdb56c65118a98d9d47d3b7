@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f502a0_43c1106f",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-25T20:55:16Z",
+      "side": 1,
+      "message": "Ah, I see. This is probably okay for now.",
+      "parentUuid": "dfdd8b9f_62cdbcec",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 23
+      },
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97783eba_56e9d6aa",
