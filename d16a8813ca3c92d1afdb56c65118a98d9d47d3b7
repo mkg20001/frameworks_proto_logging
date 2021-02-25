@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8520397_44baa02f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-25T20:09:15Z",
+      "side": 1,
+      "message": "Thanks for porting over constants generation!",
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eef921b_74b6de2a",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-25T20:09:15Z",
+      "side": 1,
+      "message": "I think you mentioned that including libstatssocket here explicitly was causing problems? I see libstatslog is able to include both libstatssocket and libstatspull explicitly in host.static_libs/android.shared_libs",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 23
+      },
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97783eba_56e9d6aa",
+        "filename": "stats/stats_log_api_gen/rust_wrapper.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-25T20:09:15Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
