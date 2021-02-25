@@ -271,6 +271,30 @@
       },
       "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2aad893_6861bff9",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-25T20:26:40Z",
+      "side": 1,
+      "message": "I\u0027m still looking into this, but I figured I\u0027d give an update since I\u0027m responding on the CL anyway.  We already get a lot of this for free.  The --module argument is handled entirely by Collation, so we don\u0027t need to touch it.  We also don\u0027t need the importHeader flag, since in Rust all of that is just done in one file, so it\u0027s already there.  That only leaves the --namespace argument, which I\u0027m not sure if we need (it\u0027s only there to give the library a different name?), but hopefully it\u0027s not too difficult.\n\nAs a test, with the current version of the CL, passing --module lmkd causes us to produce a file with only two atoms and functions, which is similar to the .cpp file.",
+      "parentUuid": "6a2ac5a2_eaf8d596",
+      "range": {
+        "startLine": 183,
+        "startChar": 9,
+        "endLine": 183,
+        "endChar": 20
+      },
+      "revId": "932986f4d5ba70de78031d615f5bfed6a5c7749d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

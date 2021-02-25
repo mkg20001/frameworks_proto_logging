@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfdd8b9f_62cdbcec",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-25T20:26:40Z",
+      "side": 1,
+      "message": "Technically, I believe adding the library here is fine.\n\nThe problem (I believe) is adding another rustlibs dependence on libstatssocket_bindgen (which would be analogous to libstatspull_bindgen but for libstatssocket).  Since libstatspull #includes libstatssocket, they both define the AStatsEvent struct.  That means on the Rust side we get two definitions of it.  There\u0027s probably a way to handle that, but just denylisting one didn\u0027t work since they both need one, and I didn\u0027t think there was any problem with only having one bindgen dependence instead of two.",
+      "parentUuid": "7eef921b_74b6de2a",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 184,
+        "endChar": 23
+      },
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97783eba_56e9d6aa",
@@ -54,6 +78,24 @@
       "writtenOn": "2021-02-25T20:09:15Z",
       "side": 1,
       "message": "Is this still needed?",
+      "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "780e4df4_8f867cce",
+        "filename": "stats/stats_log_api_gen/rust_wrapper.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-02-25T20:26:40Z",
+      "side": 1,
+      "message": "Thanks for reminding me!  You\u0027re right, this isn\u0027t used anymore.",
+      "parentUuid": "97783eba_56e9d6aa",
       "revId": "d16a8813ca3c92d1afdb56c65118a98d9d47d3b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
