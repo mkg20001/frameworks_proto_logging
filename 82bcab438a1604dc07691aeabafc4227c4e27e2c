@@ -34,6 +34,24 @@
       "parentUuid": "93aceef5_0c6f96ec",
       "revId": "82bcab438a1604dc07691aeabafc4227c4e27e2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e8a20fc_1977719d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-26T20:02:06Z",
+      "side": 1,
+      "message": "I see this has been cherry-picked to rvc-qpr-dev-plus-aosp and downstream branches but we\u0027re seeing a merge conflict in stage-aosp-master for another CL (aosp/1592771) because this change is not in stage-aosp-master. Can we cherry-pick this change to stage-aosp-master too?",
+      "parentUuid": "28a0abae_ac40066c",
+      "revId": "82bcab438a1604dc07691aeabafc4227c4e27e2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
