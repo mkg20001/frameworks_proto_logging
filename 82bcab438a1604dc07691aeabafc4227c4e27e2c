@@ -16,6 +16,24 @@
       "message": "It looks like this change is restricted to aosp-master only. Why is that?",
       "revId": "82bcab438a1604dc07691aeabafc4227c4e27e2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a0abae_ac40066c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1359095
+      },
+      "writtenOn": "2021-02-26T10:29:11Z",
+      "side": 1,
+      "message": "If you look at the presubmit results for patchset 2, you will see there were merge conflicts.",
+      "parentUuid": "93aceef5_0c6f96ec",
+      "revId": "82bcab438a1604dc07691aeabafc4227c4e27e2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
