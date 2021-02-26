@@ -495,6 +495,8 @@ message Atom {
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
         PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
+        BluetoothHALCrashReasonReported bluetooth_hal_crash_reason_reported =
+            338 [(module) = "bluetooth"];
         RebootEscrowPreparationReported reboot_escrow_preparation_reported =
             339 [(module) = "framework"];
         RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
@@ -2794,6 +2796,40 @@ message BluetoothClassOfDeviceReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 3;
+}
+
+/**
+ * Logs when there is a crash in hardware abstraction layer (HAL)
+ *
+ * Logged from:
+ *   system/bt
+ *
+ */
+message BluetoothHALCrashReasonReported {
+    // An identifier that can be used to match events for this device.
+    // The incremental identifier is locally generated and guaranteed not derived
+    // from any globally unique hardware id.
+    // For paired devices, it stays consistent between Bluetooth toggling for the
+    // same remote device.
+    // For unpaired devices, it stays consistent within the same Bluetooth adapter
+    // session for the same remote device.
+    // Default: 0 if the device's metric id is unknown.
+    optional int32 metric_id = 1;
+    // An identifier that can be used to match events for this device.
+    // Currently, this is a salted hash of the MAC address of this Bluetooth device.
+    // Salt: Randomly generated 256 bit value
+    // Hash algorithm: HMAC-SHA256
+    // Size: 32 byte
+    // Default: null or empty if the device identifier is not known
+    optional bytes obfuscated_id = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+    // Bluetooth HAL crash reason error code.
+    // Original type: uint8_t
+    // Default: 0x00 (DEFAULT)
+    optional int32 error_code = 3;
+    // Bluetooth HAL crash reason vendor error code.
+    // Original type: uint8_t
+    // Default: 0x00 (DEFAULT)
+    optional int32 vendor_error_code = 4;
 }
 
 /**
@@ -10944,8 +10980,12 @@ message PinStorageEvent {
         PIN_VERIFICATION_FAILURE = 2;
         // The PIN was cached, but discarded after reboot.
         CACHED_PIN_DISCARDED = 3;
-        // The PIN was stored to be used after OTA reboot.
+        // The PIN was stored to be used after unattended reboot.
         PIN_STORED_FOR_VERIFICATION = 4;
+        // The PIN is not available for storage and will be required after unattended reboot.
+        PIN_REQUIRED_AFTER_REBOOT = 5;
+        // The PIN was not verified automatically because the SIM card did not match.
+        PIN_VERIFICATION_SKIPPED_SIM_CARD_MISMATCH = 6;
     }
     optional Event event = 1;
 
