@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93aceef5_0c6f96ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-26T10:00:26Z",
+      "side": 1,
+      "message": "It looks like this change is restricted to aosp-master only. Why is that?",
+      "revId": "82bcab438a1604dc07691aeabafc4227c4e27e2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
