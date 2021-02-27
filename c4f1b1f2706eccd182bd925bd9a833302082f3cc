@@ -33,6 +33,24 @@
       "message": "are these for building the pulled events? I think this naming is a bit obscure (using _build to indicate it\u0027s for pulled. We can change it later though.",
       "revId": "c4f1b1f2706eccd182bd925bd9a833302082f3cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea188b2f_b4188a34",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-02-27T05:49:45Z",
+      "side": 1,
+      "message": "yeah, this is for pulled events. We should change the name. I\u0027ll create a bug to track",
+      "parentUuid": "b2dda411_98f927a7",
+      "revId": "c4f1b1f2706eccd182bd925bd9a833302082f3cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
