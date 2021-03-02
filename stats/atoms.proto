@@ -12057,6 +12057,7 @@ enum ArtDexMetadataType {
     PROFILE = 1;
     VDEX = 2;
     PROFILE_AND_VDEX = 3;
+    NONE_DEX_METADATA = 4;
 }
 
 message ArtDatumReported {
@@ -12086,4 +12087,7 @@ message ArtDatumReported {
 
     // The type of dex metadata
     optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // The name of code path within a package.
+    optional string dex_metadata_code_path = 9;
 }
