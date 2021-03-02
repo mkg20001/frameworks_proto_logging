@@ -12057,6 +12057,14 @@ enum ArtDexMetadataType {
     PROFILE = 1;
     VDEX = 2;
     PROFILE_AND_VDEX = 3;
+    NONE = 4;
+}
+
+// Indicates the type of the apk.
+enum ArtApkType {
+    UNKNOWN_APK_TYPE = 0;
+    BASE_APK_TYPE = 1;
+    SPLIT_APK_TYPE = 2;
 }
 
 message ArtDatumReported {
@@ -12086,4 +12094,7 @@ message ArtDatumReported {
 
     // The type of dex metadata
     optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // This differentiates the base apk, a split, or a secondary dex file.
+    optional ArtApkType apk_type = 10;
 }
