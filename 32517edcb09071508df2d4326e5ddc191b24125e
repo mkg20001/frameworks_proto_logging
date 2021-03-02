@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b991b24_3d2f3337",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1836438
+      },
+      "writtenOn": "2021-03-02T22:22:03Z",
+      "side": 1,
+      "message": "Also moved the definition in Android.bp to keep it consistent between the GN definition and Android.\n\nVerified it builds properly via mmma -j system/bt",
+      "revId": "32517edcb09071508df2d4326e5ddc191b24125e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
