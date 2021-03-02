@@ -46,6 +46,30 @@
       },
       "revId": "d507b002f0e8e2302db972287034c3543290087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e6c1e6_ee4c6648",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 12092,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-03-02T23:47:09Z",
+      "side": 1,
+      "message": "Ok, so what you want here is simply the \"code_path\". But that\u0027s a very local concept and not really a file path. That code path is essentially the split_name for primary apks, or the secondary dex path. In the later case we should not care about the path. \n\nSo maybe go with \"apk_name\" and document that this signals whether not this is the base apk, a split, or a secondary dex files.",
+      "parentUuid": "bb7e93bd_02183c86",
+      "range": {
+        "startLine": 12091,
+        "startChar": 0,
+        "endLine": 12092,
+        "endChar": 47
+      },
+      "revId": "d507b002f0e8e2302db972287034c3543290087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
