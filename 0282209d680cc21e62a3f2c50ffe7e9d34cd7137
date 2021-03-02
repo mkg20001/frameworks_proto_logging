@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b426b6_258c2f4e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 12060,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-03-02T23:58:17Z",
+      "side": 1,
+      "message": "just NONE?",
+      "range": {
+        "startLine": 12060,
+        "startChar": 4,
+        "endLine": 12060,
+        "endChar": 21
+      },
+      "revId": "0282209d680cc21e62a3f2c50ffe7e9d34cd7137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
