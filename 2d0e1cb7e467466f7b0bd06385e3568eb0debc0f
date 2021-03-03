@@ -16,6 +16,24 @@
       "message": "Looks good to me, although I\u0027d prefer if we could merge https://r.android.com/1595481 first. Unfortunately, that CL is going to cause some nasty sequencing issues with this one. I\u0027ll send out an e-mail to discuss options.",
       "revId": "2d0e1cb7e467466f7b0bd06385e3568eb0debc0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517d2950_52e3281b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1168158
+      },
+      "writtenOn": "2021-03-03T21:29:07Z",
+      "side": 1,
+      "message": "Sure. I will wait for the merge of that cl.",
+      "parentUuid": "c0da0070_b3473f80",
+      "revId": "2d0e1cb7e467466f7b0bd06385e3568eb0debc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
