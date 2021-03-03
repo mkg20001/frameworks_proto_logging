@@ -118,6 +118,30 @@
       },
       "revId": "d507b002f0e8e2302db972287034c3543290087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d679f70_9bc3e0f5",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 12092,
+      "author": {
+        "id": 1168158
+      },
+      "writtenOn": "2021-03-03T00:12:53Z",
+      "side": 1,
+      "message": "\u003e If this indicates whether it\u0027s a base apk, a split, or secondary dex file, would an enum work, or do we need the name since there might be more than one split or secondary dex file?\nHmm because the number of split apk is not necessary one so I don\u0027t think an enum will work well. Actually, we can go with base apk only. Hi Calin, does split apk or secondary dex file matter a lot?\n\n\u003e I\u0027m also getting a little concerned about adding extra fields here. The two we have so far are probably not a big deal, but the fact that we already have two makes me think we\u0027ll probably continue to add more.\nI don\u0027t think we will add more. But if yes later, I will create a new message.",
+      "parentUuid": "15c8d6bd_8fecd47e",
+      "range": {
+        "startLine": 12091,
+        "startChar": 0,
+        "endLine": 12092,
+        "endChar": 47
+      },
+      "revId": "d507b002f0e8e2302db972287034c3543290087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
