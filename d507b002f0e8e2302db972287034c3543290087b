@@ -94,6 +94,30 @@
       },
       "revId": "d507b002f0e8e2302db972287034c3543290087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c8d6bd_8fecd47e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 12092,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-03-03T00:03:19Z",
+      "side": 1,
+      "message": "If this indicates whether it\u0027s a base apk, a split, or secondary dex file, would an enum work, or do we need the name since there might be more than one split or secondary dex file?\n\nThe metrics team prefers to avoid strings in atoms since they are harder to audit from a privacy and data size perspective. For example, that\u0027s why we store the uid instead of the package name.\n\nI\u0027m also getting a little concerned about adding extra fields here. The two we have so far are probably not a big deal, but the fact that we already have two makes me think we\u0027ll probably continue to add more.\n\nMaybe it makes sense to instead add a ArtDex2OatMetadataReported message that has the additional dex2oat metadata and a session_id that we can match against the atoms that we report.",
+      "parentUuid": "ac480d63_b08eed78",
+      "range": {
+        "startLine": 12091,
+        "startChar": 0,
+        "endLine": 12092,
+        "endChar": 47
+      },
+      "revId": "d507b002f0e8e2302db972287034c3543290087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
