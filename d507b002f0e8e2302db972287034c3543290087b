@@ -142,6 +142,30 @@
       },
       "revId": "d507b002f0e8e2302db972287034c3543290087b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e64cadb_f09edb19",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 12092,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-03-03T00:31:46Z",
+      "side": 1,
+      "message": "The number is unbounded. Do we care about the actual naming? it would be nice to get it. The apk/split name is public information but i know the issues with adding string here... good catch Eric. So I guess enums could be a good approx.",
+      "parentUuid": "0d679f70_9bc3e0f5",
+      "range": {
+        "startLine": 12091,
+        "startChar": 0,
+        "endLine": 12092,
+        "endChar": 47
+      },
+      "revId": "d507b002f0e8e2302db972287034c3543290087b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
