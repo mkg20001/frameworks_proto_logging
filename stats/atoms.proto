@@ -443,7 +443,7 @@ message Atom {
         AudioPowerUsageDataReported audio_power_usage_data_reported = 275;
         TvTunerStateChanged tv_tuner_state_changed = 276 [(module) = "framework"];
         MediaOutputOpSwitchReported mediaoutput_op_switch_reported =
-            277 [(module) = "settings"];
+            277 [(module) = "sysui"];
         CellBroadcastMessageFiltered cb_message_filtered =
             278 [(module) = "cellbroadcast"];
         TvTunerDvrStatus tv_tuner_dvr_status = 279 [(module) = "framework"];
@@ -493,6 +493,17 @@ message Atom {
         DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
+        ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+        PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
+        BluetoothHALCrashReasonReported bluetooth_hal_crash_reason_reported =
+            338 [(module) = "bluetooth"];
+        RebootEscrowPreparationReported reboot_escrow_preparation_reported =
+            339 [(module) = "framework"];
+        RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
+            340 [(module) = "framework"];
+        RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
+
+        MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -2790,6 +2801,40 @@ message BluetoothClassOfDeviceReported {
 }
 
 /**
+ * Logs when there is a crash in hardware abstraction layer (HAL)
+ *
+ * Logged from:
+ *   system/bt
+ *
+ */
+message BluetoothHALCrashReasonReported {
+    // An identifier that can be used to match events for this device.
+    // The incremental identifier is locally generated and guaranteed not derived
+    // from any globally unique hardware id.
+    // For paired devices, it stays consistent between Bluetooth toggling for the
+    // same remote device.
+    // For unpaired devices, it stays consistent within the same Bluetooth adapter
+    // session for the same remote device.
+    // Default: 0 if the device's metric id is unknown.
+    optional int32 metric_id = 1;
+    // An identifier that can be used to match events for this device.
+    // Currently, this is a salted hash of the MAC address of this Bluetooth device.
+    // Salt: Randomly generated 256 bit value
+    // Hash algorithm: HMAC-SHA256
+    // Size: 32 byte
+    // Default: null or empty if the device identifier is not known
+    optional bytes obfuscated_id = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+    // Bluetooth HAL crash reason error code.
+    // Original type: uint8_t
+    // Default: 0x00 (DEFAULT)
+    optional int32 error_code = 3;
+    // Bluetooth HAL crash reason vendor error code.
+    // Original type: uint8_t
+    // Default: 0x00 (DEFAULT)
+    optional int32 vendor_error_code = 4;
+}
+
+/**
  * Logs when something is plugged into or removed from the USB-C connector.
  *
  * Logged from:
@@ -3052,6 +3097,9 @@ message BackGesture {
     optional int32 end_y = 7;  // Y coordinate for ACTION_MOVE event.
     optional int32 left_boundary = 8;  // left edge width + left inset
     optional int32 right_boundary = 9;  // screen width - (right edge width + right inset)
+    // The score between 0 and 1 which is the prediction output for the Back Gesture model.
+    optional float ml_model_score = 10;
+    optional string package_name = 11;  // The name of the top 100 most used package by all users.
 
     enum WindowHorizontalLocation {
         DEFAULT_LOCATION = 0;
@@ -4462,15 +4510,12 @@ message PrivacyIndicatorsInteracted {
         UNKNOWN = 0;
         CHIP_VIEWED = 1;
         CHIP_CLICKED = 2;
-        DIALOG_PRIVACY_SETTINGS = 3;
+        reserved 3; // Used only in beta builds, never shipped
         DIALOG_DISMISS = 4;
         DIALOG_LINE_ITEM = 5;
     }
 
     optional Type type = 1 [(state_field_option).exclusive_state = true];
-
-    // Used if the type is LINE_ITEM
-    optional string package_name = 2;
 }
 
 /**
@@ -4991,6 +5036,12 @@ message SnapshotMergeReported {
     // containing the dm-snapshot's copy-on-write data generated during a
     // Virtual A/B update.
     optional int64 cow_file_size_bytes = 5;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 6;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 7;
 }
 
 /**
@@ -7944,6 +7995,72 @@ message MediametricsExtractorReported {
 }
 
 /**
+ * Track MediaParser (parsing video/audio streams from containers) usage
+ * Logged from:
+ *
+ *   frameworks/av/services/mediametrics/statsd_mediaparser.cpp
+ *   frameworks/base/apex/media/framework/jni/android_media_MediaParserJNI.cpp
+ */
+message MediametricsMediaParserReported {
+    optional int64 timestamp_nanos = 1;
+    optional string package_name = 2;
+    optional int64 package_version_code = 3;
+
+    // MediaParser specific data.
+    /**
+     * The name of the parser selected for parsing the media, or an empty string
+     * if no parser was selected.
+     */
+    optional string parser_name = 4;
+    /**
+     * Whether the parser was created by name. 1 represents true, and 0
+     * represents false.
+     */
+    optional int32 created_by_name = 5;
+    /**
+     * The parser names in the sniffing pool separated by "|".
+     */
+    optional string parser_pool = 6;
+    /**
+     * The fully qualified name of the last encountered exception, or an empty
+     * string if no exception was encountered.
+     */
+    optional string last_exception = 7;
+    /**
+     * The size of the parsed media in bytes, or -1 if unknown. Note this value
+     * contains intentional random error to prevent media content
+     * identification.
+     */
+    optional int64 resource_byte_count = 8;
+    /**
+     * The duration of the media in milliseconds, or -1 if unknown. Note this
+     * value contains intentional random error to prevent media content
+     * identification.
+     */
+    optional int64 duration_millis = 9;
+    /**
+     * The MIME types of the tracks separated by "|".
+     */
+    optional string track_mime_types = 10;
+    /**
+     * The tracks' RFC 6381 codec strings separated by "|".
+     */
+    optional string track_codecs = 11;
+    /**
+     * Concatenation of the parameters altered by the client, separated by "|".
+     */
+    optional string altered_parameters = 12;
+    /**
+     * The video width in pixels, or -1 if unknown or not applicable.
+     */
+    optional int32 video_width = 13;
+    /**
+     * The video height in pixels, or -1 if unknown or not applicable.
+     */
+    optional int32 video_height = 14;
+}
+
+/**
  * Track how we arbitrate between microphone/input requests.
  * Logged from
  *   frameworks/av/services/audiopolicy/service/AudioPolicyInterfaceImpl.cpp
@@ -9385,6 +9502,12 @@ message UpdateEngineUpdateAttemptReported {
 
     // Free space available in the super partition.
     optional int64 super_free_space_bytes = 11;
+
+    // Whether the device enables Virtual A/B compression.
+    optional bool vab_compression_enabled = 12;
+
+    // Whether this update attempt uses Virtual A/B compression.
+    optional bool vab_compression_used = 13;
 }
 
 /**
@@ -9419,6 +9542,76 @@ message UpdateEngineSuccessfulUpdateReported {
 }
 
 /**
+ * Reported when a client requests to prepare for resume on reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowPreparationReported {
+  enum Result {
+    ROR_NEED_PREPARATION = 0;
+    ROR_SKIP_PREPARATION_AND_NOTIFY = 1;
+    ROR_SKIP_PREPARATION_NOT_NOTIFY = 2;
+  }
+
+  // The uid of the client who requests ror.
+  optional int32 requesting_uid = 1 [(is_uid) = true];
+
+  optional Result result = 2;
+
+  // The number of clients who has requested ror, including the current caller.
+  optional int32 requested_client_count = 3;
+}
+
+/**
+ * Reported when the lock screen knowledge factor is captured, while there are clients of
+ * resume on reboot to notify.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowLskfCaptureReported {
+  // The uid of the client to notify about the Lskf capture.
+  optional int32 uid_to_notify = 1 [(is_uid) = true];
+
+  // The total number of clients who have requested ror.
+  optional int32 requested_client_count = 2;
+
+  // The duration between RoR request - current LSKF capture event.
+  optional int32 duration_ror_requested_to_lskf_captured_seconds = 3;
+}
+
+/* Reported when a client (e.g. gmscore) requests to reboot with Resume on Reboot.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/recoverysystem/RecoverySystemService.java
+ */
+message RebootEscrowRebootReported {
+  optional int32 error_code = 1;
+
+  // The uid of clients who requested the reboot
+  optional int32 request_uid = 2;
+
+  // All clients that have prepared for RoR before this reboot
+  optional int32 prepared_clients_count = 3;
+
+  // The RoR request count for the client who requests reboot.
+  optional int32 request_count = 4;
+
+  // Whether the reboot request assumes a slot switch on a/b devices.
+  optional bool slot_switch = 5;
+
+  // True if the DeviceConfig shows the device is using server based RoR.
+  optional bool server_based = 6;
+
+  // The duration between last LSKF captured - reboot requests
+  optional int32 duration_lskf_captured_to_reboot_seconds = 7;
+
+  // The count of LSKF captured since preparation
+  optional int32 lskf_captured_counts = 8;
+}
+
+/**
  * Reported when the RebootEscrow HAL has attempted to recover the escrowed
  * key to indicate whether it was successful or not.
  *
@@ -9426,7 +9619,34 @@ message UpdateEngineSuccessfulUpdateReported {
  *   frameworks/base/services/core/java/com/android/server/locksettings/RebootEscrowManager.java
  */
 message RebootEscrowRecoveryReported {
+    // Type of the resume on reboot backend provider.
+    enum ServiceType {
+        UNKNOWN = 0;
+        HAL = 1;
+        SERVER_BASED = 2;
+    }
+
+    // Whether the vbmeta digest of the current slot matches a precomputed value before reboot.
+    enum VbmetaDigestStatus {
+        MATCH_EXPECTED_SLOT = 0;
+        MATCH_FALLBACK_SLOT = 1;
+        MISMATCH = 2;
+    }
+
     optional bool successful = 1;
+    // The error code for escrow data recovery failure
+    optional int32 error_code = 2;
+
+    optional ServiceType type = 3;
+
+    // Number of retries to unwrap the escrow key asynchronously.
+    optional int32 get_escrow_key_retry_count = 4;
+
+    // The duration between storing of reboot escrow key ->
+    // use of reboot escrow key to unlock CE after reboot
+    optional int32 duration_escrow_key_storage_to_unlock_seconds = 5;
+
+    optional VbmetaDigestStatus vbmeta_digest_status = 6;
 }
 
 /**
@@ -10812,6 +11032,35 @@ message ImsRegistrationStats {
     optional int32 ut_available_seconds = 12;
 }
 
+/*
+ * Logs information related to PIN storage and automatic PIN operations.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/uicc/PinStorage.java
+ */
+message PinStorageEvent {
+    // The type of event.
+    enum Event {
+        UNKNOWN = 0;
+        // The PIN was verified automatically successfully.
+        PIN_VERIFICATION_SUCCESS = 1;
+        // The PIN was verified automatically unsuccessfully.
+        PIN_VERIFICATION_FAILURE = 2;
+        // The PIN was cached, but discarded after reboot.
+        CACHED_PIN_DISCARDED = 3;
+        // The PIN was stored to be used after unattended reboot.
+        PIN_STORED_FOR_VERIFICATION = 4;
+        // The PIN is not available for storage and will be required after unattended reboot.
+        PIN_REQUIRED_AFTER_REBOOT = 5;
+        // The PIN was not verified automatically because the SIM card did not match.
+        PIN_VERIFICATION_SKIPPED_SIM_CARD_MISMATCH = 6;
+    }
+    optional Event event = 1;
+
+    // Number of PINs stored or discarded.
+    optional int32 number_of_pins = 2;
+}
+
 /**
  * Logs gnss stats from location service provider
  *
@@ -11308,7 +11557,7 @@ message BytesTransferByTagAndMetered {
  * Logs when the Media Output Switcher finishes a media switch operation.
  *
  * Logged from:
- *  packages/apps/Settings/src/com/android/settings/media/MediaOutputSliceWorker.java
+ *  packages/SystemUI/src/com/android/systemui/media/dialog/MediaOutputMetricLogger.java
  */
 message MediaOutputOpSwitchReported {
     // Source medium type before switching.
@@ -11805,4 +12054,104 @@ message BlobInfo {
     optional android.stats.tls.CipherSuite cipher_suite = 3;
 
     optional int32 handshake_duration_millis = 4;
+}
+
+// Indicates which compile filter was used for the package being loaded in an ART session.
+enum ArtCompileFilter {
+    ART_COMPILATION_FILTER_UNSPECIFIED = 0;
+    ART_COMPILATION_FILTER_ERROR = 1;
+    ART_COMPILATION_FILTER_UNKNOWN = 2;
+    ART_COMPILATION_FILTER_ASSUMED_VERIFIED = 3;
+    ART_COMPILATION_FILTER_EXTRACT = 4;
+    ART_COMPILATION_FILTER_VERIFY = 5;
+    ART_COMPILATION_FILTER_QUICKEN = 6;
+    ART_COMPILATION_FILTER_SPACE_PROFILE = 7;
+    ART_COMPILATION_FILTER_SPACE = 8;
+    ART_COMPILATION_FILTER_SPEED_PROFILE = 9;
+    ART_COMPILATION_FILTER_SPEED = 10;
+    ART_COMPILATION_FILTER_EVERYTHING_PROFILE = 11;
+    ART_COMPILATION_FILTER_EVERYTHING = 12;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_APK = 13;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_APK_FALLBACK = 14;
+    ART_COMPILATION_FILTER_FAKE_RUN_FROM_VDEX_FALLBACK = 15;
+}
+
+enum ArtCompilationReason {
+    ART_COMPILATION_REASON_UNSPECIFIED = 0;
+    ART_COMPILATION_REASON_ERROR = 1;
+    ART_COMPILATION_REASON_UNKNOWN = 2;
+    ART_COMPILATION_REASON_FIRST_BOOT = 3;
+    ART_COMPILATION_REASON_BOOT = 4;
+    ART_COMPILATION_REASON_INSTALL = 5;
+    ART_COMPILATION_REASON_BG_DEXOPT = 6;
+    ART_COMPILATION_REASON_AB_OTA = 7;
+    ART_COMPILATION_REASON_INACTIVE = 8;
+    ART_COMPILATION_REASON_SHARED = 9;
+    ART_COMPILATION_REASON_INSTALL_WITH_DEX_METADATA = 10;
+}
+
+// Indicates which kind of measurement ART is reporting.
+enum ArtDatumId {
+    ART_DATUM_INVALID = 0;
+    ART_DATUM_GC_MUTATOR_PAUSE_TIME = 1;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME = 2;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME = 4;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_COUNT = 5;
+    ART_DATUM_JIT_METHOD_COMPILE_TIME = 6;
+    ART_DATUM_AOT_COMPILE_TIME = 7;
+    ART_DATUM_CLASS_VERIFICATION_TIME = 8;
+    ART_DATUM_CLASS_LOADING_TIME = 9;
+
+    // Metrics IDs for dex2oat.
+    ART_DATUM_DEX2OAT_RESULT_CODE = 10;
+    ART_DATUM_DEX2OAT_DEX_CODE_BYTES = 11;
+    ART_DATUM_DEX2OAT_TOTAL_TIME = 12;
+    ART_DATUM_DEX2OAT_VERIFY_DEX_FILE_TIME = 13;
+    ART_DATUM_DEX2OAT_FAST_VERIFY_TIME = 14;
+    ART_DATUM_DEX2OAT_RESOLVE_METHODS_AND_FIELDS_TIME = 15;
+}
+
+// Indicates what class of thread the reported values apply to.
+enum ArtThreadType {
+    ART_THREAD_UNKNOWN = 0;
+    ART_THREAD_MAIN = 1;
+    ART_THREAD_BACKGROUND = 2;
+}
+
+// Indicates the type of dex metadata.
+enum ArtDexMetadataType {
+    UNKNOWN_DEX_METADATA = 0;
+    PROFILE = 1;
+    VDEX = 2;
+    PROFILE_AND_VDEX = 3;
+}
+
+message ArtDatumReported {
+    // The session ID is used to correlate this report with others from the same ART instance.
+    optional int64 session_id = 1;
+
+    // The UID of the app that ART is running on behalf of.
+    optional int32 uid = 2 [(is_uid) = true];
+
+    // What compiler filter the APK or DEX file was compiled with.
+    optional ArtCompileFilter compile_filter = 3;
+
+    // Why the package was compiled the way it was.
+    optional ArtCompilationReason compilation_reason = 4;
+
+    // The number of milliseconds since the ART runtime instance was started.
+    optional int64 timestamp_millis = 5;
+
+    // What kind of thread (UI or background) this metric corresponds to.
+    optional ArtThreadType thread_type = 6;
+
+    // Which counter this is that is being reported.
+    optional ArtDatumId kind = 7;
+
+    // The value of the counter.
+    optional int64 value = 8;
+
+    // The type of dex metadata
+    optional ArtDexMetadataType dex_metadata_type = 9;
 }
