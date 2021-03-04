@@ -173,11 +173,13 @@ static int run(int argc, char const* const* argv) {
     if (compileApiLevel < API_R) {
         // Cannot compile against pre-R.
         fprintf(stderr, "compileApiLevel must be %d or higher.\n", API_R);
+        return 1;
     }
 
     if (minApiLevel < API_Q) {
         // Cannot support pre-Q.
         fprintf(stderr, "minApiLevel must be %d or higher.\n", API_Q);
+        return 1;
     }
 
     if (minApiLevel == API_LEVEL_CURRENT) {
@@ -242,7 +244,7 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
         }
         errorCount = android::stats_log_api_gen::write_stats_log_header(out, atoms, attributionDecl,
-                                                                        cppNamespace);
+                                                                        cppNamespace, minApiLevel);
         fclose(out);
     }
 
@@ -270,7 +272,7 @@ static int run(int argc, char const* const* argv) {
         }
 
         errorCount = android::stats_log_api_gen::write_stats_log_java(
-                out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
+                out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel, compileApiLevel,
                 supportWorkSource);
 
         fclose(out);
