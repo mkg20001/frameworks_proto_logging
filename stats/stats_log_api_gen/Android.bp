@@ -176,17 +176,8 @@ rust_library {
         ":statslog.rs",
     ],
     rustlibs: [
-        "libnum_traits",
         "libstatspull_bindgen",
         "libthiserror",
     ],
     proc_macros: ["libnum_derive"],
-    target: {
-        android: {
-            shared_libs: ["libstatspull"],
-        },
-        host: {
-            static_libs: ["libstatspull"],
-        },
-    },
 }
