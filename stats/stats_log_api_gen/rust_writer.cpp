@@ -151,7 +151,7 @@ static void write_rust_method_signature(FILE* out, const char* namePrefix,
             }
         }
     }
-    fprintf(out, "    ) -> std::result::Result<(), crate::StatsError>");
+    fprintf(out, "    ) -> crate::StatsResult");
     if (isCode) {
         fprintf(out, " {");
     }
@@ -178,7 +178,7 @@ static void write_rust_usage(FILE* out, const string& method_name,
 static void write_rust_atom_constants(FILE* out, const Atoms& atoms,
                                       const AtomDecl& attributionDecl) {
     fprintf(out, "// Constants for atom codes.\n");
-    fprintf(out, "#[derive(num_derive::FromPrimitive)]\n");
+    fprintf(out, "#[derive(Clone, Copy)]\n");
     fprintf(out, "pub enum Atoms {\n");
 
     std::map<int, AtomDeclSet::const_iterator> atom_code_to_non_chained_decl_map;
@@ -367,10 +367,11 @@ static int write_rust_method_body(FILE* out, const AtomDecl& atomDecl,
     }
     if (atomDecl.oneOfName == ONEOF_PUSHED_ATOM_NAME) {
         fprintf(out, "            let __ret = AStatsEvent_write(__event);\n");
-        fprintf(out, "            if __ret >= 0 { std::result::Result::Ok(()) } else { Err(crate::StatsError::Return(__ret)) }\n");
+        fprintf(out, "            if __ret >= 0 { crate::StatsResult::Ok(()) }"
+                " else { Err(crate::StatsError::Return(__ret)) }\n");
     } else {
         fprintf(out, "            AStatsEvent_build(__event);\n");
-        fprintf(out, "            std::result::Result::Ok(())\n");
+        fprintf(out, "            crate::StatsResult::Ok(())\n");
     }
     fprintf(out, "        }\n");
     return 0;
@@ -464,19 +465,30 @@ static void write_rust_struct(FILE* out, const shared_ptr<AtomDecl>& atomDecl,
     fprintf(out, "    }\n");
 
     // Write the impl
-    if (lifetime) {
-        fprintf(out, "    impl<'a> %s<'a> {\n", make_camel_case_name(atomDecl->name).c_str());
+    bool isPush = atomDecl->oneOfName == ONEOF_PUSHED_ATOM_NAME;
+    if (isPush) {
+        if (lifetime) {
+            fprintf(out, "    impl<'a> %s<'a> {\n", make_camel_case_name(atomDecl->name).c_str());
+        } else {
+            fprintf(out, "    impl %s {\n", make_camel_case_name(atomDecl->name).c_str());
+        }
     } else {
-        fprintf(out, "    impl %s {\n", make_camel_case_name(atomDecl->name).c_str());
+        if (lifetime) {
+            fprintf(out, "    impl<'a> crate::Stat for %s<'a> {\n",
+                    make_camel_case_name(atomDecl->name).c_str());
+        } else {
+            fprintf(out, "    impl crate::Stat for %s {\n",
+                    make_camel_case_name(atomDecl->name).c_str());
+        }
     }
     fprintf(out, "        #[inline(always)]\n");
-    if (atomDecl->oneOfName == ONEOF_PUSHED_ATOM_NAME) {
+    if (isPush) {
         fprintf(out, "        pub fn stats_write(&self)"
-                " -> std::result::Result<(), crate::StatsError> {\n");
+                " -> crate::StatsResult {\n");
         fprintf(out, "            stats_write(");
     } else {
-        fprintf(out, "        pub fn add_astats_event(&self, pulled_data: &mut AStatsEventList)"
-                " -> std::result::Result<(), crate::StatsError> {\n");
+        fprintf(out, "        fn add_astats_event(&self, pulled_data: &mut AStatsEventList)"
+                " -> crate::StatsResult {\n");
         fprintf(out, "            add_astats_event(pulled_data, ");
     }
     for (const AtomField& atomField : atomDecl->fields) {
@@ -541,12 +553,20 @@ int write_stats_log_rust(FILE* out, const Atoms& atoms, const AtomDecl& attribut
     fprintf(out, "    Conversion(#[from] std::num::TryFromIntError),\n");
     fprintf(out, "}\n");
     fprintf(out, "\n");
+    fprintf(out, "type StatsResult = std::result::Result<(), crate::StatsError>;");
+    fprintf(out, "\n");
     fprintf(out, "struct AStatsEventDropper(*mut statspull_bindgen::AStatsEvent);\n");
     fprintf(out, "\n");
     fprintf(out, "impl Drop for AStatsEventDropper {\n");
     fprintf(out, "    fn drop(&mut self) {\n");
     fprintf(out, "        unsafe { statspull_bindgen::AStatsEvent_release(self.0) }\n");
     fprintf(out, "    }\n");
+    fprintf(out, "}\n");
+    fprintf(out, "\n");
+    fprintf(out, "pub trait Stat {\n");
+    fprintf(out, "    fn add_astats_event(&self,"
+            " pulled_data: &mut statspull_bindgen::AStatsEventList)"
+            " -> crate::StatsResult;\n");
     fprintf(out, "}\n");
     fprintf(out, "\n");
 
