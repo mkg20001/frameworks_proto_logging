@@ -16,6 +16,24 @@
       "message": "probably a lack of understanding from me on rust, but why is this needed, and why isn\u0027t an equivalent needed for libstatssocket, which this library also depends on?",
       "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62549bd7_edce5fce",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1416371
+      },
+      "writtenOn": "2021-03-11T08:00:24Z",
+      "side": 1,
+      "message": "Unlike the Soong C++ support, the Soong Rust support follows the dependency tree of libraries pulled in. Pulling in `libstatspull_bindgen` will pull in `libstatssocket` because if you look at the definition https://cs.android.com/android/_/android/platform/packages/modules/StatsD/+/1d0d15f58fdde7f478d9771838398c26840300b7:lib/libstatspull/Android.bp;l\u003d161;bpv\u003d1;bpt\u003d0;drc\u003d55588720109e1843a3fd0d649adf189a118012a3 it already depends on it.\n\nHowever, I\u0027m a little confused as to why `libstatspull_bindgen` doesn\u0027t depend on `libstatspull` itself. Joel, do you know why this was?",
+      "parentUuid": "03c0327e_80239371",
+      "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
