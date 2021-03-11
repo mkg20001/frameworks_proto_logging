@@ -34,6 +34,24 @@
       "parentUuid": "03c0327e_80239371",
       "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2dda69f_7a2c75fd",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-03-11T14:43:48Z",
+      "side": 1,
+      "message": "Yes, this is a good question.  In addition to Matt\u0027s comment, stats_pull_atom_callback.h (libstatspull\u0027s header file) #includes stats_event.h (libstatssocket\u0027s header file): https://cs.android.com/android/_/android/platform/packages/modules/StatsD/+/1d0d15f58fdde7f478d9771838398c26840300b7:lib/libstatspull/include/stats_pull_atom_callback.h;l\u003d18;bpv\u003d0;bpt\u003d0.  Thus if I made a separate bindgen entry and had a library include both of them, there would be duplicate types for the structs they both define.  There\u0027s probably a way around that, but since all of the contents are already included in libstatspull_bindgen, it didn\u0027t seem worth worrying about.\n\nOne extra note is that with the proposed changes to the pull API (see my email from yesterday), users will not directly use libstatspull_bindgen: they\u0027ll just use our Rust wrappers instead.  So these will end up being essentially internal (so e.g., the fact that we only have one bindgen won\u0027t confuse them because they won\u0027t notice it).\n\nFor Matt\u0027s question, it\u0027s presumably because bindgen is only producing headers and so is only parsing the .h file: it doesn\u0027t need the actual code.  I believe it doesn\u0027t really need the dependence on libstatssocket either, but I think I added that as an easy way so that it could find stats_event.h (since it\u0027s defined in a different directory but with an export_include_dirs).",
+      "parentUuid": "62549bd7_edce5fce",
+      "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
