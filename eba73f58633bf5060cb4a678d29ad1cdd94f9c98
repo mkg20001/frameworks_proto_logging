@@ -52,6 +52,24 @@
       "parentUuid": "62549bd7_edce5fce",
       "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbbcff9_ce25e27f",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-03-11T18:23:31Z",
+      "side": 1,
+      "message": "This actually just came up in some discussions with Ivan and he said that it\u0027s better to have the _bindgen rules depend on the libraries itself.  So in my next set of CLs I\u0027ll move the target: definition just below this on line 184 into libstatspull_bindgen.",
+      "parentUuid": "e2dda69f_7a2c75fd",
+      "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
