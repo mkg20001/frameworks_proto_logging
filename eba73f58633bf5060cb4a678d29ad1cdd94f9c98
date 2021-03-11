@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03c0327e_80239371",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-03-11T04:50:43Z",
+      "side": 1,
+      "message": "probably a lack of understanding from me on rust, but why is this needed, and why isn\u0027t an equivalent needed for libstatssocket, which this library also depends on?",
+      "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
