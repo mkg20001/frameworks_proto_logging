@@ -443,7 +443,7 @@ message Atom {
         AudioPowerUsageDataReported audio_power_usage_data_reported = 275;
         TvTunerStateChanged tv_tuner_state_changed = 276 [(module) = "framework"];
         MediaOutputOpSwitchReported mediaoutput_op_switch_reported =
-            277 [(module) = "settings"];
+            277 [(module) = "sysui"];
         CellBroadcastMessageFiltered cb_message_filtered =
             278 [(module) = "cellbroadcast"];
         TvTunerDvrStatus tv_tuner_dvr_status = 279 [(module) = "framework"];
@@ -502,6 +502,8 @@ message Atom {
         RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
             340 [(module) = "framework"];
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
+
+        MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -3095,6 +3097,9 @@ message BackGesture {
     optional int32 end_y = 7;  // Y coordinate for ACTION_MOVE event.
     optional int32 left_boundary = 8;  // left edge width + left inset
     optional int32 right_boundary = 9;  // screen width - (right edge width + right inset)
+    // The score between 0 and 1 which is the prediction output for the Back Gesture model.
+    optional float ml_model_score = 10;
+    optional string package_name = 11;  // The name of the top 100 most used package by all users.
 
     enum WindowHorizontalLocation {
         DEFAULT_LOCATION = 0;
@@ -4505,15 +4510,12 @@ message PrivacyIndicatorsInteracted {
         UNKNOWN = 0;
         CHIP_VIEWED = 1;
         CHIP_CLICKED = 2;
-        DIALOG_PRIVACY_SETTINGS = 3;
+        reserved 3; // Used only in beta builds, never shipped
         DIALOG_DISMISS = 4;
         DIALOG_LINE_ITEM = 5;
     }
 
     optional Type type = 1 [(state_field_option).exclusive_state = true];
-
-    // Used if the type is LINE_ITEM
-    optional string package_name = 2;
 }
 
 /**
@@ -7993,6 +7995,72 @@ message MediametricsExtractorReported {
 }
 
 /**
+ * Track MediaParser (parsing video/audio streams from containers) usage
+ * Logged from:
+ *
+ *   frameworks/av/services/mediametrics/statsd_mediaparser.cpp
+ *   frameworks/base/apex/media/framework/jni/android_media_MediaParserJNI.cpp
+ */
+message MediametricsMediaParserReported {
+    optional int64 timestamp_nanos = 1;
+    optional string package_name = 2;
+    optional int64 package_version_code = 3;
+
+    // MediaParser specific data.
+    /**
+     * The name of the parser selected for parsing the media, or an empty string
+     * if no parser was selected.
+     */
+    optional string parser_name = 4;
+    /**
+     * Whether the parser was created by name. 1 represents true, and 0
+     * represents false.
+     */
+    optional int32 created_by_name = 5;
+    /**
+     * The parser names in the sniffing pool separated by "|".
+     */
+    optional string parser_pool = 6;
+    /**
+     * The fully qualified name of the last encountered exception, or an empty
+     * string if no exception was encountered.
+     */
+    optional string last_exception = 7;
+    /**
+     * The size of the parsed media in bytes, or -1 if unknown. Note this value
+     * contains intentional random error to prevent media content
+     * identification.
+     */
+    optional int64 resource_byte_count = 8;
+    /**
+     * The duration of the media in milliseconds, or -1 if unknown. Note this
+     * value contains intentional random error to prevent media content
+     * identification.
+     */
+    optional int64 duration_millis = 9;
+    /**
+     * The MIME types of the tracks separated by "|".
+     */
+    optional string track_mime_types = 10;
+    /**
+     * The tracks' RFC 6381 codec strings separated by "|".
+     */
+    optional string track_codecs = 11;
+    /**
+     * Concatenation of the parameters altered by the client, separated by "|".
+     */
+    optional string altered_parameters = 12;
+    /**
+     * The video width in pixels, or -1 if unknown or not applicable.
+     */
+    optional int32 video_width = 13;
+    /**
+     * The video height in pixels, or -1 if unknown or not applicable.
+     */
+    optional int32 video_height = 14;
+}
+
+/**
  * Track how we arbitrate between microphone/input requests.
  * Logged from
  *   frameworks/av/services/audiopolicy/service/AudioPolicyInterfaceImpl.cpp
@@ -9579,6 +9647,9 @@ message RebootEscrowRecoveryReported {
     optional int32 duration_escrow_key_storage_to_unlock_seconds = 5;
 
     optional VbmetaDigestStatus vbmeta_digest_status = 6;
+
+    // The duration between boot complete -> CE unlock
+    optional int32 duration_boot_complete_to_unlock_seconds = 7;
 }
 
 /**
@@ -11489,7 +11560,7 @@ message BytesTransferByTagAndMetered {
  * Logs when the Media Output Switcher finishes a media switch operation.
  *
  * Logged from:
- *  packages/apps/Settings/src/com/android/settings/media/MediaOutputSliceWorker.java
+ *  packages/SystemUI/src/com/android/systemui/media/dialog/MediaOutputMetricLogger.java
  */
 message MediaOutputOpSwitchReported {
     // Source medium type before switching.
@@ -12020,6 +12091,12 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_INACTIVE = 8;
     ART_COMPILATION_REASON_SHARED = 9;
     ART_COMPILATION_REASON_INSTALL_WITH_DEX_METADATA = 10;
+    ART_COMPILATION_REASON_POST_BOOT = 11;
+    ART_COMPILATION_REASON_INSTALL_FAST = 12;
+    ART_COMPILATION_REASON_INSTALL_BULK = 13;
+    ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY = 14;
+    ART_COMPILATION_REASON_INSTALL_BULK_DOWNGRADED = 15;
+    ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY_DOWNGRADED = 16;
 }
 
 // Indicates which kind of measurement ART is reporting.
@@ -12034,6 +12111,14 @@ enum ArtDatumId {
     ART_DATUM_AOT_COMPILE_TIME = 7;
     ART_DATUM_CLASS_VERIFICATION_TIME = 8;
     ART_DATUM_CLASS_LOADING_TIME = 9;
+
+    // Metrics IDs for dex2oat.
+    ART_DATUM_DEX2OAT_RESULT_CODE = 10;
+    ART_DATUM_DEX2OAT_DEX_CODE_BYTES = 11;
+    ART_DATUM_DEX2OAT_TOTAL_TIME = 12;
+    ART_DATUM_DEX2OAT_VERIFY_DEX_FILE_TIME = 13;
+    ART_DATUM_DEX2OAT_FAST_VERIFY_TIME = 14;
+    ART_DATUM_DEX2OAT_RESOLVE_METHODS_AND_FIELDS_TIME = 15;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -12041,6 +12126,16 @@ enum ArtThreadType {
     ART_THREAD_UNKNOWN = 0;
     ART_THREAD_MAIN = 1;
     ART_THREAD_BACKGROUND = 2;
+}
+
+// Indicates the type of dex metadata.
+enum ArtDexMetadataType {
+    UNKNOWN_DEX_METADATA = 0;
+    PROFILE = 1;
+    VDEX = 2;
+    PROFILE_AND_VDEX = 3;
+    NONE_DEX_METADATA = 4;
+    ERROR_DEX_METADATA = 5;
 }
 
 message ArtDatumReported {
@@ -12067,4 +12162,7 @@ message ArtDatumReported {
 
     // The value of the counter.
     optional int64 value = 8;
+
+    // The type of dex metadata
+    optional ArtDexMetadataType dex_metadata_type = 9;
 }

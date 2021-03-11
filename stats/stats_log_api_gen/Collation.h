@@ -163,6 +163,8 @@ struct AtomDecl {
     string message;
     vector<AtomField> fields;
 
+    string oneOfName;
+
     FieldNumberToAnnotations fieldNumberToAnnotations;
 
     vector<int> primaryFields;
@@ -175,7 +177,7 @@ struct AtomDecl {
 
     AtomDecl();
     AtomDecl(const AtomDecl& that);
-    AtomDecl(int code, const string& name, const string& message);
+    AtomDecl(int code, const string& name, const string& message, const string& oneOfName);
     ~AtomDecl();
 
     inline bool operator<(const AtomDecl& that) const {
