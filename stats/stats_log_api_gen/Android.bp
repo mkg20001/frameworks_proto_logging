@@ -29,6 +29,7 @@ cc_binary_host {
         "java_writer_q.cpp",
         "main.cpp",
         "native_writer.cpp",
+        "rust_writer.cpp",
         "utils.cpp",
     ],
     cflags: [
@@ -150,6 +151,42 @@ cc_library {
         },
         darwin: {
             enabled: false,
+        },
+    },
+}
+
+// ==========================================================
+// Rust library
+// ==========================================================
+
+genrule {
+    name: "statslog.rs",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --rust $(genDir)/statslog.rs",
+    out: [
+        "statslog.rs",
+    ],
+}
+
+rust_library {
+    name: "libstatslog_rust",
+    crate_name: "statslog_rust",
+    srcs: [
+        "rust_wrapper.rs",
+        ":statslog.rs",
+    ],
+    rustlibs: [
+        "libnum_traits",
+        "libstatspull_bindgen",
+        "libthiserror",
+    ],
+    proc_macros: ["libnum_derive"],
+    target: {
+        android: {
+            shared_libs: ["libstatspull"],
+        },
+        host: {
+            static_libs: ["libstatspull"],
         },
     },
 }

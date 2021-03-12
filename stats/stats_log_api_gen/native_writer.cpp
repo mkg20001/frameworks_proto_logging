@@ -33,7 +33,8 @@ static void write_native_annotation_constants(FILE* out) {
 
 static void write_annotations(FILE* out, int argIndex,
                               const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet,
-                              const string& methodPrefix, const string& methodSuffix) {
+                              const string& methodPrefix, const string& methodSuffix,
+                              const int minApiLevel) {
     FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
             fieldNumberToAtomDeclSet.find(argIndex);
     if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
@@ -41,6 +42,7 @@ static void write_annotations(FILE* out, int argIndex,
     }
     const AtomDeclSet& atomDeclSet = fieldNumberToAtomDeclSetIt->second;
     const map<AnnotationId, string>& ANNOTATION_ID_CONSTANTS = get_annotation_id_constants();
+    const string constantPrefix = minApiLevel > API_R ? "ASTATSLOG_" : "";
     for (const shared_ptr<AtomDecl>& atomDecl : atomDeclSet) {
         const string atomConstant = make_constant_name(atomDecl->name);
         fprintf(out, "    if (%s == code) {\n", atomConstant.c_str());
@@ -56,14 +58,16 @@ static void write_annotations(FILE* out, int argIndex,
                     } else if (ANNOTATION_ID_DEFAULT_STATE == annotation->annotationId) {
                         defaultState = annotation->value.intValue;
                     } else {
-                        fprintf(out, "        %saddInt32Annotation(%s%s, %d);\n",
+                        fprintf(out, "        %saddInt32Annotation(%s%s%s, %d);\n",
                                 methodPrefix.c_str(), methodSuffix.c_str(),
-                                annotationConstant.c_str(), annotation->value.intValue);
+                                constantPrefix.c_str(), annotationConstant.c_str(),
+                                annotation->value.intValue);
                     }
                     break;
                 case ANNOTATION_TYPE_BOOL:
-                    fprintf(out, "        %saddBoolAnnotation(%s%s, %s);\n", methodPrefix.c_str(),
-                            methodSuffix.c_str(), annotationConstant.c_str(),
+                    fprintf(out, "        %saddBoolAnnotation(%s%s%s, %s);\n", methodPrefix.c_str(),
+                            methodSuffix.c_str(), constantPrefix.c_str(),
+                            annotationConstant.c_str(),
                             annotation->value.boolValue ? "true" : "false");
                     break;
                 default:
@@ -74,8 +78,9 @@ static void write_annotations(FILE* out, int argIndex,
             const string& annotationConstant =
                     ANNOTATION_ID_CONSTANTS.at(ANNOTATION_ID_TRIGGER_STATE_RESET);
             fprintf(out, "        if (arg%d == %d) {\n", argIndex, resetState);
-            fprintf(out, "            %saddInt32Annotation(%s%s, %d);\n", methodPrefix.c_str(),
-                    methodSuffix.c_str(), annotationConstant.c_str(), defaultState);
+            fprintf(out, "            %saddInt32Annotation(%s%s%s, %d);\n", methodPrefix.c_str(),
+                    methodSuffix.c_str(), constantPrefix.c_str(), annotationConstant.c_str(),
+                    defaultState);
             fprintf(out, "        }\n");
         }
         fprintf(out, "    }\n");
@@ -84,11 +89,11 @@ static void write_annotations(FILE* out, int argIndex,
 
 static int write_native_method_body(FILE* out, vector<java_type_t>& signature,
                                     const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet,
-                                    const AtomDecl& attributionDecl) {
+                                    const AtomDecl& attributionDecl, const int minApiLevel) {
     int argIndex = 1;
     fprintf(out, "    AStatsEvent_setAtomId(event, code);\n");
     write_annotations(out, ATOM_ID_FIELD_NUMBER, fieldNumberToAtomDeclSet, "AStatsEvent_",
-                      "event, ");
+                      "event, ", minApiLevel);
     for (vector<java_type_t>::const_iterator arg = signature.begin();
          arg != signature.end(); arg++) {
         switch (*arg) {
@@ -131,7 +136,7 @@ static int write_native_method_body(FILE* out, vector<java_type_t>& signature,
                 return 1;
         }
         write_annotations(out, argIndex, fieldNumberToAtomDeclSet, "AStatsEvent_",
-                          "event, ");
+                          "event, ", minApiLevel);
         argIndex++;
     }
     return 0;
@@ -157,7 +162,8 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
             int argIndex = 1;
             fprintf(out, "    StatsEventCompat event;\n");
             fprintf(out, "    event.setAtomId(code);\n");
-            write_annotations(out, ATOM_ID_FIELD_NUMBER, fieldNumberToAtomDeclSet, "event.", "");
+            write_annotations(out, ATOM_ID_FIELD_NUMBER, fieldNumberToAtomDeclSet, "event.", "",
+                    minApiLevel);
             for (vector<java_type_t>::const_iterator arg = signature.begin();
                  arg != signature.end(); arg++) {
                 switch (*arg) {
@@ -193,14 +199,15 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
                         fprintf(stderr, "Encountered unsupported type.");
                         return 1;
                 }
-                write_annotations(out, argIndex, fieldNumberToAtomDeclSet, "event.", "");
+                write_annotations(out, argIndex, fieldNumberToAtomDeclSet, "event.", "",
+                        minApiLevel);
                 argIndex++;
             }
             fprintf(out, "    return event.writeToSocket();\n"); // end method body.
         } else {
             fprintf(out, "    AStatsEvent* event = AStatsEvent_obtain();\n");
             int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
-                                               attributionDecl);
+                                               attributionDecl, minApiLevel);
             if (ret != 0) {
                 return ret;
             }
@@ -254,7 +261,8 @@ static void write_native_stats_write_non_chained_methods(FILE* out,
 
 static int write_native_build_stats_event_methods(FILE* out,
                                                   const SignatureInfoMap& signatureInfoMap,
-                                                  const AtomDecl& attributionDecl) {
+                                                  const AtomDecl& attributionDecl,
+                                                  const int minApiLevel) {
     fprintf(out, "\n");
     for (auto signatureInfoMapIt = signatureInfoMap.begin();
          signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
@@ -270,7 +278,7 @@ static int write_native_build_stats_event_methods(FILE* out,
 
         fprintf(out, "    AStatsEvent* event = AStatsEventList_addStatsEvent(pulled_data);\n");
         int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
-                                           attributionDecl);
+                                           attributionDecl, minApiLevel);
         if (ret != 0) {
             return ret;
         }
@@ -309,10 +317,14 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
         fprintf(out, "#include <StatsEventCompat.h>\n");
     } else {
         fprintf(out, "#include <stats_event.h>\n");
+    }
 
-        if (!atoms.pulledAtomsSignatureInfoMap.empty()) {
-            fprintf(out, "#include <stats_pull_atom_callback.h>\n");
-        }
+    if (minApiLevel > API_R) {
+        fprintf(out, "#include <stats_annotations.h>\n");
+    }
+
+    if (minApiLevel > API_Q && !atoms.pulledAtomsSignatureInfoMap.empty()) {
+        fprintf(out, "#include <stats_pull_atom_callback.h>\n");
     }
 
 
@@ -324,7 +336,7 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
     write_native_stats_write_non_chained_methods(out, atoms.nonChainedSignatureInfoMap,
                                                  attributionDecl);
     write_native_build_stats_event_methods(out, atoms.pulledAtomsSignatureInfoMap,
-                                           attributionDecl);
+                                           attributionDecl, minApiLevel);
 
     // Print footer
     fprintf(out, "\n");
@@ -334,7 +346,7 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
 }
 
 int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                           const string& cppNamespace) {
+                           const string& cppNamespace, const int minApiLevel) {
     // Print prelude
     fprintf(out, "// This file is autogenerated\n");
     fprintf(out, "\n");
@@ -381,7 +393,9 @@ int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attrib
         }
     }
 
-    write_native_annotation_constants(out);
+    if (minApiLevel <= API_R) {
+        write_native_annotation_constants(out);
+    }
 
     fprintf(out, "struct BytesField {\n");
     fprintf(out,
