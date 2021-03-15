@@ -34,6 +34,24 @@
       "parentUuid": "2e056da5_b40775bd",
       "revId": "3a4942a6f5d09d8fe531adb17d2ba39a9e0a424d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34adfbe9_4a165e2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1335232
+      },
+      "writtenOn": "2021-03-15T23:19:02Z",
+      "side": 1,
+      "message": "The CL you just sent out is a cleaner solution, I think, so let\u0027s go with that.\n\nMy idea was to add the following to the top of statsd.cc:\n\n    #undef ART_DATUM_REPORTED__ART_METADATA_TYPE__ART_DEX_METADATA_TYPE_UNKNOWN\n    #define ART_DATUM_REPORTED__ART_METADATA_TYPE__ART_DEX_METADATA_TYPE_UNKNOWN 0\n\nThen, replace the old constant with the new one. The undef line gets rid of that constant on the source builds where the new one is defined, and the define makes sure we have the same definition across all builds. Then the call to stats_write still has the right value and in the future we\u0027d just delete these two new lines.\n\nLike I said though, your solution is simpler, so I like that one better.",
+      "parentUuid": "d0b5b018_38255ac3",
+      "revId": "3a4942a6f5d09d8fe531adb17d2ba39a9e0a424d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
