@@ -16,6 +16,24 @@
       "message": "Unfortunately, this CL is going to conflict with the prebuilt version. I\u0027d suggest doing a CL in art/ that `#undef` and `#define` for the new unknown metadata constant in statsd.cc so we have a consistent definition in all places, and then we can remove that once we are building with proto_logging from source again.",
       "revId": "3a4942a6f5d09d8fe531adb17d2ba39a9e0a424d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b5b018_38255ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1168158
+      },
+      "writtenOn": "2021-03-15T22:48:35Z",
+      "side": 1,
+      "message": "Could you please elaborate how to use #define/undef to solve this? \n\nCould we just change the code in statsd.cc in art and have another CL to update the prebuilt with the same topic? Will this work?",
+      "parentUuid": "2e056da5_b40775bd",
+      "revId": "3a4942a6f5d09d8fe531adb17d2ba39a9e0a424d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
