@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, The Android Open Source Project
+ * Copyright (C) 2021, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_STATS_LOG_API_GEN_NATIVE_WRITER_H
-#define ANDROID_STATS_LOG_API_GEN_NATIVE_WRITER_H
+#pragma once
 
 #include <stdio.h>
-#include <string.h>
 
 #include "Collation.h"
 
 namespace android {
 namespace stats_log_api_gen {
 
-int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                        const string& cppNamespace, const string& importHeader,
-                        const int minApiLevel);
-
-int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                           const string& cppNamespace, const int minApiLevel);
+int write_stats_log_rust(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                         const int minApiLevel);
 
 }  // namespace stats_log_api_gen
 }  // namespace android
-
-#endif  // ANDROID_STATS_LOG_API_GEN_NATIVE_WRITER_H
