@@ -20,7 +20,6 @@ package android.os.statsd;
 option java_package = "com.android.os";
 option java_outer_classname = "AtomsProto";
 
-import "frameworks/base/core/proto/android/net/networkcapabilities.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/enums/app/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
@@ -35,6 +34,7 @@ import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/biometrics/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto";
+import "frameworks/proto_logging/stats/enums/net/enums.proto";
 import "frameworks/proto_logging/stats/enums/os/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
 import "frameworks/proto_logging/stats/enums/server/enums.proto";
@@ -7271,7 +7271,7 @@ message DataStallEvent {
     // See definition in data_stall_event.proto.
     optional com.android.server.connectivity.ProbeResult validation_result = 2;
     // See definition in data_stall_event.proto.
-    optional android.net.NetworkCapabilitiesProto.Transport network_type = 3;
+    optional android.net.Transport network_type = 3;
     // See definition in data_stall_event.proto.
     optional com.android.server.connectivity.WifiData wifi_info = 4 [(log_mode) = MODE_BYTES];
     // See definition in data_stall_event.proto.
