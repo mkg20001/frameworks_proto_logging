@@ -12130,12 +12130,12 @@ enum ArtThreadType {
 
 // Indicates the type of dex metadata.
 enum ArtDexMetadataType {
-    UNKNOWN_DEX_METADATA = 0;
-    PROFILE = 1;
-    VDEX = 2;
-    PROFILE_AND_VDEX = 3;
-    NONE_DEX_METADATA = 4;
-    ERROR_DEX_METADATA = 5;
+  ART_DEX_METADATA_TYPE_UNKNOWN = 0;
+  ART_DEX_METADATA_TYPE_PROFILE = 1;
+  ART_DEX_METADATA_TYPE_VDEX = 2;
+  ART_DEX_METADATA_TYPE_PROFILE_AND_VDEX = 3;
+  ART_DEX_METADATA_TYPE_NONE = 4;
+  ART_DEX_METADATA_TYPE_ERROR = 5;
 }
 
 message ArtDatumReported {
