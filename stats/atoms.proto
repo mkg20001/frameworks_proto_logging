@@ -5042,6 +5042,18 @@ message SnapshotMergeReported {
 
     // Whether this update attempt uses Virtual A/B compression.
     optional bool vab_compression_used = 7;
+
+    // Total size used by COWs, including /data and the super partition.
+    optional int64 total_cow_size_bytes = 8;
+
+    // Sum of the estimated COW fields in the OTA manifest.
+    optional int64 estimated_cow_size_bytes = 9;
+
+    // Time from boot to sys.boot_completed, in milliseconds.
+    optional uint32 boot_complete_time_millis = 10;
+
+    // Time from sys.boot_completed to merge start, in milliseconds.
+    optional uint32 boot_complete_to_merge_start_time_millis = 11;
 }
 
 /**
