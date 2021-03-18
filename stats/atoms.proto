@@ -505,6 +505,7 @@ message Atom {
 
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
+        Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -12091,6 +12092,86 @@ message Keystore2KeyCreationEventReported {
 
     // Indicates whether key attestation requested in creation
     optional bool attestation_requested = 12;
+}
+
+/**
+ * Logs operations using cryptographic keys in keystore2.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyOperationEventReported {
+
+    enum KeyPurpose {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        KEY_PURPOSE_UNSPECIFIED = 0;
+
+        // Usable with RSA, EC and AES keys.
+        ENCRYPT = 1;
+
+        // Usable with RSA, EC and AES keys.
+        DECRYPT = 2;
+
+        // Usable with RSA, EC and HMAC keys.
+        SIGN = 3;
+
+        // Usable with RSA, EC and HMAC keys.
+        VERIFY = 4;
+
+        // 5 is reserved
+        // Usable with wrapping keys.
+        WRAP_KEY = 6;
+
+        // Key Agreement, usable with EC keys.
+        AGREE_KEY = 7;
+
+        // Usable as an attestation signing key.
+        ATTEST_KEY = 8;
+    }
+    // Purpose of the key operation
+    optional KeyPurpose purpose = 1;
+
+    /**
+     * Padding mode, digest, block_mode and purpose should ideally be repeated
+     * fields. However, since statsd does not support repeated fields in
+     * pushed atoms, they are represented using bitmaps.
+     */
+
+    /**
+     * Track which padding mode is being used.
+     * Bitmap composition is given by PaddingModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 padding_mode_bitmap = 2;
+
+    /**
+     * Track which digest is being used.
+     * Bitmap composition is given by DigestBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 digest_bitmap = 3;
+
+    /**
+     * Track which block mode is being used.
+     * Bitmap composition is given by BlockModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 block_mode_bitmap = 4;
+
+    enum Outcome {
+        OUTCOME_UNSPECIFIED = 0;
+        DROPPED = 1;
+        SUCCESS = 2;
+        ABORT = 3;
+        PRUNED = 4;
+        ERROR = 5;
+    }
+    // Outcome of the operation
+    optional Outcome outcome = 5;
+
+    // Response code or error code in case of error outcome
+    optional int32 error_code = 6;
+
+    // Indicates whether the key was upgraded during the operation
+    optional bool key_upgraded = 7;
 }
 
 // Blob Committer stats
