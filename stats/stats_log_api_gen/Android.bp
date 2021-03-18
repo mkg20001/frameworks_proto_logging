@@ -32,12 +32,10 @@ cc_binary_host {
         "-Werror",
     ],
 
-    stl: "c++_static",
-
-    static_libs: [
-        "libbase",
-        "libprotobuf-cpp-full",
+    shared_libs: [
         "libstats_proto_host",
+        "libprotobuf-cpp-full",
+        "libbase",
     ],
 
     proto: {
@@ -65,10 +63,10 @@ cc_test_host {
 
     static_libs: [
         "libgmock_host",
-        "libstats_proto_host",
     ],
 
     shared_libs: [
+        "libstats_proto_host",
         "libprotobuf-cpp-full",
     ],
 
