@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d2b6d0a_cfacf7d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1258293
+      },
+      "writtenOn": "2021-03-18T20:43:18Z",
+      "side": 1,
+      "message": "New field addition should be reviewed and approved by the following steps\n1. update the assoiciated eldar based on these additional fields\n2. reopen the metrics review request bug and ping the original reviewer to take a look",
+      "revId": "e3ebde7a9440d688a2efd82f9a7886377c838711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c54744_599396d5",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 5047,
+      "author": {
+        "id": 1258293
+      },
+      "writtenOn": "2021-03-18T20:43:18Z",
+      "side": 1,
+      "message": "uint64 is not supported for pushed atoms in atoms.proto. you should use int64 instead.",
+      "range": {
+        "startLine": 5047,
+        "startChar": 13,
+        "endLine": 5047,
+        "endChar": 19
+      },
+      "revId": "e3ebde7a9440d688a2efd82f9a7886377c838711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0461c18_0bb830ff",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 5053,
+      "author": {
+        "id": 1258293
+      },
+      "writtenOn": "2021-03-18T20:43:18Z",
+      "side": 1,
+      "message": "_millis is more preferred convention in this file",
+      "range": {
+        "startLine": 5053,
+        "startChar": 39,
+        "endLine": 5053,
+        "endChar": 40
+      },
+      "revId": "e3ebde7a9440d688a2efd82f9a7886377c838711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b58316a_5a4f582c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 5056,
+      "author": {
+        "id": 1258293
+      },
+      "writtenOn": "2021-03-18T20:43:18Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 5056,
+        "startChar": 54,
+        "endLine": 5056,
+        "endChar": 56
+      },
+      "revId": "e3ebde7a9440d688a2efd82f9a7886377c838711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
