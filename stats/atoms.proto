@@ -507,6 +507,7 @@ message Atom {
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
+        RkpErrorReported rkp_error_reported = 363;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -619,6 +620,7 @@ message Atom {
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
         Keystore2StorageStats keystore2_storage_stats = 10103;
+        RkpPoolStats rkp_pool_stats = 10104;
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -12206,10 +12208,35 @@ message Keystore2StorageStats {
        DATABASE = 15;
        LEGACY_STORAGE = 16;
     }
-    /**Type of the storage (database table or legacy storage) of which the size is reported.*/
+    // Type of the storage (database table or legacy storage) of which the size is reported.
     optional Storage storage_type = 1;
-    /**Storage size in bytes*/
+    // Storage size in bytes
     optional int64 size = 2;
+}
+
+/**
+ * Logs Remote Key Provisioning (RKP) related error events.
+ * Logged from: system/security/keystore2
+ */
+message RkpErrorReported {
+
+    enum RkpErrorEvent {
+        // The key pool is out of keys.
+        OUT_OF_KEYS = 1;
+        // Falling back to factory provisioned keys during hybrid mode.
+        FALL_BACK_DURING_HYBRID = 2;
+    }
+    // Type of the error event
+    optional RkpErrorEvent rkp_error_event = 1;
+}
+
+/**
+ * Logs: Count of keys in the key pool related to
+ * Remote Key Provisioning (RKP).
+ * Logged from: system/security/keystore2
+ */
+message RkpPoolStats {
+    optional int32 count_of_keys = 1;
 }
 
 // Blob Committer stats
