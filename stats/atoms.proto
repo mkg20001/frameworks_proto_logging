@@ -506,6 +506,7 @@ message Atom {
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
+        Keystore2CrashEventReported keystore2_crash_event_reported = 362;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -12173,6 +12174,12 @@ message Keystore2KeyOperationEventReported {
     // Indicates whether the key was upgraded during the operation
     optional bool key_upgraded = 7;
 }
+
+/**
+ * Logs: Keystore 2 crash events.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2CrashEventReported {}
 
 // Blob Committer stats
 // Keep in sync between:
