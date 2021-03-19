@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d15773_5f88ab9f",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 5053,
+      "author": {
+        "id": 1121838
+      },
+      "writtenOn": "2021-03-19T18:43:42Z",
+      "side": 1,
+      "message": "nit: maybe we should use int32 here as well? It is hard to keep track of what is signed or not signed. NBD though",
+      "range": {
+        "startLine": 5053,
+        "startChar": 13,
+        "endLine": 5053,
+        "endChar": 19
+      },
+      "revId": "28f12acf4e2683c5e8c0e53c9d3ae5966e584d05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
