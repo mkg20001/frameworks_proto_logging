@@ -619,6 +619,7 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
+        Keystore2StorageStats keystore2_storage_stats = 10101;
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -12153,6 +12154,35 @@ message Keystore2KeyOperationEventReported {
  * Logged from: system/security/keystore2
  */
 message Keystore2CrashEventReported {}
+
+/**
+ * Logs: Keystore 2 storage statistics.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2StorageStats {
+    enum Storage {
+       keyentry = 1;
+       keyentry_id_index = 2;
+       keyentry_domain_namespace_index = 3;
+       blobentry = 4;
+       blobentry_keyentryid_index = 5;
+       keyparameter = 6;
+       keyparameter_keyentryid_index = 7;
+       keymetadata = 8;
+       keymetadata_keyentryid_index = 9;
+       grant = 10;
+       authtoken = 11;
+       blobmetadata = 12;
+       blobmetadata_blobentryid_index =13;
+       metadata = 14;
+       database = 15;
+       legacy_storage = 16;
+    }
+    /**Type of the storage (database table or legacy storage) of which the size is reported.*/
+    optional Storage storage_type = 1;
+    /**Storage size in bytes*/
+    optional int64 size = 2;
+}
 
 // Blob Committer stats
 // Keep in sync between:
