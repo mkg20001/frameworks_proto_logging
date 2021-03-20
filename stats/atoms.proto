@@ -10367,6 +10367,11 @@ message ContactsProviderStatusReported {
         CALLER_IS_NOT_SYNC_ADAPTER = 2;
     }
 
+    enum TaskType {
+        UNKNOWN_TASK = 0;
+        DANGLING_CONTACTS_CLEANUP = 1;
+    }
+
     optional ApiType api_type = 1;
     // Defined in
     // packages/providers/ContactsProvider/src/com/android/providers/contacts/ContactsProvider2.java
@@ -10375,6 +10380,7 @@ message ContactsProviderStatusReported {
     optional ResultType result_type = 4;
     optional int32 result_count = 5;
     optional int64 latency_micros = 6;
+    optional TaskType task_type = 7;
 }
 
 /**
