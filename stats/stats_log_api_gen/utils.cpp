@@ -40,8 +40,8 @@ static vector<string> Split(const string& s, const string& delimiters) {
     return result;
 }
 
-static void build_non_chained_decl_map(const Atoms& atoms,
-                                       std::map<int, AtomDeclSet::const_iterator>* decl_map) {
+void build_non_chained_decl_map(const Atoms& atoms,
+                                std::map<int, AtomDeclSet::const_iterator>* decl_map) {
     for (AtomDeclSet::const_iterator atomIt = atoms.non_chained_decls.begin();
          atomIt != atoms.non_chained_decls.end(); atomIt++) {
         decl_map->insert(std::make_pair((*atomIt)->code, atomIt));

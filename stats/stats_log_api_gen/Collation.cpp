@@ -47,6 +47,7 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       name(that.name),
       message(that.message),
       fields(that.fields),
+      oneOfName(that.oneOfName),
       fieldNumberToAnnotations(that.fieldNumberToAnnotations),
       primaryFields(that.primaryFields),
       exclusiveField(that.exclusiveField),
@@ -56,7 +57,8 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       uidField(that.uidField) {
 }
 
-AtomDecl::AtomDecl(int c, const string& n, const string& m) : code(c), name(n), message(m) {
+AtomDecl::AtomDecl(int c, const string& n, const string& m, const string &o)
+    : code(c), name(n), message(m), oneOfName(o) {
 }
 
 AtomDecl::~AtomDecl() {
@@ -512,9 +514,18 @@ int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms*
             continue;
         }
 
+        const OneofDescriptor* oneofAtom = atomField->containing_oneof();
+        if (oneofAtom == nullptr) {
+            print_error(atomField, "Atom is not declared in a `oneof` field: %s\n",
+                        atomField->name().c_str());
+            errorCount++;
+            continue;
+        }
+
         const Descriptor* atom = atomField->message_type();
         shared_ptr<AtomDecl> atomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name());
+                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                      oneofAtom->name());
 
         if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
             addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
@@ -534,13 +545,7 @@ int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms*
             continue;
         }
 
-        const OneofDescriptor* oneofAtom = atomField->containing_oneof();
-        if (oneofAtom == nullptr) {
-            print_error(atomField, "Atom is not declared in a `oneof` field: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        } else if ((oneofAtom->name() != ONEOF_PUSHED_ATOM_NAME) &&
+        if ((oneofAtom->name() != ONEOF_PUSHED_ATOM_NAME) &&
                  (oneofAtom->name() != ONEOF_PULLED_ATOM_NAME)) {
             print_error(atomField, "Atom is neither a pushed nor pulled atom: %s\n",
                         atomField->name().c_str());
@@ -556,7 +561,8 @@ int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms*
         atoms->decls.insert(atomDecl);
 
         shared_ptr<AtomDecl> nonChainedAtomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name());
+                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                      oneofAtom->name());
         vector<java_type_t> nonChainedSignature;
         if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
             FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
