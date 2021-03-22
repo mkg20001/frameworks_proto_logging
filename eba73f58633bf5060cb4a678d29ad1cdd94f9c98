@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0156432_66d9fef1",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1416371
+      },
+      "writtenOn": "2021-03-22T22:24:12Z",
+      "side": 0,
+      "message": "This is fine since there are no users of this API yet, but just want to point out that dropping this derive would be a breaking change if we did have users.",
+      "revId": "eba73f58633bf5060cb4a678d29ad1cdd94f9c98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
