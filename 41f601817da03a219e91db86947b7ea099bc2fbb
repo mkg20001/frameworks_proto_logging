@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b8c80c2_07de8de6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2021-03-23T11:13:25Z",
+      "side": 1,
+      "message": "ART needs to switch back to the source module first, and the prebuilt needs to be cleaned up. This will be the last step - will revisit then.",
+      "revId": "41f601817da03a219e91db86947b7ea099bc2fbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
