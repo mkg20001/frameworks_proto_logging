@@ -9595,7 +9595,7 @@ message RebootEscrowRebootReported {
   optional int32 error_code = 1;
 
   // The uid of clients who requested the reboot
-  optional int32 request_uid = 2;
+  optional int32 request_uid = 2 [(is_uid) = true];
 
   // All clients that have prepared for RoR before this reboot
   optional int32 prepared_clients_count = 3;
