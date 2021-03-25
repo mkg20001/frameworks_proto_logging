@@ -12139,6 +12139,24 @@ enum ArtDexMetadataType {
   ART_DEX_METADATA_TYPE_ERROR = 5;
 }
 
+// Indicates the type of the apk.
+enum ArtApkType {
+    ART_APK_TYPE_UNKNOWN = 0;
+    ART_APK_TYPE_BASE = 1;
+    ART_APK_TYPE_SPLIT = 2;
+}
+
+// Indicates the ISA.
+enum ArtIsa {
+    ART_ISA_UNKNOWN = 0;
+    ART_ISA_ARM = 1;
+    ART_ISA_ARM64 = 2;
+    ART_ISA_X86 = 3;
+    ART_ISA_X86_64 = 4;
+    ART_ISA_MIPS = 5;
+    ART_ISA_MIPS64 = 6;
+}
+
 message ArtDatumReported {
     // The session ID is used to correlate this report with others from the same ART instance.
     optional int64 session_id = 1;
@@ -12166,4 +12184,10 @@ message ArtDatumReported {
 
     // The type of dex metadata
     optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // The type of the APK file.
+    optional ArtApkType apk_type = 10;
+
+    // The ISA of the device.
+    optional ArtIsa isa = 11;
 }
