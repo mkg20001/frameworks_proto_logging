@@ -12547,13 +12547,13 @@ message SimSpecificSettingsRestored {
  * frameworks/base/core/java/com/android/internal/os/BinderLatencyObserver.java
  */
 message BinderLatencyReported {
-    enum ProcessSource {
-        UNKNOWN_PROCESS_SOURCE = 0;
-        SYSTEM_SERVER = 1;
-        TELEPHONY = 2;
-    }
-
     message Dims {
+        enum ProcessSource {
+            UNKNOWN_PROCESS_SOURCE = 0;
+            SYSTEM_SERVER = 1;
+            TELEPHONY = 2;
+            BLUETOOTH = 3;
+        }
         enum ServiceClassName {
             UNKNOWN_CLASS = 0;
         }
@@ -12613,6 +12613,19 @@ message BinderLatencyReported {
     // 3rd API will be included in the data for this shard.
     // Required.
     optional int32 sharding_modulo = 3;
+
+    // Params for histogram buckets.
+    // The number of buckets the histogram should have.
+    optional int32 bucket_count = 4;
+
+    // The size (upper bound) of the first bucket (used to avoid creating an
+    // excessive amount of small buckets). E.g. for first_bucket_size of 5, the
+    // first bucket will be [0, 5) and the second will be [5, 5 * scaleFactor).
+    optional int32 first_bucket_size = 5;
+
+    // The rate in which each consecutive bucket increases (before rounding).
+    // Implemented in: com.android.internal.os.BinderLatencyBuckets.
+    optional float scale_factor = 6;
 }
 
 /*
