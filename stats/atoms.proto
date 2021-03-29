@@ -507,6 +507,7 @@ message Atom {
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
+        RkpErrorReported rkp_error_reported = 363;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -618,6 +619,8 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
+        Keystore2StorageStats keystore2_storage_stats = 10103;
+        RkpPoolStats rkp_pool_stats = 10104;
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -12181,6 +12184,61 @@ message Keystore2KeyOperationEventReported {
  */
 message Keystore2CrashEventReported {}
 
+/**
+ * Logs: Keystore 2 storage statistics.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2StorageStats {
+    enum Storage {
+       STORAGE_UNSPECIFIED = 0;
+       KEY_ENTRY = 1;
+       KEY_ENTRY_ID_INDEX = 2;
+       KEY_ENTRY_DOMAIN_NAMESPACE_INDEX = 3;
+       BLOB_ENTRY = 4;
+       BLOB_ENTRY_KEY_ENTRY_ID_INDEX = 5;
+       KEY_PARAMETER = 6;
+       KEY_PARAMETER_KEY_ENTRY_ID_INDEX = 7;
+       KEY_METADATA = 8;
+       KEY_METADATA_KEY_ENTRY_ID_INDEX = 9;
+       GRANT = 10;
+       AUTH_TOKEN = 11;
+       BLOB_METADATA = 12;
+       BLOB_METADATA_BLOB_ENTRY_ID_INDEX =13;
+       METADATA = 14;
+       DATABASE = 15;
+       LEGACY_STORAGE = 16;
+    }
+    // Type of the storage (database table or legacy storage) of which the size is reported.
+    optional Storage storage_type = 1;
+    // Storage size in bytes
+    optional int64 size = 2;
+}
+
+/**
+ * Logs Remote Key Provisioning (RKP) related error events.
+ * Logged from: system/security/keystore2
+ */
+message RkpErrorReported {
+
+    enum RkpErrorEvent {
+        // The key pool is out of keys.
+        OUT_OF_KEYS = 1;
+        // Falling back to factory provisioned keys during hybrid mode.
+        FALL_BACK_DURING_HYBRID = 2;
+    }
+    // Type of the error event
+    optional RkpErrorEvent rkp_error_event = 1;
+}
+
+/**
+ * Logs: Count of keys in the key pool related to
+ * Remote Key Provisioning (RKP).
+ * Logged from: system/security/keystore2
+ */
+message RkpPoolStats {
+    optional int32 count_of_keys = 1;
+}
+
 // Blob Committer stats
 // Keep in sync between:
 //     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
@@ -12326,6 +12384,12 @@ enum ArtDatumId {
     ART_DATUM_DEX2OAT_VERIFY_DEX_FILE_TIME = 13;
     ART_DATUM_DEX2OAT_FAST_VERIFY_TIME = 14;
     ART_DATUM_DEX2OAT_RESOLVE_METHODS_AND_FIELDS_TIME = 15;
+
+    ART_DATUM_CLASS_VERIFICATION_COUNT = 16;
+    ART_DATUM_GC_TOTAL_BYTES_ALLOCATED = 17;
+    ART_DATUM_GC_TOTAL_METADATA_SIZE = 18;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT = 19;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT = 20;
 }
 
 // Indicates what class of thread the reported values apply to.
