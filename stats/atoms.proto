@@ -509,6 +509,7 @@ message Atom {
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
         RkpErrorReported rkp_error_reported = 363;
+        OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -12493,3 +12494,98 @@ message ArtDatumReported {
     // The ISA of the device.
     optional ArtIsa isa = 11;
 }
+
+/*
+ * Logs information about on-device refresh of ART AOT artifacts for boot classpath extensions
+ * and system_server.
+ *
+ * Logged from:
+ *   art/odrefresh/odrefresh.cc
+ */
+message OdrefreshReported {
+    optional int64 art_apex_version = 1;
+
+    enum Trigger {
+        // A placeholder for unknown values.
+        TRIGGER_UNKNOWN = 0;
+
+        // ART apex version has changed since time artifacts were generated.
+        TRIGGER_APEX_VERSION_MISMATCH = 1;
+
+        // Dex files on the boot classpath or system_server classpath have changed.
+        TRIGGER_DEX_FILES_CHANGED = 2;
+
+        // Missing artifacts.
+        TRIGGER_MISSING_ARTIFACTS = 3;
+    }
+
+    optional Trigger trigger = 2;
+
+    enum Stage {
+        // A placeholder for unknown values.
+        STAGE_UNKNOWN = 0;
+
+        // Checking stage.
+        STAGE_CHECK = 10;
+
+        // Preparation for compilation.
+        STAGE_PREPARATION = 20;
+
+        // Compilation of primary boot classpath extensions.
+        STAGE_PRIMARY_BOOT_CLASSPATH = 30;
+
+        // Compilation of secondary boot classpath extensions.
+        STAGE_SECONDARY_BOOT_CLASSPATH = 40;
+
+        // Compilation of system_server classpath.
+        STAGE_SYSTEM_SERVER_CLASSPATH = 50;
+
+        // All stages completed.
+        STAGE_COMPLETE = 60;
+    }
+
+    optional Stage stage_reached = 3;
+
+    enum Status {
+        // A placeholder for unknown values.
+        STATUS_UNKNOWN = 0;
+
+        // OK, no problems encountered.
+        STATUS_OK = 1;
+
+        // Insufficient space.
+        STATUS_NO_SPACE = 2;
+
+        // Storage operation failed.
+        STATUS_IO_ERROR = 3;
+
+        // Dex2oat reported an error.
+        STATUS_DEX2OAT_ERROR = 4;
+
+        // Time limit exceeded.
+        STATUS_TIME_LIMIT_EXCEEDED = 5;
+
+        // Failure creating staging area.
+        STATUS_STAGING_FAILED = 6;
+
+        // Installation of artifacts failed.
+        STATUS_INSTALL_FAILED = 7;
+    }
+
+    optional Status status = 4;
+
+    // Compilation time iof primary boot classpath extensions.
+    optional int32 primary_bcp_compilation_seconds = 5;
+
+    // Compilation time of secondary boot classpath extensions.
+    optional int32 secondary_bcp_compilation_seconds = 6;
+
+    // Compilation time of system_server classpath.
+    optional int32 system_server_compilation_seconds = 7;
+
+    // Cache space at start of update.
+    optional int32 cache_space_free_start_mib = 8;
+
+    // Cache space at end of update.
+    optional int32 cache_space_free_end_mib = 9;
+};
