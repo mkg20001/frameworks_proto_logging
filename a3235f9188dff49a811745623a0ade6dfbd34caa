@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35771993_9c692533",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1416371
+      },
+      "writtenOn": "2021-04-05T17:22:45Z",
+      "side": 1,
+      "message": "Nit: Not a header.",
+      "revId": "a3235f9188dff49a811745623a0ade6dfbd34caa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
