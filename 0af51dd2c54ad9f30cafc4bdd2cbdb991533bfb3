@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a7c84b_35f59193",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1678423
+      },
+      "writtenOn": "2021-04-05T13:47:22Z",
+      "side": 1,
+      "message": "This is already merged in internal branch.",
+      "revId": "0af51dd2c54ad9f30cafc4bdd2cbdb991533bfb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
