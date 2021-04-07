@@ -21,7 +21,7 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-cc_library_host_static {
+cc_library_host_shared {
     name: "libstats_proto_host",
     srcs: [
         "atoms.proto",
@@ -32,7 +32,6 @@ cc_library_host_static {
     proto: {
         type: "full",
         export_proto_headers: true,
-        static: true,
         include_dirs: [
             "external/protobuf/src",
         ],

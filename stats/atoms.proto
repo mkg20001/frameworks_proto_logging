@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/stats/storage/storage_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/style/style_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/sysui/notification_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/tls/enums.proto";
+import "frameworks/proto_logging/stats/enums/system/security/keystore2/enums.proto";
 import "frameworks/proto_logging/stats/enums/telecomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/telephony/enums.proto";
 import "frameworks/proto_logging/stats/enums/view/enums.proto";
@@ -9544,6 +9545,13 @@ message UpdateEngineSuccessfulUpdateReported {
 
     // The number of reboot of the device during a successful update.
     optional int32 reboot_count = 7;
+
+    // Whether on device verity computation is enabled
+    optional bool fec_enabled = 8;
+
+    // Whether on device hash tree computation is enabled
+    optional bool hash_tree_enabled = 9;
+
 }
 
 /**
@@ -12096,6 +12104,9 @@ message Keystore2KeyCreationEventReported {
 
     // Indicates whether key attestation requested in creation
     optional bool attestation_requested = 12;
+
+    // Security level of the Keymint instance which creates the key.
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 13;
 }
 
 /**
@@ -12176,6 +12187,9 @@ message Keystore2KeyOperationEventReported {
 
     // Indicates whether the key was upgraded during the operation
     optional bool key_upgraded = 7;
+
+    // Security level of the Keymint instance which performs the operation.
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 8;
 }
 
 /**
@@ -12362,6 +12376,7 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY = 14;
     ART_COMPILATION_REASON_INSTALL_BULK_DOWNGRADED = 15;
     ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY_DOWNGRADED = 16;
+    ART_COMPILATION_REASON_BOOT_AFTER_OTA = 17;
 }
 
 // Indicates which kind of measurement ART is reporting.
@@ -12390,6 +12405,7 @@ enum ArtDatumId {
     ART_DATUM_GC_TOTAL_METADATA_SIZE = 18;
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT = 19;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT = 20;
+    ART_DATUM_JIT_METHOD_COMPILE_COUNT = 21;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -12407,6 +12423,24 @@ enum ArtDexMetadataType {
   ART_DEX_METADATA_TYPE_PROFILE_AND_VDEX = 3;
   ART_DEX_METADATA_TYPE_NONE = 4;
   ART_DEX_METADATA_TYPE_ERROR = 5;
+}
+
+// Indicates the type of the apk.
+enum ArtApkType {
+    ART_APK_TYPE_UNKNOWN = 0;
+    ART_APK_TYPE_BASE = 1;
+    ART_APK_TYPE_SPLIT = 2;
+}
+
+// Indicates the ISA.
+enum ArtIsa {
+    ART_ISA_UNKNOWN = 0;
+    ART_ISA_ARM = 1;
+    ART_ISA_ARM64 = 2;
+    ART_ISA_X86 = 3;
+    ART_ISA_X86_64 = 4;
+    ART_ISA_MIPS = 5;
+    ART_ISA_MIPS64 = 6;
 }
 
 message ArtDatumReported {
@@ -12436,4 +12470,10 @@ message ArtDatumReported {
 
     // The type of dex metadata
     optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // The type of the APK file.
+    optional ArtApkType apk_type = 10;
+
+    // The ISA of the device.
+    optional ArtIsa isa = 11;
 }
