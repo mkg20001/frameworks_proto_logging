@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c15b5d3a_52861cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1396722
+      },
+      "writtenOn": "2021-04-13T06:37:55Z",
+      "side": 1,
+      "message": "zhen yang, \nplease find my review comment. thanks.",
+      "revId": "0aeeec6b1f2607a0ae0af6a53ade5449499578c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358f238b_c23ddb49",
+        "filename": "stats/enums/stats/mediametrics/mediametrics.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1396722
+      },
+      "writtenOn": "2021-04-13T06:37:55Z",
+      "side": 1,
+      "message": "I\u0027m afraid we can\u0027t use float yet, as the helper functions to read and set is not available yet.  The best best would be a double, I am discussing with the metrics council whether to change it to double or introduce a new key?",
+      "range": {
+        "startLine": 249,
+        "startChar": 13,
+        "endLine": 249,
+        "endChar": 18
+      },
+      "revId": "0aeeec6b1f2607a0ae0af6a53ade5449499578c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
