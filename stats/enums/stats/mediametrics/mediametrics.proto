@@ -246,5 +246,5 @@ message RecorderData {
     optional int32 audio_timescale = 18;
     optional int32 video_timescale = 19;
     optional int32 video_bitrate = 20;
-    optional int32 iframe_interval = 21;
+    optional float iframe_interval = 21;
 }
