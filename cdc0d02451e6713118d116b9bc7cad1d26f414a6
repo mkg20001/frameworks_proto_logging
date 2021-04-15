@@ -16,6 +16,24 @@
       "message": "Can you update the eldar for the new atom fields you want to add \u0026 file a review request bug? Adding new fields for an existing atom go through the same review process as adding new atoms/metrics.",
       "revId": "cdc0d02451e6713118d116b9bc7cad1d26f414a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d01d548_bddcc575",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-04-15T01:12:30Z",
+      "side": 1,
+      "message": "You can assign the request bug to me since I have context. When you update the MDR, please also include how this would affect the existing metrics/upload size, so that the estimated upload size accounts for the new field.",
+      "parentUuid": "5813f828_5f672a49",
+      "revId": "cdc0d02451e6713118d116b9bc7cad1d26f414a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
