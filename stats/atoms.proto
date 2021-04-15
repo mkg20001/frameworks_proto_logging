@@ -34,14 +34,14 @@ import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/biometrics/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto";
-import "frameworks/proto_logging/stats/enums/net/networkcapabilities.proto";
+import "frameworks/proto_logging/stats/enums/net/enums.proto";
 import "frameworks/proto_logging/stats/enums/os/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
 import "frameworks/proto_logging/stats/enums/server/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/job/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/location/enums.proto";
+import "frameworks/proto_logging/stats/enums/service/enums.proto";
 import "frameworks/proto_logging/stats/enums/service/procstats_enum.proto";
-import "frameworks/proto_logging/stats/enums/service/usb.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/network_stack.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/tethering.proto";
 import "frameworks/proto_logging/stats/enums/stats/dnsresolver/dns_resolver.proto";
@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/stats/storage/storage_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/style/style_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/sysui/notification_enums.proto";
 import "frameworks/proto_logging/stats/enums/stats/tls/enums.proto";
+import "frameworks/proto_logging/stats/enums/system/security/keystore2/enums.proto";
 import "frameworks/proto_logging/stats/enums/telecomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/telephony/enums.proto";
 import "frameworks/proto_logging/stats/enums/view/enums.proto";
@@ -504,7 +505,10 @@ message Atom {
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
 
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
-
+        Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
+        Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
+        Keystore2CrashEventReported keystore2_crash_event_reported = 362;
+        RkpErrorReported rkp_error_reported = 363;
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -616,6 +620,8 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
+        Keystore2StorageStats keystore2_storage_stats = 10103;
+        RkpPoolStats rkp_pool_stats = 10104;
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -5042,6 +5048,18 @@ message SnapshotMergeReported {
 
     // Whether this update attempt uses Virtual A/B compression.
     optional bool vab_compression_used = 7;
+
+    // Total size used by COWs, including /data and the super partition.
+    optional int64 total_cow_size_bytes = 8;
+
+    // Sum of the estimated COW fields in the OTA manifest.
+    optional int64 estimated_cow_size_bytes = 9;
+
+    // Time from boot to sys.boot_completed, in milliseconds.
+    optional int32 boot_complete_time_millis = 10;
+
+    // Time from sys.boot_completed to merge start, in milliseconds.
+    optional int32 boot_complete_to_merge_start_time_millis = 11;
 }
 
 /**
@@ -7273,7 +7291,7 @@ message DataStallEvent {
     // See definition in data_stall_event.proto.
     optional com.android.server.connectivity.ProbeResult validation_result = 2;
     // See definition in data_stall_event.proto.
-    optional android.net.NetworkCapabilitiesProto.Transport network_type = 3;
+    optional android.net.Transport network_type = 3;
     // See definition in data_stall_event.proto.
     optional com.android.server.connectivity.WifiData wifi_info = 4 [(log_mode) = MODE_BYTES];
     // See definition in data_stall_event.proto.
@@ -7756,7 +7774,7 @@ message SpeechDspStatReported {
  */
 message UsbContaminantReported {
     optional string id = 1;
-    optional android.service.usb.ContaminantPresenceStatus status = 2;
+    optional android.service.ContaminantPresenceStatus status = 2;
 }
 
 /**
@@ -9539,6 +9557,13 @@ message UpdateEngineSuccessfulUpdateReported {
 
     // The number of reboot of the device during a successful update.
     optional int32 reboot_count = 7;
+
+    // Whether on device verity computation is enabled
+    optional bool fec_enabled = 8;
+
+    // Whether on device hash tree computation is enabled
+    optional bool hash_tree_enabled = 9;
+
 }
 
 /**
@@ -10218,6 +10243,7 @@ message CellBroadcastMessageFiltered {
         DUPLICATE_MESSAGE = 1;
         GEOFENCED_MESSAGE = 2;
         AREA_INFO_MESSAGE = 3;
+        DISABLED_BY_OEM = 4;
     }
 
     // GSM, CDMA, CDMA-SCP
@@ -11974,6 +12000,271 @@ message KeystoreKeyEventReported {
     optional int32 error_code = 14;
 }
 
+/**
+ * Logs: creation of different types of cryptographic keys in keystore2.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyCreationEventReported {
+
+    enum Algorithm {
+        // ALGORITHM is prepended because UNSPECIFIED exists in other enums as well.
+        ALGORITHM_UNSPECIFIED = 0;
+        // Asymmetric algorithms.
+        RSA = 1;
+        // 2 removed, do not reuse.
+        EC = 3;
+        // Block cipher algorithms
+        AES = 32;
+        TRIPLE_DES = 33;
+        // MAC algorithms
+        HMAC = 128;
+    };
+    // Algorithm associated with the key
+    optional Algorithm algorithm = 1;
+
+    // Size of the key, based on the algorithm used.
+    optional int32 key_size = 2;
+
+    enum KeyOrigin {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        ORIGIN_UNSPECIFIED = 0;
+        // Generated in keymaster.  Should not exist outside the TEE.
+        GENERATED = 1;
+        // Derived inside keymaster.  Likely exists off-device.
+        DERIVED = 2;
+        // Imported into keymaster.  Existed as cleartext in Android.
+        IMPORTED = 3;
+        // Previously used for another purpose that is now obsolete.
+        RESERVED = 4;
+        // Securely imported into Keymaster.
+        SECURELY_IMPORTED = 5;
+    };
+    // Logs whether the key was generated, imported, securely imported, or derived.
+    optional KeyOrigin key_origin = 3;
+
+    enum HardwareAuthenticatorType {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        AUTH_TYPE_UNSPECIFIED = 0;
+        NONE = 1;
+        PASSWORD = 2;
+        FINGERPRINT = 3;
+        ANY = 5;
+    };
+    /**
+     * What auth types does this key require? If none,
+     * then no auth required.
+     */
+    optional HardwareAuthenticatorType user_auth_type = 4;
+
+    /**
+     * If user authentication is required, is the requirement time based? If it
+     * is time based then this field indicates the time out in seconds.
+     */
+    optional int32 user_auth_key_timeout_seconds = 5;
+
+    /**
+     * Padding mode, digest, block_mode and purpose should ideally be repeated
+     * fields. However, since statsd does not support repeated fields in
+     * pushed atoms, they are represented using bitmaps.
+     */
+
+    /**
+     * Track which padding mode is being used.
+     * Bitmap composition is given by PaddingModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 padding_mode_bitmap = 6;
+
+    /**
+     * Track which digest is being used.
+     * Bitmap composition is given by DigestBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 digest_bitmap = 7;
+
+    /**
+     * Track which block mode is being used.
+     * Bitmap composition is given by BlockModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 block_mode_bitmap = 8;
+
+    /**
+     * Track which purpose is being used.
+     * Bitmap composition is given by KeyPurposeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 purpose_bitmap = 9;
+
+    enum EcCurve {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        EC_CURVE_UNSPECIFIED = 0;
+        P_224 = 1;
+        P_256 = 2;
+        P_384 = 3;
+        P_521 = 4;
+    };
+    // Which ec curve was selected if elliptic curve cryptography is in use
+    optional EcCurve ec_curve = 10;
+
+    /**
+     * Response code (system/hardware/interfaces/keystore2/aidl/../ResponseCode.aidl)
+     * or
+     * error code (hardware/interfaces/security/keymint/aidl/../ErrorCode.aidl)
+     */
+    optional int32 error_code = 11;
+
+    // Indicates whether key attestation requested in creation
+    optional bool attestation_requested = 12;
+
+    // Security level of the Keymint instance which creates the key.
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 13;
+}
+
+/**
+ * Logs operations using cryptographic keys in keystore2.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyOperationEventReported {
+
+    enum KeyPurpose {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        KEY_PURPOSE_UNSPECIFIED = 0;
+
+        // Usable with RSA, EC and AES keys.
+        ENCRYPT = 1;
+
+        // Usable with RSA, EC and AES keys.
+        DECRYPT = 2;
+
+        // Usable with RSA, EC and HMAC keys.
+        SIGN = 3;
+
+        // Usable with RSA, EC and HMAC keys.
+        VERIFY = 4;
+
+        // 5 is reserved
+        // Usable with wrapping keys.
+        WRAP_KEY = 6;
+
+        // Key Agreement, usable with EC keys.
+        AGREE_KEY = 7;
+
+        // Usable as an attestation signing key.
+        ATTEST_KEY = 8;
+    }
+    // Purpose of the key operation
+    optional KeyPurpose purpose = 1;
+
+    /**
+     * Padding mode, digest, block_mode and purpose should ideally be repeated
+     * fields. However, since statsd does not support repeated fields in
+     * pushed atoms, they are represented using bitmaps.
+     */
+
+    /**
+     * Track which padding mode is being used.
+     * Bitmap composition is given by PaddingModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 padding_mode_bitmap = 2;
+
+    /**
+     * Track which digest is being used.
+     * Bitmap composition is given by DigestBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 digest_bitmap = 3;
+
+    /**
+     * Track which block mode is being used.
+     * Bitmap composition is given by BlockModeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
+     */
+    optional int32 block_mode_bitmap = 4;
+
+    enum Outcome {
+        OUTCOME_UNSPECIFIED = 0;
+        DROPPED = 1;
+        SUCCESS = 2;
+        ABORT = 3;
+        PRUNED = 4;
+        ERROR = 5;
+    }
+    // Outcome of the operation
+    optional Outcome outcome = 5;
+
+    // Response code or error code in case of error outcome
+    optional int32 error_code = 6;
+
+    // Indicates whether the key was upgraded during the operation
+    optional bool key_upgraded = 7;
+
+    // Security level of the Keymint instance which performs the operation.
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 8;
+}
+
+/**
+ * Logs: Keystore 2 crash events.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2CrashEventReported {}
+
+/**
+ * Logs: Keystore 2 storage statistics.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2StorageStats {
+    enum Storage {
+       STORAGE_UNSPECIFIED = 0;
+       KEY_ENTRY = 1;
+       KEY_ENTRY_ID_INDEX = 2;
+       KEY_ENTRY_DOMAIN_NAMESPACE_INDEX = 3;
+       BLOB_ENTRY = 4;
+       BLOB_ENTRY_KEY_ENTRY_ID_INDEX = 5;
+       KEY_PARAMETER = 6;
+       KEY_PARAMETER_KEY_ENTRY_ID_INDEX = 7;
+       KEY_METADATA = 8;
+       KEY_METADATA_KEY_ENTRY_ID_INDEX = 9;
+       GRANT = 10;
+       AUTH_TOKEN = 11;
+       BLOB_METADATA = 12;
+       BLOB_METADATA_BLOB_ENTRY_ID_INDEX =13;
+       METADATA = 14;
+       DATABASE = 15;
+       LEGACY_STORAGE = 16;
+    }
+    // Type of the storage (database table or legacy storage) of which the size is reported.
+    optional Storage storage_type = 1;
+    // Storage size in bytes
+    optional int64 size = 2;
+}
+
+/**
+ * Logs Remote Key Provisioning (RKP) related error events.
+ * Logged from: system/security/keystore2
+ */
+message RkpErrorReported {
+
+    enum RkpErrorEvent {
+        // The key pool is out of keys.
+        OUT_OF_KEYS = 1;
+        // Falling back to factory provisioned keys during hybrid mode.
+        FALL_BACK_DURING_HYBRID = 2;
+    }
+    // Type of the error event
+    optional RkpErrorEvent rkp_error_event = 1;
+}
+
+/**
+ * Logs: Count of keys in the key pool related to
+ * Remote Key Provisioning (RKP).
+ * Logged from: system/security/keystore2
+ */
+message RkpPoolStats {
+    optional int32 count_of_keys = 1;
+}
+
 // Blob Committer stats
 // Keep in sync between:
 //     frameworks/proto_logging/stats/enums/server/blobstoremanagerservice.proto
@@ -12097,6 +12388,7 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY = 14;
     ART_COMPILATION_REASON_INSTALL_BULK_DOWNGRADED = 15;
     ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY_DOWNGRADED = 16;
+    ART_COMPILATION_REASON_BOOT_AFTER_OTA = 17;
 }
 
 // Indicates which kind of measurement ART is reporting.
@@ -12119,6 +12411,13 @@ enum ArtDatumId {
     ART_DATUM_DEX2OAT_VERIFY_DEX_FILE_TIME = 13;
     ART_DATUM_DEX2OAT_FAST_VERIFY_TIME = 14;
     ART_DATUM_DEX2OAT_RESOLVE_METHODS_AND_FIELDS_TIME = 15;
+
+    ART_DATUM_CLASS_VERIFICATION_COUNT = 16;
+    ART_DATUM_GC_TOTAL_BYTES_ALLOCATED = 17;
+    ART_DATUM_GC_TOTAL_METADATA_SIZE = 18;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT = 19;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT = 20;
+    ART_DATUM_JIT_METHOD_COMPILE_COUNT = 21;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -12136,6 +12435,24 @@ enum ArtDexMetadataType {
   ART_DEX_METADATA_TYPE_PROFILE_AND_VDEX = 3;
   ART_DEX_METADATA_TYPE_NONE = 4;
   ART_DEX_METADATA_TYPE_ERROR = 5;
+}
+
+// Indicates the type of the apk.
+enum ArtApkType {
+    ART_APK_TYPE_UNKNOWN = 0;
+    ART_APK_TYPE_BASE = 1;
+    ART_APK_TYPE_SPLIT = 2;
+}
+
+// Indicates the ISA.
+enum ArtIsa {
+    ART_ISA_UNKNOWN = 0;
+    ART_ISA_ARM = 1;
+    ART_ISA_ARM64 = 2;
+    ART_ISA_X86 = 3;
+    ART_ISA_X86_64 = 4;
+    ART_ISA_MIPS = 5;
+    ART_ISA_MIPS64 = 6;
 }
 
 message ArtDatumReported {
@@ -12165,4 +12482,10 @@ message ArtDatumReported {
 
     // The type of dex metadata
     optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // The type of the APK file.
+    optional ArtApkType apk_type = 10;
+
+    // The ISA of the device.
+    optional ArtIsa isa = 11;
 }

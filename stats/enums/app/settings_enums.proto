@@ -2691,4 +2691,9 @@ enum PageId {
 
     // OS: R QPR2
     BLUETOOTH_PAIRING_RECEIVER = 1851;
+
+    // OPEN: Settings > System -> Reset options > Erase downloaded SIMs
+    // CATEGORY: SETTINGS
+    // OS: S
+    RESET_EUICC = 1857;
 }

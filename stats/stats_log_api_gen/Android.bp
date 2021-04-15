@@ -37,12 +37,10 @@ cc_binary_host {
         "-Werror",
     ],
 
-    stl: "c++_static",
-
-    static_libs: [
-        "libbase",
-        "libprotobuf-cpp-full",
+    shared_libs: [
         "libstats_proto_host",
+        "libprotobuf-cpp-full",
+        "libbase",
     ],
 
     proto: {
@@ -70,10 +68,10 @@ cc_test_host {
 
     static_libs: [
         "libgmock_host",
-        "libstats_proto_host",
     ],
 
     shared_libs: [
+        "libstats_proto_host",
         "libprotobuf-cpp-full",
     ],
 
@@ -160,6 +158,28 @@ cc_library {
 // ==========================================================
 
 genrule {
+    name: "statslog_header.rs",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --rustHeader $(genDir)/statslog_header.rs",
+    out: [
+        "statslog_header.rs",
+    ],
+}
+
+rust_library {
+    name: "libstatslog_rust_header",
+    crate_name: "statslog_rust_header",
+    srcs: [
+        "rust_header_wrapper.rs",
+        ":statslog_header.rs",
+    ],
+    rustlibs: [
+        "libstatspull_bindgen",
+        "libthiserror",
+    ],
+}
+
+genrule {
     name: "statslog.rs",
     tools: ["stats-log-api-gen"],
     cmd: "$(location stats-log-api-gen) --rust $(genDir)/statslog.rs",
@@ -176,17 +196,7 @@ rust_library {
         ":statslog.rs",
     ],
     rustlibs: [
-        "libnum_traits",
+        "libstatslog_rust_header",
         "libstatspull_bindgen",
-        "libthiserror",
     ],
-    proc_macros: ["libnum_derive"],
-    target: {
-        android: {
-            shared_libs: ["libstatspull"],
-        },
-        host: {
-            static_libs: ["libstatspull"],
-        },
-    },
 }

@@ -21,35 +21,21 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-cc_library_host_static {
+cc_library_host_shared {
     name: "libstats_proto_host",
     srcs: [
         "atoms.proto",
         "atom_field_options.proto",
-    ],
-
-    // This is only needed because there is no export_whole_static_lib_headers.
-    static_libs: [
-        "libplatformprotos",
-    ],
-
-    whole_static_libs: [
-        "libplatformprotos",
+        "enums/**/*.proto",
     ],
 
     proto: {
         type: "full",
         export_proto_headers: true,
-        static: true,
         include_dirs: [
             "external/protobuf/src",
         ],
     },
-
-    export_static_lib_headers: [
-        "libplatformprotos",
-    ]
-
 }
 
 filegroup {

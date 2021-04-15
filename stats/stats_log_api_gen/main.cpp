@@ -30,6 +30,7 @@ static void print_usage() {
     fprintf(stderr, "  --help               this message\n");
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
     fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
+    fprintf(stderr, "  --rustHeader FILENAME the rust file to output for write helpers\n");
     fprintf(stderr, "  --module NAME        optional, module name to generate outputs for\n");
     fprintf(stderr,
             "  --namespace COMMA,SEP,NAMESPACE   required for cpp/header with "
@@ -66,6 +67,7 @@ static int run(int argc, char const* const* argv) {
     string javaPackage;
     string javaClass;
     string rustFilename;
+    string rustHeaderFilename;
 
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
@@ -107,6 +109,13 @@ static int run(int argc, char const* const* argv) {
                 return 1;
             }
             rustFilename = argv[index];
+        } else if (0 == strcmp("--rustHeader", argv[index])) {
+            index++;
+            if (index >= argc) {
+                print_usage();
+                return 1;
+            }
+            rustHeaderFilename = argv[index];
         } else if (0 == strcmp("--module", argv[index])) {
             index++;
             if (index >= argc) {
@@ -170,7 +179,8 @@ static int run(int argc, char const* const* argv) {
     }
 
     if (cppFilename.empty() && headerFilename.empty()
-        && javaFilename.empty() && rustFilename.empty()) {
+        && javaFilename.empty() && rustFilename.empty()
+        && rustHeaderFilename.empty()) {
         print_usage();
         return 1;
     }
@@ -289,7 +299,7 @@ static int run(int argc, char const* const* argv) {
         fclose(out);
     }
 
-    // Write the .rs file
+    // Write the main .rs file
     if (!rustFilename.empty()) {
         FILE* out = fopen(rustFilename.c_str(), "w");
         if (out == nullptr) {
@@ -299,6 +309,20 @@ static int run(int argc, char const* const* argv) {
 
         errorCount += android::stats_log_api_gen::write_stats_log_rust(
                 out, atoms, attributionDecl, minApiLevel);
+
+        fclose(out);
+    }
+
+    // Write the header .rs file
+    if (!rustHeaderFilename.empty()) {
+        FILE* out = fopen(rustHeaderFilename.c_str(), "w");
+        if (out == nullptr) {
+            fprintf(stderr, "Unable to open file for write: %s\n", rustHeaderFilename.c_str());
+            return 1;
+        }
+
+        android::stats_log_api_gen::write_stats_log_rust_header(
+                out, atoms, attributionDecl);
 
         fclose(out);
     }
