@@ -39,6 +39,30 @@
       },
       "revId": "0aeeec6b1f2607a0ae0af6a53ade5449499578c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4dc4e0_c1b669bd",
+        "filename": "stats/enums/stats/mediametrics/mediametrics.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1108919
+      },
+      "writtenOn": "2021-04-27T17:04:58Z",
+      "side": 1,
+      "message": "i think this must be a new key/field number.\nThere are devices in the field that know that field #21 is an int32",
+      "parentUuid": "358f238b_c23ddb49",
+      "range": {
+        "startLine": 249,
+        "startChar": 13,
+        "endLine": 249,
+        "endChar": 18
+      },
+      "revId": "0aeeec6b1f2607a0ae0af6a53ade5449499578c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
