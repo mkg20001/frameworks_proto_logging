@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13fc804_fc9c7759",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-30T03:42:54Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (and assuming maze@ has no other concerns).",
+      "revId": "e0b2a4b7002a71ec06056f83cdc71d5aba724af6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "febae2ac_28eb1508",
@@ -42,6 +59,29 @@
         "startChar": 20,
         "endLine": 184,
         "endChar": 38
+      },
+      "revId": "e0b2a4b7002a71ec06056f83cdc71d5aba724af6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5031335_9f11c304",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-30T03:42:54Z",
+      "side": 1,
+      "message": "An enum for IPv4 vs IPv6 seems like it would be useful for many metrics, not just NUD. Can we define a common enum? For example, can we do something like:\n\nenum IpType {\n    UNKNOWN,\n    IPV4 \u003d 4,\n    IPV6 \u003d 6,\n}",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 1
       },
       "revId": "e0b2a4b7002a71ec06056f83cdc71d5aba724af6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
