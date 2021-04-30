@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "febae2ac_28eb1508",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 7210,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-30T03:37:04Z",
+      "side": 1,
+      "message": "Don\u0027t we already have an IpType enum somewhere else in our metrics?",
+      "range": {
+        "startLine": 7210,
+        "startChar": 40,
+        "endLine": 7210,
+        "endChar": 57
+      },
+      "revId": "e0b2a4b7002a71ec06056f83cdc71d5aba724af6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e8a4efa_4eaa1165",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-30T03:37:04Z",
+      "side": 1,
+      "message": "Someone reading this code might think that NUD_POST_ROAMING_PROVISIONING_LOST is not a failure. But it actually is a failure - it\u0027s a failure that is important enough to cause the code to think that provisioning is lost. Suggest renaming these to:\n\nNUD_POST_ROAMING_FAILED_PROVISIONING_LOST\nNUD_CONFIRM_FAILED_PROVISIONING_LOST\nNUD_FAILED_ORGANIC_PROVISIONING_LOST\n\nor perhaps even better:\n\nNUD_POST_ROAMING_FAILED_CRITICAL\nNUD_CONFIRM_FAILED_CRITICAL\nNUD_ORGANIC_FAILED_CRITICAL",
+      "range": {
+        "startLine": 184,
+        "startChar": 20,
+        "endLine": 184,
+        "endChar": 38
+      },
+      "revId": "e0b2a4b7002a71ec06056f83cdc71d5aba724af6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
