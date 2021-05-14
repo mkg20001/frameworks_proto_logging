@@ -174,6 +174,48 @@ enum NetworkQuirkEvent {
     QE_IPV6_PROVISIONING_ROUTER_LOST = 1;
 }
 
+enum IpType {
+    // Unknown IP address type;
+    UNKNOWN = 0;
+    // IPv4 address;
+    IPV4 = 4;
+    // IPv6 address;
+    IPV6 = 6;
+}
+
+enum NudEventType {
+    // Unknown event type;
+    NUD_EVENT_UNKNOWN = 0;
+    // Forced nud probe after roaming from IpReachabilityMonitor, neighbor is unreachable;
+    NUD_POST_ROAMING_FAILED = 1;
+    // Forced nud probe after roaming from IpReachabilityMonitor, neighbor is unreachable and
+    // IP provisioning lost;
+    NUD_POST_ROAMING_FAILED_CRITICAL = 2;
+    // Forced nud probe after receiving CMD_CONFIRM from IpReachabilityMonitor, neighbor is
+    // unreachable;
+    NUD_CONFIRM_FAILED = 3;
+    // Forced nud probe after receiving CMD_CONFIRM from IpReachabilityMonitor, neighbor is
+    // unreachable and IP provisioning lost;
+    NUD_CONFIRM_FAILED_CRITICAL = 4;
+    // Neighbor unreachable notification from kernel;
+    NUD_ORGANIC_FAILED = 5;
+    // Neighbor unreachable notification from kernel, and IP provisioning is also lost;
+    NUD_ORGANIC_FAILED_CRITICAL = 6;
+    // NUD probe failure due to neighbor's MAC address has changed.
+    NUD_MAC_ADDRESS_CHANGED = 7;
+}
+
+enum NudNeighborType {
+    // Unknown neighbor type;
+    NUD_NEIGHBOR_UNKNOWN = 0;
+    // Neighbor is default gateway;
+    NUD_NEIGHBOR_GATEWAY = 1;
+    // Neighbor is DNS server;
+    NUD_NEIGHBOR_DNS = 2;
+    // Neighbor is both the default gateway and DNS server;
+    NUD_NEIGHBOR_BOTH = 3;
+}
+
 message NetworkStackEventData {
 
 }
