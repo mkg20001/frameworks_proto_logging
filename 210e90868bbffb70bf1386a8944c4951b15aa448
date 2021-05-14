@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60dabcd7_9873d244",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-05-14T08:50:23Z",
+      "side": 1,
+      "message": "This change just copies from ag/14395582, and cherry-pick back to AOSP with a different assigned proto number, that\u0027s conflict with number defined in the sc-dev.",
+      "revId": "210e90868bbffb70bf1386a8944c4951b15aa448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
