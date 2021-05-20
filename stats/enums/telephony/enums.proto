@@ -286,3 +286,38 @@ enum CodecQuality {
     /** Codec quality: fullband */
     CODEC_QUALITY_FULLBAND = 4;
 }
+
+
+// Result from restore of sim-specific settings.
+enum SimSpecfifcSettingsRestoreResult {
+    SIM_RESTORE_RESULT_UNKNOWN = 0;
+    // SIM-specific settings were successfully restored.
+    SIM_RESTORE_RESULT_SUCCESS = 1;
+    // SIM-specific settings didn't restore because no matching SIM was
+    // found in backed up data.
+    SIM_RESTORE_RESULT_NONE_MATCH = 2;
+    // No SIM-specific settings were found in backup file
+    SIM_RESTORE_RESULT_ZERO_SIM_IN_BACKUP = 3;
+}
+
+// Case of sim-specific settings restore.
+enum SimSpecificSettingsRestoreCase {
+    SIM_RESTORE_CASE_UNDEFINED_USE_CASE = 0;
+    // Restore was done during SuW.
+    SIM_RESTORE_CASE_SUW = 1;
+    // Restore was done once sim was inserted.
+    SIM_RESTORE_CASE_SIM_INSERTED = 2;
+}
+
+// Matching criteria for sim-specific settings restore.
+enum SimSpecificSettingsRestoreMatchingCriteria {
+    SIM_RESTORE_MATCHING_CRITERIA_UNSET= 0;
+    // No match was found.
+    SIM_RESTORE_MATCHING_CRITERIA_NONE = 1;
+    // Restore was done by matching two sims by ICCID.
+    SIM_RESTORE_MATCHING_CRITERIA_ICCID = 2;
+    // Restore was done by matching carrierId and phoneNumber.
+    SIM_RESTORE_MATCHING_CRITERIA_CARRIER_ID_AND_PHONE_NUMBER = 3;
+    // Restore was done by matching carrierId only.
+    SIM_RESTORE_MATCHING_CRITERIA_CARRIER_ID_ONLY = 4;
+}
