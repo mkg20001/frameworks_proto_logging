@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23cd7766_b29d4e8f",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12449,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-05-24T15:05:07Z",
+      "side": 1,
+      "message": "could you fix this as well? (pretty please :)",
+      "range": {
+        "startLine": 12446,
+        "startChar": 0,
+        "endLine": 12449,
+        "endChar": 59
+      },
+      "revId": "29b1a011e4660bb0173a57e05b49b14708080a92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
