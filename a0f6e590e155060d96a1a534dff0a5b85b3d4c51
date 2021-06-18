@@ -46,6 +46,30 @@
       },
       "revId": "a0f6e590e155060d96a1a534dff0a5b85b3d4c51",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ddf232d_3f34335b",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12499,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-06-18T17:23:20Z",
+      "side": 1,
+      "message": "Can you fix both? :)",
+      "parentUuid": "fa1d47e2_6295896e",
+      "range": {
+        "startLine": 12499,
+        "startChar": 4,
+        "endLine": 12499,
+        "endChar": 65
+      },
+      "revId": "a0f6e590e155060d96a1a534dff0a5b85b3d4c51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
