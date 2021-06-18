@@ -22,6 +22,30 @@
       },
       "revId": "a0f6e590e155060d96a1a534dff0a5b85b3d4c51",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa1d47e2_6295896e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12499,
+      "author": {
+        "id": 1258954
+      },
+      "writtenOn": "2021-06-18T17:17:09Z",
+      "side": 1,
+      "message": "I can do that. I copied and modified the line above \"ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_MB_PER_SEC\", which is also a histogram.",
+      "parentUuid": "d6c523cc_a2bcd5ff",
+      "range": {
+        "startLine": 12499,
+        "startChar": 4,
+        "endLine": 12499,
+        "endChar": 65
+      },
+      "revId": "a0f6e590e155060d96a1a534dff0a5b85b3d4c51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
