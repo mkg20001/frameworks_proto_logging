@@ -16,6 +16,24 @@
       "message": "I don\u0027t have permission to submit this CL. Can anyone please merge the whole topic. Thanks.",
       "revId": "8a1a711c908173301fef0d1540dbb19bef28a8b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2cfc9f9_9188658e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-06-23T17:17:38Z",
+      "side": 1,
+      "message": "You should be able to merge it now. Owners vote was missing.",
+      "parentUuid": "7ae373e7_adf3c2ac",
+      "revId": "8a1a711c908173301fef0d1540dbb19bef28a8b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
