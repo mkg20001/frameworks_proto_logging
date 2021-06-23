@@ -7215,6 +7215,12 @@ message DhcpSession {
 
     // The result of DHCP hostname transliteration
     optional android.stats.connectivity.HostnameTransResult ht_result = 6;
+
+    // The received ack packet count.
+    optional int32 ack_count = 7;
+
+    // The received nak packet count.
+    optional int32 nak_count = 8;
 }
 
 /**
