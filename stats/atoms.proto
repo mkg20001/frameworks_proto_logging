@@ -151,10 +151,10 @@ message Atom {
         AppStartOccurred app_start_occurred = 48 [(module) = "framework", (module) = "statsdtest"];
         AppStartCanceled app_start_canceled = 49 [(module) = "framework"];
         AppStartFullyDrawn app_start_fully_drawn = 50 [(module) = "framework"];
-        LmkKillOccurred lmk_kill_occurred = 51 [(module) = "lmkd"];
+        LmkKillOccurred lmk_kill_occurred = 51 [(module) = "framework"];
         PictureInPictureStateChanged picture_in_picture_state_changed = 52 [(module) = "framework"];
         WifiMulticastLockStateChanged wifi_multicast_lock_state_changed = 53 [(module) = "wifi"];
-        LmkStateChanged lmk_state_changed = 54 [(module) = "lmkd"];
+        LmkStateChanged lmk_state_changed = 54 [(module) = "framework"];
         AppStartMemoryStateCaptured app_start_memory_state_captured = 55 [(module) = "framework"];
         ShutdownSequenceReported shutdown_sequence_reported = 56 [(module) = "framework"];
         BootSequenceReported boot_sequence_reported = 57;
@@ -495,6 +495,8 @@ message Atom {
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+        SimSpecificSettingsRestored sim_specific_settings_restored = 334
+            [(module) = "telephony"];
         PinStorageEvent pin_storage_event = 336 [(module) = "telephony"];
         BluetoothHALCrashReasonReported bluetooth_hal_crash_reason_reported =
             338 [(module) = "bluetooth"];
@@ -503,12 +505,16 @@ message Atom {
         RebootEscrowLskfCaptureReported reboot_escrow_lskf_capture_reported =
             340 [(module) = "framework"];
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
-
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
+        BinderLatencyReported binder_latency_reported = 342 [(module) = "framework"];
         Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
         Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
         Keystore2CrashEventReported keystore2_crash_event_reported = 362;
         RkpErrorReported rkp_error_reported = 363;
+        OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
+        NetworkIpReachabilityMonitorReported network_ip_reachability_monitor_reported =
+            367 [(module) = "network_stack"];
+
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -622,6 +628,7 @@ message Atom {
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
         Keystore2StorageStats keystore2_storage_stats = 10103;
         RkpPoolStats rkp_pool_stats = 10104;
+        TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -5022,6 +5029,28 @@ message SnapshotMergeReported {
         CANCELLED = 7;
     };
 
+    // Status codes correspond to specific failure conditions in
+    // system/core/fs_mgr/libsnapshot/android/snapshot/snapshot.cpp
+    //
+    // Keep in sync with
+    // system/core/fs_mgr/libsnapshot/android/snapshot/snapshot.proto
+    enum MergeFailureCode {
+        OK = 0;
+        READ_STATUS = 1;
+        GET_TABLE_INFO = 2;
+        UNKNOWN_TABLE = 3;
+        GET_TABLE_PARAMS = 4;
+        ACTIVATE_NEW_TABLE = 5;
+        ACQUIRE_LOCK = 6;
+        LIST_SNAPSHOTS = 7;
+        WRITE_STATUS = 8;
+        UNKNOWN_TARGET_TYPE = 9;
+        QUERY_SNAPSHOT_STATUS = 10;
+        EXPECTED_MERGE_TARGET = 11;
+        UNMERGED_SECTORS_AFTER_COMPLETION = 12;
+        UNEXPECTED_MERGE_STATE = 13;
+    };
+
     // Status of the update after the merge attempts.
     optional UpdateState final_state = 1;
 
@@ -5048,6 +5077,20 @@ message SnapshotMergeReported {
 
     // Whether this update attempt uses Virtual A/B compression.
     optional bool vab_compression_used = 7;
+
+    // Total size used by COWs, including /data and the super partition.
+    optional int64 total_cow_size_bytes = 8;
+
+    // Sum of the estimated COW fields in the OTA manifest.
+    optional int64 estimated_cow_size_bytes = 9;
+
+    // Time from boot to sys.boot_completed, in milliseconds.
+    optional int32 boot_complete_time_millis = 10;
+
+    // Time from sys.boot_completed to merge start, in milliseconds.
+    optional int32 boot_complete_to_merge_start_time_millis = 11;
+
+    optional MergeFailureCode merge_failure_code = 12;
 }
 
 /**
@@ -7263,6 +7306,22 @@ message NetworkStackQuirkReported {
 
     // Record each Quirk event
     optional android.stats.connectivity.NetworkQuirkEvent event = 2;
+}
+
+/**
+ * Logs Neighbor Unreachability Detection event
+ * Logged from:
+ * packages/modules/NetworkStack/src/com/android/networkstack/metrics/NetworkIpReachabilityMonitorMetrics.java
+ */
+message NetworkIpReachabilityMonitorReported {
+    // Neighbor Unreachability Detection event.
+    optional android.stats.connectivity.NudEventType event_type = 1;
+
+    // NUD probe based on IPv4 ARP or IPv6 ND packet.
+    optional android.stats.connectivity.IpType ip_type = 2;
+
+    // NUD neighbor type, default gateway, DNS server or both.
+    optional android.stats.connectivity.NudNeighborType neighbor_type = 3;
 }
 
 /**
@@ -9603,7 +9662,7 @@ message RebootEscrowRebootReported {
   optional int32 error_code = 1;
 
   // The uid of clients who requested the reboot
-  optional int32 request_uid = 2;
+  optional int32 request_uid = 2 [(is_uid) = true];
 
   // All clients that have prepared for RoR before this reboot
   optional int32 prepared_clients_count = 3;
@@ -10669,6 +10728,22 @@ message SupportedRadioAccessFamily {
 }
 
 /**
+ * Pulls information about network requests.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message TelephonyNetworkRequests {
+    // Carrier ID of the SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 1;
+    // Number of times the enterprise capability was requested.
+    optional int32 enterprise_request_count = 2;
+    // Number of times the enterprise capability was released.
+    optional int32 enterprise_release_count = 3;
+}
+
+/**
  * Pulls information for a single incoming SMS.
  *
  * Each pull creates multiple atoms, one for each SMS. The sequence is randomized when pulled.
@@ -11063,14 +11138,20 @@ message PinStorageEvent {
         PIN_VERIFICATION_SUCCESS = 1;
         // The PIN was verified automatically unsuccessfully.
         PIN_VERIFICATION_FAILURE = 2;
-        // The PIN was cached, but discarded after reboot.
+        // The PIN(s) was cached, but discarded after reboot (e.g. SIM not present after reboot).
         CACHED_PIN_DISCARDED = 3;
-        // The PIN was stored to be used after unattended reboot.
+        // The PIN(s) was stored to be used after unattended reboot.
         PIN_STORED_FOR_VERIFICATION = 4;
-        // The PIN is not available for storage and will be required after unattended reboot.
+        // The PIN(s) is not available for storage and will be required after unattended reboot.
         PIN_REQUIRED_AFTER_REBOOT = 5;
         // The PIN was not verified automatically because the SIM card did not match.
         PIN_VERIFICATION_SKIPPED_SIM_CARD_MISMATCH = 6;
+        // The available PINs after reboot does not match the number of stored PINs before reboot.
+        PIN_COUNT_NOT_MATCHING_AFTER_REBOOT = 7;
+        // Error while decrypting the PIN
+        PIN_DECRYPTION_ERROR = 8;
+        // Error while encrypting the PIN
+        PIN_ENCRYPTION_ERROR = 9;
     }
     optional Event event = 1;
 
@@ -12226,6 +12307,9 @@ message Keystore2StorageStats {
     optional Storage storage_type = 1;
     // Storage size in bytes
     optional int64 size = 2;
+    // Unused space, in bytes. The total storage size may be larger, indicating
+    // inefficiencies in the packing of data in the database.
+    optional int64 unused_size = 3;
 }
 
 /**
@@ -12235,6 +12319,7 @@ message Keystore2StorageStats {
 message RkpErrorReported {
 
     enum RkpErrorEvent {
+        RKP_ERROR_UNSPECIFIED = 0;
         // The key pool is out of keys.
         OUT_OF_KEYS = 1;
         // Falling back to factory provisioned keys during hybrid mode.
@@ -12377,20 +12462,26 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_INSTALL_BULK_DOWNGRADED = 15;
     ART_COMPILATION_REASON_INSTALL_BULK_SECONDARY_DOWNGRADED = 16;
     ART_COMPILATION_REASON_BOOT_AFTER_OTA = 17;
+    ART_COMPILATION_REASON_PREBUILT = 18;
+    ART_COMPILATION_REASON_CMDLINE = 19;
 }
 
 // Indicates which kind of measurement ART is reporting.
+//
+// Where it makes sense, the datum ID ends with the type of datum (counter or histogram) and the
+// units.
+// Note: Histograms are not yet reported by statsd.
 enum ArtDatumId {
     ART_DATUM_INVALID = 0;
-    ART_DATUM_GC_MUTATOR_PAUSE_TIME = 1;
-    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME = 2;
+    ART_DATUM_GC_MUTATOR_PAUSE_TIME_COUNTER_MICROS = 1;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME_HISTO_MILLIS = 2;
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
-    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME = 4;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME_HISTO_MILLIS = 4;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_COUNT = 5;
-    ART_DATUM_JIT_METHOD_COMPILE_TIME = 6;
+    ART_DATUM_JIT_METHOD_COMPILE_TIME_HISTO_MICROS = 6;
     ART_DATUM_AOT_COMPILE_TIME = 7;
-    ART_DATUM_CLASS_VERIFICATION_TIME = 8;
-    ART_DATUM_CLASS_LOADING_TIME = 9;
+    ART_DATUM_CLASS_VERIFICATION_TIME_COUNTER_MICROS = 8;
+    ART_DATUM_CLASS_LOADING_TIME_COUNTER_MICROS = 9;
 
     // Metrics IDs for dex2oat.
     ART_DATUM_DEX2OAT_RESULT_CODE = 10;
@@ -12402,10 +12493,12 @@ enum ArtDatumId {
 
     ART_DATUM_CLASS_VERIFICATION_COUNT = 16;
     ART_DATUM_GC_TOTAL_BYTES_ALLOCATED = 17;
-    ART_DATUM_GC_TOTAL_METADATA_SIZE = 18;
-    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT = 19;
-    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT = 20;
+    ART_DATUM_GC_TOTAL_METADATA_SIZE_BYTES = 18;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 19;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 20;
     ART_DATUM_JIT_METHOD_COMPILE_COUNT = 21;
+    ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 22;
+    ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 23;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -12477,3 +12570,205 @@ message ArtDatumReported {
     // The ISA of the device.
     optional ArtIsa isa = 11;
 }
+
+/**
+ * Logged when a SIM-specific settings restore was attempted.
+ *
+ * Logged from:
+ *    packages/providers/TelephonyProvider/src/com/android/providers/telephony/TelephonyProvider.java
+ */
+message SimSpecificSettingsRestored {
+    optional android.telephony.SimSpecfifcSettingsRestoreResult result = 1;
+
+    // Indicates which restore flow was followed.
+    optional android.telephony.SimSpecificSettingsRestoreCase restored_from_suw = 2;
+
+    // Indicates which criteria was used to match the inserted SIM to backed up
+    // SIM. Only relevant when result is SUCCESS
+    optional android.telephony.SimSpecificSettingsRestoreMatchingCriteria matching_criteria = 3;
+}
+
+/**
+ * The latency of Binder calls broken down by calling API and method name.
+ * This is different from BinderCalls as it collects a histogram of the
+ * latencies (to get more detailed data) not just the count, sum, and maximum.
+ *
+ * Logged from:
+ * frameworks/base/core/java/com/android/internal/os/BinderLatencyObserver.java
+ */
+message BinderLatencyReported {
+    message Dims {
+        enum ProcessSource {
+            UNKNOWN_PROCESS_SOURCE = 0;
+            SYSTEM_SERVER = 1;
+            TELEPHONY = 2;
+            BLUETOOTH = 3;
+        }
+        enum ServiceClassName {
+            UNKNOWN_CLASS = 0;
+        }
+        enum ServiceMethodName {
+            UNKNOWN_METHOD = 0;
+        }
+
+        // Required.
+        optional ProcessSource process_source = 1;
+
+        // The class name of the API making the call to Binder. Enum value
+        // is preferred as uses much less data to store.
+        // This field does not contain PII.
+        oneof service_class {
+            ServiceClassName service_class_name_as_enum = 2;
+            string service_class_name = 3;
+        }
+
+        // Method name of the API call. It can also be a transaction code if we
+        // cannot resolve it to a name. See Binder#getTransactionName. Enum value
+        // is preferred as uses much less data to store.
+        // This field does not contain PII.
+        oneof service_method {
+            ServiceMethodName service_method_name_as_enum = 4;
+            string service_method_name = 5;
+        }
+    }
+
+    message ApiStats {
+        // required.
+        optional Dims dims = 1;
+
+        // Indicates the first bucket that had any data. Allows omitting any empty
+        // buckets at the start of the bucket list and thus save on data size.
+        optional int32 first_bucket_index = 2;
+        // Stores the count of samples for each bucket. The number of buckets and
+        // their sizes are controlled server side with a flag.
+        repeated int32 buckets = 3;
+    }
+
+    message RepeatedApiStats {
+        repeated ApiStats api_stats = 1;
+    }
+
+    // The binder latency data broken down by the dimensions specified above.
+    // The message wrapper is used for the repeated field as top level repeated
+    // fields are not allowed.
+    // MODE_BYTES is used as nested messages are not allowed otherwise.
+    // Required.
+    optional RepeatedApiStats repeated_api_stats = 1 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The fraction of samples that are recorded in the histogram.
+    // Required.
+    optional float sampling_rate = 2;
+
+    // Indicates how many shards the APIs are divided in - e.g. for 3 every
+    // 3rd API will be included in the data for this shard.
+    // Required.
+    optional int32 sharding_modulo = 3;
+
+    // Params for histogram buckets.
+    // The number of buckets the histogram should have.
+    optional int32 bucket_count = 4;
+
+    // The size (upper bound) of the first bucket (used to avoid creating an
+    // excessive amount of small buckets). E.g. for first_bucket_size of 5, the
+    // first bucket will be [0, 5) and the second will be [5, 5 * scaleFactor).
+    optional int32 first_bucket_size = 5;
+
+    // The rate in which each consecutive bucket increases (before rounding).
+    // Implemented in: com.android.internal.os.BinderLatencyBuckets.
+    optional float scale_factor = 6;
+}
+
+/*
+ * Logs information about on-device refresh of ART AOT artifacts for boot classpath extensions
+ * and system_server.
+ *
+ * Logged from:
+ *   art/odrefresh/odrefresh.cc
+ */
+message OdrefreshReported {
+    optional int64 art_apex_version = 1;
+
+    enum Trigger {
+        // A placeholder for unknown values.
+        TRIGGER_UNKNOWN = 0;
+
+        // ART apex version has changed since time artifacts were generated.
+        TRIGGER_APEX_VERSION_MISMATCH = 1;
+
+        // Dex files on the boot classpath or system_server classpath have changed.
+        TRIGGER_DEX_FILES_CHANGED = 2;
+
+        // Missing artifacts.
+        TRIGGER_MISSING_ARTIFACTS = 3;
+    }
+
+    optional Trigger trigger = 2;
+
+    enum Stage {
+        // A placeholder for unknown values.
+        STAGE_UNKNOWN = 0;
+
+        // Checking stage.
+        STAGE_CHECK = 10;
+
+        // Preparation for compilation.
+        STAGE_PREPARATION = 20;
+
+        // Compilation of primary boot classpath extensions.
+        STAGE_PRIMARY_BOOT_CLASSPATH = 30;
+
+        // Compilation of secondary boot classpath extensions.
+        STAGE_SECONDARY_BOOT_CLASSPATH = 40;
+
+        // Compilation of system_server classpath.
+        STAGE_SYSTEM_SERVER_CLASSPATH = 50;
+
+        // All stages completed.
+        STAGE_COMPLETE = 60;
+    }
+
+    optional Stage stage_reached = 3;
+
+    enum Status {
+        // A placeholder for unknown values.
+        STATUS_UNKNOWN = 0;
+
+        // OK, no problems encountered.
+        STATUS_OK = 1;
+
+        // Insufficient space.
+        STATUS_NO_SPACE = 2;
+
+        // Storage operation failed.
+        STATUS_IO_ERROR = 3;
+
+        // Dex2oat reported an error.
+        STATUS_DEX2OAT_ERROR = 4;
+
+        // Time limit exceeded.
+        STATUS_TIME_LIMIT_EXCEEDED = 5;
+
+        // Failure creating staging area.
+        STATUS_STAGING_FAILED = 6;
+
+        // Installation of artifacts failed.
+        STATUS_INSTALL_FAILED = 7;
+    }
+
+    optional Status status = 4;
+
+    // Compilation time iof primary boot classpath extensions.
+    optional int32 primary_bcp_compilation_seconds = 5;
+
+    // Compilation time of secondary boot classpath extensions.
+    optional int32 secondary_bcp_compilation_seconds = 6;
+
+    // Compilation time of system_server classpath.
+    optional int32 system_server_compilation_seconds = 7;
+
+    // Cache space at start of update.
+    optional int32 cache_space_free_start_mib = 8;
+
+    // Cache space at end of update.
+    optional int32 cache_space_free_end_mib = 9;
+};
