@@ -628,6 +628,7 @@ message Atom {
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
         Keystore2StorageStats keystore2_storage_stats = 10103;
         RkpPoolStats rkp_pool_stats = 10104;
+        TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -10727,6 +10728,22 @@ message SupportedRadioAccessFamily {
 }
 
 /**
+ * Pulls information about network requests.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message TelephonyNetworkRequests {
+    // Carrier ID of the SIM card.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 1;
+    // Number of times the enterprise capability was requested.
+    optional int32 enterprise_request_count = 2;
+    // Number of times the enterprise capability was released.
+    optional int32 enterprise_release_count = 3;
+}
+
+/**
  * Pulls information for a single incoming SMS.
  *
  * Each pull creates multiple atoms, one for each SMS. The sequence is randomized when pulled.
@@ -11028,6 +11045,12 @@ message DataStallRecoveryReported {
     // See GeranBands, UtranBands and EutranBands in IRadio interface, depending
     // on the RAT used at the time.
     optional int32 band = 7;
+
+    // Whether the data stall is recovered.
+    optional bool recovered = 8;
+
+    // The elapsed time between start of the data stall and result of current action.
+    optional int32 duration_millis = 9;
 }
 
 /**
@@ -11121,14 +11144,20 @@ message PinStorageEvent {
         PIN_VERIFICATION_SUCCESS = 1;
         // The PIN was verified automatically unsuccessfully.
         PIN_VERIFICATION_FAILURE = 2;
-        // The PIN was cached, but discarded after reboot.
+        // The PIN(s) was cached, but discarded after reboot (e.g. SIM not present after reboot).
         CACHED_PIN_DISCARDED = 3;
-        // The PIN was stored to be used after unattended reboot.
+        // The PIN(s) was stored to be used after unattended reboot.
         PIN_STORED_FOR_VERIFICATION = 4;
-        // The PIN is not available for storage and will be required after unattended reboot.
+        // The PIN(s) is not available for storage and will be required after unattended reboot.
         PIN_REQUIRED_AFTER_REBOOT = 5;
         // The PIN was not verified automatically because the SIM card did not match.
         PIN_VERIFICATION_SKIPPED_SIM_CARD_MISMATCH = 6;
+        // The available PINs after reboot does not match the number of stored PINs before reboot.
+        PIN_COUNT_NOT_MATCHING_AFTER_REBOOT = 7;
+        // Error while decrypting the PIN
+        PIN_DECRYPTION_ERROR = 8;
+        // Error while encrypting the PIN
+        PIN_ENCRYPTION_ERROR = 9;
     }
     optional Event event = 1;
 
@@ -12444,17 +12473,21 @@ enum ArtCompilationReason {
 }
 
 // Indicates which kind of measurement ART is reporting.
+//
+// Where it makes sense, the datum ID ends with the type of datum (counter or histogram) and the
+// units.
+// Note: Histograms are not yet reported by statsd.
 enum ArtDatumId {
     ART_DATUM_INVALID = 0;
-    ART_DATUM_GC_MUTATOR_PAUSE_TIME = 1;
-    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME = 2;
+    ART_DATUM_GC_MUTATOR_PAUSE_TIME_COUNTER_MICROS = 1;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME_HISTO_MILLIS = 2;
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
-    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME = 4;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME_HISTO_MILLIS = 4;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_COUNT = 5;
-    ART_DATUM_JIT_METHOD_COMPILE_TIME = 6;
+    ART_DATUM_JIT_METHOD_COMPILE_TIME_HISTO_MICROS = 6;
     ART_DATUM_AOT_COMPILE_TIME = 7;
-    ART_DATUM_CLASS_VERIFICATION_TIME = 8;
-    ART_DATUM_CLASS_LOADING_TIME = 9;
+    ART_DATUM_CLASS_VERIFICATION_TIME_COUNTER_MICROS = 8;
+    ART_DATUM_CLASS_LOADING_TIME_COUNTER_MICROS = 9;
 
     // Metrics IDs for dex2oat.
     ART_DATUM_DEX2OAT_RESULT_CODE = 10;
@@ -12466,10 +12499,12 @@ enum ArtDatumId {
 
     ART_DATUM_CLASS_VERIFICATION_COUNT = 16;
     ART_DATUM_GC_TOTAL_BYTES_ALLOCATED = 17;
-    ART_DATUM_GC_TOTAL_METADATA_SIZE = 18;
-    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT = 19;
-    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT = 20;
+    ART_DATUM_GC_TOTAL_METADATA_SIZE_BYTES = 18;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 19;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 20;
     ART_DATUM_JIT_METHOD_COMPILE_COUNT = 21;
+    ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 22;
+    ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 23;
 }
 
 // Indicates what class of thread the reported values apply to.
