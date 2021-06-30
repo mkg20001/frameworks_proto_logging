@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a62295b_448c712e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-06-30T18:04:58Z",
+      "side": 1,
+      "message": "Do we need to deprecate the old field and add a new field here as well instead of replacing it like we do in aosp/1752780?",
+      "revId": "be477c5815aa588bfb28fc4183c91a456f59c3ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
