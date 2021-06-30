@@ -22,6 +22,30 @@
       },
       "revId": "2462096f6e99e42a86e198ca6c76d56343a2ea81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853df7df_7f911edd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-06-30T15:20:50Z",
+      "side": 1,
+      "message": "we have the atom ids, but don\u0027t report them to statsd yet. So this applies to all histograms. We shouldn\u0027t have added them proactively but now that we have them, removing is harder.",
+      "parentUuid": "f70d7ae6_f8e0d970",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "2462096f6e99e42a86e198ca6c76d56343a2ea81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
