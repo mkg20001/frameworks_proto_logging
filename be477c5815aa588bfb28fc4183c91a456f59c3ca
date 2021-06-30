@@ -16,6 +16,24 @@
       "message": "Do we need to deprecate the old field and add a new field here as well instead of replacing it like we do in aosp/1752780?",
       "revId": "be477c5815aa588bfb28fc4183c91a456f59c3ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1438174e_f5fc907e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1022077
+      },
+      "writtenOn": "2021-06-30T18:57:12Z",
+      "side": 1,
+      "message": "Not in this case I think. The field was implemented as a histogram in art but reported as a counter and pitot and the server processes as a counter. So it was a discrepancy in our internal code base. I removed HIST from the name to make it clearer which also aligns it with the server side atoms.proto.",
+      "parentUuid": "1a62295b_448c712e",
+      "revId": "be477c5815aa588bfb28fc4183c91a456f59c3ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
