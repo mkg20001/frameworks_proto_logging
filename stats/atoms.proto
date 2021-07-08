@@ -5091,6 +5091,12 @@ message SnapshotMergeReported {
     optional int32 boot_complete_to_merge_start_time_millis = 11;
 
     optional MergeFailureCode merge_failure_code = 12;
+
+    // Build fingerprint at the time the OTA was downloaded.
+    optional string source_build_fingerprint = 13;
+
+    // Build fingerprint at the time the merge was initiated.
+    optional string target_build_fingerprint = 14;
 }
 
 /**
@@ -11045,6 +11051,12 @@ message DataStallRecoveryReported {
     // See GeranBands, UtranBands and EutranBands in IRadio interface, depending
     // on the RAT used at the time.
     optional int32 band = 7;
+
+    // Whether the data stall is recovered.
+    optional bool recovered = 8;
+
+    // The elapsed time between start of the data stall and result of current action.
+    optional int32 duration_millis = 9;
 }
 
 /**
@@ -12473,12 +12485,12 @@ enum ArtCompilationReason {
 // Note: Histograms are not yet reported by statsd.
 enum ArtDatumId {
     ART_DATUM_INVALID = 0;
-    ART_DATUM_GC_MUTATOR_PAUSE_TIME_COUNTER_MICROS = 1;
+    ART_DATUM_GC_WORLD_STOP_TIME_AVG_MICROS = 1;
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_TIME_HISTO_MILLIS = 2;
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_TIME_HISTO_MILLIS = 4;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_COUNT = 5;
-    ART_DATUM_JIT_METHOD_COMPILE_TIME_HISTO_MICROS = 6;
+    ART_DATUM_JIT_METHOD_COMPILE_TIME_MICROS = 6;
     ART_DATUM_AOT_COMPILE_TIME = 7;
     ART_DATUM_CLASS_VERIFICATION_TIME_COUNTER_MICROS = 8;
     ART_DATUM_CLASS_LOADING_TIME_COUNTER_MICROS = 9;
@@ -12493,12 +12505,17 @@ enum ArtDatumId {
 
     ART_DATUM_CLASS_VERIFICATION_COUNT = 16;
     ART_DATUM_GC_TOTAL_BYTES_ALLOCATED = 17;
-    ART_DATUM_GC_TOTAL_METADATA_SIZE_BYTES = 18;
+    ART_DATUM_GC_TOTAL_METADATA_SIZE_BYTES = 18 [deprecated=true];
     ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 19;
     ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_HISTO_MB_PER_SEC = 20;
     ART_DATUM_JIT_METHOD_COMPILE_COUNT = 21;
     ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 22;
     ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_HISTO_MB_PER_SEC = 23;
+    ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC = 24;
+    ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC = 25;
+    ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_AVG_MB_PER_SEC = 26;
+    ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC = 27;
+    ART_DATUM_GC_TOTAL_COLLECTION_TIME_MS = 28;
 }
 
 // Indicates what class of thread the reported values apply to.
