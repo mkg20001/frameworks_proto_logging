@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "731a8bc7_49ad0ec7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-07-09T05:32:20Z",
+      "side": 1,
+      "message": "Assuming this is just a straight CP, let me know if there\u0027s something in particular that I should look at.",
+      "revId": "6756d76ddfd0dd44896e3683bc4f7a4072d42aaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
