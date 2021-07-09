@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95aac1cb_b63fdb6c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-07-09T05:36:11Z",
+      "side": 1,
+      "message": "can you use the reserved keyword? Maybe in a follow up cl? doesn\u0027t need to be done in sc-dev.",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 510,
+        "endChar": 32
+      },
+      "revId": "5cf5efe8aaf9b50268be52e66f77d864c905cf81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
