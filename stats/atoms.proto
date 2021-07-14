@@ -623,8 +623,8 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
-        Keystore2StorageStats keystore2_storage_stats = 10103;
-        RkpPoolStats rkp_pool_stats = 10104;
+        Keystore2StorageStats keystore2_storage_stats = 10103 [(module) = "framework"];
+        RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework"];
         TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
         Keystore2KeyCreationWithGeneralInfo keystore2_key_creation_with_general_info =
                 10118 [(module) = "framework"];
