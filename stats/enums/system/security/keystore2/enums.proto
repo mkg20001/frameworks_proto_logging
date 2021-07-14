@@ -28,3 +28,17 @@ enum SecurityLevelEnum {
     SECURITY_LEVEL_STRONGBOX = 3;
     SECURITY_LEVEL_KEYSTORE = 4;
 }
+
+enum Algorithm {
+    // ALGORITHM is prepended because UNSPECIFIED exists in other enums as well.
+    ALGORITHM_UNSPECIFIED = 0;
+    // Asymmetric algorithms.
+    RSA = 1;
+    // 2 removed, do not reuse.
+    EC = 3;
+    // Block cipher algorithms
+    AES = 32;
+    TRIPLE_DES = 33;
+    // MAC algorithms
+    HMAC = 128;
+};
