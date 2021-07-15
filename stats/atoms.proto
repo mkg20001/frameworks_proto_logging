@@ -3966,6 +3966,7 @@ message LmkKillOccurred {
         LOW_MEM_AND_THRASHING = 5;
         DIRECT_RECL_AND_THRASHING = 6;
         LOW_MEM_AND_SWAP_UTIL = 7;
+        LOW_FILECACHE_AFTER_THRASHING = 8;
     }
 
     // The uid if available. -1 means not available.
