@@ -507,10 +507,7 @@ message Atom {
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
         BinderLatencyReported binder_latency_reported = 342 [(module) = "framework"];
-        Keystore2KeyCreationEventReported keystore2_key_creation_event_reported = 360;
-        Keystore2KeyOperationEventReported keystore2_key_operation_event_reported = 361;
-        Keystore2CrashEventReported keystore2_crash_event_reported = 362;
-        RkpErrorReported rkp_error_reported = 363;
+        // 360-363 are reserved.
         OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
         NetworkIpReachabilityMonitorReported network_ip_reachability_monitor_reported =
             367 [(module) = "network_stack"];
@@ -629,6 +626,20 @@ message Atom {
         Keystore2StorageStats keystore2_storage_stats = 10103;
         RkpPoolStats rkp_pool_stats = 10104;
         TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
+        Keystore2KeyCreationWithGeneralInfo keystore2_key_creation_with_general_info =
+                10118 [(module) = "framework"];
+        Keystore2KeyCreationWithAuthInfo keystore2_key_creation_with_auth_info =
+                10119 [(module) = "framework"];
+        Keystore2KeyCreationWithPurposeAndModesInfo
+                keystore2_key_creation_with_purpose_and_modes_info = 10120 [(module) = "framework"];
+        Keystore2AtomWithOverflow keystore2_atom_with_overflow = 10121 [(module) = "framework"];
+        Keystore2KeyOperationWithPurposeAndModesInfo
+                keystore2_key_operation_with_purpose_and_modes_info =
+                        10122 [(module) = "framework"];
+        Keystore2KeyOperationWithGeneralInfo keystore2_key_operation_with_general_info =
+                10123 [(module) = "framework"];
+        RkpErrorStats rkp_error_stats = 10124 [(module) = "framework"];
+        Keystore2CrashStats keystore2_crash_stats = 10125 [(module) = "framework"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -12082,29 +12093,27 @@ message KeystoreKeyEventReported {
 }
 
 /**
- * Logs: creation of different types of cryptographic keys in keystore2.
+ * Logs: key creation events with Algorithm, Origin, Error and Attestation info.
  * Logged from: system/security/keystore2/metrics.rs
  */
-message Keystore2KeyCreationEventReported {
+message Keystore2KeyCreationWithGeneralInfo {
 
-    enum Algorithm {
-        // ALGORITHM is prepended because UNSPECIFIED exists in other enums as well.
-        ALGORITHM_UNSPECIFIED = 0;
-        // Asymmetric algorithms.
-        RSA = 1;
-        // 2 removed, do not reuse.
-        EC = 3;
-        // Block cipher algorithms
-        AES = 32;
-        TRIPLE_DES = 33;
-        // MAC algorithms
-        HMAC = 128;
-    };
     // Algorithm associated with the key
-    optional Algorithm algorithm = 1;
+    optional android.system.security.keystore2.Algorithm algorithm = 1;
 
     // Size of the key, based on the algorithm used.
     optional int32 key_size = 2;
+
+    enum EcCurve {
+        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
+        EC_CURVE_UNSPECIFIED = 0;
+        P_224 = 1;
+        P_256 = 2;
+        P_384 = 3;
+        P_521 = 4;
+    };
+    // Which ec curve was selected if elliptic curve cryptography is in use
+    optional EcCurve ec_curve = 3;
 
     enum KeyOrigin {
         // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
@@ -12121,7 +12130,27 @@ message Keystore2KeyCreationEventReported {
         SECURELY_IMPORTED = 5;
     };
     // Logs whether the key was generated, imported, securely imported, or derived.
-    optional KeyOrigin key_origin = 3;
+    optional KeyOrigin key_origin = 4;
+
+    /**
+     * Response code (system/hardware/interfaces/keystore2/aidl/../ResponseCode.aidl)
+     * or
+     * error code (hardware/interfaces/security/keymint/aidl/../ErrorCode.aidl)
+     */
+    optional int32 error_code = 5;
+
+    // Indicates whether key attestation is requested in creation
+    optional bool attestation_requested = 6;
+
+    // Count of a particular combination of field values of this atom
+    optional int32 count = 7;
+}
+
+/**
+ * Logs: key creation events with authentication info.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyCreationWithAuthInfo {
 
     enum HardwareAuthenticatorType {
         // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
@@ -12135,87 +12164,94 @@ message Keystore2KeyCreationEventReported {
      * What auth types does this key require? If none,
      * then no auth required.
      */
-    optional HardwareAuthenticatorType user_auth_type = 4;
+    optional HardwareAuthenticatorType user_auth_type = 1;
 
     /**
      * If user authentication is required, is the requirement time based? If it
-     * is time based then this field indicates the time out in seconds.
+     * is time based then this field indicates the base 10 logarithm of time out in seconds.
+     * Logarithm is taken in order to reduce the cardinaltiy.
      */
-    optional int32 user_auth_key_timeout_seconds = 5;
+    optional int32 log_auth_timeout_seconds = 2;
 
-    /**
-     * Padding mode, digest, block_mode and purpose should ideally be repeated
-     * fields. However, since statsd does not support repeated fields in
-     * pushed atoms, they are represented using bitmaps.
+    // Security level of the Keymint instance which creates the key.
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 3;
+
+    // Count of a particular combination of field values of this atom
+    optional int32 count = 4;
+}
+
+/**
+ * Logs: key creation events with purpose and modes info.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyCreationWithPurposeAndModesInfo {
+    // Algorithm associated with the key
+    optional android.system.security.keystore2.Algorithm algorithm = 1;
+
+	/**
+     * Track which purpose is being used.
+     * Bitmap composition is given by KeyPurposeBitPosition enum
+     * defined in system/security/keystore2/metrics.rs.
      */
+    optional int32 purpose_bitmap = 2;
 
     /**
      * Track which padding mode is being used.
      * Bitmap composition is given by PaddingModeBitPosition enum
      * defined in system/security/keystore2/metrics.rs.
      */
-    optional int32 padding_mode_bitmap = 6;
+    optional int32 padding_mode_bitmap = 3;
 
     /**
      * Track which digest is being used.
      * Bitmap composition is given by DigestBitPosition enum
      * defined in system/security/keystore2/metrics.rs.
      */
-    optional int32 digest_bitmap = 7;
+    optional int32 digest_bitmap = 4;
 
     /**
      * Track which block mode is being used.
      * Bitmap composition is given by BlockModeBitPosition enum
      * defined in system/security/keystore2/metrics.rs.
      */
-    optional int32 block_mode_bitmap = 8;
+    optional int32 block_mode_bitmap = 5;
 
-    /**
-     * Track which purpose is being used.
-     * Bitmap composition is given by KeyPurposeBitPosition enum
-     * defined in system/security/keystore2/metrics.rs.
-     */
-    optional int32 purpose_bitmap = 9;
-
-    enum EcCurve {
-        // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
-        EC_CURVE_UNSPECIFIED = 0;
-        P_224 = 1;
-        P_256 = 2;
-        P_384 = 3;
-        P_521 = 4;
-    };
-    // Which ec curve was selected if elliptic curve cryptography is in use
-    optional EcCurve ec_curve = 10;
-
-    /**
-     * Response code (system/hardware/interfaces/keystore2/aidl/../ResponseCode.aidl)
-     * or
-     * error code (hardware/interfaces/security/keymint/aidl/../ErrorCode.aidl)
-     */
-    optional int32 error_code = 11;
-
-    // Indicates whether key attestation requested in creation
-    optional bool attestation_requested = 12;
-
-    // Security level of the Keymint instance which creates the key.
-    optional android.system.security.keystore2.SecurityLevelEnum security_level = 13;
+    // Count of a particular combination of field values of this atom
+    optional int32 count = 6;
 }
 
 /**
- * Logs operations using cryptographic keys in keystore2.
+ * Logs the atom id of the atoms associated with key creation/operation events, that have reached
+ * the maximum storage limit allocated for different atom objects of that atom,
+ * in keystore in-memory store.
+ *
+ * Size of the storage bucket for each atom is limited considering their expected cardinaltity.
+ * This limit may exceed if the dimensions of the atoms take a large number of unexpected
+ * combinations. This atom is used to track such cases.
+ */
+message Keystore2AtomWithOverflow {
+
+    // Atom id as defined in atoms.proto
+    optional int32 atom_id = 1;
+
+    // Count of the objects of this atom type that have overflowed.
+    optional int32 count = 2;
+}
+
+/**
+ * Logs: key operations events with purpose and modes info.
  * Logged from: system/security/keystore2/metrics.rs
  */
-message Keystore2KeyOperationEventReported {
+message Keystore2KeyOperationWithPurposeAndModesInfo {
 
     enum KeyPurpose {
         // Unspecified takes 0. Other values are incremented by 1 compared to keymint spec.
         KEY_PURPOSE_UNSPECIFIED = 0;
 
-        // Usable with RSA, EC and AES keys.
+        // Usable with RSA, 3DES and AES keys.
         ENCRYPT = 1;
 
-        // Usable with RSA, EC and AES keys.
+        // Usable with RSA, 3DES and AES keys.
         DECRYPT = 2;
 
         // Usable with RSA, EC and HMAC keys.
@@ -12225,7 +12261,7 @@ message Keystore2KeyOperationEventReported {
         VERIFY = 4;
 
         // 5 is reserved
-        // Usable with wrapping keys.
+        // Usable with RSA keys.
         WRAP_KEY = 6;
 
         // Key Agreement, usable with EC keys.
@@ -12236,12 +12272,6 @@ message Keystore2KeyOperationEventReported {
     }
     // Purpose of the key operation
     optional KeyPurpose purpose = 1;
-
-    /**
-     * Padding mode, digest, block_mode and purpose should ideally be repeated
-     * fields. However, since statsd does not support repeated fields in
-     * pushed atoms, they are represented using bitmaps.
-     */
 
     /**
      * Track which padding mode is being used.
@@ -12264,6 +12294,17 @@ message Keystore2KeyOperationEventReported {
      */
     optional int32 block_mode_bitmap = 4;
 
+    // Count of a particular combination of field values of this atom
+    optional int32 count = 5;
+}
+
+/**
+ * Logs key operations events with outcome, error_code, security level and whether the key is
+ * upgraded during the operation.
+ * Logged from: system/security/keystore2/metrics.rs
+ */
+message Keystore2KeyOperationWithGeneralInfo {
+
     enum Outcome {
         OUTCOME_UNSPECIFIED = 0;
         DROPPED = 1;
@@ -12273,23 +12314,20 @@ message Keystore2KeyOperationEventReported {
         ERROR = 5;
     }
     // Outcome of the operation
-    optional Outcome outcome = 5;
+    optional Outcome outcome = 1;
 
     // Response code or error code in case of error outcome
-    optional int32 error_code = 6;
+    optional int32 error_code = 2;
 
     // Indicates whether the key was upgraded during the operation
-    optional bool key_upgraded = 7;
+    optional bool key_upgraded = 3;
 
     // Security level of the Keymint instance which performs the operation.
-    optional android.system.security.keystore2.SecurityLevelEnum security_level = 8;
-}
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 4;
 
-/**
- * Logs: Keystore 2 crash events.
- * Logged from: system/security/keystore2
- */
-message Keystore2CrashEventReported {}
+    // Count of a particular combination of field values of this atom
+    optional int32 count = 5;
+}
 
 /**
  * Logs: Keystore 2 storage statistics.
@@ -12328,9 +12366,9 @@ message Keystore2StorageStats {
  * Logs Remote Key Provisioning (RKP) related error events.
  * Logged from: system/security/keystore2
  */
-message RkpErrorReported {
+message RkpErrorStats {
 
-    enum RkpErrorEvent {
+    enum RkpError {
         RKP_ERROR_UNSPECIFIED = 0;
         // The key pool is out of keys.
         OUT_OF_KEYS = 1;
@@ -12338,16 +12376,54 @@ message RkpErrorReported {
         FALL_BACK_DURING_HYBRID = 2;
     }
     // Type of the error event
-    optional RkpErrorEvent rkp_error_event = 1;
+    optional RkpError rkp_error = 1;
+
+    // Count of a particular error occurred.
+    optional int32 count = 2;
 }
 
 /**
- * Logs: Count of keys in the key pool related to
+ * Logs: Status of the attestation key pool related to
  * Remote Key Provisioning (RKP).
  * Logged from: system/security/keystore2
  */
 message RkpPoolStats {
-    optional int32 count_of_keys = 1;
+    /**
+     * Security level of the Keymint instance associated with the
+     * attestation pool status.
+     */
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 1;
+
+    /**
+     * The number of signed attestation certificate chains which are
+     * expired.
+     */
+    optional int32 expiring = 2;
+
+    /**
+     * The number of signed attestation certificate chains which have
+     * not yet been assigned to an app.
+     */
+    optional int32 unassigned = 3;
+
+    /**
+     * The number of signed attestation keys.
+     */
+    optional int32 attested = 4;
+
+    /**
+     * The total number of attestation keys.
+     */
+    optional int32 total = 5;
+
+}
+
+/**
+ * Logs: Number of keystore2 crashes per-boot cycle.
+ * Logged from: system/security/keystore2
+ */
+message Keystore2CrashStats {
+    optional int32 count_of_crash_events = 1;
 }
 
 // Blob Committer stats
@@ -12476,6 +12552,7 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_BOOT_AFTER_OTA = 17;
     ART_COMPILATION_REASON_PREBUILT = 18;
     ART_COMPILATION_REASON_CMDLINE = 19;
+    ART_COMPILATION_REASON_VDEX = 20;
 }
 
 // Indicates which kind of measurement ART is reporting.
