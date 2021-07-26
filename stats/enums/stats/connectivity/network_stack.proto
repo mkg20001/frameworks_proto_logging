@@ -181,6 +181,8 @@ enum IpType {
     IPV4 = 4;
     // IPv6 address;
     IPV6 = 6;
+    // Have both IPV4 & IPV6 addresses;
+    IPV4V6 = 7;
 }
 
 enum NudEventType {
