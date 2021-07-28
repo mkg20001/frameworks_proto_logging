@@ -16,6 +16,23 @@
       "message": "Ping for review",
       "revId": "7d44ad67987f139db2adf30d00b5d60461c77b77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e278fa_77a7e6aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-07-28T15:55:20Z",
+      "side": 1,
+      "message": "do we need to update these other instances as well?\nhttps://source.corp.google.com/search?q\u003dp:%5Eandroid$%20statsd-aidl-ndk_platform",
+      "revId": "7d44ad67987f139db2adf30d00b5d60461c77b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
