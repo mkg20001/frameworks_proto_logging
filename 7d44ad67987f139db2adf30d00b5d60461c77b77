@@ -33,6 +33,24 @@
       "message": "do we need to update these other instances as well?\nhttps://source.corp.google.com/search?q\u003dp:%5Eandroid$%20statsd-aidl-ndk_platform",
       "revId": "7d44ad67987f139db2adf30d00b5d60461c77b77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a973e2_71c297f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2021-07-28T16:04:50Z",
+      "side": 1,
+      "message": "Yes. I have https://android-review.googlesource.com/c/platform/packages/modules/StatsD/+/1778910\n\nBut due to merge conflict, the CL should land on internal master first.",
+      "parentUuid": "b4e278fa_77a7e6aa",
+      "revId": "7d44ad67987f139db2adf30d00b5d60461c77b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
