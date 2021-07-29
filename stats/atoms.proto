@@ -4007,6 +4007,12 @@ message LmkKillOccurred {
 
     // What triggered the LMK event.
     optional Reason reason = 13;
+
+    // Current thrashing levels (workingset_refaults/filecache in %).
+    optional int32 thrashing = 14;
+
+    // Max thrashing levels (workingset_refaults/filecache in %).
+    optional int32 max_thrashing = 15;
 }
 
 /*
