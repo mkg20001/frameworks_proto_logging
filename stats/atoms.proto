@@ -623,8 +623,8 @@ message Atom {
         CellularDataServiceSwitch cellular_data_service_switch = 10091 [(module) = "telephony"];
         ImsRegistrationTermination ims_registration_termination = 10093 [(module) = "telephony"];
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
-        Keystore2StorageStats keystore2_storage_stats = 10103;
-        RkpPoolStats rkp_pool_stats = 10104;
+        Keystore2StorageStats keystore2_storage_stats = 10103 [(module) = "framework"];
+        RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework"];
         TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
         Keystore2KeyCreationWithGeneralInfo keystore2_key_creation_with_general_info =
                 10118 [(module) = "framework"];
@@ -3966,6 +3966,7 @@ message LmkKillOccurred {
         LOW_MEM_AND_THRASHING = 5;
         DIRECT_RECL_AND_THRASHING = 6;
         LOW_MEM_AND_SWAP_UTIL = 7;
+        LOW_FILECACHE_AFTER_THRASHING = 8;
     }
 
     // The uid if available. -1 means not available.
@@ -4006,6 +4007,12 @@ message LmkKillOccurred {
 
     // What triggered the LMK event.
     optional Reason reason = 13;
+
+    // Current thrashing levels (workingset_refaults/filecache in %).
+    optional int32 thrashing = 14;
+
+    // Max thrashing levels (workingset_refaults/filecache in %).
+    optional int32 max_thrashing = 15;
 }
 
 /*
