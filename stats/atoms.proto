@@ -589,7 +589,7 @@ message Atom {
     }
 
     // Pulled events will start at field 10000.
-    // Next: 10118
+    // Next: 10146
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -738,6 +738,25 @@ message Atom {
                 10123 [(module) = "framework"];
         RkpErrorStats rkp_error_stats = 10124 [(module) = "framework"];
         Keystore2CrashStats keystore2_crash_stats = 10125 [(module) = "framework"];
+        ImsRegistrationFeatureTagStats ims_registration_feature_tag_stats =
+                10133 [(module) = "telephony"];
+        RcsClientProvisioningStats rcs_client_provisioning_stats =
+                10134 [(module) = "telephony"];
+        RcsAcsProvisioningStats rcs_acs_provisioning_stats =
+                10135 [(module) = "telephony"];
+        SipDelegateStats sip_delegate_stats = 10136 [(module) = "telephony"];
+        SipTransportFeatureTagStats sip_transport_feature_tag_stats =
+                10137 [(module) = "telephony"];
+        SipMessageResponse sip_message_response = 10138 [(module) = "telephony"];
+        SipTransportSession sip_transport_session = 10139 [(module) = "telephony"];
+        ImsDedicatedBearerListenerEvent ims_dedicated_bearer_listener_event =
+                10140 [(module) = "telephony"];
+        ImsDedicatedBearerEvent ims_dedicated_bearer_event = 10141 [(module) = "telephony"];
+        ImsRegistrationServiceDescStats ims_registration_service_desc_stats =
+                10142 [(module) = "telephony"];
+        UceEventStats uce_event_stats = 10143 [(module) = "telephony"];
+        PresenceNotifyEvent presence_notify_event = 10144 [(module) = "telephony"];
+        GbaEvent gba_event = 10145 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -16671,3 +16690,534 @@ message PrivacyToggleDialogInteraction {
     // Name of the package for which the dialog was shown.
     optional string package_name = 2;
 }
+
+/**
+ * Stats about each feature tag that was included in the registration.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message ImsRegistrationFeatureTagStats {
+    // the carrier id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // The slot id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The name of the feature tag
+    // used as a dimension
+    optional android.telephony.ImsFeatureTag feature_tag_name = 3;
+
+    // The underlying radio technology type associated with the feature tag
+    // used as a dimension
+    // See the ImsRegistrationImplBase#REGISTRATION_TECH*
+    optional int32 registration_tech = 4;
+
+    // The time this feature tag was registered, rounded to 5 minutes
+    optional int32 registered_seconds = 5;
+}
+
+/**
+ * Stats about the messaging client interacting with telephony
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message RcsClientProvisioningStats {
+    enum EventType {
+        EVENT_TYPE_UNSPECIFIED = 0;
+        // The client sent its client params to the ACS service.
+        CLIENT_PARAMS_SENT = 1;
+        // The client has manually triggered reconfiguration
+        TRIGGER_RCS_RECONFIGURATION = 2;
+        // Default messaging application changed.
+        DMA_CHANGED = 3;
+    }
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // Used as a dimension
+    optional EventType event = 3;
+
+    // The number of times this event has occurred.
+    optional int32 count = 4;
+}
+
+/**
+ * Stats about the RCS provisioning via ACS
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message RcsAcsProvisioningStats {
+    enum ResponseType {
+        RESPONSE_TYPE_UNSPECIFIED = 0;
+        // a provisioning request resulted in an error.
+        ERROR = 1;
+        // a provisioning request succeeded and provided an xml
+        PROVISIONING_XML = 2;
+        // a provisioning request has resulted in a "pre-provisioning" xml, which
+        // means RCS is not provisioned and requires the user to intervene.
+        PRE_PROVISIONING_XML = 3;
+    }
+
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The response code of provisioning if the provisioning resulted in
+    // ResponseType.ERROR
+    // Used as a dimension
+    optional int32 response_code = 3;
+
+    // used as a dimension.
+    optional ResponseType response_type = 4;
+
+    // Does the provisioning XML have single registration provisioned.
+    // Populated if response_type is ResponseType.PROVISIONING_XML
+    // used as a dimension
+    optional bool is_single_registration_enabled = 5;
+
+    // The number of times this event has occurred.
+    optional int32 count = 6;
+
+    // The amount of time in seconds that the device was in this state in total, rounded 5 minutes
+    optional int32 state_timer_sec = 7;
+}
+
+/**
+ * Metrics surrounding the lifetime of a SIP delegate created by applications.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message SipDelegateStats {
+    // The random number identifier with this SIP delegate
+    optional int32 dimension = 1;
+
+    // The carrier id associated with this SIP delegate
+    optional int32 carrier_id = 2;
+
+    // The slot id associated with this SIP delegate
+    optional int32 slot_id = 3;
+
+    // The total uptime of this delegate, rounded 5 minutes
+    optional int32 uptime_seconds = 4;
+
+    // The reason why this SIP delegate was destroyed.
+    // See the SipDelegateManager#SIP_DELEGATE_DESTROY_REASON*
+    optional int32 destroy_reason = 5;
+}
+
+/**
+ * Tracks each feature tag associated with the SipDelegates that are currently active.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message SipTransportFeatureTagStats {
+    // the carrier id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // The slot id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The name of the feature tag
+    // used as a dimension
+    optional android.telephony.ImsFeatureTag feature_tag_name = 3;
+
+    // The reason why this feature tag was denied on the SIP Transport
+    // used as a dimension
+    // Use SIP transport denied reason.
+    // See the SipDelegateManager#DENIED_REASON*
+    optional int32 sip_transport_denied_reason = 4;
+
+    // The reason why this feature tag was associated with the SIP Transport but not
+    // marked as deregistered.
+    // used as a dimension
+    // Use SIP transport deregistered reason.
+    // See the DelegateRegistrationState#DEREGISTERING_REASON*
+    optional int32 sip_transport_deregistered_reason = 5;
+
+    // the time this feature tag was in this state, rounded 5 minutes
+    optional int32 associated_seconds = 6;
+}
+
+/**
+ * Tracks each SIP message and the response from either the app or network.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message SipMessageResponse {
+    enum Direction {
+        INCOMING = 0;
+        OUTGOING = 1;
+    }
+    // the carrier id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // The slot id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The SIP message method type (INVITE, MESSAGE, etc...)
+    // used as a dimension
+    optional android.telephony.SipRequestMethodType sip_message_method = 3;
+
+    // The SIP message response code, used if this is a response to a request.
+    // used as a dimension.
+    optional int32 sip_message_response = 4;
+
+    // The SIP message direction
+    // used as a dimension
+    optional Direction sip_message_direction = 5;
+
+    // The response from the SIP stack to sending/receiving the message
+    // used as a dimension
+    // See the SipDelegateManager#MESSAGE_FAILURE_REASON*
+    optional int32 message_error = 6;
+
+    // The number of messages that fit this criteria.
+    optional int32 count = 7;
+}
+
+/**
+ * Tracks SIP sessions managed by the SIP transport.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message SipTransportSession {
+    enum Direction {
+        INCOMING = 0;
+        OUTGOING = 1;
+    }
+    // the carrier id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // The slot id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The SIP message method that started the session (INVITE, SUBSCRIBE, etc...)
+    // used as a dimension
+    optional android.telephony.SipRequestMethodType session_method = 3;
+
+    // The SIP message direction
+    // used as a dimension
+    optional Direction sip_message_direction = 4;
+
+    // The response from the SIP stack or network.
+    // used as a dimension.
+    optional int32 sip_response = 5;
+
+    // The number of these sessions counted
+    optional int32 session_count = 6;
+
+    // The number of sessions that were started properly and did not require
+    // the SIP transport to forcefully close them.
+    optional int32 ended_gracefully_count = 7;
+}
+
+/**
+ * Used to determine if there were dedicated bearers set up for a specific listener.
+ * If not, this indicates that there may have been a network issue in the dedicated bearer setup.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message ImsDedicatedBearerListenerEvent {
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // Radio access technology (RAT) used by the registration when it terminated.
+    // The value is either 4G or 5G.
+    // Used as a dimension
+    optional android.telephony.NetworkTypeEnum rat_at_end = 3;
+
+    // QoS class identifier.
+    // dimension
+    optional int32 qci = 4;
+
+    // True if there was a dedicated bearer established for this listener.
+    // dimension
+    optional bool dedicated_bearer_established = 5;
+
+    // The count of listeners with this result.
+    optional int32 event_count = 6;
+}
+
+/**
+ * Logs information related to ims dedicated bearer which fulfills required qos and provides guaranteed service.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message ImsDedicatedBearerEvent {
+    enum State {
+        STATE_UNSPECIFIED = 0;
+        STATE_ADDED = 1;
+        STATE_MODIFIED = 2;
+        STATE_DELETED = 3;
+    }
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // Radio access technology (RAT) used by the registration when it terminated.
+    // The value is either 4G or 5G.
+    // Used as a dimension
+    optional android.telephony.NetworkTypeEnum rat_at_end = 3;
+
+    // Qos class identifier.
+    // Used as a dimension
+    optional int32 qci = 4;
+
+    // Dedicated bearer state from the network.
+    // Used as a dimension
+    optional State bearer_state = 5;
+
+    // Whether location connection information is received.
+    // Used as a dimension
+    optional bool local_connection_info_received = 6;
+
+    // Whether remote connection information is received.
+    // Used as a dimension
+    optional bool remote_connection_info_received = 7;
+
+    // Whether or not the QoS indication had listeners.
+    // Used as a dimension
+    optional bool has_listeners = 8;
+
+    // The count that matches the above conditions.
+    optional int32 count = 9;
+}
+
+/**
+ * Stats about each ServiceDescription that was included in the PIDF XML sent to the network during publish.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message ImsRegistrationServiceDescStats {
+    // Describe Service IDs will be included PUBLISH
+    // See RcsContactPresenceTuple.java
+    enum ServiceId {
+        SERVICE_ID_UNSPECIFIED = 0;
+        SERVICE_ID_CUSTOM = 1;
+        SERVICE_ID_MMTEL = 2;
+        SERVICE_ID_CHAT_V1 = 3;
+        SERVICE_ID_CHAT_V2 = 4;
+        SERVICE_ID_FT = 5;
+        SERVICE_ID_FT_OVER_SMS = 6;
+        SERVICE_ID_GEO_PUSH = 7;
+        SERVICE_ID_GEO_PUSH_VIA_SMS = 8;
+        SERVICE_ID_CALL_COMPOSER = 9;
+        SERVICE_ID_POST_CALL = 10;
+        SERVICE_ID_SHARED_MAP = 11;
+        SERVICE_ID_SHARED_SKETCH = 12;
+        SERVICE_ID_CHATBOT = 13;
+        SERVICE_ID_CHATBOT_STANDALONE = 14;
+        SERVICE_ID_CHATBOT_ROLE = 15;
+    }
+
+    // the carrier id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // The slot id associated with this SIP delegate
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The service id portion of the ServiceDescription
+    // used as a dimension
+    optional ServiceId service_id_name = 3;
+
+    // The version portion of the ServiceDescription
+    // used as a dimension
+    optional float service_id_version = 4;
+
+    // The underlying radio technology type associated with the feature tag
+    // used as a dimension
+    // See the ImsRegistrationImplBase#REGISTRATION_TECH*
+    optional int32 registration_tech = 5;
+
+    // the time this feature tag was registered, rounded 5 minutes
+    optional int32 published_seconds = 6;
+}
+
+/**
+ * Stats related to UCE queries to the network
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message UceEventStats {
+    enum MessageType {
+        MESSAGE_TYPE_UNSPECIFIED = 0;
+        PUBLISH = 1;
+        SUBSCRIBE = 2;
+        INCOMING_OPTION = 3;
+        OUTGOING_OPTION = 4;
+    }
+    enum CommandCode {
+        SERVICE_UNKNOWN = 0;
+        GENERIC_FAILURE = 1;
+        INVALID_PARAM = 2;
+        FETCH_ERROR = 3;
+        REQUEST_TIMEOUT = 4;
+        INSUFFICIENT_MEMORY = 5;
+        LOST_NETWORK_CONNECTION = 6;
+        NOT_SUPPORTED = 7;
+        NOT_FOUND = 8;
+        SERVICE_UNAVAILABLE = 9;
+        NO_CHANGE = 10;
+    }
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // Used to identify the message type.
+    // Used as a dimension
+    optional MessageType type = 3;
+
+    // Whether the UCE event is successfully finished. If false, the request to the
+    // modem timed out and we sent a timeout error back to the requesting app.
+    // Used as a dimension
+    optional bool successful = 4;
+
+    // The command error code for the Uce event. Not populated if the modem
+    // accepted the request and delivered a network_response.
+    // Used as a dimension
+    optional CommandCode command_code = 5;
+
+    // The network response code for the Uce event. Will not be populated if
+    // command_code is present.
+    // Used as a dimension
+    optional int32 network_response = 6;
+
+    // The count that matches the above conditions;
+    optional int32 count = 7;
+}
+
+/**
+ * Information related to a SIP NOTIFY event from modem.
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message PresenceNotifyEvent {
+    // See RFC3265 Section 3.2.4 for more information about these subscription states.
+    enum TerminatedReason {
+        REASON_UNSPECIFIED = 0;
+        // Not spec defined, the network returned a custom code that is not spec defined.
+        REASON_CUSTOM = 1;
+        REASON_DEACTIVATED = 2;
+        REASON_PROBATION = 3;
+        REASON_REJECTED = 4;
+        REASON_TIMEOUT = 5;
+        REASON_GIVEUP = 6;
+        REASON_NORESOURCE = 7;
+    }
+
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // The terminated reason associated with the subscription state.
+    // Used as a dimension
+    optional TerminatedReason reason = 3;
+
+    // Whether or not the NOTIFY received contained at least one body with PIDF
+    // content before moving to the terminated state.
+    // Used as a dimension
+    optional bool content_body_received = 4;
+
+    // The count of PIDF info received that contained RCS caps.
+    optional int32 rcs_caps_count = 5;
+
+    // The count of PIDF info received that contained MMTEL caps.
+    optional int32 mmtel_caps_count = 6;
+
+    // The count of PIDF info received that contained no mmtel or RCS caps.
+    optional int32 no_caps_count = 7;
+
+    // The count that matches the above conditions;
+    optional int32 count = 8;
+}
+
+/**
+ * Tracks GBA requests from applications
+ *
+ * Logged from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/RcsStats.java
+ */
+message GbaEvent {
+    enum FailedReason {
+        UNKNOWN = 0;
+        FEATURE_NOT_SUPPORTED = 1;
+        FEATURE_NOT_READY = 2;
+        NETWORK_FAILURE = 3;
+        INCORRECT_NAF_ID = 4;
+        SECURITY_PROTOCOL_NOT_SUPPORTED = 5;
+    }
+    // Carrier ID of the SIM used for IMS registration.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    // Used as a dimension
+    optional int32 carrier_id = 1;
+
+    // Index of the SIM used, 0 for single-SIM devices.
+    // Used as a dimension
+    optional int32 slot_id = 2;
+
+    // Whether the GBA event is successful.
+    // Used as a dimension
+    optional bool successful = 3;
+
+    // Gba authentication failed reason.
+    // Used as a dimension
+    optional FailedReason failed_reason = 4;
+
+    // The count that matches the above conditions.
+    optional int32 count = 5;
+}
+
