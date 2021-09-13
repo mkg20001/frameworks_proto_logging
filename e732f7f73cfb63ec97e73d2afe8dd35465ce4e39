@@ -22,6 +22,30 @@
       },
       "revId": "e732f7f73cfb63ec97e73d2afe8dd35465ce4e39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d525e6f2_8ad7722e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 6
+      },
+      "lineNbr": 3274,
+      "author": {
+        "id": 1591163
+      },
+      "writtenOn": "2021-09-13T18:26:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f40c0a98_bb7aef13",
+      "range": {
+        "startLine": 3274,
+        "startChar": 0,
+        "endLine": 3274,
+        "endChar": 2
+      },
+      "revId": "e732f7f73cfb63ec97e73d2afe8dd35465ce4e39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
