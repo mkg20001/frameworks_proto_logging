@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40c0a98_bb7aef13",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 6
+      },
+      "lineNbr": 3274,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2021-09-13T18:12:25Z",
+      "side": 1,
+      "message": "nit: atoms.proto has 4 space tabs. If all of the cls were like this, could you submit a follow up to fix? Should only be needed in aosp + sc-v2",
+      "range": {
+        "startLine": 3274,
+        "startChar": 0,
+        "endLine": 3274,
+        "endChar": 2
+      },
+      "revId": "e732f7f73cfb63ec97e73d2afe8dd35465ce4e39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
