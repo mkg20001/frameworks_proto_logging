@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d6e32b1_02d32318",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1581454
+      },
+      "writtenOn": "2021-09-13T19:35:16Z",
+      "side": 1,
+      "message": "Thanks for reviewing the proto change in internal master. Bluetooth is aosp-first so I\u0027m cherry-picking the change to aosp master",
+      "revId": "db70f0049394e3b059facf67a60844d6d5115fa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
