@@ -625,6 +625,8 @@ message Atom {
         ImsRegistrationStats ims_registration_stats = 10094 [(module) = "telephony"];
         Keystore2StorageStats keystore2_storage_stats = 10103 [(module) = "framework"];
         RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework"];
+        LauncherLayoutSnapshot launcher_layout_snapshot = 10108
+            [(module) = "sysui"];
         TelephonyNetworkRequests telephony_network_requests = 10115 [(module) = "telephony"];
         Keystore2KeyCreationWithGeneralInfo keystore2_key_creation_with_general_info =
                 10118 [(module) = "framework"];
@@ -3252,6 +3254,54 @@ message LauncherStaticLayout {
 
     // e.g., PIN, WIDGET TRAY, APPS TRAY, PREDICTION
     optional int32 origin = 15;
+
+    // e.g., number of icons inside a folder
+    optional int32 cardinality = 16;
+
+    // e.g., (x, y) span of the widget inside homescreen grid system
+    optional int32 span_x = 17 [default = 1];
+    optional int32 span_y = 18 [default = 1];
+}
+
+/**
+ * Used for logging launcher static elements using pulled atom.
+ *
+ * Logged from:
+ *   packages/apps/Launcher3
+ */
+message LauncherLayoutSnapshot {
+    // The event id (e.g., snapshot, drag and drop)
+    optional int32 event_id = 1;
+    // The event's source or target id (e.g., icon, shortcut, widget)
+    optional int32 item_id = 2;
+    // If the target needs to be tracked, use this id field
+    optional int32 instance_id = 3;
+    optional int32 uid = 4 [(is_uid) = true];
+    optional string package_name = 5;
+    optional string component_name = 6;
+
+    // (x, y) coordinate and the index information of the target on the container
+    optional int32 grid_x = 7 [default = -1];
+    optional int32 grid_y = 8 [default = -1];
+    optional int32 page_id = 9 [default = -2];
+
+    // e.g., folder icon's (x, y) location and index information on the workspace
+    // e.g., when used with widgets target, use these values for (span_x, span_y)
+    optional int32 grid_x_parent = 10 [default = -1];
+    optional int32 grid_y_parent = 11 [default = -1];
+    optional int32 page_id_parent = 12 [default = -2];
+
+    // UNKNOWN = 0
+    // HOTSEAT = 1
+    // WORKSPACE = 2
+    // FOLDER_HOTSEAT = 3
+    // FOLDER_WORKSPACE = 4
+    optional int32 container_id = 13;
+
+    optional bool is_work_profile = 14;
+
+    // e.g., PIN, WIDGET TRAY, APPS TRAY, PREDICTION
+    optional int32 attribute_id = 15;
 
     // e.g., number of icons inside a folder
     optional int32 cardinality = 16;
