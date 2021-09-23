@@ -309,7 +309,8 @@ message Atom {
         ProcessStartTime process_start_time = 169 [(module) = "framework"];
         PermissionGrantRequestResultReported permission_grant_request_result_reported =
                 170 [(module) = "permissioncontroller"];
-        BluetoothSocketConnectionStateChanged bluetooth_socket_connection_state_changed = 171;
+        BluetoothSocketConnectionStateChanged bluetooth_socket_connection_state_changed =
+                171 [(module) = "bluetooth"];
         DeviceIdentifierAccessDenied device_identifier_access_denied =
                 172 [(module) = "telephony_common"];
         BubbleDeveloperErrorReported bubble_developer_error_reported = 173 [(module) = "framework"];
