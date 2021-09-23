@@ -11237,6 +11237,9 @@ message PinStorageEvent {
 
     // Number of PINs stored or discarded.
     optional int32 number_of_pins = 2;
+
+    // The caller package name
+    optional string package_name = 3;
 }
 
 /**
