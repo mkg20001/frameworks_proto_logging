@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "063b34eb_21e5bb8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1581454
+      },
+      "writtenOn": "2021-09-24T19:46:32Z",
+      "side": 1,
+      "message": "Will run presubmit again after ag/15899123 is merged. It should resolve those merge conflicts",
+      "revId": "0d0ce26ce0d5067c89f825e67720dc4d6edfb66d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
