@@ -38,5 +38,5 @@ java_library_static {
     apex_available: [
         "com.android.tethering",
     ],
-    sdk_version: "system_current",
+    sdk_version: "system_30",
 }
