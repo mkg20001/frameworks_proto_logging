@@ -36,12 +36,17 @@ enum MemoryState {
 
 // this enum list is from frameworks/base/core/java/com/android/internal/app/procstats/ProcessStats.java
 // and not frameworks/base/core/java/android/app/ActivityManager.java
+// Next id: 17
 enum ProcessState {
     PROCESS_STATE_UNKNOWN = 0;
     // Persistent system process.
     PROCESS_STATE_PERSISTENT = 1;
     // Top activity; actually any visible activity.
     PROCESS_STATE_TOP = 2;
+    // Process bound by top or a foreground service
+    PROCESS_STATE_BOUND_TOP_OR_FGS = 15;
+    // Processing running a foreground service.
+    PROCESS_STATE_FGS = 16;
     // Important foreground process (ime, wallpaper, etc).
     PROCESS_STATE_IMPORTANT_FOREGROUND = 3;
     // Important background process.
