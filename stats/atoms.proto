@@ -512,6 +512,10 @@ message Atom {
         OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
         NetworkIpReachabilityMonitorReported network_ip_reachability_monitor_reported =
             367 [(module) = "network_stack"];
+        BluetoothCodePathCounter bluetooth_code_path_counter =
+            390 [(module) = "bluetooth"];
+        BluetoothLeBatchScanReportDelay bluetooth_le_batch_scan_report_delay =
+            392 [(module) = "bluetooth"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -2859,6 +2863,35 @@ message BluetoothHALCrashReasonReported {
     // Original type: uint8_t
     // Default: 0x00 (DEFAULT)
     optional int32 vendor_error_code = 4;
+}
+
+/**
+ * Logs when the counter is incremented
+ *
+ * Logged from:
+ *   system/bt
+ *   packages/apps/Bluetooth
+ *
+ */
+message BluetoothCodePathCounter {
+    // Keys of events with enum ranges to be defined
+    optional android.bluetooth.CodePathCounterKeyEnum key = 1;
+    // Number of frequency of events
+    optional int64 number = 2;
+}
+
+/**
+ * Logs when an application attempts to start a Bluetooth Low Energy scan.
+ * It only happens when the scan is initiated and does not repeatedly call
+ * while the scan is running.
+ *
+ * Logged from:
+ *   packages/apps/Bluetooth/src/com/android/bluetooth/gatt/GattService.java
+ *
+ */
+message BluetoothLeBatchScanReportDelay {
+    optional int32 application_uid = 1;
+    optional int64 application_report_delay_millis = 2;
 }
 
 /**
