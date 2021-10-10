@@ -141,3 +141,7 @@ enum SocketRoleEnum {
     SOCKET_ROLE_LISTEN = 1;
     SOCKET_ROLE_CONNECTION = 2;
 }
+
+enum CodePathCounterKeyEnum {
+    KEY_UNKNOWN = 0;
+}

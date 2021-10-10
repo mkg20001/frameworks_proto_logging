@@ -17,14 +17,10 @@ package {
 }
 
 java_library {
-    name: "styleprotosnano",
+    name: "styleprotoslite",
     proto: {
-        type: "nano",
-        output_params: ["store_unknown_fields=true"],
-        include_dirs: ["external/protobuf/src"],
+        type: "lite",
     },
-
-    sdk_version: "current",
     srcs: [
         "*.proto",
     ],
