@@ -744,6 +744,243 @@ enum Action {
     // CATEGORY: SETTINGS
     // OS: R
     ACTION_CONFIRM_SIM_DELETION_OFF = 1739;
+
+    // ACTION: Settings > System > Gestures > Double tap > Toggle on Double tap
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ENABLED = 1740;
+
+    // ACTION: Settings > System > Gestures > Double tap > Toggle off Double tap
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_DISABLED = 1741;
+
+    // ACTION: Settings > System > Gestures > Double tap > Invoke Assistant
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_ASSISTANT = 1742;
+
+    // ACTION: Settings > System > Gestures > Double tap > Take screenshot
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_SCREENSHOT = 1743;
+
+    // ACTION: Settings > System > Gestures > Double tap > Play and pause
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_PLAY_PAUSE = 1744;
+
+    // ACTION: Settings > System > Gestures > Double tap > Open app overview
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_OVERVIEW = 1745;
+
+    // ACTION: Settings > System > Gestures > Double tap > Open notification shade
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_NOTIFICATION_SHADE = 1746;
+
+    // ACTION: Settings > System > Gestures > Double tap > Require harder taps
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_LOW_SENSITIVITY = 1747;
+
+    // OPEN: Columbus Gesture training intro in Settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_GESTURE_TRAINING_INTRO = 1748;
+
+    // OPEN: Columbus Gesture training enrolling in Settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_GESTURE_TRAINING_ENROLLING = 1749;
+
+    // OPEN: Columbus Gesture training finished in Settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_GESTURE_TRAINING_FINISHED = 1750;
+
+    // ACTION: Settings > Display > Auto-rotate screen > Enable Face Detection
+    //  SUBTYPE: 0 is off, 1 is on
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_CAMERA_ROTATE_TOGGLE = 1751;
+
+    // ACTION: Allow or deny an app to set alarms and reminders
+    ACTION_ALARMS_AND_REMINDERS_TOGGLE = 1752;
+
+    // ACTION: Settings > Display > Auto-rotate screen > Use Auto-Rotate
+    //  SUBTYPE: 0 is off, 1 is on
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_ROTATE_ROTATE_MASTER_TOGGLE = 1753;
+
+    // ACTION: Settings > Display > Screen timeout > Timeout
+    //  SUBTYPE: new timeout in millis
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_SCREEN_TIMEOUT_CHANGED = 1754;
+
+    // ACTION: Settings > Display > Screen timeout > Screen attention
+    //  SUBTYPE: 0 is off, 1 is on
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_SCREEN_ATTENTION_CHANGED = 1755;
+
+    // ACTION: Settings > System > Gestures > Back tap > Open app
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_ACTION_OPEN_APP = 1756;
+
+    // ACTION: Settings > System > Gestures > Back tap > Open app (Gear icon) > Any
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_SELECT_APP = 1757;
+
+    // OPEN: Columbus Gesture training action in Settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_GESTURE_TRAINING_ACTION = 1758;
+
+    // OPEN: Columbus Gesture training app selection in Settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_GESTURE_TRAINING_APP = 1759;
+
+    // ACTION: Settings > System > Gestures > Back tap > Open app (Gear icon) > Any app (Gear icon) > Any
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_COLUMBUS_SELECT_APP_SHORTCUT = 1760;
+
+    // ACTION: Mobile network settings > Advanced > Allow 2G > Toggle on/off
+    // Note: Can be re-enabled via carrier-initiated update to
+    // CarrierConfigManager.
+    // VALUE: 1 for 2G enabled, 0 for disabled
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_2G_ENABLED = 1761;
+
+    // ACTION: Allow or deny an app to manage media files
+    // SUBTYPE: 0 is deny, 1 is allow
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_MEDIA_MANAGEMENT_APPS_TOGGLE = 1762;
+
+    // ACTION: Settings > User > Confirm exit guest mode dialog > Delete
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_USER_GUEST_EXIT_CONFIRMED = 1763;
+
+    // ACTION: Settings > User > Add guest
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_USER_GUEST_ADD = 1764;
+
+    // ACTION: Settings > User > Guest > Switch to Guest
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_SWITCH_TO_GUEST = 1765;
+
+    // ACTION: Settings > Battery Usage > Click time slot
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_USAGE_TIME_SLOT = 1766;
+
+    // ACTION: Settings > Battery Usage > Click show all
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_USAGE_SHOW_ALL = 1767;
+
+    // ACTION: Settings > Battery Usage > Click app item
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_USAGE_APP_ITEM = 1768;
+
+    // ACTION: Settings > Battery Usage > Click system item
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_USAGE_SYSTEM_ITEM = 1769;
+
+    // ACTION: Settings > Battery Usage > Click expand item
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_USAGE_EXPAND_ITEM = 1770;
+
+    // ACTION: Settings > Battery settings > Battery tip > Battery defender
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_TIP_BATTERY_DEFENDER = 1771;
+
+    // ACTION: Settings > Battery settings > Battery tip > Defender tip
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_BATTERY_DEFENDER_TIP = 1772;
+
+    // Action: Settings > Apps > AppInfo > Open
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_INFO_OPEN = 1773;
+
+    // Action: Settings > Apps > AppInfo > Disable
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_INFO_DISABLE = 1774;
+
+    // Action: Settings > Apps > AppInfo > Force Stop
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_INFO_FORCE_STOP = 1775;
+
+    // Action: Settings > Apps > AppInfo > Battery > Unrestricted
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_BATTERY_USAGE_UNRESTRICTED = 1776;
+
+    // Action: Settings > Apps > AppInfo > Battery > Optimized
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_BATTERY_USAGE_OPTIMIZED = 1777;
+
+    // Action: Settings > Apps > AppInfo > Battery > Restricted
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_BATTERY_USAGE_RESTRICTED = 1778;
+
+    // Action: Settings > Apps > AppInfo > Battery > Learn More
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_BATTERY_LEARN_MORE = 1779;
+
+    // Action: Settings > Battery > Restricted Apps > Unchecked
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_APP_RESTRICTED_LIST_UNCHECKED = 1780;
+
+    // Action: Settings > Adaptive Preferences > Adaptive Charging
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_ADAPTIVE_CHARGING_TOGGLE = 1781;
+
+    // Action: Settings > Battery Share > toggle
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_REVERSE_CHARGING_TOGGLE = 1782;
+
+    // Action: Settings > Battery Share > threshold
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACTION_REVERSE_CHARGING_THRESHOLD = 1783;
+
+    // FIELD: Custom type for how battery saver is scheduled when enabled.
+    // See BatterySaverScheduledType.
+    // CATEGORY: SETTINGS
+    // OS: S
+    FIELD_BATTERY_SAVER_SCHEDULE_TYPE = 1784;
+
+    // FIELD: Custom type for the %age battery saver is triggered.
+    // CATEGORY: SETTINGS
+    // OS: S
+    FIELD_BATTERY_SAVER_PERCENTAGE_VALUE = 1785;
 }
 
 /**
@@ -1161,7 +1398,7 @@ enum PageId {
     // OPEN: Settings > Location > Scanning
     // CATEGORY: SETTINGS
     // OS: 6.0
-    LOCATION_SCANNING = 131;
+    LOCATION_SCANNING = 131 [deprecated = true];
 
     // OPEN: Settings > Sound & notification > App notifications
     // CATEGORY: SETTINGS
@@ -1722,7 +1959,7 @@ enum PageId {
     // OPEN: Settings > System > Language & Region
     SETTINGS_LANGUAGE_CATEGORY = 750;
 
-    // OPEN: Settings > System > Input & Gesture > Swipe to notification gesture
+    // OPEN: Settings > System > Input & Gesture > Swipe fingerprint for notifications
     SETTINGS_GESTURE_SWIPE_TO_NOTIFICATION = 751;
 
     // OPEN: Settings > System > Input & Gesture > Double tap power button gesture
@@ -2335,6 +2572,7 @@ enum PageId {
 
     // OPEN: Settings > Display > Adaptive sleep
     // OS: Q
+    // Note: Replaced in Android S+ with SCREEN_TIMEOUT
     SETTINGS_ADAPTIVE_SLEEP = 1628;
 
     // OPEN: Settings > System > Aware
@@ -2664,6 +2902,11 @@ enum PageId {
     // OS: R
     DND_APPS_BYPASSING = 1840;
 
+    // OPEN: Settings > System > Gestures > One-Handed
+    // CATEGORY: SETTINGS
+    // OS: R QPR
+    SETTINGS_ONE_HANDED = 1841;
+
     // OPEN: Settings > Battery > Advanced battery option
     // CATEGORY: SETTINGS
     // OS: R
@@ -2684,6 +2927,26 @@ enum PageId {
     // OS: R
     MEDIA_CONTROLS_SETTINGS = 1845;
 
+    // OPEN: Settings > System > Gestures > Swipe for notification
+    // CATEGORY: SETTINGS
+    // OS: R QPR
+    SETTINGS_SWIPE_BOTTOM_TO_NOTIFICATION = 1846;
+
+    // OPEN: Settings > System > Gestures > Emergency SOS Gesture
+    // CATEGORY: SETTINGS
+    // OS: S
+    EMERGENCY_SOS_GESTURE_SETTINGS = 1847;
+
+    // OPEN: Settings > System > Gestures > Double tap
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS = 1848;
+
+    // OPEN: Settings > Accessibility > Magnification > Settings > Magnification area > Magnification switch shortcut dialog
+    // CATEGORY: SETTINGS
+    // OS: S
+    DIALOG_MAGNIFICATION_SWITCH_SHORTCUT = 1849;
+
     // OPEN: Settings > Network & internet > Adaptive connectivity
     // CATEGORY: SETTINGS
     // OS: R QPR
@@ -2692,8 +2955,231 @@ enum PageId {
     // OS: R QPR2
     BLUETOOTH_PAIRING_RECEIVER = 1851;
 
+    // OPEN: Settings > Display > Screen timeout
+    // CATEGORY: SETTINGS
+    // OS: S
+    SCREEN_TIMEOUT = 1852;
+
+    // OPEN: Settings > Accessibility > Reduce Bright Colors
+    // CATEGORY: SETTINGS
+    // OS: S
+    REDUCE_BRIGHT_COLORS_SETTINGS = 1853;
+
+    // OPEN: Settings > Location > Time Zone Detection
+    // CATEGORY: SETTINGS
+    // OS: S
+    LOCATION_TIME_ZONE_DETECTION = 1854;
+
+    // OPEN: Settings > Developer options > Media transcode settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    TRANSCODE_SETTINGS = 1855;
+
+    // OPEN: Settings > Security & screen lock -> Encryption & credentials > Certificate management app
+    // CATEGORY: SETTINGS
+    // OS: S
+    CREDENTIAL_MANAGEMENT_APP = 1856;
+
     // OPEN: Settings > System -> Reset options > Erase downloaded SIMs
     // CATEGORY: SETTINGS
     // OS: S
     RESET_EUICC = 1857;
+
+    // OPEN: Settings > Accessibility -> Text and display
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_TEXT_AND_DISPLAY = 1858;
+
+    // OPEN: Settings > Emergency settings
+    // CATEGORY: SETTINGS
+    // OS: S
+   EMERGENCY_SETTINGS = 1859;
+
+    // OPEN: Settings -> Apps -> APP -> Extra App Info
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_EXTRA_APP_INFO = 1860;
+
+    // OPEN: Settings > Accessibility -> Tap assistance
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_TAP_ASSISTANCE = 1861;
+
+    // OPEN: Settings > Accessibility -> System controls
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_SYSTEM_CONTROLS = 1862;
+
+    // OPEN: Settings > Accessibility -> Audio adjustment
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_AUDIO_ADJUSTMENT = 1863;
+
+    // OPEN: Settings > Accessibility -> Accessibility shortcuts
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_SHORTCUTS_SETTINGS = 1864;
+
+    // Open: Settings > Notifications > notification listeners > a listener > bridged apps
+    // CATEGORY: SETTINGS
+    // OS: S
+    NOTIFICATION_ACCESS_BRIDGED_APPS = 1865;
+
+    // OPEN: Settings > Accessibility -> Text and display > Turn screen darker
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_TURN_SCREEN_DARKER = 1866;
+
+    // OPEN: Settings > Display > Auto-rotate screen
+    // CATEGORY: SETTINGS
+    // OS: S
+    DISPLAY_AUTO_ROTATE_SETTINGS = 1867;
+
+    // OPEN: Settings > Location > Location Services
+    // CATEGORY: SETTINGS
+    // OS: S
+    LOCATION_SERVICES = 1868;
+
+    // OPEN: Settings > Apps > Gear > Special Access > Alarms and Reminders
+    // CATEGORY: SETTINGS
+    // OS: S
+    ALARMS_AND_REMINDERS = 1869;
+
+    // OPEN: Settings > Accessibility -> Accessibility shortcuts -> Accessibility button
+    // CATEGORY: SETTINGS
+    // OS: S
+    ACCESSIBILITY_BUTTON_SETTINGS = 1870;
+
+    // OPEN: Settings > System > Gestures > Back tap > Open app (Gear icon)
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_APP_SELECT = 1871;
+
+    // OPEN: Settings > System > Gestures > Back tap > Open app (Gear icon) > Any app (Gear icon)
+    // CATEGORY: SETTINGS
+    // OS: S
+    SETTINGS_COLUMBUS_APP_SHORTCUT_SELECT = 1872;
+
+    // OPEN: OPEN: Settings > Accessibility -> Edit shortcut dialog -> Customize accessibility button
+    // CATEGORY: SETTINGS
+    // OS: S
+    SWITCH_SHORTCUT_DIALOG_ACCESSIBILITY_BUTTON_SETTINGS = 1873;
+
+    // OPEN: Settings > Apps > Gear > Special app access > Media management apps
+    // CATEGORY: SETTINGS
+    // OS: S
+    MEDIA_MANAGEMENT_APPS = 1874;
+
+    // OPEN: Settings > Storage > Dialog for emptying trash files
+    // CATEGORY: SETTINGS
+    // OS: S
+    DIALOG_EMPTY_TRASH = 1875;
+
+    // OPEN: Settings > System > Date and time
+    // CATEGORY: SETTINGS
+    // OS: S
+    DIALOG_DATE_TIME_ENABLE_GEOTZ_WITH_DISABLED_LOCATION = 1876;
+
+    // OPEN: Settings > Sound > Work profile sounds
+    // CATEGORY: SETTINGS
+    // OS: S
+    WORK_PROFILE_SOUNDS = 1877;
+
+    // OPEN: Settings > Security > Face and fingerprint unlock
+    // CATEGORY: SETTINGS
+    // OS: S
+    COMBINED_BIOMETRIC = 1878;
+
+    // OPEN: Settings > Security > Face and fingerprint unlock for profile
+    // CATEGORY: SETTINGS
+    // OS: S
+    COMBINED_BIOMETRIC_PROFILE = 1879;
+
+    // OPEN: Settings > Battery > Battery Usage
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_BATTERY_USAGE = 1880;
+
+    // OPEN: Settings > Battery > Battery Saver
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_BATTERY_SAVER = 1881;
+
+    // OPEN: Settings > Battery > Adaptive Preferences
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_BATTERY_ADAPTIVE_PREFERENCES = 1882;
+
+    // OPEN: Settings > Battery > Battery Share
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_BATTERY_SHARE = 1883;
+
+    // OPEN: Settings > Security (if using alternative security settings)
+    // CATEGORY: SETTINGS
+    // OS: S
+    SECURITY_ALTERNATIVE = 1884;
+
+    // OPEN: Settings > Security > Advanced Settings (if using overflow fragment)
+    // CATEGORY: SETTINGS
+    // OS: S
+    SECURITY_ADVANCED = 1885;
+
+    // OPEN: Settings > Apps > Game settings
+    // CATEGORY: SETTINGS
+    // OS: S
+    GAME_SETTINGS = 1886;
+
+    // OPEN: Settings > Security > Warnings (if using alternative security settings).
+    // CATEGORY: SETTINGS
+    // OS: S
+    SECURITY_WARNINGS = 1887;
+
+    // OPEN: Settings > Battery > Battery Percentage
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_BATTERY_PERCENTAGE = 1888;
+
+    // OPEN: Settings > Apps > AppInfo > Battery
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_APP_BATTERY_USAGE = 1889;
+
+    // OPEN: Settings > Battery > Restricted Apps
+    // CATEGORY: SETTINGS
+    // OS: S
+    OPEN_APP_RESTRICTED_LIST = 1890;
+
+    // OPEN: Settings > Security > Warning > Dismiss
+    // CATEGORY: SETTINGS
+    // OS: S
+    SECURITY_CONFIRMATION_DIALOG = 1891;
+
+    // OPEN: Settings > Security > Face and fingerprint unlock (if consent is required)
+    // CATEGORY: SETTINGS
+    // OS: S
+    FINGERPRINT_PARENTAL_CONSENT = 1892;
+
+    // OPEN: Settings > Security > Face and fingerprint unlock (if consent is required)
+    // CATEGORY: SETTINGS
+    // OS: S
+    FACE_PARENTAL_CONSENT = 1893;
+
+    // OPEN: Settings > Security > Face and fingerprint unlock (when consent process ends)
+    // CATEGORY: SETTINGS
+    // OS: S
+    BIOMETRIC_CONSENT_PARENT_TO_CHILD = 1894;
+
+    // OPEN: Settings > Security & screen lock -> Encryption & credentials > Certificate management app > Remove app
+    // CATEGORY: SETTINGS
+    // OS: S
+    CREDENTIAL_MANAGEMENT_APP_REMOVE_APP = 1895;
+}
+
+// Battery Saver schedule types.
+enum BatterySaverScheduleType {
+    BATTERY_SAVER_SCHEDULE_TYPE_UNKNOWN = 0;
+    BATTERY_SAVER_SCHEDULE_TYPE_NO_SCHEDULE = 1;
+    BATTERY_SAVER_SCHEDULE_TYPE_BASED_ON_ROUTINE = 2;
+    BATTERY_SAVER_SCHEDULE_TYPE_BASED_ON_PERCENTAGE = 3;
 }

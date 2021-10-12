@@ -62,6 +62,8 @@ enum EventType {
     ACTIONS_GENERATED = 20;
     // Some text links were generated
     LINKS_GENERATED = 21;
+    // A foreground app read the clipboard.
+    READ_CLIPBOARD = 22;
 }
 
 enum WidgetType {
@@ -84,4 +86,6 @@ enum WidgetType {
     WIDGET_TYPE_CUSTOM_UNSELECTABLE_TEXTVIEW = 8;
     // Notification
     WIDGET_TYPE_NOTIFICATION = 9;
+    // ClipBoard
+    WIDGET_TYPE_CLIPBOARD = 10;
 }

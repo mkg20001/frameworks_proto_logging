@@ -56,6 +56,30 @@ enum BatteryStatusEnum {
     BATTERY_STATUS_FULL = 5;
 }
 
+enum PowerComponentEnum {
+    POWER_COMPONENT_SCREEN = 0;
+    POWER_COMPONENT_CPU = 1;
+    POWER_COMPONENT_BLUETOOTH = 2;
+    POWER_COMPONENT_CAMERA = 3;
+    POWER_COMPONENT_AUDIO = 4;
+    POWER_COMPONENT_VIDEO = 5;
+    POWER_COMPONENT_FLASHLIGHT = 6;
+    POWER_COMPONENT_SYSTEM_SERVICES = 7;
+    POWER_COMPONENT_MOBILE_RADIO = 8;
+    POWER_COMPONENT_SENSORS = 9;
+    POWER_COMPONENT_GNSS = 10;
+    POWER_COMPONENT_WIFI = 11;
+    POWER_COMPONENT_WAKELOCK = 12;
+    POWER_COMPONENT_MEMORY = 13;
+    POWER_COMPONENT_PHONE = 14;
+    POWER_COMPONENT_AMBIENT_DISPLAY = 15;
+    POWER_COMPONENT_IDLE = 16;
+    // Power that is re-attributed to other battery consumers. For example, for System Server
+    // this represents the power attributed to apps requesting system services.
+    // The value should be negative or zero.
+    POWER_COMPONENT_REATTRIBUTED_TO_OTHER_CONSUMERS = 17;
+}
+
 // These constants are defined in hardware/interfaces/thermal/1.0/types.hal
 // and in hardware/interfaces/thermal/2.0/types.hal
 // They are primarily used by android/os/HardwarePropertiesManager.java.
