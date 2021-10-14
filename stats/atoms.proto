@@ -6207,12 +6207,6 @@ message MobileBytesTransferByFgBg {
 
 /**
  * Used for pull network statistics via mobile|wifi networks, and sliced by interesting dimensions.
- * Note that the data is expected to be sliced into more dimensions in future. In other words,
- * the caller must not assume any row of data is one full report when filtering with a set of
- * matching conditions, because future data may represent with multiple rows what is currently
- * represented by one.
- * To avoid being broken by future slicing, callers must take care to aggregate rows even if they
- * query all the existing columns.
  *
  * Pulled from:
  *   StatsPullAtomService (using NetworkStatsService to get NetworkStats)
@@ -6270,12 +6264,6 @@ message DataUsageBytesTransfer {
  * TODO: DataUsageBytesTransfer should be eventually replaced with DataUsageBytesTransferV2.
  *
  * Used for pull network statistics via mobile|wifi networks, and sliced by interesting dimensions.
- * Note that the data is expected to be sliced into more dimensions in future. In other words,
- * the caller must not assume any row of data is one full report when filtering with a set of
- * matching conditions, because future data may represent with multiple rows what is currently
- * represented by one.
- * To avoid being broken by future slicing, callers must take care to aggregate rows even if they
- * query all the existing columns.
  *
  * Pulled from:
  *   StatsPullAtomService (using NetworkStatsService to get NetworkStats)
@@ -6308,16 +6296,13 @@ message DataUsageBytesTransferV2 {
     // See TelephonyManager#getSimCarrierId.
     optional int32 carrier_id = 9;
 
-    // Enumeration of opportunistic states with an additional DSS_ALL state indicates the record is
-    // combined regardless of the boolean value in its field.
+    // Enumeration of opportunistic states.
     enum DataSubscriptionState {
         DSS_UNKNOWN = 0; // For server side backward compatibility.
-        DSS_ALL = 1;
-        DSS_OPPORTUNISTIC = 2;
-        DSS_NOT_OPPORTUNISTIC = 3;
+        DSS_OPPORTUNISTIC = 1;
+        DSS_NOT_OPPORTUNISTIC = 2;
     }
-    // Mark whether the subscription is an opportunistic data subscription, and ALL indicates the
-    // record is combined across opportunistic data subscriptions.
+    // Mark whether the subscription is an opportunistic data subscription.
     // See {@link SubscriptionManager#setOpportunistic}.
     optional DataSubscriptionState opportunistic_data_sub = 10;
 
@@ -6329,13 +6314,11 @@ message DataUsageBytesTransferV2 {
 
     // Enumeration of metered states.
     enum MeteredState {
-        METERED_UNKNOWN = 0;
-        METERED_ALL = 1;
-        METERED_NO = 2;
-        METERED_YES = 3;
+        METERED_UNKNOWN = 0;  // For server side backward compatibility.
+        METERED_NO = 1;
+        METERED_YES = 2;
     }
-    // Mark the reported data is metered or non-metered, and METERED_ALL indicates the record is
-    // combined across metered data.
+    // Mark the reported data is metered or non-metered.
     optional MeteredState metered = 12;
 }
 
