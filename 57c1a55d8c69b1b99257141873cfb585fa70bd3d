@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c5a103_2c26f8eb",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125923
+      },
+      "writtenOn": "2021-10-26T20:01:32Z",
+      "side": 1,
+      "message": "I just realized this isn\u0027t in alphabetical order :( \n\nDo you want me to create a follow up CL to correct the order, or does it not matter?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "57c1a55d8c69b1b99257141873cfb585fa70bd3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
