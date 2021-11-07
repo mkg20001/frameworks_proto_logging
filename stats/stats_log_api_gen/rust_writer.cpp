@@ -212,7 +212,7 @@ static void write_rust_atom_constant_values(FILE* out, const shared_ptr<AtomDecl
     for (const AtomField& field : atomDecl->fields) {
         if (field.javaType == JAVA_TYPE_ENUM) {
             fprintf(out, "    #[repr(i32)]\n");
-            fprintf(out, "    #[derive(Clone, Copy)]\n");
+            fprintf(out, "    #[derive(Clone, Copy, Eq, PartialEq)]\n");
             fprintf(out, "    pub enum %s {\n", make_camel_case_name(field.name).c_str());
             for (map<int, string>::const_iterator value = field.enumValues.begin();
                  value != field.enumValues.end(); value++) {
