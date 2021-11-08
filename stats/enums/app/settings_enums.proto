@@ -3174,6 +3174,11 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: S
     CREDENTIAL_MANAGEMENT_APP_REMOVE_APP = 1895;
+
+    // OPEN: Settings > Network & Internet > SIMs > Automatically select network
+    // CATEGORY: SETTINGS
+    // OS: S
+    DIALOG_FIND_NETWORK = 1896;
 }
 
 // Battery Saver schedule types.
