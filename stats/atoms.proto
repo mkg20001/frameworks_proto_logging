@@ -767,6 +767,7 @@ message Atom {
         UceEventStats uce_event_stats = 10143 [(module) = "telephony"];
         PresenceNotifyEvent presence_notify_event = 10144 [(module) = "telephony"];
         GbaEvent gba_event = 10145 [(module) = "telephony"];
+        PerSimStatus per_sim_status = 10146 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -17509,4 +17510,44 @@ message GbaEvent {
 
     // The count that matches the above conditions.
     optional int32 count = 5;
+}
+
+/**
+ * Pulls status for a SIM.
+ *
+ * Each pull creates multiple atoms, one for each SIM. The atom holds the status for a SIM that's
+ * sensitive per carrier. The atom would be aggregated per carrier for analysis.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message PerSimStatus {
+    // Index of the SIM, 0 for single-SIM devices.
+    optional int32 sim_slot_index = 1;
+
+    // Carrier ID of the SIM.
+    // See https://source.android.com/devices/tech/config/carrierid.
+    optional int32 carrier_id = 2;
+
+    // Indicates whether phone number source UICC provides a phone number
+    // and whether it agrees with other sources:
+    //  - 0: no number provided
+    //  - a positive integer (> 0): sources providing the same phone number
+    //    shall use the same integer. The integer shall start from 1, and
+    //    for each new unique source the next integer (2, 3, …) is used.
+    // This way, the raw phone number cannot be derived from the value of
+    // this field.
+    // This also allows a quick check of conflicts: any field > 1 means conflict,
+    // and the max means the count of unique phone numbers.
+    optional int32 phone_number_source_uicc = 3;
+
+    // Indicates whether phone number source CARRIER provides a phone number
+    // and whether it agrees with other sources.
+    // See field phone_number_source_uicc.
+    optional int32 phone_number_source_carrier = 4;
+
+    // Indicates whether phone number source IMS provides a phone number
+    // and whether it agrees with other sources.
+    // See field phone_number_source_uicc.
+    optional int32 phone_number_source_ims = 5;
 }
