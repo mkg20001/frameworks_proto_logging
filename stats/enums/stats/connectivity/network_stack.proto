@@ -201,8 +201,12 @@ enum NudEventType {
     NUD_ORGANIC_FAILED = 5;
     // Neighbor unreachable notification from kernel, and IP provisioning is also lost;
     NUD_ORGANIC_FAILED_CRITICAL = 6;
-    // NUD probe failure due to neighbor's MAC address has changed.
-    NUD_MAC_ADDRESS_CHANGED = 7;
+    // NUD probe failure due to neighbor's MAC address has changed after roaming.
+    NUD_MAC_ADDRESS_CHANGED_AFTER_ROAMING = 7;
+    // NUD probe failure due to neighbor's MAC address has changed after receiving CMD_CONFIRM.
+    NUD_MAC_ADDRESS_CHANGED_AFTER_CONFIRM = 8;
+    // NUD probe failure due to neighbor's MAC address has changed after organic probes.
+    NUD_MAC_ADDRESS_CHANGED_AFTER_ORGANIC = 9;
 }
 
 enum NudNeighborType {
