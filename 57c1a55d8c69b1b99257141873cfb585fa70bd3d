@@ -22,6 +22,30 @@
       },
       "revId": "57c1a55d8c69b1b99257141873cfb585fa70bd3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c09ae6_3591604d",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1242539
+      },
+      "writtenOn": "2021-11-24T00:08:06Z",
+      "side": 1,
+      "message": "Let\u0027s do this in a follow up CL.",
+      "parentUuid": "17c5a103_2c26f8eb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "57c1a55d8c69b1b99257141873cfb585fa70bd3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
