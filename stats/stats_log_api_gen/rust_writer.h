@@ -24,7 +24,7 @@ namespace android {
 namespace stats_log_api_gen {
 
 int write_stats_log_rust(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                         const int minApiLevel);
+                         const int minApiLevel, string rustHeaderCrate);
 
 void write_stats_log_rust_header(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl);
 
