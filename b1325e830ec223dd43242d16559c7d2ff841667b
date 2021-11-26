@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1837931_daba3dde",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-26T08:00:40Z",
+      "side": 1,
+      "message": "Would it be better if these were consistent with the existing codes? Something like:\n\nI wonder if they should be consistent with the existing values?\ne.g.,\nNUD_POST_ROAMING_MAC_ADDRESS_CHANGED\nNUD_CONFIRM_MAC_ADDRESS_CHANGED\nNUD_ORGANIC_MAC_ADDRESS_CHANGED",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 41
+      },
+      "revId": "b1325e830ec223dd43242d16559c7d2ff841667b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
