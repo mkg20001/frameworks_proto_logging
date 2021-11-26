@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e122c4c_b668869b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-26T00:25:05Z",
+      "side": 1,
+      "message": "Adding new values generally LGTM except I think one of them should be renamed (see inline).\n\nIt looks like this CL is incorrect because it is removing a constant which code depends on:\n\npackages/modules/NetworkStack/src/android/net/ip/IpReachabilityMonitor.java:413: error: cannot find symbol\n            logNudFailed(event, NudEventType.NUD_MAC_ADDRESS_CHANGED);\n\nIf you want to rename the constant (which seems reasonable, assuming it\u0027s allowed), then I would suggest putting this CL in a topic with a NetworkStack CL that *only* renames the enum in NetworkStack code and makes no other changes. That will make it easier to review and submit the CL.",
+      "revId": "d64f28fb02085241747f0a7f0168a285ea1ba4c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8036f3d_ef688ada",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-26T00:25:05Z",
+      "side": 1,
+      "message": "This should probably be just _ORGANIC instead of _AFTER_ORGANIC. \"Organic\" means there is no specific event that triggered a probe, it\u0027s a probe that happened in steady state.",
+      "range": {
+        "startLine": 209,
+        "startChar": 28,
+        "endLine": 209,
+        "endChar": 41
+      },
+      "revId": "d64f28fb02085241747f0a7f0168a285ea1ba4c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
