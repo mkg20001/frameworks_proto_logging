@@ -592,6 +592,7 @@ message Atom {
             [(module) = "neuralnetworks"];
         NeuralNetworksExecutionFailed neuralnetworks_execution_failed = 397
             [(module) = "neuralnetworks"];
+        VmCreationRequested vm_creation_requested = 409 [(module) = "virtualizationservice"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -15018,6 +15019,26 @@ message TextClassifierApiUsageReported {
     optional ResultType result_type = 2;
     optional int64 latency_millis = 3;
     optional string session_id = 4;
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ *
+ * On CreateVM requests, an atom is pushed that records what hypervisor is being used.
+ * the protected status of the new VM, and if the VM creation succeeded
+ * Logged from: packages/modules/Virtualization/
+ */
+message VmCreationRequested {
+    enum Hypervisor {
+        UNKNOWN = 0;
+        PKVM = 1;
+        OTHER = 2;
+    }
+    optional Hypervisor hypervisor = 1;
+    // Is the VM started in protected mode?
+    optional bool protected = 2;
+    // Did the VM creation succeed
+    optional bool success = 3;
 }
 
 /**
