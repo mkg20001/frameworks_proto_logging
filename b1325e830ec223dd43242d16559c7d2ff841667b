@@ -22,6 +22,30 @@
       },
       "revId": "b1325e830ec223dd43242d16559c7d2ff841667b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad1becd_077d2579",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-11-26T10:27:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1837931_daba3dde",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 41
+      },
+      "revId": "b1325e830ec223dd43242d16559c7d2ff841667b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
