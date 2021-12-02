@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c5ef51_8f68ae47",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2021-12-02T10:00:01Z",
+      "side": 1,
+      "message": "Field ids of these atoms must match exactly those in the source of truth go/atoms.proto.",
+      "range": {
+        "startLine": 741,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 60
+      },
+      "revId": "660aaab247775a447812c41fde8de8c32a9280d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
