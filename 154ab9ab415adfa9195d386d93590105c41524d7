@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8b95c2_04337a77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1678423
+      },
+      "writtenOn": "2021-12-10T01:44:53Z",
+      "side": 1,
+      "message": "Thanks for adding this. Once this is landed, can you please port it to the server side atoms.proto file?",
+      "revId": "154ab9ab415adfa9195d386d93590105c41524d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
