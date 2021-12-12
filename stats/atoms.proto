@@ -9757,6 +9757,9 @@ message GpuStatsAppInfo {
 
     // App creates GLESv1 context.
     optional bool gles_1_in_use = 8;
+
+    // ANGLE in use for the app.
+    optional bool angle_in_use = 9;
 }
 
 /*
@@ -14417,6 +14420,7 @@ message Keystore2KeyCreationWithGeneralInfo {
         P_256 = 2;
         P_384 = 3;
         P_521 = 4;
+        CURVE_25519 = 5;
     };
     // Which ec curve was selected if elliptic curve cryptography is in use
     optional EcCurve ec_curve = 3;
