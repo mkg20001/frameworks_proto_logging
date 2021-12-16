@@ -131,7 +131,7 @@ message AudioTrackData {
  * Logged from:
  *   frameworks/av/media/libstagefright/MediaCodec.cpp
  *   frameworks/av/services/mediaanalytics/statsd_codec.cpp
- * Next Tag: 53
+ * Next Tag: 54
  */
 message CodecData {
   optional string codec = 1;
@@ -186,6 +186,11 @@ message CodecData {
   optional int32 original_video_qp_p_max = 50;
   optional int32 original_video_qp_b_min = 51;
   optional int32 original_video_qp_b_max = 52;
+  optional int64 initialization_latency = 53;
+  optional int64 creation_latency = 54;
+  optional int64 configuration_latency = 55;
+  optional int64 starting_latency = 56;
+  optional int64 first_buffer_out_latency = 57;
   // !!!WARNING!!!
   // Keep synchronized with MediaCodecReported in atoms.proto
   // Also keep AStatsEvent serialization synchronized in statsd_codec.cpp
