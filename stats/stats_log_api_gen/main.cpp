@@ -55,6 +55,9 @@ static void print_usage() {
             "compiled against. (Java only).\n");
     fprintf(stderr,
             "                                        Default is \"current\".\n");
+    fprintf(stderr,
+            "  --bootstrap          If this logging is from a bootstrap process. "
+            "Only supported for cpp. Do not use unless necessary.\n");
 }
 
 /**
@@ -75,6 +78,7 @@ static int run(int argc, char const* const* argv) {
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
     int compileApiLevel = API_LEVEL_CURRENT;
+    bool bootstrap = false;
 
     int index = 1;
     while (index < argc) {
@@ -173,6 +177,8 @@ static int run(int argc, char const* const* argv) {
             if (0 != strcmp("current", argv[index])) {
                 compileApiLevel = atoi(argv[index]);
             }
+        } else if (0 == strcmp("--bootstrap", argv[index])) {
+            bootstrap = true;
         }
 
         index++;
@@ -217,6 +223,20 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
     }
+    if (bootstrap) {
+        if (cppFilename.empty() && headerFilename.empty()) {
+            fprintf(stderr, "Bootstrap flag can only be used for cpp/header files.\n");
+            return 1;
+        }
+        if (supportWorkSource) {
+            fprintf(stderr, "Bootstrap flag does not support worksources");
+            return 1;
+        }
+        if ((minApiLevel != API_LEVEL_CURRENT) || (compileApiLevel != API_LEVEL_CURRENT)) {
+            fprintf(stderr, "Bootstrap flag does not support older API levels");
+            return 1;
+        }
+    }
 
     // Collate the parameters
     Atoms atoms;
@@ -249,7 +269,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
         errorCount = android::stats_log_api_gen::write_stats_log_cpp(
-                out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel);
+                out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel, bootstrap);
         fclose(out);
     }
 
@@ -264,8 +284,8 @@ static int run(int argc, char const* const* argv) {
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
         }
-        errorCount = android::stats_log_api_gen::write_stats_log_header(out, atoms, attributionDecl,
-                                                                        cppNamespace, minApiLevel);
+        errorCount = android::stats_log_api_gen::write_stats_log_header(
+                out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
         fclose(out);
     }
 
