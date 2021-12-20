@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b31dc10_99718a1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1380243
+      },
+      "writtenOn": "2021-12-20T16:44:15Z",
+      "side": 1,
+      "message": "Add a blank line between this and the next line.",
+      "revId": "e4f177fba8fa61d77efe61e551264cd471b1c584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e56002_0be04f71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1380243
+      },
+      "writtenOn": "2021-12-20T16:44:15Z",
+      "side": 1,
+      "message": "Why the extra Change-Id here, in addition to the one below?",
+      "revId": "e4f177fba8fa61d77efe61e551264cd471b1c584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
