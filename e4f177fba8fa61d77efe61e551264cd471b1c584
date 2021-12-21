@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "648a091a_760069b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2021-12-21T11:27:19Z",
+      "side": 1,
+      "message": "repo upload, for some reason ended up creating a new change - r.android.com/1925959. So, I\u0027ll abandon this one. \nThe issue of conflict trying to cherry-pick was because, while the change existed in internal-master, the downstream branch sc-v2-dev-plus-aosp didn\u0027t have it (so I cherripicked it in ag/16510092)",
+      "parentUuid": "3b31dc10_99718a1a",
+      "revId": "e4f177fba8fa61d77efe61e551264cd471b1c584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4e56002_0be04f71",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
