@@ -34,6 +34,24 @@
       "parentUuid": "2e688581_bc491783",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce3651ab_535ec080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-12-21T19:06:55Z",
+      "side": 1,
+      "message": "Also see https://android-review.googlesource.com/c/platform/frameworks/proto_logging/+/1592771/comment/ff47e3f6_87993265/ for more detailed instructions.",
+      "parentUuid": "2389c0d1_0d1e17e7",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
