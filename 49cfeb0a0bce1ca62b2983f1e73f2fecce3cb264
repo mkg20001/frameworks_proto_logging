@@ -16,6 +16,24 @@
       "message": "Joel, can you please take a look?\nIf I understand correctly, we\u0027re using statslog.rs from com.android.virt APEX. We have to be careful because APEXes can be deployed outside dessert release cycle and can be installed on devices running older platform versions. Once com.android.virt \n APEX goes out in T, we can add new logging functionality for U, that\u0027s not compatible with T. A new version of com.android.virt APEX containing new logging functionality we add in U or later will cause problems when installed on T devices. \n\nWe\u0027ve solved this for C++/Java logging by generating a separate statslog file that only contains atoms that are logged from the given apex.\nExample: https://source.corp.google.com/android/packages/modules/DnsResolver/Android.bp?q\u003dstatslog_resolv.h\nWe pass min api version that we need to support to generate compatibility code and only generate log methods for atoms we care about through the module annotation.\n\nWe will need to do something similar for Rust logging. It would be nice if we could generate a separate statslog.rs file that only contains VmCreationRequested atom.",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2389c0d1_0d1e17e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-12-21T19:04:45Z",
+      "side": 1,
+      "message": "See https://android-review.googlesource.com/c/platform/system/core/+/1658885/comment/9ac2cba1_2b88170b/ for both some instructions on how to do this and arguments for why it is a bad idea.",
+      "parentUuid": "2e688581_bc491783",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
