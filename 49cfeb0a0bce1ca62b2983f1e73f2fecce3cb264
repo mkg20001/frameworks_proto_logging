@@ -88,6 +88,24 @@
       "parentUuid": "1b616ec7_83148a7a",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fc72a7_4db9149a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-12-22T03:25:26Z",
+      "side": 1,
+      "message": "Reading the 2nd link, it seems like we can generate logging code for just VmCreationRequested atom by passing --module virtualizationservice in stats-log-api-gen params. But to do that, it seems like we need to:\n\n1. add a genrule in virtualizationservice/Android.bp for statslog_virtualizationservice.rs similar to statslog.rs in stats_log_api_gen/Android.bp. We just pass --module virtualizationservice --minApiLevel 34 as additional params to stats-log-api-gen.\n\n2. repeat #1 for statslog_virtualizationservice_header.rs\n\n3. Add rust_virtualizationservice_header_wrapper.rs in virtualizationservice/ that looks like stats_log_api_gen/rust_header_wrapper.rs\n\n4. repeat #3 for rust_virtualizationservice_wrapper.rs\n\n5. Add a rust_library build rule for libstatslog_virtualizationservice_rust_header in virtualizationservice/Android.bp similar to libstatslog_rust_header rule in stats_log_api_gen/Android.bp\n\n6. repeat #5 for libstatslog_virtualizationservice_rust\n\nDoes that sound right?\n\nWe don\u0027t have to do this right now but if we change code generation logic post T that\u0027s not backwards compatible, we\u0027ll need to do this change then and generate compatibility code specifically for logging VmCreationRequested atom. IMO it\u0027s harder to remember to make these client side changes later.",
+      "parentUuid": "69cad194_562a6a03",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
