@@ -160,6 +160,24 @@
       "parentUuid": "b02ced22_21a37f09",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c5f00e_4844d993",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2021-12-22T19:06:52Z",
+      "side": 1,
+      "message": "\u003e Joel, would you be able to update statslog rust build rules under stats_log_api_gen/ to remove steps 3 and 4? I think it would serve as a better example to follow for setting up rust logging libraries for virtualizationservice.\n\nI started doing that, and it seems to work trivially, except that the lines disabling the various lints are required.  I asked my team if there\u0027s a way to expose those in the build system, but I have not yet received an answer.  And I\u0027d rather not disable all lints because some could be useful.  So uintil I hear back let\u0027s just leave it as is.",
+      "parentUuid": "cffe920c_a8038dab",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
