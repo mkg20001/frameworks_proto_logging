@@ -142,6 +142,24 @@
       "parentUuid": "e9c28220_1dbc0014",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cffe920c_a8038dab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2021-12-22T19:02:13Z",
+      "side": 1,
+      "message": "\u003e Assuming we can remove steps 3 and 4, the steps for Rust are quite similar to the steps for C++, right?  (And even if 3 and 4 are required, they\u0027re hopefully relatively minor boilerplate and so not too painful.)\n\nYes, the steps are mostly the same; steps 5 and 6 are combined into 1 step for C++ in the sense they\u0027re combined into one build rule.\n\nJoel, would you be able to update statslog rust build rules under stats_log_api_gen/ to remove steps 3 and 4? I think it would serve as a better example to follow for setting up rust logging libraries for virtualizationservice.\n\n\u003e Will this mean that the generated statslog library will be tightly coupled with a version? i.e, is correct that we cannot update the VmCreationRequested definition, after landing it in T (but we CAN update it for U)\nNo, statsd is de-coupled from atoms.proto. So you can update the atom definition in U and update what is logged in T through a Mainline update.",
+      "parentUuid": "b02ced22_21a37f09",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
