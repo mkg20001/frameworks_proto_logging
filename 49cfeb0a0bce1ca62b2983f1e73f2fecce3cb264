@@ -124,6 +124,24 @@
       "parentUuid": "a9fc72a7_4db9149a",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b02ced22_21a37f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2021-12-22T15:45:26Z",
+      "side": 1,
+      "message": "Will this mean that the generated statslog library will be tightly coupled with a version? i.e, is correct that we cannot update the VmCreationRequested definition, after landing it in T (but we CAN update it for U)",
+      "parentUuid": "e9c28220_1dbc0014",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
