@@ -355,7 +355,8 @@ message Atom {
         MediametricsDrmManagerReported mediametrics_drmmanager_reported = 201;
         CarPowerStateChanged car_power_state_changed = 203 [(module) = "car"];
         GarageModeInfo garage_mode_info = 204 [(module) = "car"];
-        TestAtomReported test_atom_reported = 205 [(module) = "cts"];
+        TestAtomReported test_atom_reported = 205
+            [(module) = "cts", (module) = "testing", (module) = "statsdtest"];
         ContentCaptureCallerMismatchReported content_capture_caller_mismatch_reported =
                 206 [(module) = "framework"];
         ContentCaptureServiceEvents content_capture_service_events = 207 [(module) = "framework"];
@@ -5240,16 +5241,17 @@ message BinaryPushStateChanged {
 
 /* Test atom, is not logged anywhere */
 message TestAtomReported {
-    repeated AttributionNode attribution_node = 1;
-    optional int32 int_field = 2;
-    optional int64 long_field = 3;
-    optional float float_field = 4;
-    optional string string_field = 5;
-    optional bool boolean_field = 6;
-    enum State {
-        UNKNOWN = 0;
-        OFF = 1;
-        ON = 2;
+  // repeated AttributionNode attribution_node = 1;
+  optional int32 uid = 1;
+  optional int32 int_field = 2;
+  optional int64 long_field = 3;
+  optional float float_field = 4;
+  optional string string_field = 5;
+  optional bool boolean_field = 6;
+  enum State {
+    UNKNOWN = 0;
+    OFF = 1;
+    ON = 2;
     }
     optional State state = 7;
     optional TrainExperimentIds bytes_field = 8 [(android.os.statsd.log_mode) = MODE_BYTES];
