@@ -3566,6 +3566,8 @@ message SmartSpaceCardReported {
         TIME_TO_LEAVE = 15;
         PACKAGE_DELIVERED = 16;
         TIPS = 17;
+        DOORBELL = 18;
+        CROSS_DEVICE_TIMER = 19;
     }
 
     // The surface that SmartSpace card is shown.
@@ -3582,13 +3584,28 @@ message SmartSpaceCardReported {
     // Uniquely identifies a card. Should persist through updates.
     optional int32 instance_id = 2;
     // Uniquely identifies one of the possible types of the SmartSpace cards.
-    optional CardType card_type = 3;
+    // Deprecated. Please read card_type_id instead.
+    optional CardType card_type = 3 [deprecated = true];
     // Location of the card when the event occurred.
     optional DisplaySurface display_surface = 4;
     // The position of the card in the carousel when the event occurred.
     optional int32 rank = 5;
     // The number of cards shown to the user.
     optional int32 cardinality = 6;
+    // Uniquely identifies one of the possible types of the SmartSpace cards.
+    // To replace card_type. See go/smartspace-aster-metrics#card-type-id.
+    optional int32 card_type_id = 7;
+    // The app that the Smartspace card is tied to.
+    optional int32 uid = 8 [(is_uid) = true];
+    // If multiple subcards are displayed simultaneously, the position of
+    // the subcard that was interacted with.
+    optional int32 interacted_subcard_rank = 9;
+    // If multiple subcards are displayed simultaneously, the number of subcards
+    // shown when the interaction occurred.
+    optional int32 interacted_subcard_cardinality = 10;
+    // The time it takes in ms from smartspace target is created to sysui receives
+    // the target.
+    optional int32 received_latency_millis = 11;
 }
 
 /**
