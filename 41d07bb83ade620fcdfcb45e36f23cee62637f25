@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a42fc8d_eb7ffbf5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-01-07T01:39:37Z",
+      "side": 1,
+      "message": "You can make the generated cpp cleaner by adding a using-declaration for ::android::os:StatsBootstrapAtomValue:\n\n ...\n namespace bs {\n \n using ::android::os:StatsBootstrapAtomValue;\n \n int stats_write(int32_t code, int32_t arg1) {\n    ::android::os::StatsBootstrapAtom atom;\n    atom.atomId \u003d code;\n    \n    atom.values.push_back(\n           StatsBootstrapAtomValue::make\u003cStatsBootstrapAtomValue::intValue\u003e(arg1));\n ...",
+      "revId": "41d07bb83ade620fcdfcb45e36f23cee62637f25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
