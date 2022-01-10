@@ -196,6 +196,24 @@
       "parentUuid": "36c5f00e_4844d993",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "798605f4_d35fc900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-01-10T19:13:19Z",
+      "side": 1,
+      "message": "We should add the build rules now. Otherwise, it can blow up in our faces later when we make changes post T. Shikha, are you able to add the build rules by following the steps outlined in earlier comment?:\n\n 1. add a genrule in virtualizationservice/Android.bp for statslog_virtualizationservice.rs similar to statslog.rs in stats_log_api_gen/Android.bp. We just pass --module virtualizationservice --minApiLevel 34 as additional params to stats-log-api-gen.\n\n 2. repeat #1 for statslog_virtualizationservice_header.rs\n\n 3. Add rust_virtualizationservice_header_wrapper.rs in virtualizationservice/ that looks like stats_log_api_gen/rust_header_wrapper.rs\n\n 4. repeat #3 for rust_virtualizationservice_wrapper.rs\n\n 5. Add a rust_library build rule for libstatslog_virtualizationservice_rust_header in virtualizationservice/Android.bp similar to libstatslog_rust_header rule in stats_log_api_gen/Android.bp\n\n 6. repeat #5 for libstatslog_virtualizationservice_rust",
+      "parentUuid": "65247fe1_79f7caf6",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
