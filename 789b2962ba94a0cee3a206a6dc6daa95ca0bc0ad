@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b40f49e_671acc01",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-11T20:09:04Z",
+      "side": 1,
+      "message": "from what I understand, rustHeader is the file output of stats-log-api-gen tool. \n--rust flag is the similar output file for the statslog.rs or similar file $(genDir)/statslog_virtualization.rs\n\nThe crate name is given by rust_library ruleee(https://android-review.googlesource.com/c/platform/frameworks/proto_logging/+/1925959/comment/604eba34_de52e020/), which uses this generated rustHeader file. And then this crate in passed to stats-log-api-gen to generate the logstats library. \n\nTechnically, we could give the crate name same as the rustHeader(which is a filename  $(genDir)/statslog_header.rs\", so we will have to do some string operations to extract the crate name). We will also need to find a way to enforce the naming convention between rust_header file \u0026 he crate name.\n\nYou can take a look at https://r.android.com/c/platform/packages/modules/Virtualization/+/1924559/9/Android.bp#43",
+      "parentUuid": "604eba34_de52e020",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab52a8e4_30c86e15",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-11T19:26:00Z",
       "side": 1,
       "message": "My one worry about importing wildcards (which I think is why I tried to avoid it) is that they could theoretically conflict with some of the atoms.  Could that happen, or does some naming scheme prevent it?",
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d96011_2c83999a",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-11T20:09:04Z",
+      "side": 1,
+      "message": "i think you are right, if one of my field (like Hypervisor) was called \"StatsResult\", there would be conflicts. I can change this to use fully qualified name.\nIs it alright if I declare a global variable `headerCrate` in. rust_writer.cpp? Otherwise it will require a lot of changes in function signatures to pass this around/",
+      "parentUuid": "ab52a8e4_30c86e15",
       "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
