@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f8481c7_3e3b505a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-11T20:23:30Z",
+      "side": 1,
+      "message": "Note that the build failures look real and potentially important.",
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "604eba34_de52e020",
@@ -50,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed481a42_14480adf",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-11T20:23:30Z",
+      "side": 1,
+      "message": "Maybe then change the description here so it gives a bit more context?  E.g., that this is used for the non-header Rust code to use to refer to the header?",
+      "parentUuid": "1b40f49e_671acc01",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab52a8e4_30c86e15",
         "filename": "stats/stats_log_api_gen/rust_writer.cpp",
         "patchSetId": 7
@@ -79,6 +120,24 @@
       "side": 1,
       "message": "i think you are right, if one of my field (like Hypervisor) was called \"StatsResult\", there would be conflicts. I can change this to use fully qualified name.\nIs it alright if I declare a global variable `headerCrate` in. rust_writer.cpp? Otherwise it will require a lot of changes in function signatures to pass this around/",
       "parentUuid": "ab52a8e4_30c86e15",
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90a9cb1_02046c39",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-11T20:23:30Z",
+      "side": 1,
+      "message": "None of the language writer seem to use globals, so passing it around does seem to match the existing code more.  But the stats team can weigh in here if they want.",
+      "parentUuid": "e7d96011_2c83999a",
       "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
