@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "604eba34_de52e020",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-11T19:26:00Z",
+      "side": 1,
+      "message": "Can we not reuse --rustHeader here?  How exactly do those two interact?  Maybe use the same flag but only write the header if there\u0027s no --rust?",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab52a8e4_30c86e15",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-11T19:26:00Z",
+      "side": 1,
+      "message": "My one worry about importing wildcards (which I think is why I tried to avoid it) is that they could theoretically conflict with some of the atoms.  Could that happen, or does some naming scheme prevent it?",
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
