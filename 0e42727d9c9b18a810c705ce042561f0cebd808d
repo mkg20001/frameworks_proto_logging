@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4341143e_84965b5a",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-13T19:35:09Z",
+      "side": 1,
+      "message": "@Muhammad what do you mean by stats_log_api_gen genrule, \nBoth android::stats_log_api_gen::write_stats_log_rust \u0026 android::stats_log_api_gen::write_stats_log_rust_header require it\n \n This has to come from flag value \u0026 the default value should match \"statslog_rust_header\" https://cs.android.com/android/platform/superproject/+/master:frameworks/proto_logging/stats/stats_log_api_gen/Android.bp;l\u003d170",
+      "parentUuid": "04285bd5_e361fad2",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a348dad_69adc2d3",
         "filename": "stats/stats_log_api_gen/rust_writer.cpp",
         "patchSetId": 1
