@@ -1,0 +1,62 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a348dad_69adc2d3",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-13T17:47:54Z",
+      "side": 1,
+      "message": "Here and below in this file:\n\nYou should probably at least make this a `const string\u0026` to avoid copies, and maybe even a `const char*` since I think everywhere you use it you just get the C string out.",
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46878db2_0217c680",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-13T17:47:54Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "38363fa0_56a9e03c",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 108
+      },
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8187195_7c3fa7e3",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-13T17:47:54Z",
+      "side": 1,
+      "message": "We said we\u0027d remove this, right?",
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
