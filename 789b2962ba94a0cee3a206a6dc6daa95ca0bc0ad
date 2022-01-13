@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "272e52af_388fc66d",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-13T17:41:16Z",
+      "side": 1,
+      "message": "Done, it is hard to get the description right, any suggestion?",
+      "parentUuid": "ed481a42_14480adf",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab52a8e4_30c86e15",
@@ -138,6 +162,24 @@
       "side": 1,
       "message": "None of the language writer seem to use globals, so passing it around does seem to match the existing code more.  But the stats team can weigh in here if they want.",
       "parentUuid": "e7d96011_2c83999a",
+      "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "766e7e3f_dad9a3f3",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-13T17:41:16Z",
+      "side": 1,
+      "message": "Ack, done",
+      "parentUuid": "d90a9cb1_02046c39",
       "revId": "789b2962ba94a0cee3a206a6dc6daa95ca0bc0ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

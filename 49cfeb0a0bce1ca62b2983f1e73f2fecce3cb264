@@ -232,6 +232,24 @@
       "parentUuid": "798605f4_d35fc900",
       "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca145f41_36129439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-13T17:41:16Z",
+      "side": 1,
+      "message": "I realized we cannot have the rust_writer changes in the same patch as changes in atoms.proto (the later will not be merged downstream branch because of Merged-In tag). Created r.android.com/1948996 for review",
+      "parentUuid": "99d79519_a46d96ef",
+      "revId": "49cfeb0a0bce1ca62b2983f1e73f2fecce3cb264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
