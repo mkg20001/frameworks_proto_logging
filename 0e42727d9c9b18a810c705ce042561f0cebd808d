@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1df86355_44cbfc90",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-01-13T17:55:16Z",
+      "side": 1,
+      "message": "can we explicitly add this to the stats_log_api_gen genrule that needs it and make this a required argument? We can add error checks below to ensure this field is passed in",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a348dad_69adc2d3",
         "filename": "stats/stats_log_api_gen/rust_writer.cpp",
         "patchSetId": 1
