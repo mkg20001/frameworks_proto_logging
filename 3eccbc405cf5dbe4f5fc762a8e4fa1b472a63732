@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e357bf_a5b46442",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34cf97b1_8fa76277",
+      "range": {
+        "startLine": 126,
+        "startChar": 9,
+        "endLine": 126,
+        "endChar": 10
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90a6f166_214d4736",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "802b68c7_76f946fe",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90a6f166_214d4736",
+      "range": {
+        "startLine": 107,
+        "startChar": 50,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5178813_f2e1ccb6",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-14T14:35:30Z",
       "side": 1,
       "message": "Super nit: Missing space",
+      "range": {
+        "startLine": 558,
+        "startChar": 46,
+        "endLine": 558,
+        "endChar": 47
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bc5cdf_b37c113b",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5178813_f2e1ccb6",
       "range": {
         "startLine": 558,
         "startChar": 46,
