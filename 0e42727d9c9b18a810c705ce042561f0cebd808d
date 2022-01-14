@@ -113,6 +113,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb48592_ec065f51",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a348dad_69adc2d3",
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46878db2_0217c680",
@@ -137,6 +155,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68eb86c4_24e1f8b5",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T12:33:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46878db2_0217c680",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 108
+      },
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8187195_7c3fa7e3",
@@ -150,6 +192,24 @@
       "writtenOn": "2022-01-13T17:47:54Z",
       "side": 1,
       "message": "We said we\u0027d remove this, right?",
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06a6e5a_1b686104",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T12:33:14Z",
+      "side": 1,
+      "message": "Done, sorry I forgot to remove it, thanks for pointing.",
+      "parentUuid": "e8187195_7c3fa7e3",
       "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
