@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b2c0b3_9b23a96f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-01-14T23:27:55Z",
+      "side": 1,
+      "message": "Hi! I got a separate patch on the top of r.android.com/1925959, because this one should be auto-merged to downstream branches while the r.android.com/1925959 should not (since it is already there). Not sure if automerger will do that though, only presubmits will telll",
+      "revId": "deaaf0f6a1ea362d2d0126331154811c0afd50c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
