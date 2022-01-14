@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34cf97b1_8fa76277",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-14T14:35:30Z",
+      "side": 1,
+      "message": "Super duper nit: Missing space.",
+      "range": {
+        "startLine": 126,
+        "startChar": 9,
+        "endLine": 126,
+        "endChar": 10
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90a6f166_214d4736",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-14T14:35:30Z",
+      "side": 1,
+      "message": "Nit: This is inconsistent with the one on line 102, which has the space after the star.  I don\u0027t know if the stats team cares about this sort of thing, though.",
+      "range": {
+        "startLine": 107,
+        "startChar": 50,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5178813_f2e1ccb6",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1208973
+      },
+      "writtenOn": "2022-01-14T14:35:30Z",
+      "side": 1,
+      "message": "Super nit: Missing space",
+      "range": {
+        "startLine": 558,
+        "startChar": 46,
+        "endLine": 558,
+        "endChar": 47
+      },
+      "revId": "3eccbc405cf5dbe4f5fc762a8e4fa1b472a63732",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
