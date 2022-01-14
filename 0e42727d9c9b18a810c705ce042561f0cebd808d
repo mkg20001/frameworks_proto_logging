@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8fd93ff_9206fe71",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-01-14T21:45:36Z",
+      "side": 1,
+      "message": "I mean adding --rustHeaderCrate to statslog_header.rs genrule here:\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/proto_logging/stats/stats_log_api_gen/Android.bp;drc\u003d7d44ad67987f139db2adf30d00b5d60461c77b77;l\u003d163\n\nAnd also adding it to statslog.rs genrule here:\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/proto_logging/stats/stats_log_api_gen/Android.bp;drc\u003d7d44ad67987f139db2adf30d00b5d60461c77b77;l\u003d185\n\nThen we shouldn\u0027t need a default.",
+      "parentUuid": "4341143e_84965b5a",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "0e42727d9c9b18a810c705ce042561f0cebd808d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a348dad_69adc2d3",
         "filename": "stats/stats_log_api_gen/rust_writer.cpp",
         "patchSetId": 1
