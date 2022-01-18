@@ -160,7 +160,7 @@ cc_library {
 genrule {
     name: "statslog_header.rs",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --rustHeader $(genDir)/statslog_header.rs",
+    cmd: "$(location stats-log-api-gen) --rustHeader $(genDir)/statslog_header.rs --rustHeaderCrate statslog_rust_header",
     out: [
         "statslog_header.rs",
     ],
@@ -182,7 +182,7 @@ rust_library {
 genrule {
     name: "statslog.rs",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --rust $(genDir)/statslog.rs",
+    cmd: "$(location stats-log-api-gen) --rust $(genDir)/statslog.rs --rustHeaderCrate statslog_rust_header",
     out: [
         "statslog.rs",
     ],
