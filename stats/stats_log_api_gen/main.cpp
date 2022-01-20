@@ -31,6 +31,9 @@ static void print_usage() {
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
     fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
     fprintf(stderr, "  --rustHeader FILENAME the rust file to output for write helpers\n");
+    fprintf(stderr, "  --rustHeaderCrate NAME        header crate to be used while "
+            "generating the code. Note: this should be the same as the crate_name "
+            "created by rust_library for the header \n");
     fprintf(stderr, "  --module NAME        optional, module name to generate outputs for\n");
     fprintf(stderr,
             "  --namespace COMMA,SEP,NAMESPACE   required for cpp/header with "
@@ -71,7 +74,7 @@ static int run(int argc, char const* const* argv) {
     string javaClass;
     string rustFilename;
     string rustHeaderFilename;
-
+    string rustHeaderCrate;
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
     string cppHeaderImport = DEFAULT_CPP_HEADER_IMPORT;
@@ -120,6 +123,13 @@ static int run(int argc, char const* const* argv) {
                 return 1;
             }
             rustHeaderFilename = argv[index];
+        } else if (0 == strcmp("--rustHeaderCrate", argv[index])) {
+            index++;
+            if (index >= argc) {
+                print_usage();
+                return 1;
+            }
+            rustHeaderCrate = argv[index];
         } else if (0 == strcmp("--module", argv[index])) {
             index++;
             if (index >= argc) {
@@ -327,8 +337,13 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
+        if(rustHeaderCrate.empty()){
+            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
+            return 1;
+        }
+
         errorCount += android::stats_log_api_gen::write_stats_log_rust(
-                out, atoms, attributionDecl, minApiLevel);
+                out, atoms, attributionDecl, minApiLevel, rustHeaderCrate.c_str());
 
         fclose(out);
     }
@@ -341,8 +356,13 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
+        if(rustHeaderCrate.empty()){
+            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
+            return 1;
+        }
+
         android::stats_log_api_gen::write_stats_log_rust_header(
-                out, atoms, attributionDecl);
+                out, atoms, attributionDecl, rustHeaderCrate.c_str());
 
         fclose(out);
     }

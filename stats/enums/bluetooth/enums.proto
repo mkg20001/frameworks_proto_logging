@@ -144,4 +144,36 @@ enum SocketRoleEnum {
 
 enum CodePathCounterKeyEnum {
     KEY_UNKNOWN = 0;
+    // Reserver smaller counters for very important bt features
+
+    // [100,000 - 120,000) profile connection related
+
+        // [100,000 - 100,100) L2CAP
+        L2CAP_SUCCESS = 100000;
+        L2CAP_CONNECT_CONFIRM_NEG= 100001;
+        L2CAP_NO_COMPATIBLE_CHANNEL_AT_CSM_CLOSED = 100002;
+        L2CAP_SECURITY_NEG_AT_CSM_CLOSED= 100003;
+        L2CAP_TIMEOUT_AT_CSM_CLOSED = 100004;
+        L2CAP_CREDIT_BASED_CONNECT_RSP_NEG = 100005;
+        L2CAP_CONNECT_RSP_NEG = 100006;
+        L2CAP_INFO_NO_COMPATIBLE_CHANNEL_AT_RSP = 100007;
+        L2CAP_CONFIG_REQ_FAILURE = 100008;
+        L2CAP_CONFIG_RSP_NEG = 100009;
+        L2CAP_NO_COMPATIBLE_CHANNEL_AT_W4_SEC = 100010;
+        L2CAP_SECURITY_NEG_AT_W4_SEC= 100011;
+        L2CAP_TIMEOUT_AT_CONNECT_RSP = 100012;
+        L2CAP_CONN_OTHER_ERROR_AT_CONNECT_RSP = 100013;
+
+        // [100,100 - 100,200) SDP
+        SDP_SUCCESS = 100100;
+        SDP_FAILURE = 100101;
+
+        // [101,000 - 102,000) HFP
+
+            // [101,000 - 101,100) RFCOMM
+
+            // [101,100 - 101,200) HFP (btif)
+
+        // [102,000 - 103,000) A2DP
+
 }
