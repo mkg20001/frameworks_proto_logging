@@ -9274,6 +9274,15 @@ message MediaCodecReported {
     optional int32 original_video_qp_p_max = 55;
     optional int32 original_video_qp_b_min = 56;
     optional int32 original_video_qp_b_max = 57;
+    optional int32 config_color_standard = 58;
+    optional int32 config_color_range = 59;
+    optional int32 config_color_transfer = 60;
+    optional int32 parsed_color_standard = 61;
+    optional int32 parsed_color_range = 62;
+    optional int32 parsed_color_transfer = 63;
+    optional int32 hdr_static_info = 64;
+    optional int32 hdr_10_plus_info = 65;
+    optional int32 hdr_type = 66;
     // !!! WARNING
     // Keep synchronized with MediametricsCodecReported.CodecData in
     // mediametrics_message.proto.
