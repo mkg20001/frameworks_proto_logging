@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1710c9d7_9cf7c13d",
+        "filename": "stats/message/mediametrics_message.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1021605
+      },
+      "writtenOn": "2022-01-27T22:15:54Z",
+      "side": 1,
+      "message": "is there a reason for the jump here? were some values removed?\n \nI think these must be in order.",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "9ca140c6f1005236f47e8d37ee9fdf1cc9239619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
