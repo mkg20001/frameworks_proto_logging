@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b19bdaa_0f2ebcd5",
+        "filename": "stats/message/mediametrics_message.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1895465
+      },
+      "writtenOn": "2022-01-28T00:31:55Z",
+      "side": 1,
+      "message": "numbers 53-57 was used by latency metrics. As we land the HDR metrics first, just made them in order.",
+      "parentUuid": "1710c9d7_9cf7c13d",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "9ca140c6f1005236f47e8d37ee9fdf1cc9239619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49fcc55c_01091d13",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-28T00:16:37Z",
       "side": 1,
       "message": "hdr_metadata_flags\n\nmaybe define enums?",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 35
+      },
+      "revId": "9ca140c6f1005236f47e8d37ee9fdf1cc9239619",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b67491_ef5dc025",
+        "filename": "stats/message/mediametrics_message.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1895465
+      },
+      "writtenOn": "2022-01-28T00:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49fcc55c_01091d13",
       "range": {
         "startLine": 195,
         "startChar": 17,
