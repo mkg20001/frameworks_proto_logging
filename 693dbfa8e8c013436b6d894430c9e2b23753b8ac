@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f1b070_56a81f81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-02T20:00:27Z",
+      "side": 1,
+      "message": "Add \"Merged-In: \u003cChange-Id of internal CL Change-Id\u003e\" to prevent merge conflict. Same for other CLs.\n\nSet a \"topic\" for all three CLs so they\u0027re verified and merged together.",
+      "revId": "693dbfa8e8c013436b6d894430c9e2b23753b8ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
