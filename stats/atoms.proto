@@ -17531,6 +17531,19 @@ message GbaEvent {
  *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
  */
 message PerSimStatus {
+    enum WfcMode {
+        UNKNOWN = 0;
+        WIFI_ONLY = 1;
+        CELLULAR_PREFERRED = 2;
+        WIFI_PREFERRED = 3;
+    }
+    enum SimVoltageClass {
+        VOLTAGE_CLASS_UNKNOWN = 0;
+        VOLTAGE_CLASS_A = 1;
+        VOLTAGE_CLASS_B = 2;
+        VOLTAGE_CLASS_C = 3;
+    }
+
     // Index of the SIM, 0 for single-SIM devices.
     optional int32 sim_slot_index = 1;
 
@@ -17559,6 +17572,37 @@ message PerSimStatus {
     // and whether it agrees with other sources.
     // See field phone_number_source_uicc.
     optional int32 phone_number_source_ims = 5;
+
+    // Indicates whether VoLTE is enabled
+    optional bool volte_enabled = 6;
+
+    // Indicates whether WFC is enabled
+    optional bool wfc_enabled = 7;
+
+    // Indicates the user's WFC mode
+    optional WfcMode wfc_mode = 8;
+
+    // Indicates the user's WFC mode when roaming
+    optional WfcMode wfc_roaming_mode = 9;
+
+    // Indicates the user's setting for video calling.
+    optional bool video_calling_enabled = 10;
+
+    // Indicates if data roaming is enabled
+    optional bool data_roaming_enabled = 11;
+
+    // Indicates the list of networks allowed by the user. Bitmask is encoded as
+    // TelephonyManager#NetworkTypeBitMask.
+    optional int64 allowed_networks_by_user = 12;
+
+    // Indicates if 2G is disabled by the user using the "Allow 2G" toggle
+    optional bool is_2g_disabled = 13;
+
+    // Indicates if PIN1 of the SIM card is enabled
+    optional bool is_pin1_enabled = 14;
+
+    // Indicates the lowest voltage class supported by the SIM
+    optional SimVoltageClass sim_voltage_class = 15;
 }
 
 message TracingServiceReportEvent {
