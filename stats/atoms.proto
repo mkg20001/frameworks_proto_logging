@@ -593,6 +593,7 @@ message Atom {
         NeuralNetworksExecutionFailed neuralnetworks_execution_failed = 397
             [(module) = "neuralnetworks"];
         VmCreationRequested vm_creation_requested = 409 [(module) = "virtualizationservice"];
+        TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -12039,8 +12040,9 @@ message AppCompatibilityChangeReported {
 message PerfettoUploaded {
     // TODO(lalitm): many of the atoms below should be renamed to have a
     // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
-    // This will be done after the server side is ready for this change.
-    // Next id: 48.
+    // This state exists because of legacy reasons (i.e. these values existed
+    // before go/perfetto-monitoring was a thing).
+    // Next id: 52.
     enum Event {
         PERFETTO_UNDEFINED = 0;
 
@@ -12089,31 +12091,37 @@ message PerfettoUploaded {
         PERFETTO_TRACED_ENABLE_TRACING_UNKNOWN_ERROR = 35;
         PERFETTO_TRACED_START_TRACING_INVALID_SESSION_STATE = 36;
         PERFETTO_TRACED_ENABLE_TRACING_INVALID_FILTER = 47;
+        PERFETTO_TRACED_ENABLE_TRACING_OOB_TARGET_BUFFER = 48;
 
         // Checkpoints inside perfetto_cmd after tracing has finished.
         PERFETTO_ON_TRACING_DISABLED = 4;
-        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
         PERFETTO_FINALIZE_TRACE_AND_EXIT = 11;
-        PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17;
+        PERFETTO_CMD_FW_REPORT_BEGIN = 49;
+        // Will be removed once incidentd is no longer used.
+        PERFETTO_UPLOAD_INCIDENT_BEGIN = 8;
 
         // Guardrails inside perfetto_cmd after tracing has finished.
+        PERFETTO_CMD_FW_REPORT_EMPTY_TRACE = 50;
+        // Will be removed once incidentd is no longer used.
         PERFETTO_UPLOAD_INCIDENT_FAILURE = 10;
+        PERFETTO_NOT_UPLOADING_EMPTY_TRACE = 17;
+
+        // "Successful" terminal states inside perfetto_cmd.
+        PERFETTO_CMD_FW_REPORT_HANDOFF = 51;
 
         // Deprecated as "success" is misleading; it simply means we were
         // able to communicate with incidentd. Will be removed once
-        // incidentd is properly instrumented.
+        // incidentd is no longer used.
         PERFETTO_UPLOAD_INCIDENT_SUCCESS = 9 [deprecated = true];
 
-        // Deprecated as has the potential to be too spammy. Will be
-        // replaced with a whole new atom proto which uses a count metric
-        // instead of the event metric used for this proto.
-        PERFETTO_TRIGGER_BEGIN = 12 [deprecated = true];
-        PERFETTO_TRIGGER_SUCCESS = 13 [deprecated = true];
-        PERFETTO_TRIGGER_FAILURE = 14  [deprecated = true];
+        // Contained trigger begin/success/failure. Replaced by
+        // |PerfettoTriggerAtom| to allow aggregation using a count metric
+        // and reduce spam.
+        reserved 12, 13, 14;
 
-        // Deprecated as too coarse grained to be useful. Will be replaced
-        // with better broken down atoms as we do with traced.
-        PERFETTO_HIT_GUARDRAILS = 15 [deprecated = true];
+        // Contained that a guardrail in perfetto_cmd was hit. Replaced with
+        // kCmd* guardrails.
+        reserved 15;
 
         // Contained status of Dropbox uploads. Removed as Perfetto no
         // longer supports uploading traces using Dropbox.
@@ -17550,4 +17558,26 @@ message PerSimStatus {
     // and whether it agrees with other sources.
     // See field phone_number_source_uicc.
     optional int32 phone_number_source_ims = 5;
+}
+
+message TracingServiceReportEvent {
+    enum Event {
+      TRACING_SERVICE_REPORT_UNDEFINED = 0;
+
+      // Checkpoints inside TracingServiceProxy.
+      TRACING_SERVICE_REPORT_BEGIN = 1;
+      TRACING_SERVICE_REPORT_SVC_HANDOFF = 2;
+
+      // Guardrails inside TracingServiceProxy.
+      TRACING_SERVICE_REPORT_BIND_PERM_INCORRECT = 3;
+      TRACING_SERVICE_REPORT_SVC_PERM_MISSING = 4;
+      TRACING_SERVICE_REPORT_SVC_COMM_ERROR = 5;
+  }
+
+  // Which stage of the pipeline we are reporting from.
+  optional Event event = 1;
+
+  // UUID of the trace.
+  optional int64 trace_uuid_lsb = 2;
+  optional int64 trace_uuid_msb = 3;
 }
