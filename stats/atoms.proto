@@ -6981,7 +6981,7 @@ message DiskStats {
 
 
 /**
- * Free and total bytes of the Data, Cache, and System partition.
+ * Free and total bytes of the Data, Cache, System, and Metadata partitions.
  */
 message DirectoryUsage {
     enum Directory {
@@ -6989,6 +6989,7 @@ message DirectoryUsage {
         DATA = 1;
         CACHE = 2;
         SYSTEM = 3;
+        METADATA = 4;
     }
     optional Directory directory = 1;
     optional int64 free_bytes = 2;
