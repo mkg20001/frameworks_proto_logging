@@ -509,7 +509,7 @@ message Atom {
         MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         TextClassifierApiUsageReported text_classifier_api_usage_reported = 318  [(module) = "textclassifier"];
-        KilledAppStatsReported killed_app_stats_reported = 319 [(module) = "carwatchdogd"];
+        CarWatchdogKillStatsReported car_watchdog_kill_stats_reported = 319 [(module) = "car"];
         MediametricsPlaybackReported mediametrics_playback_reported = 320 [(module) = "media_metrics"];
         MediaNetworkInfoChanged media_network_info_changed = 321 [(module) = "media_metrics"];
         MediaPlaybackStateChanged media_playback_state_changed = 322 [(module) = "media_metrics"];
@@ -564,7 +564,7 @@ message Atom {
         OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
         AlarmBatchDelivered alarm_batch_delivered = 367 [(module) = "framework"];
         AlarmScheduled alarm_scheduled = 368 [(module) = "framework"];
-        IoOveruseStatsReported io_overuse_stats_reported = 369 [(module) = "carwatchdogd"];
+        CarWatchdogIoOveruseStatsReported car_watchdog_io_overuse_stats_reported = 369 [(module) = "car"];
         UserLevelHibernationStateChanged user_level_hibernation_state_changed = 370 [(module) = "framework"];
         AppSearchInitializeStatsReported app_search_initialize_stats_reported = 371 [(module) = "appsearch"];
         AppSearchQueryStatsReported app_search_query_stats_reported = 372 [(module) = "appsearch"];
@@ -580,10 +580,14 @@ message Atom {
         PrivacySensorToggleInteraction privacy_sensor_toggle_interaction = 381 [(module) = "framework"];
         PrivacyToggleDialogInteraction privacy_toggle_dialog_interaction = 382 [(module) = "framework"];
         AppSearchOptimizeStatsReported app_search_optimize_stats_reported = 383 [(module) = "appsearch"];
+        AppCompatStateChanged app_compat_state_changed = 386 [(module) = "framework"];
+        SizeCompatRestartButtonEventReported size_compat_restart_button_event_reported = 387 [(module) = "framework"];
+        SplitscreenUIChanged splitscreen_ui_changed = 388 [(module) = "framework"];
         BluetoothCodePathCounter bluetooth_code_path_counter =
             390 [(module) = "bluetooth"];
         BluetoothLeBatchScanReportDelay bluetooth_le_batch_scan_report_delay =
             392 [(module) = "bluetooth"];
+        AccessibilityFloatingMenuUIChanged accessibility_floating_menu_ui_changed = 393 [(module) = "sysui"];
         NeuralNetworksCompilationCompleted neuralnetworks_compilation_completed = 394
             [(module) = "neuralnetworks"];
         NeuralNetworksExecutionCompleted neuralnetworks_execution_completed = 395
@@ -593,6 +597,7 @@ message Atom {
         NeuralNetworksExecutionFailed neuralnetworks_execution_failed = 397
             [(module) = "neuralnetworks"];
         VmCreationRequested vm_creation_requested = 409 [(module) = "virtualizationservice"];
+        CameraCompatControlEventReported camera_compat_control_event_reported = 411 [(module) = "framework"];
         TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
@@ -749,6 +754,12 @@ message Atom {
                 10123 [(module) = "framework"];
         RkpErrorStats rkp_error_stats = 10124 [(module) = "framework"];
         Keystore2CrashStats keystore2_crash_stats = 10125 [(module) = "framework"];
+        AccessibilityShortcutStats accessibility_shortcut_stats = 10127 [(module) = "framework"];
+        AccessibilityFloatingMenuStats accessibility_floating_menu_stats =
+            10128 [(module) = "framework"];
+        CarWatchdogSystemIoUsageSummary car_watchdog_system_io_usage_summary =
+            10131 [(module) = "car"];
+        CarWatchdogUidIoUsageSummary car_watchdog_uid_io_usage_summary = 10132 [(module) = "car"];
         ImsRegistrationFeatureTagStats ims_registration_feature_tag_stats =
                 10133 [(module) = "telephony"];
         RcsClientProvisioningStats rcs_client_provisioning_stats =
@@ -768,7 +779,6 @@ message Atom {
         UceEventStats uce_event_stats = 10143 [(module) = "telephony"];
         PresenceNotifyEvent presence_notify_event = 10144 [(module) = "telephony"];
         GbaEvent gba_event = 10145 [(module) = "telephony"];
-        PerSimStatus per_sim_status = 10146 [(module) = "telephony"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -1988,8 +1998,19 @@ message KeyguardBouncerStateChanged {
         // Bouncer is hidden, either as a result of successfully entering the
         // password, screen timing out, or user going back to lock screen.
         HIDDEN = 1;
-        // This is when the user is being prompted to enter the password.
+        // The user is being prompted to enter the password and the keyguard is NOT in one
+        // handed mode.
         SHOWN = 2;
+        // The user is being prompted to enter the password and the keyguard shows in one
+        // handed mode and left aligned.
+        SHOWN_LEFT = 3;
+        // The user is being prompted to enter the password and the keyguard shows in one
+        // handed mode and right aligned.
+        SHOWN_RIGHT = 4;
+        // The keyguard switches to the left side while it is in one handed mode.
+        SWITCH_LEFT = 5;
+        // The keyguard switches to the right side while it is in one handed mode.
+        SWITCH_RIGHT = 6;
     }
     optional State state = 1;
 }
@@ -2009,6 +2030,13 @@ message KeyguardBouncerPasswordEntered {
         SUCCESS = 2;
     }
     optional BouncerResult result = 1;
+
+    enum BouncerSide {
+        DEFAULT = 0;
+        LEFT = 1;
+        RIGHT = 2;
+    }
+    optional BouncerSide side = 2;
 }
 
 /*
@@ -4475,6 +4503,86 @@ message AppStartFullyDrawn {
 }
 
 /**
+ * Logs when an app enters a different App Compat state.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/wm/ActivityMetricsLogger.java
+ */
+message AppCompatStateChanged {
+    // UID of the package whose state changed.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    enum State {
+        UNKNOWN = 0;
+        // The app is not visible or has been closed.
+        NOT_VISIBLE = 1;
+        // The app’s bounds aren’t letterboxed.
+        NOT_LETTERBOXED = 2;
+        // The app’s bounds are letterboxed because of size-compat-mode.
+        LETTERBOXED_FOR_SIZE_COMPAT_MODE = 3;
+        // The app’s bounds are letterboxed because of fixed orientation.
+        LETTERBOXED_FOR_FIXED_ORIENTATION = 4;
+        // The app’s bounds are letterboxed because of aspect ratio restrictions.
+        LETTERBOXED_FOR_ASPECT_RATIO = 5;
+    }
+
+    // The state that was entered.
+    optional State state = 2 [
+      (state_field_option).exclusive_state = true,
+      (state_field_option).nested = false];
+}
+
+/**
+ * Logs events reported for the Size Compat restart button of an app.
+ *
+ * Logged from:
+ *   frameworks/base/libs/WindowManager/Shell/src/com/android/wm/shell/ShellTaskOrganizer.java
+ */
+message SizeCompatRestartButtonEventReported {
+    // UID of the package that has the button.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    enum Event {
+        UNKNOWN = 0;
+        APPEARED = 1;
+        CLICKED = 2;
+    }
+
+    // The event that was reported.
+    optional Event event = 2;
+}
+
+/**
+ * Logs events reported for the Camera App Compat control, which is used to
+ * correct stretched viewfinder in apps that don't handle all possible
+ * configurations, and changes between them, correctly.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/wm/ActivityMetricsLogger.java
+ */
+message CameraCompatControlEventReported {
+  // UID of the package that has the control.
+  optional int32 uid = 1 [(is_uid) = true];
+
+  enum Event {
+    UNKNOWN = 0;
+    // Button to apply the treatment appeared.
+    APPEARED_APPLY_TREATMENT = 1;
+    // Button to revert the treatment appeared.
+    APPEARED_REVERT_TREATMENT = 2;
+    // Users clicked on the button to apply the treatment.
+    CLICKED_APPLY_TREATMENT = 3;
+    // Users clicked on the button to revert the treatment.
+    CLICKED_REVERT_TREATMENT = 4;
+    // Users clicked on the button to dismiss the control.
+    CLICKED_DISMISS = 5;
+  }
+
+  // The event that was reported.
+  optional Event event = 2;
+}
+
+/**
  * Logs a picture-in-picture action
  * Logged from:
  *      frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java
@@ -6087,7 +6195,7 @@ message BlobOpened{
  * Logged from:
  *  frameworks/base/core/java/com/android/internal/jank/FrameTracker.java
  *
- * Next Tag: 31
+ * Next Tag: 41
  */
 message UIInteractionFrameInfoReported {
     enum InteractionType {
@@ -6127,6 +6235,11 @@ message UIInteractionFrameInfoReported {
         SHADE_APP_LAUNCH_FROM_QS_TILE = 33;
         SHADE_APP_LAUNCH_FROM_SETTINGS_BUTTON = 34;
         STATUS_BAR_APP_LAUNCH_FROM_CALL_CHIP = 35;
+        PIP_TRANSITION = 36;
+        WALLPAPER_TRANSITION = 37;
+        USER_SWITCH = 38;
+        SPLASHSCREEN_AVD = 39;
+        SPLASHSCREEN_EXIT_ANIM = 40;
     }
 
     optional InteractionType interaction_type = 1;
@@ -6168,6 +6281,7 @@ message UIActionLatencyReported {
         ACTION_ROTATE_SCREEN_CAMERA_CHECK = 10;
         ACTION_ROTATE_SCREEN_SENSOR = 11;
         ACTION_LOCKSCREEN_UNLOCK = 12;
+        ACTION_USER_SWITCH = 13;
     }
 
     optional ActionType action = 1;
@@ -7779,6 +7893,7 @@ message ContentCaptureServiceEvents {
         DATA_SHARE_ERROR_SERVICE_PIPE_FAIL = 13;
         DATA_SHARE_ERROR_CONCURRENT_REQUEST = 14;
         DATA_SHARE_ERROR_TIMEOUT_INTERRUPTED = 15;
+        ON_REMOTE_SERVICE_DIED = 16;
     }
     optional Event event = 1;
     // component/package of content capture service.
@@ -9023,7 +9138,75 @@ message DebugFailingElapsedClock {
 /** Logs System UI bubbles event changed.
  *
  * Logged from:
- *     frameworks/base/packages/SystemUI/src/com/android/systemui/bubbles
+ *     frameworks/base/libs/WindowManager/Shell/src/com/android/wm/shell/splitscreen
+ */
+message SplitscreenUIChanged {
+    // User interactions with splitscreen
+    enum Action {
+        UNKNOWN_ACTION = 0;
+        ENTER = 1;
+        EXIT = 2;
+        APP_CHANGE = 3;
+        RESIZE = 4;
+        SWAP = 5;
+    }
+
+    // The physical side on the device of the split
+    enum Position {
+        UNKNOWN_POSITION = 0;
+        LEFT = 1;
+        RIGHT = 2;
+        TOP = 3;
+        BOTTOM = 4;
+    }
+
+    // The reason for entering splitscreen
+    enum EnterReason {
+        UNKNOWN_ENTER = 0;
+        OVERVIEW = 1;
+        DRAG_LEFT = 2;
+        DRAG_TOP = 3;
+        DRAG_RIGHT = 4;
+        DRAG_BOTTOM = 5;
+    }
+
+    // The reason for exiting splitscreen
+    enum ExitReason {
+        UNKNOWN_EXIT = 0;
+        DRAG_DIVIDER = 1;
+        RETURN_HOME = 2;
+        SCREEN_LOCKED = 3;
+        SCREEN_LOCKED_SHOW_ON_TOP = 4;
+        DEVICE_FOLDED = 5;
+        ROOT_TASK_VANISHED = 6;
+        APP_FINISHED = 7;
+        APP_DOES_NOT_SUPPORT_MULTIWINDOW = 8;
+    }
+
+    // The event action
+    optional Action action = 1;
+    // What triggered splitscreen (if the action is ENTER)
+    optional EnterReason enter_reason = 2;
+    // What triggered leaving splitscreen (if the action is EXIT)
+    optional ExitReason exit_reason = 3;
+    // The ratio of split between the main/side stages
+    optional float split_ratio = 4;
+    // Data about the main stage in split
+    optional Position main_stage_position = 5;
+    optional int32 main_stage_uid = 6 [(is_uid) = true];
+    // Data about the side stage in split
+    optional Position side_stage_position = 7;
+    optional int32 side_stage_uid = 8 [(is_uid) = true];
+    // The drag session id (if the enter_trigger was DRAG)
+    optional int32 drag_instance_id = 9;
+    // An identifier used to identify a splitscreen session
+    optional int32 instance_id = 10;
+}
+
+/** Logs System UI bubbles event changed.
+ *
+ * Logged from:
+ *     frameworks/base/libs/WindowManager/Shell/src/com/android/wm/shell/bubbles
  */
 message BubbleUIChanged {
 
@@ -13851,6 +14034,69 @@ message AccessibilityServiceReported {
 }
 
 /**
+ * Logs when accessibility floating menu changed its position by user.
+ *
+ * Logged from:
+ *   frameworks/base/packages/SystemUI/src/com/android/systemui/accessibility/floatingmenu
+ */
+message AccessibilityFloatingMenuUIChanged {
+    // Normalized screen position of the accessibility floating menu. The range is between 0 and 1.
+    optional float normalized_x_position = 1;
+    optional float normalized_y_position = 2;
+
+    enum Orientation {
+        UNKNOWN = 0;
+        PORTRAIT = 1;
+        LANDSCAPE = 2;
+    }
+    // Orientation of the device when accessibility floating menu changed.
+    optional Orientation orientation = 3;
+}
+
+/**
+ * Pulls accessibility shortcuts status.
+ *
+ * Pulled from:
+ *   StatsPullAtomService
+ */
+message AccessibilityShortcutStats {
+    // The definition of the accessibility software shortcut.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
+    optional android.stats.accessibility.ShortcutType software_shortcut_type = 1;
+    // Number of accessibility services in accessibility software shortcut.
+    optional int32 software_shortcut_service_num = 2;
+
+    // The definition of the accessibility hardware shortcut.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
+    optional android.stats.accessibility.ShortcutType hardware_shortcut_type = 3;
+    // Number of accessibility services in accessibility hardware shortcut.
+    optional int32 hardware_shortcut_service_num = 4;
+
+    // The definition of the accessibility gesture shortcut.
+    // From frameworks/proto_logging/stats/enums/stats/accessibility/accessibility_enums.proto.
+    optional android.stats.accessibility.ShortcutType gesture_shortcut_type = 5;
+    // Number of accessibility services in accessibility gesture shortcut.
+    optional int32 gesture_shortcut_service_num = 6;
+}
+
+/**
+ * Pulls accessibility floating menu status.
+ *
+ * Pulled from:
+ *   StatsPullAtomService
+ */
+message AccessibilityFloatingMenuStats {
+    // Size of the accessibility floating menu.
+    optional int32 size = 1;
+    // Icon shape of the accessibility floating menu.
+    optional int32 icon_type = 2;
+    // Whether the accessibility floating menu is enable auto fade ability.
+    optional bool fade_enabled = 3;
+    // Opacity of the accessibility floating menu. The range is between 0 and 1.
+    optional float opacity = 4;
+}
+
+/**
  * Logs when display wake up.
  *
  * Logged from:
@@ -15052,105 +15298,109 @@ message VmCreationRequested {
 }
 
 /**
- * Logs the current state of an application before it is killed.
+ * Logs the current state of an application/process before it is killed.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
  *
  * Pushed from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message KilledAppStatsReported {
+message CarWatchdogKillStatsReported {
     // Linux process uid for the package.
     optional int32 uid = 1 [(is_uid) = true];
 
-    // Name of the package that was killed.
-    optional string package_name = 2;
-
-    // State of the application when it was killed.
-    enum AppState {
-        UNKNOWN_APP_STATE = 0;
-        BACKGROUND = 1;
-        FOREGROUND = 2;
+    // State of the uid when it was killed.
+    enum UidState {
+        UNKNOWN_UID_STATE = 0;
+        BACKGROUND_MODE = 1;
+        FOREGROUND_MODE = 2;
     }
-    optional AppState app_state = 3;
+    optional UidState uid_state = 2;
 
     // System state indicating whether the system was in normal mode or garage mode.
     enum SystemState {
         UNKNOWN_SYSTEM_STATE = 0;
         USER_INTERACTION_MODE = 1;
-        NO_USER_INTERACTION_MODE = 2;
+        USER_NO_INTERACTION_MODE = 2;
+        GARAGE_MODE = 3;
     }
-    optional SystemState system_state = 4;
+    optional SystemState system_state = 3;
 
     // Reason for killing the application.
-    // Keep in sync between:
-    //   packages/services/Car/watchdog/server/src/ApplicationTerminator.h
-    //   frameworks/base/cmds/statsd/src/atoms.proto
+    // Keep in sync with proto file at packages/services/Car/cpp/watchdog/proto
     enum KillReason {
         UNKNOWN_KILL_REASON = 0;
         KILLED_ON_ANR = 1;
         KILLED_ON_IO_OVERUSE = 2;
         KILLED_ON_MEMORY_OVERUSE = 3;
     }
-    optional KillReason kill_reason = 5;
+    optional KillReason kill_reason = 4;
 
     // Stats of the processes owned by the application when the application was killed.
     // The process stack traces are not collected when the application was killed due to IO_OVERUSE.
-    optional ProcessStats process_stat = 6 [(log_mode) = MODE_BYTES];
+    optional CarWatchdogProcessStats process_stats = 5 [(log_mode) = MODE_BYTES];
 
     // The application's I/O overuse stats logged only when the kill reason is KILLED_ON_IO_OVERUSE.
-    optional IoOveruseStats io_overuse_stats = 7 [(log_mode) = MODE_BYTES];
+    optional CarWatchdogIoOveruseStats io_overuse_stats = 6 [(log_mode) = MODE_BYTES];
 }
 
 /**
  * Logs the I/O overuse stats for an application on detecting I/O overuse.
  *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
  * Pushed from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message IoOveruseStatsReported {
+message CarWatchdogIoOveruseStatsReported {
     // Linux process uid for the package.
     optional int32 uid = 1 [(is_uid) = true];
 
     // The application's I/O overuse stats.
-    optional IoOveruseStats io_overuse_stats = 2 [(log_mode) = MODE_BYTES];
+    optional CarWatchdogIoOveruseStats io_overuse_stats = 2 [(log_mode) = MODE_BYTES];
 }
 
 /**
  * Logs I/O overuse stats for a package.
  *
- * Keep in sync between:
- *  packages/services/Car/cpp/watchdog/server/src/proto/statsd.proto
- *  frameworks/base/cmds/statsd/src/atoms.proto
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
  *
  * Logged from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message IoOveruseStats {
+message CarWatchdogIoOveruseStats {
     enum Period {
-        DAILY = 0;
-        WEEKLY = 1;
+        UNKNOWN_PERIOD = 0;
+        DAILY = 1;
+        WEEKLY = 2;
     }
 
     // Threshold and usage stats period.
     optional Period period = 1;
 
     // Threshold in-terms of write bytes defined for the package.
-    optional PerStateBytes threshold = 2;
+    optional CarWatchdogPerStateBytes threshold = 2;
 
     // Number of write bytes in each state for the specified period.
-    optional PerStateBytes written_bytes = 3;
+    optional CarWatchdogPerStateBytes written_bytes = 3;
+
+    // Application or service uptime during the aforementioned period.
+    optional uint64 uptime_millis = 4;
 };
 
 /**
  * Logs bytes attributed to each application and system states.
  *
- * Keep in sync between:
- *  packages/services/Car/watchdog/server/src/proto/statsd.proto
- *  frameworks/base/cmds/statsd/src/atoms.proto
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
  *
  * Logged from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message PerStateBytes {
+message CarWatchdogPerStateBytes {
     // Number of bytes attributed to the application foreground.
     optional int64 foreground_bytes = 1;
 
@@ -15162,36 +15412,34 @@ message PerStateBytes {
 }
 
 /**
- * Logs each ProcessStat in ProcessStats.
+ * Logs each CarWatchdogProcessStat in CarWatchdogProcessStats.
  *
- * Keep in sync between:
- *  packages/services/Car/watchdog/server/src/proto/statsd.proto
- *  frameworks/base/cmds/statsd/src/atoms.proto
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
  *
  * Logged from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message ProcessStats {
+message CarWatchdogProcessStats {
     // Records the stats of the processes owned by an application.
-    repeated ProcessStat process_stat = 1;
+    repeated CarWatchdogProcessStat process_stat = 1;
 }
 
 /**
  * Logs a process's stats.
  *
- * Keep in sync between:
- *  packages/services/Car/watchdog/server/src/proto/statsd.proto
- *  frameworks/base/cmds/statsd/src/atoms.proto
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
  *
  * Logged from:
- *  packages/services/Car/cpp/watchdog/server/src/StatsReporter.cpp
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
  */
-message ProcessStat {
+message CarWatchdogProcessStat {
     // Command name of the process.
     optional string process_name = 1;
 
     // Process uptime.
-    optional uint64 uptime_milliseconds = 2;
+    optional uint64 uptime_millis = 2;
 
     // Number of major page faults caused by the process and its children.
     optional uint64 major_page_faults = 3;
@@ -15207,6 +15455,107 @@ message ProcessStat {
 
     // Resident set size in kb.
     optional uint64 vm_rss_kb = 7;
+}
+
+/**
+ * Logs total I/O usage summary for all applications and services running in the system.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
+ * Pulled from:
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
+ */
+message CarWatchdogSystemIoUsageSummary {
+    // I/O usage summary for the system.
+    optional CarWatchdogIoUsageSummary io_usage_summary = 1 [(log_mode) = MODE_BYTES];
+
+    // Start time of the event in milliseconds since epoch.
+    // Note: This field must be a top-level field as it is used to slice the metrics.
+    optional int64 start_time_millis = 2;
+}
+
+/**
+ * Logs I/O usage summary for an UID.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
+ * Pulled from:
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
+ */
+message CarWatchdogUidIoUsageSummary {
+    // UID of the application/service whose usage summary are recorded.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    // I/O usage summary for the UID.
+    optional CarWatchdogIoUsageSummary io_usage_summary = 2 [(log_mode) = MODE_BYTES];
+
+    // Start time of the event in milliseconds since epoch.
+    // Note: This field must be a top-level field as it is used to slice the metrics.
+    optional int64 start_time_millis = 3;
+}
+
+/**
+ * Logs I/O usage summary for a time period.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
+ * Pulled from:
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
+ */
+message CarWatchdogIoUsageSummary {
+    // Summary event time period.
+    optional CarWatchdogEventTimePeriod event_time_period = 1;
+
+    // Daily I/O usage summary for the period. Logs summary entries only for days with I/O usage.
+    // The entries are ordered beginning from the event_time_period.start_time_millis.
+    repeated CarWatchdogDailyIoUsageSummary daily_io_usage_summary = 2;
+}
+
+/**
+ * Logs a car watchdog event's time period.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
+ * Pulled from:
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
+ */
+message CarWatchdogEventTimePeriod {
+    enum Period {
+        UNKNOWN_PERIOD = 0;
+        WEEKLY = 1;
+        BIWEEKLY = 2;
+        MONTHLY = 3;
+    }
+
+    // Deprecated field - Start time of the event in milliseconds since epoch.
+    optional uint64 start_time_millis = 1 [deprecated = true];
+
+    // Period for the event.
+    optional Period period = 2;
+}
+
+/**
+ * Logs daily I/O usage summary.
+ *
+ * Keep in sync with proto file at
+ * packages/services/Car/service/src/com/android/car/watchdog/proto/atoms.proto
+ *
+ * Pulled from:
+ *  packages/services/Car/service/src/com/android/car/watchdog/WatchdogPerfHandler.java
+ */
+message CarWatchdogDailyIoUsageSummary {
+    // Total bytes written to disk during a day.
+    optional CarWatchdogPerStateBytes written_bytes = 1;
+
+    // Total uptime for the system or service or application during a day.
+    optional uint64 uptime_millis = 2;
+
+    // Total disk I/O overuses during a day.
+    optional int32 overuse_count = 3;
 }
 
 /*
@@ -16991,6 +17340,7 @@ message NeuralNetworksExecutionFailed {
     // How many times this atom occurred locally before being pushed.
     optional int32 count = 14;
 }
+
 /**
  * Stats about each feature tag that was included in the registration.
  *
@@ -17166,8 +17516,9 @@ message SipTransportFeatureTagStats {
  */
 message SipMessageResponse {
     enum Direction {
-        INCOMING = 0;
-        OUTGOING = 1;
+        UNKNOWN = 0;
+        INCOMING = 1;
+        OUTGOING = 2;
     }
     // the carrier id associated with this SIP delegate
     // Used as a dimension
@@ -17206,8 +17557,9 @@ message SipMessageResponse {
  */
 message SipTransportSession {
     enum Direction {
-        INCOMING = 0;
-        OUTGOING = 1;
+        UNKNOWN = 0;
+        INCOMING = 1;
+        OUTGOING = 2;
     }
     // the carrier id associated with this SIP delegate
     // Used as a dimension
@@ -17519,90 +17871,6 @@ message GbaEvent {
 
     // The count that matches the above conditions.
     optional int32 count = 5;
-}
-
-/**
- * Pulls status for a SIM.
- *
- * Each pull creates multiple atoms, one for each SIM. The atom holds the status for a SIM that's
- * sensitive per carrier. The atom would be aggregated per carrier for analysis.
- *
- * Pulled from:
- *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
- */
-message PerSimStatus {
-    enum WfcMode {
-        UNKNOWN = 0;
-        WIFI_ONLY = 1;
-        CELLULAR_PREFERRED = 2;
-        WIFI_PREFERRED = 3;
-    }
-    enum SimVoltageClass {
-        VOLTAGE_CLASS_UNKNOWN = 0;
-        VOLTAGE_CLASS_A = 1;
-        VOLTAGE_CLASS_B = 2;
-        VOLTAGE_CLASS_C = 3;
-    }
-
-    // Index of the SIM, 0 for single-SIM devices.
-    optional int32 sim_slot_index = 1;
-
-    // Carrier ID of the SIM.
-    // See https://source.android.com/devices/tech/config/carrierid.
-    optional int32 carrier_id = 2;
-
-    // Indicates whether phone number source UICC provides a phone number
-    // and whether it agrees with other sources:
-    //  - 0: no number provided
-    //  - a positive integer (> 0): sources providing the same phone number
-    //    shall use the same integer. The integer shall start from 1, and
-    //    for each new unique source the next integer (2, 3, …) is used.
-    // This way, the raw phone number cannot be derived from the value of
-    // this field.
-    // This also allows a quick check of conflicts: any field > 1 means conflict,
-    // and the max means the count of unique phone numbers.
-    optional int32 phone_number_source_uicc = 3;
-
-    // Indicates whether phone number source CARRIER provides a phone number
-    // and whether it agrees with other sources.
-    // See field phone_number_source_uicc.
-    optional int32 phone_number_source_carrier = 4;
-
-    // Indicates whether phone number source IMS provides a phone number
-    // and whether it agrees with other sources.
-    // See field phone_number_source_uicc.
-    optional int32 phone_number_source_ims = 5;
-
-    // Indicates whether VoLTE is enabled
-    optional bool volte_enabled = 6;
-
-    // Indicates whether WFC is enabled
-    optional bool wfc_enabled = 7;
-
-    // Indicates the user's WFC mode
-    optional WfcMode wfc_mode = 8;
-
-    // Indicates the user's WFC mode when roaming
-    optional WfcMode wfc_roaming_mode = 9;
-
-    // Indicates the user's setting for video calling.
-    optional bool video_calling_enabled = 10;
-
-    // Indicates if data roaming is enabled
-    optional bool data_roaming_enabled = 11;
-
-    // Indicates the list of networks allowed by the user. Bitmask is encoded as
-    // TelephonyManager#NetworkTypeBitMask.
-    optional int64 allowed_networks_by_user = 12;
-
-    // Indicates if 2G is disabled by the user using the "Allow 2G" toggle
-    optional bool is_2g_disabled = 13;
-
-    // Indicates if PIN1 of the SIM card is enabled
-    optional bool is_pin1_enabled = 14;
-
-    // Indicates the lowest voltage class supported by the SIM
-    optional SimVoltageClass sim_voltage_class = 15;
 }
 
 message TracingServiceReportEvent {
