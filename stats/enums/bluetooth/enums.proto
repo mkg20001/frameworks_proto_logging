@@ -171,6 +171,10 @@ enum CodePathCounterKeyEnum {
         // [101,000 - 102,000) HFP
 
             // [101,000 - 101,100) RFCOMM
+            RFCOMM_CONNECTION_SUCCESS_IND = 101000;
+            RFCOMM_CONNECTION_SUCCESS_CNF = 101001;
+            RFCOMM_PORT_START_FAILED = 101002;
+            RFCOMM_PORT_CLOSED = 101003;
 
             // [101,100 - 101,200) HFP (btif)
 
