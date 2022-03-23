@@ -177,6 +177,9 @@ rust_library {
         "libstatspull_bindgen",
         "libthiserror",
     ],
+    apex_available: [
+        "com.android.virt",
+    ],
 }
 
 genrule {
@@ -198,5 +201,8 @@ rust_library {
     rustlibs: [
         "libstatslog_rust_header",
         "libstatspull_bindgen",
+    ],
+    apex_available: [
+        "com.android.virt",
     ],
 }

@@ -32,5 +32,6 @@ cc_library_static {
         "hfp/enums.proto",
         "smp/enums.proto",
     ],
+    min_sdk_version: "30",
 }
 
