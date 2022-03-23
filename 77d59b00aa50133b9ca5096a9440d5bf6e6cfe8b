@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e841ad01_e48443d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-03-23T18:30:52Z",
+      "side": 1,
+      "message": "Adding Vova since he reviewed the other cls. We had a temporary owners restriction on atoms.proto that has now been removed, so Vova should be able to approve.",
+      "revId": "77d59b00aa50133b9ca5096a9440d5bf6e6cfe8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
