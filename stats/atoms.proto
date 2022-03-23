@@ -13414,7 +13414,8 @@ message DataCallSession {
  * Logs data stall recovery event
  *
  * Logged from:
- *   frameworks/opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/data/
+ *   DataStallRecoveryManager.java
  */
 message DataStallRecoveryReported {
     // Carrier ID of the SIM
@@ -13447,6 +13448,9 @@ message DataStallRecoveryReported {
 
     // The elapsed time between start of the data stall and result of current action.
     optional int32 duration_millis = 9;
+
+    // The data stall recovered reason. Available from Android T.
+    optional android.telephony.DataStallRecoveredReason reason = 10;
 }
 
 /**
