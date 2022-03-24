@@ -405,3 +405,14 @@ enum SipRequestMethodType {
     SIP_REQUEST_MESSAGE = 14;
     SIP_REQUEST_UPDATE = 15;
 }
+
+// Buckets of call duration in a voice call.
+enum CallDuration {
+  CALL_DURATION_UNKNOWN = 0; // Unknown duration
+  CALL_DURATION_LESS_THAN_ONE_MINUTE = 1; // Call lasted less than 1 minute
+  CALL_DURATION_LESS_THAN_FIVE_MINUTES = 2; // Call lasted between 1 and 5 minutes
+  CALL_DURATION_LESS_THAN_TEN_MINUTES = 3; // Call lasted between 5 and 10 minutes
+  CALL_DURATION_LESS_THAN_THIRTY_MINUTES = 4; // Call lasted between 10 and 30 minutes
+  CALL_DURATION_LESS_THAN_ONE_HOUR = 5; // Call lasted between 30 minutes and 1 hour
+  CALL_DURATION_MORE_THAN_ONE_HOUR = 6; // Call lasted more than 1 hour
+}

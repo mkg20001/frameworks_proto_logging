@@ -12988,6 +12988,9 @@ message VoiceCallSession {
 
     // Whether the call was a conference call (applicable only for calls over IMS).
     optional bool is_multiparty = 32;
+
+    // Duration after the call was connected.
+    optional android.telephony.CallDuration call_duration = 33;
 }
 
 /**
