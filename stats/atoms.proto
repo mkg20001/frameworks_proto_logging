@@ -34,8 +34,8 @@ import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/biometrics/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto";
-import "frameworks/proto_logging/stats/enums/neuralnetworks/enums.proto";
 import "frameworks/proto_logging/stats/enums/net/enums.proto";
+import "frameworks/proto_logging/stats/enums/neuralnetworks/enums.proto";
 import "frameworks/proto_logging/stats/enums/os/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
 import "frameworks/proto_logging/stats/enums/server/enums.proto";
@@ -17129,10 +17129,11 @@ message NeuralNetworksCompilationCompleted {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this compilation.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this compilation.
+    // NeuralNetworks models are compiled/prepared for one or more device drivers (e.g., DSP, GPU,
+    // TPU, CPU). The device driver identifier is a concatenation of [device driver name, =, and
+    // device driver version]. If multiple device drivers are used, all device driver identifiers
+    // are sorted and concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Type of tensors used for inputs
@@ -17188,10 +17189,11 @@ message NeuralNetworksCompilationFailed {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this compilation.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this compilation.
+    // NeuralNetworks models are compiled/prepared for one or more device drivers (e.g., DSP, GPU,
+    // TPU, CPU). The device driver identifier is a concatenation of [device driver name, =, and
+    // device driver version]. If multiple device drivers are used, all device driver identifiers
+    // are sorted and concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Type of tensors used for inputs
@@ -17241,10 +17243,11 @@ message NeuralNetworksExecutionCompleted {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this execution.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this execution.
+    // NeuralNetworks models are executed on one or more device drivers (e.g., DSP, GPU, TPU, CPU).
+    // The device driver identifier is a concatenation of [device driver name, =, and device driver
+    // version]. If multiple device drivers are used, all device driver identifiers are sorted and
+    // concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Execution mode
@@ -17314,10 +17317,11 @@ message NeuralNetworksExecutionFailed {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this execution.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this execution.
+    // NeuralNetworks models are executed on one or more device drivers (e.g., DSP, GPU, TPU, CPU).
+    // The device driver identifier is a concatenation of [device driver name, =, and device driver
+    // version]. If multiple device drivers are used, all device driver identifiers are sorted and
+    // concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Execution mode
