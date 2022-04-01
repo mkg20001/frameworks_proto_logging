@@ -13418,6 +13418,9 @@ message DataCallSession {
     // See GeranBands, UtranBands and EutranBands in IRadio interface, depending
     // on the RAT at the end of the data call.
     optional int32 band_at_end = 19;
+
+    // Reason why the data call handover failed, as in RIL_DataCallFailCause from ril.h
+    repeated int32 handover_failure_causes = 20;
 }
 
 /**
