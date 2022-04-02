@@ -166,6 +166,11 @@ enum SimStateEnum {
      * @hide
      */
     SIM_STATE_PRESENT = 11;
+    /**
+     * SIM card state: SIM Card is IMSI_READY
+     * @hide
+     */
+    SIM_STATE_IMSI = 12;
 }
 
 // Format of SMS message
