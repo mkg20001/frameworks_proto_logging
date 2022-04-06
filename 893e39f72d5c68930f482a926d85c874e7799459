@@ -22,6 +22,30 @@
       },
       "revId": "893e39f72d5c68930f482a926d85c874e7799459",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd86db8c_08ea052a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 15307,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-04-06T20:33:03Z",
+      "side": 0,
+      "message": "oh yeah. I think it was just a mistake while resolving merge conflicts.",
+      "parentUuid": "46f6aa16_769ccc7e",
+      "range": {
+        "startLine": 15305,
+        "startChar": 2,
+        "endLine": 15307,
+        "endChar": 87
+      },
+      "revId": "893e39f72d5c68930f482a926d85c874e7799459",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
