@@ -34,8 +34,8 @@ import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/biometrics/enums.proto";
 import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto";
-import "frameworks/proto_logging/stats/enums/neuralnetworks/enums.proto";
 import "frameworks/proto_logging/stats/enums/net/enums.proto";
+import "frameworks/proto_logging/stats/enums/neuralnetworks/enums.proto";
 import "frameworks/proto_logging/stats/enums/os/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
 import "frameworks/proto_logging/stats/enums/server/enums.proto";
@@ -599,6 +599,7 @@ message Atom {
         VmCreationRequested vm_creation_requested = 409 [(module) = "virtualizationservice"];
         CameraCompatControlEventReported camera_compat_control_event_reported = 411 [(module) = "framework"];
         TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
+        EarlyBootCompOsArtifactsCheckReported early_boot_comp_os_artifacts_check_reported = 419 [(module) = "art"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -15305,6 +15306,24 @@ message VmCreationRequested {
 }
 
 /**
+ * Logs telemetry for Early boot CompOsArtifacts checks (done by odsign)
+ *
+ * odsign is a binary that runs during early boot. One of its responsibility is to
+ * check if the device can use compOS and check if so, validate the compos generated artifacts.
+ * An atom is pushed on each such check. Note: We do not push an atom if canUseCompos is false.
+ */
+message EarlyBootCompOsArtifactsCheckReported {
+  // Are the current Artifacts okay (This check is done by odrefresh).
+  // (current_artifacts_ok == true) => compilationRequired is false
+  optional bool current_artifacts_ok = 1;
+  // Has CompOs generated any Artifacts
+  optional bool comp_os_pending_artifacts_exists = 2;
+  // The device will be using CompOs generated artifacts. Note: the value of
+  // this is meaningless if current_artifacts_ok = true
+  optional bool use_comp_os_generated_artifacts = 3;
+}
+
+/**
  * Logs the current state of an application/process before it is killed.
  *
  * Keep in sync with proto file at
@@ -17129,10 +17148,11 @@ message NeuralNetworksCompilationCompleted {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this compilation.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this compilation.
+    // NeuralNetworks models are compiled/prepared for one or more device drivers (e.g., DSP, GPU,
+    // TPU, CPU). The device driver identifier is a concatenation of [device driver name, =, and
+    // device driver version]. If multiple device drivers are used, all device driver identifiers
+    // are sorted and concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Type of tensors used for inputs
@@ -17188,10 +17208,11 @@ message NeuralNetworksCompilationFailed {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this compilation.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this compilation.
+    // NeuralNetworks models are compiled/prepared for one or more device drivers (e.g., DSP, GPU,
+    // TPU, CPU). The device driver identifier is a concatenation of [device driver name, =, and
+    // device driver version]. If multiple device drivers are used, all device driver identifiers
+    // are sorted and concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Type of tensors used for inputs
@@ -17241,10 +17262,11 @@ message NeuralNetworksExecutionCompleted {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this execution.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this execution.
+    // NeuralNetworks models are executed on one or more device drivers (e.g., DSP, GPU, TPU, CPU).
+    // The device driver identifier is a concatenation of [device driver name, =, and device driver
+    // version]. If multiple device drivers are used, all device driver identifiers are sorted and
+    // concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Execution mode
@@ -17314,10 +17336,11 @@ message NeuralNetworksExecutionFailed {
     // Size: 32 byte
     optional bytes model_arch_hash = 4 [(log_mode) = MODE_BYTES];
 
-    // Devices identifier used by this execution.
-    // Device identifier is a concatenation of [device name, =, and device version].
-    // If multiple devices are used, all device identifiers are sorted and concatenated
-    // with comma as a separator.
+    // Device driver identifier used by this execution.
+    // NeuralNetworks models are executed on one or more device drivers (e.g., DSP, GPU, TPU, CPU).
+    // The device driver identifier is a concatenation of [device driver name, =, and device driver
+    // version]. If multiple device drivers are used, all device driver identifiers are sorted and
+    // concatenated with comma as a separator.
     optional string device_id = 5;
 
     // Execution mode
