@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb219806_efaf04ec",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 15309,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2022-04-11T20:56:02Z",
+      "side": 1,
+      "message": "It\u0027d be clearer to prefix this (and the new one above) with \"binder_\".  By itself it\u0027s hard to tell what it\u0027s for.  Also mention it similarly in their comments.",
+      "range": {
+        "startLine": 15309,
+        "startChar": 33,
+        "endLine": 15309,
+        "endChar": 34
+      },
+      "revId": "b2332bed34c5fa410dad75d078bce0a9e4608b63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
