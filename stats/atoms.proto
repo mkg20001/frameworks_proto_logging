@@ -599,6 +599,7 @@ message Atom {
         VmCreationRequested vm_creation_requested = 409 [(module) = "virtualizationservice"];
         CameraCompatControlEventReported camera_compat_control_event_reported = 411 [(module) = "framework"];
         TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
+        EarlyBootCompOsArtifactsCheckReported early_boot_comp_os_artifacts_check_reported = 419 [(module) = "art"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -15302,6 +15303,24 @@ message VmCreationRequested {
     optional bool is_protected = 2;
     // Did the VM creation succeed
     optional bool creation_succeeded = 3;
+}
+
+/**
+ * Logs telemetry for Early boot CompOsArtifacts checks (done by odsign)
+ *
+ * odsign is a binary that runs during early boot. One of its responsibility is to
+ * check if the device can use compOS and check if so, validate the compos generated artifacts.
+ * An atom is pushed on each such check. Note: We do not push an atom if canUseCompos is false.
+ */
+message EarlyBootCompOsArtifactsCheckReported {
+  // Are the current Artifacts okay (This check is done by odrefresh).
+  // (current_artifacts_ok == true) => compilationRequired is false
+  optional bool current_artifacts_ok = 1;
+  // Has CompOs generated any Artifacts
+  optional bool comp_os_pending_artifacts_exists = 2;
+  // The device will be using CompOs generated artifacts. Note: the value of
+  // this is meaningless if current_artifacts_ok = true
+  optional bool use_comp_os_generated_artifacts = 3;
 }
 
 /**
