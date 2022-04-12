@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390630de_5e78b916",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 15306,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2022-04-12T20:53:02Z",
+      "side": 1,
+      "message": "nit: Binder exception code",
+      "range": {
+        "startLine": 15306,
+        "startChar": 7,
+        "endLine": 15306,
+        "endChar": 22
+      },
+      "revId": "7c1eb04f891ee6080acf3e757b13a460c0a1e778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09847749_034e02a4",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 15308,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2022-04-12T20:53:02Z",
+      "side": 1,
+      "message": "nit: Binder status description that comes with an exception code",
+      "range": {
+        "startLine": 15308,
+        "startChar": 7,
+        "endLine": 15308,
+        "endChar": 25
+      },
+      "revId": "7c1eb04f891ee6080acf3e757b13a460c0a1e778",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
