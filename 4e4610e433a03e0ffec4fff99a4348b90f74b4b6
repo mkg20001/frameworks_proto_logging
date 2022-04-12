@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a665f00_17e68630",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-04-12T22:55:15Z",
+      "side": 1,
+      "message": "I\u0027ve removed the binder_status_description from the atom\u0027s field because:\n1. It could be derived from exception_code\n2. Logging strings would require PWC approval \u0026 it might not be make much sense doing it when it can anyway be derived from binder_exception_code",
+      "revId": "4e4610e433a03e0ffec4fff99a4348b90f74b4b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
