@@ -15303,6 +15303,8 @@ message VmCreationRequested {
     optional bool is_protected = 2;
     // Did the VM creation succeed
     optional bool creation_succeeded = 3;
+    // Binder exception Code thrown by createVm request
+    optional int32 binder_exception_code = 4;
 }
 
 /**
