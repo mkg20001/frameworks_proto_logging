@@ -2292,6 +2292,8 @@ message BluetoothAclConnectionStateChanged {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 3;
+    // Used transport of this event.
+    optional android.bluetooth.TransportTypeEnum transport = 4;
 }
 
 /**
