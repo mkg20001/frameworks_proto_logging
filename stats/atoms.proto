@@ -15364,7 +15364,7 @@ message IsolatedCompilationEnded {
     // Time between compilation job starts to when it ends.
     // Note: this does not include the time between compilation job being scheduled (or when apex is staged)
     // and it actually starting
-    optional int64 compilation_time = 1;
+    optional int64 compilation_time_millis = 1;
     // Result of compilation
     optional Result compilation_result = 2;
 }
