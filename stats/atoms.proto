@@ -600,6 +600,8 @@ message Atom {
         CameraCompatControlEventReported camera_compat_control_event_reported = 411 [(module) = "framework"];
         TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
         EarlyBootCompOsArtifactsCheckReported early_boot_comp_os_artifacts_check_reported = 419 [(module) = "art"];
+        IsolatedCompilationScheduled isolated_compilation_scheduled = 457 [(module) = "art"];
+        IsolatedCompilationEnded isolated_compilation_ended = 458 [(module) = "art"];
 
         // StatsdStats tracks platform atoms with ids upto 500.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -2292,6 +2294,8 @@ message BluetoothAclConnectionStateChanged {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 3;
+    // Used transport of this event.
+    optional android.bluetooth.TransportTypeEnum transport = 4;
 }
 
 /**
@@ -15323,6 +15327,46 @@ message EarlyBootCompOsArtifactsCheckReported {
   // The device will be using CompOs generated artifacts. Note: the value of
   // this is meaningless if current_artifacts_ok = true
   optional bool use_comp_os_generated_artifacts = 3;
+}
+
+/**
+ * Logs telemetry when Isolation compilation job is scheduled.
+ *
+ * The atoms are sent by IsolatedCompilationService (fragment of system_server)
+ * when apex are staged and need compilation.
+ */
+message IsolatedCompilationScheduled {
+    enum Result {
+        SCHEDULING_RESULT_UNKNOWN = 0;
+        SCHEDULING_FAILURE = 1;
+        SCHEDULING_SUCCESS = 2;
+    }
+    optional Result scheduling_result = 1;
+}
+
+/**
+ * Logs telemetry Isolation compilation completion.
+ *
+ * The atoms is sent by IsolatedCompilationService by compilation ends
+ * and contain results/timings of compilation
+ */
+message IsolatedCompilationEnded {
+    enum Result {
+        RESULT_UNKNOWN = 0;
+        RESULT_SUCCESS = 1;
+        RESULT_UNKNOWN_FAILURE = 2;
+        RESULT_FAILED_TO_START = 3;
+        RESULT_JOB_CANCELED = 4;
+        RESULT_COMPILATION_FAILED = 5;
+        RESULT_UNEXPECTED_COMPILATION_RESULT = 6;
+        RESULT_COMPOSD_DIED = 7;
+    }
+    // Time between compilation job starts to when it ends.
+    // Note: this does not include the time between compilation job being scheduled (or when apex is staged)
+    // and it actually starting
+    optional int64 compilation_time_millis = 1;
+    // Result of compilation
+    optional Result compilation_result = 2;
 }
 
 /**
