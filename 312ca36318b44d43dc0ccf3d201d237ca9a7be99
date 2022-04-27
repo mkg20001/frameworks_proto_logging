@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11bb48e0_f64a1fea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1935045
+      },
+      "writtenOn": "2022-04-27T17:18:01Z",
+      "side": 1,
+      "message": "The original commits have strangely vanished from aosp master, I\u0027m going to merge these again.",
+      "revId": "312ca36318b44d43dc0ccf3d201d237ca9a7be99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
