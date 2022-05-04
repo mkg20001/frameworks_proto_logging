@@ -22,6 +22,30 @@
       },
       "revId": "91c637686e07b55f15f48d8bf914677ffbbe0e41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3c220e_c2e287eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1935045
+      },
+      "writtenOn": "2022-05-04T19:24:33Z",
+      "side": 1,
+      "message": "This change is the same thing as aosp/2008231. Somehow aosp/2008231 disappeared from aosp master, so I\u0027m trying to merge it again. Can\u0027t revive the old change, so I\u0027m opening a new change.",
+      "parentUuid": "846d37f5_a015e351",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 52
+      },
+      "revId": "91c637686e07b55f15f48d8bf914677ffbbe0e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
