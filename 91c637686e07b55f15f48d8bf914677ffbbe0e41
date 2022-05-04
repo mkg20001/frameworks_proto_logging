@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "846d37f5_a015e351",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-05-04T19:18:48Z",
+      "side": 1,
+      "message": "Can you reuse the same Change-Id that\u0027s used as Merged-In here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 52
+      },
+      "revId": "91c637686e07b55f15f48d8bf914677ffbbe0e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
