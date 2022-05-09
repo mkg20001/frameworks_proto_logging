@@ -604,7 +604,7 @@ message Atom {
         IsolatedCompilationEnded isolated_compilation_ended = 458 [(module) = "art"];
         TelephonyAnomalyDetected telephony_anomaly_detected = 461 [(module) = "telephony"];
 
-        // StatsdStats tracks platform atoms with ids upto 500.
+        // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
