@@ -14978,7 +14978,13 @@ message RkpErrorStats {
 
     // Count of a particular error occurred.
     optional int32 count = 2;
+
+    /**
+     * Security level of the IRemotelyProvisionedComponent.
+     */
+    optional android.system.security.keystore2.SecurityLevelEnum security_level = 3;
 }
+
 
 /**
  * Logs: Status of the attestation key pool related to
