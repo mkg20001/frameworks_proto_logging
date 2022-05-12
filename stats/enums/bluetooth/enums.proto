@@ -182,6 +182,10 @@ enum CodePathCounterKeyEnum {
             RFCOMM_PORT_PEER_TIMEOUT = 101008;
 
             // [101,100 - 101,200) HFP (btif)
+            HFP_COLLISON_AT_AG_OPEN = 101101;
+            HFP_COLLISON_AT_CONNECTING = 101102;
+            HFP_SELF_INITIATED_AG_FAILED = 101103;
+            HFP_SLC_SETUP_FAILED = 101104;
 
         // [102,000 - 103,000) A2DP
         A2DP_CONNECTION_SUCCESS = 102000;
