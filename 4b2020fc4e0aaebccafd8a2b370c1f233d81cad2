@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d343938_ec87f760",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12900,
+      "author": {
+        "id": 1633930
+      },
+      "writtenOn": "2022-05-19T19:27:49Z",
+      "side": 1,
+      "message": "Point to setup_duration_millis in the comments?",
+      "range": {
+        "startLine": 12900,
+        "startChar": 4,
+        "endLine": 12900,
+        "endChar": 38
+      },
+      "revId": "4b2020fc4e0aaebccafd8a2b370c1f233d81cad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acee7e70_1d700b5b",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12901,
+      "author": {
+        "id": 1633930
+      },
+      "writtenOn": "2022-05-19T19:27:49Z",
+      "side": 1,
+      "message": "I wonder whether we want to remove the enum in enums.proto. It seems that the enum is only used here.",
+      "range": {
+        "startLine": 12901,
+        "startChar": 31,
+        "endLine": 12901,
+        "endChar": 52
+      },
+      "revId": "4b2020fc4e0aaebccafd8a2b370c1f233d81cad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
