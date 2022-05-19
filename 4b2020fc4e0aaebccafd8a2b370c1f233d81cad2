@@ -45,6 +45,30 @@
       },
       "revId": "4b2020fc4e0aaebccafd8a2b370c1f233d81cad2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d3c4b2_74cd8b2a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 12901,
+      "author": {
+        "id": 1407086
+      },
+      "writtenOn": "2022-05-19T21:27:40Z",
+      "side": 1,
+      "message": "Removing the enum may be problematic. I think we can leave it there.\nBut potentially we can mark also the enum as deprecated.",
+      "parentUuid": "acee7e70_1d700b5b",
+      "range": {
+        "startLine": 12901,
+        "startChar": 31,
+        "endLine": 12901,
+        "endChar": 52
+      },
+      "revId": "4b2020fc4e0aaebccafd8a2b370c1f233d81cad2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
