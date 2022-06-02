@@ -2940,6 +2940,13 @@ message BluetoothDeviceInfoReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 8;
+    // The first byte of MAC address
+    optional int32 byte1 = 9;
+    // The second byte of MAC address
+    optional int32 byte2 = 10;
+    // The third byte of MAC address
+    optional int32 byte3 = 11;
+
 }
 
 /**
