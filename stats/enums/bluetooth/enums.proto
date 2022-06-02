@@ -200,3 +200,10 @@ enum CodePathCounterKeyEnum {
         A2DP_CONNECTION_TIMEOUT = 102009;
 
 }
+
+enum AddressTypeEnum {
+    ADDRESS_TYPE_PUBLIC = 0;
+    ADDRESS_TYPE_RANDOM = 1;
+    ADDRESS_TYPE_UNKNOWN = 0xFFFF;
+}
+

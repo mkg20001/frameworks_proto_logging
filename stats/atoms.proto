@@ -2940,6 +2940,16 @@ message BluetoothDeviceInfoReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 8;
+    // A flag indicating if the MAC address of the remote device is public or 
+    // random.
+    optional android.bluetooth.AddressTypeEnum address_type = 9;
+    // The first byte of MAC address
+    optional int32 byte1 = 10;
+    // The second byte of MAC address
+    optional int32 byte2 = 11;
+    // The third byte of MAC address
+    optional int32 byte3 = 12;
+
 }
 
 /**
