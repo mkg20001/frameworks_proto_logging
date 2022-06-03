@@ -22,6 +22,30 @@
       },
       "revId": "680db9a3f7e0623c28076a1b3ab524cc63a34cff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a24ec5_7b2f7d45",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 2948,
+      "author": {
+        "id": 1121403
+      },
+      "writtenOn": "2022-06-03T17:29:07Z",
+      "side": 1,
+      "message": "And why not just a single int?",
+      "parentUuid": "2e26b3eb_0439079b",
+      "range": {
+        "startLine": 2943,
+        "startChar": 0,
+        "endLine": 2948,
+        "endChar": 30
+      },
+      "revId": "680db9a3f7e0623c28076a1b3ab524cc63a34cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
