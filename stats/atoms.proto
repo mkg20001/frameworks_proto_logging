@@ -15379,6 +15379,10 @@ message IsolatedCompilationEnded {
     optional int64 compilation_time_millis = 1;
     // Result of compilation
     optional Result compilation_result = 2;
+    // In case the job scheduler cancels the job, this will be the reason code
+    // Codes are used from https://source.corp.google.com/android/frameworks/base/apex/jobscheduler/framework/java/android/app/job/JobParameters.java
+    // Note: this field only makes sense when compilation_result = RESULT_JOB_CANCELED
+    optional int32 compilation_job_stop_reason = 3;
 }
 
 /**
