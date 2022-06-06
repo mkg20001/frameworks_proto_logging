@@ -22,6 +22,30 @@
       },
       "revId": "43d94d4baba004a2348a3843ac5658f117bd3997",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0877cd7_10a05ba1",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 15385,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-06-06T18:29:06Z",
+      "side": 1,
+      "message": "The thing is jobscheduler uses its own set of integers - cs/android/frameworks/base/apex/jobscheduler/framework/java/android/app/job/JobParameters.java?l\u003d47-69. Using enum here would mean creating a mapping between the enums here \u0026 the values there, which means more things to maintain. \n\nI think it makes sense leaving compilation_job_stop_reason to be an integer \u0026 if we see any cancelled reason \u003e -1, then we can look it up from JobParameters.java.",
+      "parentUuid": "444d8e04_a5799d90",
+      "range": {
+        "startLine": 15385,
+        "startChar": 13,
+        "endLine": 15385,
+        "endChar": 18
+      },
+      "revId": "43d94d4baba004a2348a3843ac5658f117bd3997",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
