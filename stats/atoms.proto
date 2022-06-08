@@ -607,6 +607,8 @@ message Atom {
         RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        BluetoothDeviceNameReported bluetooth_device_name_reported = 478 [(module) = "bluetooth"];
+
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -3019,6 +3021,29 @@ message BluetoothSdpAttributeReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 5;
+}
+
+/**
+* Logs the user created Bluetooth device's name.
+* It is pushed at Bluetooth pairing and connection.
+* The metric will only be collected from dogfooders.
+*
+* Logged from:
+*     packages/modules/Bluetooth
+*/
+message BluetoothDeviceNameReported {
+   // An identifier that can be used to match events for this device.
+   // The incremental identifier is locally generated and guaranteed not derived
+   // from any globally unique hardware id.
+   // For paired devices, it stays consistent between Bluetooth toggling for the
+   // same remote device.
+   // For unpaired devices, it stays consistent within the same Bluetooth adapter
+   // session for the same remote device.
+   // Default: 0 if the device's metric id is unknown.
+   optional int32 metric_id = 1;
+
+   // Name of the Bluetooth device. It is created by the user.
+   optional string device_name = 2;
 }
 
 /**
