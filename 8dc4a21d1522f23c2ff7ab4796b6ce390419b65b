@@ -22,6 +22,30 @@
       },
       "revId": "8dc4a21d1522f23c2ff7ab4796b6ce390419b65b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5df3e3_c3bdda47",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1581454
+      },
+      "writtenOn": "2022-06-09T19:52:02Z",
+      "side": 1,
+      "message": "I agree that 0 is better if we have a chance to design a new one.\n\nThis is to match the values in Bluetooth stack (and Bluetooth SIG) that we have been used for a while.\n\nDefinition in Bluetooth stack\nhttps://source.corp.google.com/android/packages/modules/Bluetooth/framework/java/android/bluetooth/BluetoothDevice.java;l\u003d1278?q\u003dADDRESS_TYPE_UNKNOWN",
+      "parentUuid": "aab761d5_741e210c",
+      "range": {
+        "startLine": 207,
+        "startChar": 3,
+        "endLine": 207,
+        "endChar": 34
+      },
+      "revId": "8dc4a21d1522f23c2ff7ab4796b6ce390419b65b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
