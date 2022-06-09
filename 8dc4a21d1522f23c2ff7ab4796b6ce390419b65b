@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab761d5_741e210c",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-06-09T19:37:13Z",
+      "side": 1,
+      "message": "Can you use 0 for UNKNOWN? So if address_type field is missing, it defaults to UNKNOWN",
+      "range": {
+        "startLine": 207,
+        "startChar": 3,
+        "endLine": 207,
+        "endChar": 34
+      },
+      "revId": "8dc4a21d1522f23c2ff7ab4796b6ce390419b65b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
