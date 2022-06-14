@@ -258,3 +258,10 @@ enum CodePathCounterKeyEnum {
         HIDH_ERR_SDP_BUSY = 103121;
 
 }
+
+enum AddressTypeEnum {
+    ADDRESS_TYPE_PUBLIC = 0;
+    ADDRESS_TYPE_RANDOM = 1;
+    ADDRESS_TYPE_UNKNOWN = 0xFFFF;
+}
+

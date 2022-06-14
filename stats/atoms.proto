@@ -2947,6 +2947,16 @@ message BluetoothDeviceInfoReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 8;
+    // A flag indicating if the MAC address of the remote device is public or
+    // random.
+    optional android.bluetooth.AddressTypeEnum address_type = 9;
+    // The first byte of MAC address
+    optional int32 byte1 = 10;
+    // The second byte of MAC address
+    optional int32 byte2 = 11;
+    // The third byte of MAC address
+    optional int32 byte3 = 12;
+
 }
 
 /**
@@ -15397,6 +15407,10 @@ message IsolatedCompilationEnded {
     optional int64 compilation_time_millis = 1;
     // Result of compilation
     optional Result compilation_result = 2;
+    // In case the job scheduler cancels the job, this will be the reason code
+    // Codes are used from https://source.corp.google.com/android/frameworks/base/apex/jobscheduler/framework/java/android/app/job/JobParameters.java
+    // Note: this field only makes sense when compilation_result = RESULT_JOB_CANCELED
+    optional int32 compilation_job_stop_reason = 3;
 }
 
 /**
