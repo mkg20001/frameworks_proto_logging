@@ -45,6 +45,7 @@ enum CallDirectionEnum {
 // Call setup duration buckets.
 // See com.android.internal.telephony.metrics.VoiceCallSessionStats for definition.
 enum CallSetupDurationEnum {
+    option deprecated = true;
     CALL_SETUP_DURATION_UNKNOWN = 0;
     CALL_SETUP_DURATION_EXTREMELY_FAST = 1;
     CALL_SETUP_DURATION_ULTRA_FAST = 2;
