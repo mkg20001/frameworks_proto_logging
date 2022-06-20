@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbc1ba3f_31f4bd01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "I think this `Test:` stanza should also include metrics-specific tests, e.g.:\n\n  Test: atest art_standalone_libartbase_tests (for `MetricsTest`)\n  Test: atest art_standalone_runtime_tests (for `MetricsReporterTest`)\n\nI\u0027d also add:\n\n  Test: ART run-test 2232-write-metrics-to-log\n\nThis run-test is not yet supported by TradeFed/Atest, but you can run it on device by following the chroot-based testing instructions at https://cs.android.com/android/platform/superproject/+/master:art/test/README.chroot.md.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3b04cf_826afcf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "Adding Lokesh to keep me honest about the GC metrics.",
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd0e67a_42122847",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16051,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "I\u0027d say something a bit more specific here:\n\n    // New metrics to support averages reported as sum (numerator) and count\n    // (denominator), in order to make it easier to report as (monotonic)\n    // Value Metrics (there is currently no good way to aggregate averages as\n    // Value Metrics in StatsD).\n\nAlso, for all the new numerator \u0026 denominator metrics below, could you add a comment linking them to the original average metric?",
+      "range": {
+        "startLine": 16050,
+        "startChar": 0,
+        "endLine": 16051,
+        "endChar": 67
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b86da0_b2c7c59b",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16053,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "I\u0027d rename these as:\n\n    ART_DATUM_GC_WORLD_STOP_TIME_US \u003d 29;\n    ART_DATUM_GC_WORLD_STOP_COUNT \u003d 30;\n\nI don\u0027t think we need to keep a link with the name of the original average metric, (especially if there\u0027s a comment doing this mapping).",
+      "range": {
+        "startLine": 16052,
+        "startChar": 0,
+        "endLine": 16053,
+        "endChar": 44
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190fc1e7_3b1f2622",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16054,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "I\u0027d rename this one as `ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_FREED_BYTES`, which is easier to understand.",
+      "range": {
+        "startLine": 16054,
+        "startChar": 4,
+        "endLine": 16054,
+        "endChar": 74
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00c1957d_411b248b",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16055,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "I\u0027d rename this one as `ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_DURATION_MS`, which is more accurate (\"count\" does not convey the idea that this metric is a duration).",
+      "range": {
+        "startLine": 16055,
+        "startChar": 4,
+        "endLine": 16055,
+        "endChar": 61
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d2149d_db9eb116",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16056,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "Likewise, I\u0027d rename this one as `ART_DATUM_GC_FULL_HEAP_COLLECTION_FREED_BYTES`.",
+      "range": {
+        "startLine": 16056,
+        "startChar": 4,
+        "endLine": 16056,
+        "endChar": 67
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "914462f4_e68ff010",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16057,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "Likewise, I\u0027d rename this one as `ART_DATUM_GC_FULL_HEAP_COLLECTION_DURATION_MS`.",
+      "range": {
+        "startLine": 16057,
+        "startChar": 4,
+        "endLine": 16057,
+        "endChar": 54
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec1c2d6_cf949cc2",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16058,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "Likewise, I\u0027d rename this one as `ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_SCANNED_BYTES`.",
+      "range": {
+        "startLine": 16058,
+        "startChar": 4,
+        "endLine": 16058,
+        "endChar": 71
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9edc746_81763387",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16059,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "`ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_COUNT` (line 16055) and `ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_COUNT` (line 16059) encode the same data (\"ART Garbage Collector collection cumulated duration for young-generation collections\"), so you can drop the latter.",
+      "range": {
+        "startLine": 16059,
+        "startChar": 4,
+        "endLine": 16059,
+        "endChar": 64
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae112c02_f6799b0c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16060,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "Likewise, I\u0027d rename this one as `ART_DATUM_GC_FULL_HEAP_COLLECTION_SCANNED_BYTES`.",
+      "range": {
+        "startLine": 16060,
+        "startChar": 4,
+        "endLine": 16060,
+        "endChar": 64
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22fc4c7_e2bfaea4",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16061,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-20T14:35:10Z",
+      "side": 1,
+      "message": "`ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_COUNT` (line 16057) and `ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_COUNT` (line 16061) encode the same data (\"ART Garbage Collector collection cumulated duration for full-heap collections\"), so you can drop the latter.",
+      "range": {
+        "startLine": 16061,
+        "startChar": 4,
+        "endLine": 16061,
+        "endChar": 51
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
