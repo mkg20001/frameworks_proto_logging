@@ -43,6 +43,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2a52789f_e88c256a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0c8e1145_c8e6ccb5",
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d3b04cf_826afcf6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -81,6 +99,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7eb0093_85a9d2bd",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16051,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "afd0e67a_42122847",
+      "range": {
+        "startLine": 16050,
+        "startChar": 0,
+        "endLine": 16051,
+        "endChar": 67
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45b86da0_b2c7c59b",
@@ -94,6 +136,30 @@
       "writtenOn": "2022-06-20T14:35:10Z",
       "side": 1,
       "message": "I\u0027d rename these as:\n\n    ART_DATUM_GC_WORLD_STOP_TIME_US \u003d 29;\n    ART_DATUM_GC_WORLD_STOP_COUNT \u003d 30;\n\nI don\u0027t think we need to keep a link with the name of the original average metric, (especially if there\u0027s a comment doing this mapping).",
+      "range": {
+        "startLine": 16052,
+        "startChar": 0,
+        "endLine": 16053,
+        "endChar": 44
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9eb3dee_1450570e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16053,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "45b86da0_b2c7c59b",
       "range": {
         "startLine": 16052,
         "startChar": 0,
@@ -127,6 +193,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06df51d6_3d674075",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16054,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "190fc1e7_3b1f2622",
+      "range": {
+        "startLine": 16054,
+        "startChar": 4,
+        "endLine": 16054,
+        "endChar": 74
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00c1957d_411b248b",
@@ -140,6 +230,30 @@
       "writtenOn": "2022-06-20T14:35:10Z",
       "side": 1,
       "message": "I\u0027d rename this one as `ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_DURATION_MS`, which is more accurate (\"count\" does not convey the idea that this metric is a duration).",
+      "range": {
+        "startLine": 16055,
+        "startChar": 4,
+        "endLine": 16055,
+        "endChar": 61
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35402967_f998106f",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16055,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "00c1957d_411b248b",
       "range": {
         "startLine": 16055,
         "startChar": 4,
@@ -173,6 +287,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dcf0a3b_a94c61b6",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16056,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82d2149d_db9eb116",
+      "range": {
+        "startLine": 16056,
+        "startChar": 4,
+        "endLine": 16056,
+        "endChar": 67
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "914462f4_e68ff010",
@@ -186,6 +324,30 @@
       "writtenOn": "2022-06-20T14:35:10Z",
       "side": 1,
       "message": "Likewise, I\u0027d rename this one as `ART_DATUM_GC_FULL_HEAP_COLLECTION_DURATION_MS`.",
+      "range": {
+        "startLine": 16057,
+        "startChar": 4,
+        "endLine": 16057,
+        "endChar": 54
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c80188_8a430c2d",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16057,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "914462f4_e68ff010",
       "range": {
         "startLine": 16057,
         "startChar": 4,
@@ -219,6 +381,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6321c39d_84c8db28",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16058,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8ec1c2d6_cf949cc2",
+      "range": {
+        "startLine": 16058,
+        "startChar": 4,
+        "endLine": 16058,
+        "endChar": 71
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9edc746_81763387",
@@ -232,6 +418,30 @@
       "writtenOn": "2022-06-20T14:35:10Z",
       "side": 1,
       "message": "`ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_COUNT` (line 16055) and `ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_COUNT` (line 16059) encode the same data (\"ART Garbage Collector collection cumulated duration for young-generation collections\"), so you can drop the latter.",
+      "range": {
+        "startLine": 16059,
+        "startChar": 4,
+        "endLine": 16059,
+        "endChar": 64
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd81d21e_33373b0c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16059,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9edc746_81763387",
       "range": {
         "startLine": 16059,
         "startChar": 4,
@@ -265,6 +475,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb7a722_836d44b2",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16060,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ae112c02_f6799b0c",
+      "range": {
+        "startLine": 16060,
+        "startChar": 4,
+        "endLine": 16060,
+        "endChar": 64
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f22fc4c7_e2bfaea4",
@@ -278,6 +512,30 @@
       "writtenOn": "2022-06-20T14:35:10Z",
       "side": 1,
       "message": "`ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_COUNT` (line 16057) and `ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_COUNT` (line 16061) encode the same data (\"ART Garbage Collector collection cumulated duration for full-heap collections\"), so you can drop the latter.",
+      "range": {
+        "startLine": 16061,
+        "startChar": 4,
+        "endLine": 16061,
+        "endChar": 51
+      },
+      "revId": "1465c33b47d0fa49b901f9a345ef3607065becb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33cddd6_f9d94e8e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16061,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-06-21T17:00:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f22fc4c7_e2bfaea4",
       "range": {
         "startLine": 16061,
         "startChar": 4,
