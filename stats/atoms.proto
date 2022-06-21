@@ -619,6 +619,8 @@ message Atom {
         RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        VmBooted vm_booted = 466 [(module) = "virtualizationservice"];
+        VmExited vm_exited = 467 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -18334,4 +18336,18 @@ message RemoteKeyProvisioningErrorCounts {
     // How many bytes of data have been sent that resulted in errors. These
     // bytes count against an error budget, so it's important to track.
     optional int32 error_bytes = 3;
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ */
+message VmBooted {
+
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ */
+message VmExited {
+
 }
