@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3cf8f76_65334eca",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 16121,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-22T14:18:52Z",
+      "side": 1,
+      "message": "Denominator of `ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_AVG_MB_PER_SEC`\nand `ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC`.",
+      "range": {
+        "startLine": 16121,
+        "startChar": 7,
+        "endLine": 16121,
+        "endChar": 90
+      },
+      "revId": "3e178888aa6d3d7b1814105cddcb09d3063756f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e57b14ed_8b90a4a0",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 16127,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-22T14:18:52Z",
+      "side": 1,
+      "message": "Denominator of `ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC` and `ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC`.",
+      "range": {
+        "startLine": 16127,
+        "startChar": 7,
+        "endLine": 16127,
+        "endChar": 83
+      },
+      "revId": "3e178888aa6d3d7b1814105cddcb09d3063756f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
