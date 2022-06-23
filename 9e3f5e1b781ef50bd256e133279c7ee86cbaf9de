@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f0617d0_b905462c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-06-23T11:16:30Z",
+      "side": 1,
+      "message": "We use the internal master branch as source of truth for statsd atoms to avoid merge conflicts and collisions of ids. Could you confirm this CL merges cleanly with the same field tags all the way?",
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3c1fe4_fadb2685",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16111,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-06-23T11:16:30Z",
+      "side": 1,
+      "message": "Do we need produce counts too? Could this be done by statsd\u0027s count_metric?",
+      "range": {
+        "startLine": 16109,
+        "startChar": 67,
+        "endLine": 16111,
+        "endChar": 89
+      },
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
