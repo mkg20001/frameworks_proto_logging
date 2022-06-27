@@ -171,6 +171,30 @@
       },
       "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9191de_adc6035e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16111,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-06-27T18:06:03Z",
+      "side": 1,
+      "message": "Discussed in a meeting. We will use additive metrics to compute averages. So let\u0027s fix the comment to remove \"monotonic\".",
+      "parentUuid": "f70c75b5_29e4b65c",
+      "range": {
+        "startLine": 16109,
+        "startChar": 67,
+        "endLine": 16111,
+        "endChar": 89
+      },
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
