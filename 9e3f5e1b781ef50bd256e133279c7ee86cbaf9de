@@ -147,6 +147,30 @@
       },
       "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f70c75b5_29e4b65c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16111,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-06-27T15:29:12Z",
+      "side": 1,
+      "message": "I misunderstood. We cannot make these cumulative if we want to use the value metric. Lets sync today.",
+      "parentUuid": "64465b17_7b723496",
+      "range": {
+        "startLine": 16109,
+        "startChar": 67,
+        "endLine": 16111,
+        "endChar": 89
+      },
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
