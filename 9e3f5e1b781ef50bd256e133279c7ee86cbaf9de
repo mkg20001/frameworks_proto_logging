@@ -99,6 +99,30 @@
       },
       "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1488300_5e471f0e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16111,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-06-27T14:29:53Z",
+      "side": 1,
+      "message": "I see. In that case, we should keep the counts but remove the comment \"(there is currently no good way ...\" because it is not possible to aggregate averages on their own like this, the count must be available to statsd.",
+      "parentUuid": "2462e056_abc9936d",
+      "range": {
+        "startLine": 16109,
+        "startChar": 67,
+        "endLine": 16111,
+        "endChar": 89
+      },
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
