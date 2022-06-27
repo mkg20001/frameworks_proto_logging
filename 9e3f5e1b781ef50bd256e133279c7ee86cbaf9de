@@ -123,6 +123,30 @@
       },
       "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64465b17_7b723496",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16111,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-06-27T15:05:55Z",
+      "side": 1,
+      "message": "I\u0027m fine with dropping the end of the comment (in parentheses).\n\nHowewer, note that in our case, if StatsD supported a \"LAST\" method of aggregation (i.e. always pick and report the latest value), we could report our averages metrics as-is and let StatsD \"aggregate\" them, as we are essentially interested in the latest average, which encompasses the most information.",
+      "parentUuid": "e1488300_5e471f0e",
+      "range": {
+        "startLine": 16109,
+        "startChar": 67,
+        "endLine": 16111,
+        "endChar": 89
+      },
+      "revId": "9e3f5e1b781ef50bd256e133279c7ee86cbaf9de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
