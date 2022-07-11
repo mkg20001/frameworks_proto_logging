@@ -15389,6 +15389,13 @@ message VmCreationRequested {
         PKVM = 1;
         OTHER = 2;
     }
+
+    enum ConfigType {
+        UNKNOWN_CONFIG = 0;
+        VIRTUAL_MACHINE_APP_CONFIG = 1;
+        VIRTUAL_MACHINE_RAW_CONFIG = 2;
+    }
+
     optional Hypervisor hypervisor = 1;
     // Is the VM started in protected mode?
     optional bool is_protected = 2;
@@ -15396,6 +15403,19 @@ message VmCreationRequested {
     optional bool creation_succeeded = 3;
     // Binder exception Code thrown by createVm request
     optional int32 binder_exception_code = 4;
+
+    optional ConfigType config_type = 5;
+    optional int32 num_cpus = 6;
+    optional string cpu_affinity = 7;
+    optional int32 memory_mib = 8;
+
+    optional string main_apk = 9;
+    optional string extra_apks = 10;
+    optional string apexes = 11;
+
+    // TODO(seungjaeyoo) Fill information about task_profile, user_id, vm_id
+    // TODO(seungjaeyoo) Fill information about disk_image for raw config
+
 }
 
 /**
