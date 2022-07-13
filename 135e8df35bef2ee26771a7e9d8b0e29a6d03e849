@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98cc2373_93df61ea",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15411,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-07-13T07:04:27Z",
+      "side": 1,
+      "message": "Tried to add some fields like below, but westworld threw some errors.\nBelow fields are added successfully in internal branch or tm-dev, but they don\u0027t work in aosp branch.\n\n```\nrepeated string extra_apks \u003d 10;\nrepeated string apexes \u003d 11;\n```",
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659114f6_ee9734a4",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15413,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-07-13T07:04:27Z",
+      "side": 1,
+      "message": "I can make nested fields, but I need to use MODE_BYTES.",
+      "range": {
+        "startLine": 15412,
+        "startChar": 0,
+        "endLine": 15413,
+        "endChar": 68
+      },
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
