@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "461abfd0_a10f4216",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15394,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-07-15T09:20:23Z",
+      "side": 1,
+      "message": "Yes, westworld enum tend to have first field as unknown and this is the default value in  set in generated code (in case ConfigType is missing).",
+      "parentUuid": "a9500b3e_3b5e2e84",
+      "range": {
+        "startLine": 15394,
+        "startChar": 0,
+        "endLine": 15394,
+        "endChar": 27
+      },
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "98cc2373_93df61ea",
         "filename": "stats/atoms.proto",
         "patchSetId": 1
