@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c474280_3dd340fa",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15394,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-07-18T05:55:20Z",
+      "side": 1,
+      "message": "Thanks :) Then I think we should keep it.",
+      "parentUuid": "461abfd0_a10f4216",
+      "range": {
+        "startLine": 15394,
+        "startChar": 0,
+        "endLine": 15394,
+        "endChar": 27
+      },
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98cc2373_93df61ea",
@@ -85,6 +109,24 @@
       "writtenOn": "2022-07-13T07:04:27Z",
       "side": 1,
       "message": "Tried to add some fields like below, but westworld threw some errors.\nBelow fields are added successfully in internal branch or tm-dev, but they don\u0027t work in aosp branch.\n\n```\nrepeated string extra_apks \u003d 10;\nrepeated string apexes \u003d 11;\n```",
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "586cf758_62c25323",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15411,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-07-18T05:55:20Z",
+      "side": 1,
+      "message": "In current patchset, we don\u0027t use `repeated string` because it\u0027s impossible to use now.",
+      "parentUuid": "98cc2373_93df61ea",
       "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
