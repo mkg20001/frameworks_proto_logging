@@ -3366,6 +3366,12 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: T
     LE_AUDIO_BROADCAST_SCAN_QR_CODE = 1926;
+
+    // OPEN: Settings -> Developer Options -> Enable full NFC Snoop or verbose
+    // Log > NfcRebootDialog
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_NFC_ENABLE_DETAIL_LOG = 1932;
 }
 
 // Battery Saver schedule types.
