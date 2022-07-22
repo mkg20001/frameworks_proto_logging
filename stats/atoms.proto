@@ -621,6 +621,7 @@ message Atom {
         RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        VmExited vm_exited = 466 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -15396,6 +15397,29 @@ message VmCreationRequested {
     optional bool creation_succeeded = 3;
     // Binder exception Code thrown by createVm request
     optional int32 binder_exception_code = 4;
+}
+
+message VmExited {
+    enum DeathReason{
+        UNKNOWN = 0;
+        INFRASTRUCTURE_ERROR = 1;
+        KILLED = 2;
+        SHUTDOWN = 3;
+        ERROR = 4;
+        REBOOT = 5;
+        CRASH = 6;
+        PVM_FIRMWARE_PUBLIC_KEY_MISMATCH = 7;
+        PVM_FIRMWARE_INSTANCE_IMAGE_CHANGED = 8;
+        BOOTLOADER_PUBLIC_KEY_MISMATCH = 9;
+        BOOTLOADER_INSTANCE_IMAGE_CHANGED = 10;
+        MICRODROID_FAILED_TO_CONNECT_TO_VIRTUALIZATION_SERVICE = 11;
+        MICRODROID_PAYLOAD_HAS_CHANGED = 12;
+        MICRODROID_PAYLOAD_VERIFICATION_FAILED = 13;
+        MICRODROID_INVALID_PAYLOAD_CONFIG = 14;
+        MICRODROID_UNKNOWN_RUNTIME_ERROR = 15;
+        HANGUP = 16;
+    }
+    optional DeathReason death_reason = 1;
 }
 
 /**
