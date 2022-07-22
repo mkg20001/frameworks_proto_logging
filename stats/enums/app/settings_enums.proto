@@ -3366,6 +3366,9 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: T
     LE_AUDIO_BROADCAST_SCAN_QR_CODE = 1926;
+
+    // OPEN: Settings > Network & internet > Mobile network > Backup Calling > Dialog
+    BACKUP_CALLING_DIALOG = 1927;
 }
 
 // Battery Saver schedule types.
