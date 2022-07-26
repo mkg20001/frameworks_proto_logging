@@ -622,6 +622,7 @@ message Atom {
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
+        VmBooted vm_booted = 467 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -15433,6 +15434,10 @@ message VmCreationRequested {
     // TODO(seungjaeyoo) Fill information about task_profile
     // TODO(seungjaeyoo) Fill information about disk_image for raw config
 
+}
+
+message VmBooted {
+    optional string vm_name = 1;
 }
 
 /**
