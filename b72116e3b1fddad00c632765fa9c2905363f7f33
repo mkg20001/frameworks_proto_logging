@@ -16,6 +16,23 @@
       "message": "After merging, I can help update server side changes",
       "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14bc64ac_93fb7c1d",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-07-27T08:33:31Z",
+      "side": 1,
+      "message": "Is this only used for DHCP? If not, maybe remove DHCP from the name?",
+      "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
