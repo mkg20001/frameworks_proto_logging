@@ -152,6 +152,30 @@
       },
       "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd8f648c_6d13846a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 15413,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-07-27T00:41:00Z",
+      "side": 1,
+      "message": "I wrote with TODO comment for such fields. It\u0027ll not be considered in this change.",
+      "parentUuid": "659114f6_ee9734a4",
+      "range": {
+        "startLine": 15412,
+        "startChar": 0,
+        "endLine": 15413,
+        "endChar": 68
+      },
+      "revId": "135e8df35bef2ee26771a7e9d8b0e29a6d03e849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
