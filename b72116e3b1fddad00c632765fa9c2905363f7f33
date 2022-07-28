@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fa0b8a2_9d99de9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-07-28T07:36:36Z",
+      "side": 1,
+      "message": "Please make sure it merges cleanly all the way to the internal master branch.",
+      "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14bc64ac_93fb7c1d",
         "filename": "stats/enums/stats/connectivity/network_stack.proto",
         "patchSetId": 1
