@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ccb743b_f4c44d19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-29T00:42:54Z",
+      "side": 1,
+      "message": "Yes, the automerger should help us manage that and check-in this CL in internal master branch eventually. I\u0027ll check that later then.",
+      "parentUuid": "7fa0b8a2_9d99de9f",
+      "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14bc64ac_93fb7c1d",
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "yeah, per discussion, we should only force IpClient transit to StoppingState directly from RunningState when DHCP roam fails(i.e. receive DHCPNAK). For the \"normal\" roam failure cases, we issue onReachabilityFailure callback to tell wifi, and wifi tries to restart IpClient and keeps L2 connected. In this case, IpClient will receive CMD_STOP and transit to StoppingState instead, so maybe we can just keep the name as-is.",
       "parentUuid": "14bc64ac_93fb7c1d",
+      "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "918424a9_3cedc2a6",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-07-29T00:42:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b70d21e3_6ad6f202",
       "revId": "b72116e3b1fddad00c632765fa9c2905363f7f33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
