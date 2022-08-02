@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5f58d8_98c3f603",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 15407,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-08-02T10:04:51Z",
+      "side": 1,
+      "message": "What do you mean by user_id? Will it be the user/owner of VM ? (eg compos) or device owner (eg the google account linked to the device.\n-\u003e In the former case - it might be an idea to renmae this field to vm_user or something to remove confusion.\n\n-\u003e In the later case - the metrics uploaded already contain gaia id, device id etc for the purpose and is no more needed",
+      "range": {
+        "startLine": 15407,
+        "startChar": 19,
+        "endLine": 15407,
+        "endChar": 26
+      },
+      "revId": "4e20b2054eb2eb80113a20ebe0ca910e110c8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
