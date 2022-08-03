@@ -39,6 +39,30 @@
       },
       "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce624793_54c02691",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16050,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-08-03T12:44:33Z",
+      "side": 1,
+      "message": "Strange thing, I can see `ART_COMPILATION_REASON_UNSPECIFIED \u003d 0` from the internal Code Source (http://cs/android/frameworks/proto_logging/stats/atoms.proto;l\u003d17717-17718;rcl\u003de1c561b6380d5f4c0089ca1e54d6504cd157a913) but not from the Android one (https://cs.android.com/android/platform/superproject/+/master:frameworks/proto_logging/stats/atoms.proto;l\u003d16049-16050;drc\u003dda9304867216e65874eae45db56d8d3fd3674105) - do you know why would that be the case?",
+      "parentUuid": "b97d0d8b_6db2d72d",
+      "range": {
+        "startLine": 16049,
+        "startChar": 0,
+        "endLine": 16050,
+        "endChar": 37
+      },
+      "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
