@@ -63,6 +63,30 @@
       },
       "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a97c259c_e2a05bf7",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16050,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-08-03T12:53:09Z",
+      "side": 1,
+      "message": "I wonder if ag/13498358 was not properly propagated to AOSP (for example if a conflict resolution during the automerging of this CL into one of the `*-plus-aosp` branches was skipped); if so, I think we should cherry-pick this change into AOSP.",
+      "parentUuid": "ce624793_54c02691",
+      "range": {
+        "startLine": 16049,
+        "startChar": 0,
+        "endLine": 16050,
+        "endChar": 37
+      },
+      "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
