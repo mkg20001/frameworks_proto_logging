@@ -6623,7 +6623,7 @@ message OnDevicePowerMeasurement {
 
 /**
  * Pulls Cpu time per cluster per frequency.
- * This is tracked by the time_in_state eBPF program.
+ * This is tracked by the timeInState eBPF program.
  */
 message CpuTimePerClusterFreq {
     optional uint32 cluster = 1;
@@ -6675,7 +6675,7 @@ message CpuTimePerUidFreq {
 
 /**
   * Pulls Cpu Cycles Per ThreadGroup Per Cluster.
-  * This is tracked by the time_in_state eBPF program.
+  * This is tracked by the timeInState eBPF program.
   */
 message CpuCyclesPerThreadGroupCluster {
     enum ThreadGroup {
