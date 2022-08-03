@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e8f95a_ee48ed9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-08-03T11:33:27Z",
+      "side": 1,
+      "message": "Please make sure this merges cleanly to the internal master branch.",
+      "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97d0d8b_6db2d72d",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 16050,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-08-03T11:33:27Z",
+      "side": 1,
+      "message": "Can we also introduce ART_COMPILATION_REASON_UNSPECIFIED \u003d 0?\n\nCurrently, not invalid enum values appear as ERROR.",
+      "range": {
+        "startLine": 16049,
+        "startChar": 0,
+        "endLine": 16050,
+        "endChar": 37
+      },
+      "revId": "86b60407e7a923f473101c4fbfdbd79ccad728b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
