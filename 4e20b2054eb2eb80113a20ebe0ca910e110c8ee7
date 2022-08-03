@@ -22,6 +22,30 @@
       },
       "revId": "4e20b2054eb2eb80113a20ebe0ca910e110c8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c68681_978166d3",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 15407,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-08-03T05:35:36Z",
+      "side": 1,
+      "message": "I\u0027m thinking about the later case. If there are some information in metrics already, I think we don\u0027t need it.\n\nAnd the fields user_id and vm_id will be replaced with a string field vm_name, because I recently know method defining vm_name is already defined in VirtualMachineManager.\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Virtualization/javalib/src/android/system/virtualmachine/VirtualMachineManager.java;l\u003d57?q\u003dVirtualMachineManager\u0026sq\u003dpackage:%5Eaosp-master$",
+      "parentUuid": "2e5f58d8_98c3f603",
+      "range": {
+        "startLine": 15407,
+        "startChar": 19,
+        "endLine": 15407,
+        "endChar": 26
+      },
+      "revId": "4e20b2054eb2eb80113a20ebe0ca910e110c8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
