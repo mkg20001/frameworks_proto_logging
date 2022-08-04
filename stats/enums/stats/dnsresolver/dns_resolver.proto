@@ -375,3 +375,17 @@ message DnsQueryEvent {
 message DnsQueryEvents {
     repeated DnsQueryEvent dns_query_event = 1;
 }
+
+message Servers {
+    repeated Server server = 1;
+}
+
+message Server {
+    optional android.stats.dnsresolver.Protocol protocol = 1;
+
+    // The order of the dns server in the network
+    optional int32 index = 2;
+
+    // The validation status of the DNS server in the network
+    required bool validated = 3;
+}
