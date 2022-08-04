@@ -621,6 +621,7 @@ message Atom {
         RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -8501,6 +8502,66 @@ message NetworkDnsEventReported {
 
     // The sample rate of DNS stats (to statsd) is 1/sampling_rate_denom.
     optional int32 sampling_rate_denom = 9;
+}
+
+/**
+ * logs the number of DNS servers supported by the protocol
+ */
+message NetworkDnsServerSupportReported {
+    // The network type of the network
+    optional android.stats.dnsresolver.NetworkType network_type = 1;
+
+    // The private DNS mode of the network
+    optional android.stats.dnsresolver.PrivateDnsModes private_dns_modes = 2;
+
+    // Stores the state of all DNS servers for this network
+    optional android.stats.dnsresolver.Servers servers = 3 [(log_mode) = MODE_BYTES];
+}
+
+/**
+ * The NetworkDnsHandshakeReported message describes a DoT or DoH handshake operation along with
+ * its result, cause, network latency, TLS version, etc.
+ *
+ */
+message NetworkDnsHandshakeReported {
+  optional android.stats.dnsresolver.Protocol protocol = 1;
+
+  optional android.stats.dnsresolver.HandshakeResult result = 2;
+
+  optional android.stats.dnsresolver.HandshakeCause cause = 3;
+
+  optional android.stats.dnsresolver.NetworkType network_type = 4;
+
+  optional android.stats.dnsresolver.PrivateDnsModes private_dns_mode = 5;
+
+  // The latency in microseconds of the entire handshake operation.
+  optional int32 latency_micros = 6;
+
+  // Sent packets in bytes.
+  optional int32 bytes_sent = 7;
+
+  // Received packets in bytes.
+  optional int32 bytes_received = 8;
+
+  // Number of round-trips.
+  optional int32 round_trips = 9;
+
+  // True if TLS session cache hit.
+  optional bool tls_session_cache_hit = 10;
+
+  // 2 = TLS 1.2, 3 = TLS 1.3
+  optional int32 tls_version = 11;
+
+  // True if the handshake requires verifying the private DNS provider hostname.
+  optional bool hostname_verification = 12;
+
+  // Only present when protocol = PROTO_DOH.
+  optional int32 quic_version = 13;
+
+  optional int32 server_index = 14;
+
+  // The sampling-rate of this event is 1/sampling_rate_denom.
+  optional int32 sampling_rate_denom = 15;
 }
 
 /**
