@@ -46,6 +46,30 @@
       },
       "revId": "4e20b2054eb2eb80113a20ebe0ca910e110c8ee7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19c48882_cea07e53",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 15407,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-08-05T07:43:11Z",
+      "side": 1,
+      "message": "With design changes, we won\u0027t use user_id and vm_id.",
+      "parentUuid": "08c68681_978166d3",
+      "range": {
+        "startLine": 15407,
+        "startChar": 19,
+        "endLine": 15407,
+        "endChar": 26
+      },
+      "revId": "4e20b2054eb2eb80113a20ebe0ca910e110c8ee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
