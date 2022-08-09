@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efde31c2_60cc5404",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-08-09T13:41:41Z",
+      "side": 1,
+      "message": "Thanks, Roland!",
+      "revId": "cf4ef368dd26e852143cb5943c4878c7c56e3dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0efb429_360d47da",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16971,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-08-09T13:41:41Z",
+      "side": 1,
+      "message": "Do we want to keep this term? I found this term confusing.",
+      "range": {
+        "startLine": 16971,
+        "startChar": 13,
+        "endLine": 16971,
+        "endChar": 35
+      },
+      "revId": "cf4ef368dd26e852143cb5943c4878c7c56e3dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
