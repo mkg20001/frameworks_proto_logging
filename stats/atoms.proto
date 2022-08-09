@@ -16945,7 +16945,7 @@ message OdrefreshReported {
         // A placeholder for unknown values.
         TRIGGER_UNKNOWN = 0;
 
-        // ART apex version has changed since time artifacts were generated.
+        // ART APEX version has changed since time artifacts were generated.
         TRIGGER_APEX_VERSION_MISMATCH = 1;
 
         // Dex files on the boot classpath or system_server classpath have changed.
@@ -16967,10 +16967,12 @@ message OdrefreshReported {
         // Preparation for compilation.
         STAGE_PREPARATION = 20;
 
-        // Compilation of primary boot classpath extensions.
+        // Compilation of the boot classpath for the primary architecture
+        // ("primary boot classpath").
         STAGE_PRIMARY_BOOT_CLASSPATH = 30;
 
-        // Compilation of secondary boot classpath extensions.
+        // Compilation of the boot classpath for the secondary architecture
+        // ("secondary boot classpath"), if any.
         STAGE_SECONDARY_BOOT_CLASSPATH = 40;
 
         // Compilation of system_server classpath.
@@ -17010,10 +17012,12 @@ message OdrefreshReported {
 
     optional Status status = 4;
 
-    // Compilation time iof primary boot classpath extensions.
+    // Compilation time of the boot classpath for the primary architecture
+    // ("primary boot classpath").
     optional int32 primary_bcp_compilation_seconds = 5;
 
-    // Compilation time of secondary boot classpath extensions.
+    // Compilation time of the boot classpath for the secondary architecture
+    // ("secondary boot classpath"), if any.
     optional int32 secondary_bcp_compilation_seconds = 6;
 
     // Compilation time of system_server classpath.
