@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03399b09_6856f856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1387063
+      },
+      "writtenOn": "2022-08-11T07:38:41Z",
+      "side": 1,
+      "message": "Look good to me.\n\nHowever, not sure if metrics_constants.proto need to get sync at the same time.",
+      "revId": "293d367630368099833e4b86a26d3e57355c0ce3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
