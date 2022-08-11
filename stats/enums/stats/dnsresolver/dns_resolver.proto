@@ -180,7 +180,7 @@ enum NetworkType {
     // Indicates this network uses an Ethernet transport.
     NT_ETHERNET = 4;
     // Indicates this network uses a VPN transport, now deprecated.
-    NT_VPN = 5 [deprecated=true];
+    NT_VPN = 5;
     // Indicates this network uses a Wi-Fi Aware transport.
     NT_WIFI_AWARE = 6;
     // Indicates this network uses a LoWPAN transport.
