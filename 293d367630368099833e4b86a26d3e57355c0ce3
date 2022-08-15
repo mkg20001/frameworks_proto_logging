@@ -33,6 +33,23 @@
       "message": "Loop yaochen@ to help.",
       "revId": "293d367630368099833e4b86a26d3e57355c0ce3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f36ee947_21f7adec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1958236
+      },
+      "writtenOn": "2022-08-15T23:07:31Z",
+      "side": 1,
+      "message": "Removing myself as I don\u0027t have context on this change.",
+      "revId": "293d367630368099833e4b86a26d3e57355c0ce3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
