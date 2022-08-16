@@ -64,6 +64,7 @@ cc_test_host {
         "Collation.cpp",
         "test_collation.cpp",
         "test.proto",
+        "utils.cpp",
     ],
 
     static_libs: [

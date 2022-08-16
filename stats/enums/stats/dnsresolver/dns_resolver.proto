@@ -376,6 +376,21 @@ message DnsQueryEvents {
     repeated DnsQueryEvent dns_query_event = 1;
 }
 
+enum HandshakeResult {
+    HR_UNKNOWN = 0;
+    HR_SUCCESS = 1;
+    HR_TIMEOUT = 2;
+    HR_TLS_FAIL = 3;
+    HR_SERVER_UNREACHABLE = 4;
+}
+
+enum HandshakeCause {
+    HC_UNKNOWN = 0;
+    HC_SERVER_PROBE = 1;
+    HC_RECONNECT_AFTER_IDLE = 2;
+    HC_RETRY_AFTER_ERROR = 3;
+}
+
 message Servers {
     repeated Server server = 1;
 }
