@@ -707,6 +707,8 @@ message Atom {
                 477 [(module) = "framework"];
         BluetoothDeviceNameReported bluetooth_device_name_reported = 478 [(module) = "bluetooth"];
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
+        VmBooted vm_booted = 505 [(module) = "virtualizationservice"];
+        VmExited vm_exited = 506 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -16708,6 +16710,48 @@ message VmCreationRequested {
     // TODO(seungjaeyoo) Fill information about task_profile
     // TODO(seungjaeyoo) Fill information about disk_image for raw config
 
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ *
+ * When VM is booted successfully, an atom is pushed that records information about VM.
+ * Logged from: packages/modules/Virtualization/
+ */
+message VmBooted {
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ *
+ * When VM is exited, an atom is pushed that records information about VM.
+ * Logged from: packages/modules/Virtualization/
+ */
+message VmExited {
+    enum DeathReason {
+        UNKNOWN = 0;
+        INFRASTRUCTURE_ERROR = 1;
+        KILLED = 2;
+        SHUTDOWN = 3;
+        ERROR = 4;
+        REBOOT = 5;
+        CRASH = 6;
+        PVM_FIRMWARE_PUBLIC_KEY_MISMATCH = 7;
+        PVM_FIRMWARE_INSTANCE_IMAGE_CHANGED = 8;
+        BOOTLOADER_PUBLIC_KEY_MISMATCH = 9;
+        BOOTLOADER_INSTANCE_IMAGE_CHANGED = 10;
+        MICRODROID_FAILED_TO_CONNECT_TO_VIRTUALIZATION_SERVICE = 11;
+        MICRODROID_PAYLOAD_HAS_CHANGED = 12;
+        MICRODROID_PAYLOAD_VERIFICATION_FAILED = 13;
+        MICRODROID_INVALID_PAYLOAD_CONFIG = 14;
+        MICRODROID_UNKNOWN_RUNTIME_ERROR = 15;
+        HANGUP = 16;
+    }
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+    optional DeathReason death_reason = 3;
 }
 
 /**
