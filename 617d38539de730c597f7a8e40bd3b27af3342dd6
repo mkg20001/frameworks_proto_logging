@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22ef2235_c2de41a9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 8
+      },
+      "lineNbr": 15422,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2022-08-17T06:50:43Z",
+      "side": 1,
+      "message": "this shall be vm_identifier because we won\u0027t reveal the true name of the VM.",
+      "range": {
+        "startLine": 15422,
+        "startChar": 20,
+        "endLine": 15422,
+        "endChar": 27
+      },
+      "revId": "617d38539de730c597f7a8e40bd3b27af3342dd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
