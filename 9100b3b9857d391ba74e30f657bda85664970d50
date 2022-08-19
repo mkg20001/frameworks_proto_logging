@@ -16,6 +16,29 @@
       "message": "Please make sure this merges cleanly with the same field tags all the way to the internal master branch.",
       "revId": "9100b3b9857d391ba74e30f657bda85664970d50",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334e2eee_b355ea78",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18448,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2022-08-19T13:29:48Z",
+      "side": 1,
+      "message": "Maybe move these closer to their original counterparts,  i.e.:\n\n```\n    // Compilation time of the boot classpath for the primary architecture\n    // (\"primary boot classpath\"), in seconds.\n    optional int32 primary_bcp_compilation_seconds \u003d 5;\n    // Compilation time of the boot classpath for the primary architecture\n    // (\"primary boot classpath\"), in milliseconds.\n    optional int32 primary_bcp_compilation_millis \u003d 10;\n    \n    // Compilation time of the boot classpath for the secondary architecture\n    // (\"secondary boot classpath\"), if any, in seconds.\n    optional int32 secondary_bcp_compilation_seconds \u003d 6;\n    // Compilation time of the boot classpath for the secondary architecture\n    // (\"secondary boot classpath\"), if any, in milliseconds.\n    optional int32 secondary_bcp_compilation_millis \u003d 11;\n\n    // Compilation time of system_server classpath, in seconds.\n    optional int32 system_server_compilation_seconds \u003d 7;\n    // Compilation time of system_server classpath, in milliseconds.\n    optional int32 system_server_compilation_millis \u003d 12;\n```\n\n?",
+      "range": {
+        "startLine": 18438,
+        "startChar": 0,
+        "endLine": 18448,
+        "endChar": 57
+      },
+      "revId": "9100b3b9857d391ba74e30f657bda85664970d50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
