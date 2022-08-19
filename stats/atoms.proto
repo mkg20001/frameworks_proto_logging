@@ -18420,14 +18420,14 @@ message OdrefreshReported {
     optional Status status = 4;
 
     // Compilation time of the boot classpath for the primary architecture
-    // ("primary boot classpath").
+    // ("primary boot classpath"), in seconds.
     optional int32 primary_bcp_compilation_seconds = 5;
 
     // Compilation time of the boot classpath for the secondary architecture
-    // ("secondary boot classpath"), if any.
+    // ("secondary boot classpath"), if any, in seconds.
     optional int32 secondary_bcp_compilation_seconds = 6;
 
-    // Compilation time of system_server classpath.
+    // Compilation time of system_server classpath, in seconds.
     optional int32 system_server_compilation_seconds = 7;
 
     // Cache space at start of update.
@@ -18435,6 +18435,17 @@ message OdrefreshReported {
 
     // Cache space at end of update.
     optional int32 cache_space_free_end_mib = 9;
+
+    // Compilation time of the boot classpath for the primary architecture
+    // ("primary boot classpath"), in milliseconds.
+    optional int32 primary_bcp_compilation_millis = 10;
+
+    // Compilation time of the boot classpath for the secondary architecture
+    // ("secondary boot classpath"), if any, in milliseconds.
+    optional int32 secondary_bcp_compilation_millis = 11;
+
+    // Compilation time of system_server classpath, in milliseconds.
+    optional int32 system_server_compilation_millis = 12;
 };
 
 /*
