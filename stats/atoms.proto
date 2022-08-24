@@ -16721,6 +16721,7 @@ message VmCreationRequested {
 message VmBooted {
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
+    optional int64 elapsed_time_msec = 3;
 }
 
 /**
@@ -16752,6 +16753,7 @@ message VmExited {
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
     optional DeathReason death_reason = 3;
+    optional int64 elapsed_time_msec = 4;
 }
 
 /**
