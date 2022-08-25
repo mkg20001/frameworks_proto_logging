@@ -16,6 +16,23 @@
       "message": "I just added an float field for measuring time period like booting since recently I knew I cannot use duration metric for this case.",
       "revId": "33399f1418843f1d38f23bb6f0032664dea0bea9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bedd701_24efebc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1897307
+      },
+      "writtenOn": "2022-08-25T10:07:48Z",
+      "side": 1,
+      "message": "Can you add what elapsed_time_sec means? Is it elapsed since vm_booted? Or is it time since the unix time since epoch?",
+      "revId": "33399f1418843f1d38f23bb6f0032664dea0bea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
