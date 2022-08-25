@@ -35,3 +35,14 @@ cc_library_static {
     min_sdk_version: "30",
 }
 
+filegroup {
+  name: "srcs_bluetooth_protos",
+  srcs: [
+      "a2dp/enums.proto",
+      "enums.proto",
+      "hci/enums.proto",
+      "hfp/enums.proto",
+      "smp/enums.proto",
+  ],
+}
+
