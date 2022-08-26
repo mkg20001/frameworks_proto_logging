@@ -51,6 +51,24 @@
       "parentUuid": "453caadb_0c511403",
       "revId": "33399f1418843f1d38f23bb6f0032664dea0bea9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b5debe0_1194b955",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-08-26T00:18:22Z",
+      "side": 1,
+      "message": "Elapsed time for VM booting from VM creation for `VmBooted`, and time period from VM creation to VM termination for `VmExited`.\n\nBy the way, do you think there may have any possibility for misunderstanding with naming `elapsed_time_sec`? If so, I\u0027m considering another one like `boot_time`.",
+      "parentUuid": "4bedd701_24efebc9",
+      "revId": "33399f1418843f1d38f23bb6f0032664dea0bea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
