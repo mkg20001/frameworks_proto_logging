@@ -16,6 +16,24 @@
       "message": "The convention is to use _millis suffix. Can you also add a comment about what this time duration is?",
       "revId": "f044335aea91b4ab1bbbccd5c25fc9d375bfca10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0512fb25_53a4b285",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16724,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-08-29T22:50:31Z",
+      "side": 1,
+      "message": "Oh, I didn\u0027t know about such convention. Thanks, I\u0027ll fix them soon :)",
+      "parentUuid": "308b70c6_1e68c20e",
+      "revId": "f044335aea91b4ab1bbbccd5c25fc9d375bfca10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
