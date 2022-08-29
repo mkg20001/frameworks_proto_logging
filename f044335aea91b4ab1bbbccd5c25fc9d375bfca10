@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308b70c6_1e68c20e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16724,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-08-29T16:24:04Z",
+      "side": 1,
+      "message": "The convention is to use _millis suffix. Can you also add a comment about what this time duration is?",
+      "revId": "f044335aea91b4ab1bbbccd5c25fc9d375bfca10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
