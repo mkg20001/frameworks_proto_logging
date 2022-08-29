@@ -16,6 +16,29 @@
       "message": "Look good to me.",
       "revId": "d7aec9f0d677117ff73ea444beaadb271bc6e6ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e9d28af_ed00952d",
+        "filename": "stats/enums/app/settings_enums.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 3371,
+      "author": {
+        "id": 1387063
+      },
+      "writtenOn": "2022-08-29T02:38:09Z",
+      "side": 1,
+      "message": "Can you help to change this value from 1927 into 1934 to see if merge confliction could be resolved ? Thanks.",
+      "range": {
+        "startLine": 3371,
+        "startChar": 28,
+        "endLine": 3371,
+        "endChar": 32
+      },
+      "revId": "d7aec9f0d677117ff73ea444beaadb271bc6e6ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
