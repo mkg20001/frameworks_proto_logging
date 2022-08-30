@@ -16721,6 +16721,8 @@ message VmCreationRequested {
 message VmBooted {
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
+    // Elapsed time between start and boot completion of a VM
+    optional int64 elapsed_time_millis = 3;
 }
 
 /**
@@ -16752,6 +16754,8 @@ message VmExited {
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
     optional DeathReason death_reason = 3;
+    // Elapsed time between start and termination of a VM
+    optional int64 elapsed_time_millis = 4;
 }
 
 /**
