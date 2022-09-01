@@ -83,6 +83,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d520949e_f580638f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-09-01T12:23:31Z",
+      "side": 1,
+      "message": "Verification: http://cs/android-internal/frameworks/proto_logging/stats/atoms.proto;l\u003d19170-19179;rcl\u003d8126c25ef46db84604a2d7b418103989ceddb9c4",
+      "parentUuid": "b953c432_c3d8ec42",
+      "revId": "9100b3b9857d391ba74e30f657bda85664970d50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "334e2eee_b355ea78",
