@@ -227,7 +227,7 @@ static void write_rust_annotation_constants(FILE* out) {
     // The annotation names are all prefixed with AnnotationId.
     // Ideally that would go into the enum name instead,
     // but I don't want to modify the actual name strings in case they change in the future.
-    fprintf(out, "#[allow(clippy::enum_variant_names)]\n");
+    fprintf(out, "#[allow(unused, clippy::enum_variant_names)]\n");
     fprintf(out, "#[repr(u8)]\n");
     fprintf(out, "enum Annotations {\n");
 
