@@ -902,6 +902,9 @@ message Atom {
         TelephonyNetworkRequestsV2 telephony_network_requests_v2 = 10153 [(module) = "telephony"];
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
         RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
+        CookieTagMapInfo cookie_tag_map_info = 10156 [(module) = "connectivity"];
+        UidOwnerMapInfo uid_owner_map_info = 10157 [(module) = "connectivity"];
+        UidPermissionMapInfo uid_permission_map_info = 10158 [(module) = "connectivity"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -926,6 +929,17 @@ message AttributionNode {
     optional string tag = 2;
 }
 
+message CookieTagMapInfo {
+    optional int32 size = 1;
+}
+
+message UidOwnerMapInfo {
+    optional int32 size = 1;
+}
+
+message UidPermissionMapInfo {
+    optional int32 size = 1;
+}
 
 /*
  * *****************************************************************************
