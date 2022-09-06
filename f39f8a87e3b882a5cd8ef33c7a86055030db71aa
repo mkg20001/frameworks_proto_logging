@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc383b18_4743a077",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1687194
+      },
+      "writtenOn": "2022-09-06T18:44:28Z",
+      "side": 1,
+      "message": "Are there cases these are used where `canonical_path_from_root` is false? The change to filegroup may impact the output paths via .Rel: https://cs.android.com/android/platform/superproject/+/master:build/soong/cc/proto.go;l\u003d43;drc\u003dc768102bce5d64f93559a75783edb5509669f58c",
+      "revId": "f39f8a87e3b882a5cd8ef33c7a86055030db71aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
