@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b9bb50_4b6a7ee6",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 21105,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-09-06T05:10:11Z",
+      "side": 1,
+      "message": "networkBpfNetMapsInfo\n\nWe usually use the \"network\" as prefix",
+      "range": {
+        "startLine": 21105,
+        "startChar": 8,
+        "endLine": 21105,
+        "endChar": 30
+      },
+      "revId": "f0aa4e59d860577be502df943b2abf5a49fb6001",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
