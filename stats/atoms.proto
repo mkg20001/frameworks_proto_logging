@@ -901,6 +901,7 @@ message Atom {
         UserInfo user_info = 10152 [(module) = "framework"];
         TelephonyNetworkRequestsV2 telephony_network_requests_v2 = 10153 [(module) = "telephony"];
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
+        NetworkBpfMapInfo network_bpf_map_info = 10161 [(module) = "connectivity"];
         RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
     }
 
@@ -21078,6 +21079,21 @@ message RemoteKeyProvisioningTiming {
     // values on a given device is determined by how many remotely provisioned
     // component HALs are on a given device. Typically, this is 2-3 HALs.
     optional string remotely_provisioned_component = 6;
+}
+
+// Logs information about bpf maps in BpfNetMaps.
+//
+// Logged from:
+//   packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java
+message NetworkBpfMapInfo {
+    // The size of cookie tag bpf map.
+    optional int32 cookie_tag_map_size = 1;
+
+    // The size of uid owner bpf map.
+    optional int32 uid_owner_map_size = 2;
+
+    // The size of uid permission bpf map.
+    optional int32 uid_permission_map_size = 3;
 }
 
 // Counters that track how many errors we're seeing on the device for the
