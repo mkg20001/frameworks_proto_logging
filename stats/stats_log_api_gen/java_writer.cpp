@@ -338,7 +338,7 @@ int write_stats_log_java(FILE* out, const Atoms& atoms, const AtomDecl& attribut
     fprintf(out, "/**\n");
     fprintf(out, " * Utility class for logging statistics events.\n");
     fprintf(out, " */\n");
-    fprintf(out, "public class %s {\n", javaClass.c_str());
+    fprintf(out, "public final class %s {\n", javaClass.c_str());
 
     write_java_atom_codes(out, atoms);
     write_java_enum_values(out, atoms);
