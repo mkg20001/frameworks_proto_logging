@@ -46,3 +46,9 @@ filegroup {
   ],
 }
 
+filegroup {
+  name: "srcs_bluetooth_leaudio_protos",
+  srcs: [
+      "leaudio/enums.proto",
+  ],
+}
