@@ -713,6 +713,7 @@ message Atom {
         MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported = 509;
         MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported = 510;
         MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
+        VmStatus vm_status = 512 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -16888,6 +16889,13 @@ message VmExited {
     optional DeathReason death_reason = 3;
     // Elapsed time between start and termination of a VM
     optional int64 elapsed_time_millis = 4;
+}
+
+message VmStatus {
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+
+    optional int32 dummy = 3;
 }
 
 /**
