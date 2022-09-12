@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c5be5b_019e1b04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2022-09-12T15:40:14Z",
+      "side": 1,
+      "message": "PTAL.  Let me know how I should apply across branches correctly, in case if AOSP master isn\u0027t the right place.",
+      "revId": "f2d44da049bc6242fb27029c9619615db0b9a26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
