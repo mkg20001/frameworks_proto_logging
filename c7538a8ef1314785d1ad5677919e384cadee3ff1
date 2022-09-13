@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47cc19c_8b94c8b1",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 9184,
+      "author": {
+        "id": 1349423
+      },
+      "writtenOn": "2022-09-13T09:11:48Z",
+      "side": 1,
+      "message": "Consider removing \"full\" because we can also do a \"abbreviated\" handshake.",
+      "range": {
+        "startLine": 9184,
+        "startChar": 31,
+        "endLine": 9184,
+        "endChar": 35
+      },
+      "revId": "c7538a8ef1314785d1ad5677919e384cadee3ff1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
