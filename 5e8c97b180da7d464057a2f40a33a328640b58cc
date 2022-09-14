@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8c8c6b_5431ceb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1124746
+      },
+      "writtenOn": "2022-09-14T17:36:44Z",
+      "side": 1,
+      "message": "This is the one cherry-picked from tm-qpr-dev-plus-aosp",
+      "revId": "5e8c97b180da7d464057a2f40a33a328640b58cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
