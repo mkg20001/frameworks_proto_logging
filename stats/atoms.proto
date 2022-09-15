@@ -709,6 +709,10 @@ message Atom {
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
         VmBooted vm_booted = 505 [(module) = "virtualizationservice"];
         VmExited vm_exited = 506 [(module) = "virtualizationservice"];
+        MediametricsSpatializerCapabilitiesReported mediametrics_spatializercapabilities_reported = 508;
+        MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported = 509;
+        MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported = 510;
+        MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -9182,10 +9186,10 @@ message NetworkDnsHandshakeReported {
   // The latency in microseconds of the entire handshake operation.
   optional int32 latency_micros = 6;
 
-  // Sent packets in bytes.
+  // Number of bytes sent in a handshake.
   optional int32 bytes_sent = 7;
 
-  // Received packets in bytes.
+  // Number of bytes received in a handshake.
   optional int32 bytes_received = 8;
 
   // Number of round-trips.
@@ -15373,6 +15377,133 @@ message AudioPowerUsageDataReported {
 }
 
 /**
+ * Logs the Spatializer capability when the Spatializer is created.
+ *
+ * We expect this to occur only once on a healthy system,
+ * when audioserver is initialized.
+ *
+ * On devices that do not support spatialization,
+ * SpatializerLevel returns SPATIALIZER_LEVEL_NONE only.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediametrics/AudioAnalytics.cpp
+ */
+message MediametricsSpatializerCapabilitiesReported {
+    // Available head tracking modes
+    repeated android.media.audio.HeadTrackingMode head_tracking_modes = 1;
+
+    // Available spatializer levels
+    repeated android.media.audio.SpatializerLevel spatializer_levels = 2;
+
+    // Available spatializer modes
+    repeated android.media.audio.SpatializerMode spatializer_modes = 3;
+
+    // Available channel masks, with each channel position bitwise ORed.
+    // One or more bits from
+    // system/media/audio/include/system/audio-hal-enums.h
+    // audio_channel_mask_t, representing the channel configuration
+    // of AudioTrack data.
+    //
+    // Generally the most populated channel_mask is selected for use.
+    repeated int64 channel_masks = 4;
+}
+
+/**
+ * Logs when Spatializer is enabled or disabled for a device.
+ *
+ * The event field indicates the reason for enabling or disabling:
+ * through the Settings UI, startup/boot, or new device detection.
+ *
+ * The presence of this message indicates that the audio device type
+ * supports Spatialization; this is generally a fixed
+ * property of the platform and depends if the device type is considered
+ * BINAURAL or TRANSAURAL, and the Spatializer support for it.
+ *
+ * This logs existing saved state on BOOT and changes afterwards.
+ * Due to rpc to the MediaMetrics service which generates the atom,
+ * the timestamp of the atom may have a slight delay.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediametrics/AudioAnalytics.cpp
+ */
+message MediametricsSpatializerDeviceEnabledReported {
+    // Device type enumeration, e.g. BUILTIN_SPEAKER, BT_A2DP, etc.
+    optional android.media.audio.AudioDeviceInfoType type = 1;
+
+    // The event field indicates the reason for enabling or disabling:
+    // NORMAL: from Settings UI.
+    // BOOT: on startup/boot.
+    // FIRST: on new device detection.
+    optional android.media.audio.SpatializerSettingEvent event = 2;
+
+    // Whether the spatializer is enabled on that device.
+    // This triggers only on a change of state.
+    // If multiple devices share the same type (e.g. bluetooth headsets),
+    // they will register separate messages.
+    optional bool enabled = 3;
+}
+
+/**
+ * Logs whether the HeadTracker is enabled for a device.
+ *
+ * This only changes if there is a HeadTracker associated with the device.
+ *
+ * This logs existing saved state on BOOT and changes afterwards.
+ * Due to rpc to the MediaMetrics service which generates the atom,
+ * the timestamp of the atom may have a slight delay.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediametrics/AudioAnalytics.cpp
+ */
+message MediametricsHeadTrackerDeviceEnabledReported {
+    // Device type enumeration, e.g. BUILTIN_SPEAKER, BT_A2DP, etc.
+    optional android.media.audio.AudioDeviceInfoType type = 1;
+
+    // The event field indicates the reason for enabling or disabling:
+    // NORMAL: from Settings UI.
+    // BOOT: on startup/boot.
+    // FIRST: on new device detection.
+    optional android.media.audio.SpatializerSettingEvent event = 2;
+
+    // Whether the head tracker was enabled or disabled on that device.
+    // This triggers only on a change of state.
+    // If multiple devices share the same type (e.g. bluetooth headsets),
+    // they will register separate messages.
+    optional bool enabled = 3;
+}
+
+/**
+ * Logs whether the HeadTracker is supported for a device.
+ *
+ * Generally a fixed property of the device, but it is possible
+ * that the HeadTracker sensor might be turned off
+ * or be temporarily unavailable.
+ *
+ * This logs existing saved state on BOOT and changes afterwards.
+ * Due to rpc to the MediaMetrics service which generates the atom,
+ * the timestamp of the atom may have a slight delay.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediametrics/AudioAnalytics.cpp
+ */
+message MediametricsHeadTrackerDeviceSupportedReported {
+    // Device type enumeration, e.g. BUILTIN_SPEAKER, BT_A2DP, etc.
+    optional android.media.audio.AudioDeviceInfoType type = 1;
+
+    // The event field indicates the reason for enabling or disabling:
+    // NORMAL: on sensor change.
+    // BOOT: on startup/boot.
+    // FIRST: on new device detection.
+    optional android.media.audio.SpatializerSettingEvent event = 2;
+
+    // Whether the head tracker is supported on that device.
+    // This triggers only on a change of state.
+    // If multiple devices share the same type (e.g. bluetooth headsets),
+    // they will register separate messages.
+    optional bool supported = 3;
+}
+
+/**
   * Pulls bytes transferred over WiFi and mobile networks sliced by uid, is_metered, and tag.
   *
   * Pulled from:
@@ -16704,7 +16835,7 @@ message VmCreationRequested {
 
     optional ConfigType config_type = 7;
     optional int32 num_cpus = 8;
-    optional string cpu_affinity = 9;
+    optional string cpu_affinity = 9 [deprecated = true];
     optional int32 memory_mib = 10;
     optional string apexes = 11;
 
