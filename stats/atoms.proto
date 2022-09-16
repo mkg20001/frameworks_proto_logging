@@ -717,6 +717,11 @@ message Atom {
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
+    // Pushed atom extensions.
+    // The extension fields are defined in atoms_extensions_pushed.proto
+    // The atom definitions are under atoms/<feature>/<feature>_atoms.proto
+    extensions 600 to 9999;
+
     // Pulled events will start at field 10000.
     // Next: 10153
     oneof pulled {
@@ -908,6 +913,11 @@ message Atom {
         RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
         NetworkBpfMapInfo network_bpf_map_info = 10161 [(module) = "connectivity"];
     }
+
+    // Pulled atom extensions.
+    // The extension fields are defined in atoms_extensions_pulled.proto
+    // The atom definitions are under atoms/<feature>/<feature>_atoms.proto
+    extensions 10200 to 100000;
 
     // DO NOT USE field numbers above 100,000 in AOSP.
     // Field numbers 100,000 - 199,999 are reserved for non-AOSP (e.g. OEMs) to use.
