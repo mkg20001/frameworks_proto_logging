@@ -64,6 +64,9 @@ cc_test_host {
         "Collation.cpp",
         "test_collation.cpp",
         "test.proto",
+        "test_extensions_pulled.proto",
+        "test_extensions_pushed.proto",
+        "test_feature_atoms.proto",
         "utils.cpp",
     ],
 
