@@ -80,6 +80,7 @@ cc_library_host_shared {
         "atoms.proto",
         "atom_field_options.proto",
         ":libstats_atom_message_protos",
+        ":libstats_atom_protos",
     ] + enum_protos,
 
     proto: {
@@ -115,5 +116,12 @@ filegroup {
     name: "libstats_atom_message_protos",
     srcs: [
         "message/*.proto",
+    ],
+}
+
+filegroup {
+    name: "libstats_atom_protos",
+    srcs: [
+        ":libstats_placeholder_atom_protos",
     ],
 }
