@@ -767,6 +767,10 @@ message Atom {
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
+    // Pushed atom extensions.
+    // The atom definitions are under atoms/<feature>/<feature>_atoms.proto
+    extensions 9999; // Atom9999 atom_9999
+
     // Pulled events will start at field 10000.
     // Next: 10169
     oneof pulled {
@@ -961,6 +965,10 @@ message Atom {
         NetworkSelectionRematchReasonsInfo network_selection_rematch_reasons_info = 10164 [(module) = "connectivity"];
         NetworkSliceRequestCountSample network_slice_request_count = 10168 [(module) = "connectivity"];
     }
+
+    // Pulled atom extensions.
+    // The atom definitions are under atoms/<feature>/<feature>_atoms.proto
+    extensions 99999; // Atom99999 atom_99999
 
     // DO NOT USE field numbers above 100,000 in AOSP.
     // Field numbers 100,000 - 199,999 are reserved for non-AOSP (e.g. OEMs) to use.
