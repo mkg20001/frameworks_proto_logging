@@ -401,8 +401,10 @@ message Atom {
         LanguageDetectionEvent language_detection_event = 222  [(module) = "textclassifier"];
         ExclusionRectStateChanged exclusion_rect_state_changed = 223 [(module) = "framework"];
         BackGesture back_gesture_reported_reported = 224 [(module) = "sysui"];
-        UpdateEngineUpdateAttemptReported update_engine_update_attempt_reported = 225;
-        UpdateEngineSuccessfulUpdateReported update_engine_successful_update_reported = 226;
+        UpdateEngineUpdateAttemptReported update_engine_update_attempt_reported =
+                225 [(module) = "update_engine"];
+        UpdateEngineSuccessfulUpdateReported update_engine_successful_update_reported =
+                226 [(module) = "update_engine"];
         CameraActionEvent camera_action_event = 227 [(module) = "framework"];
         AppCompatibilityChangeReported app_compatibility_change_reported =
                 228 [(module) = "framework"];
@@ -436,7 +438,8 @@ message Atom {
         WifiFailureStatReported wifi_failure_stat_reported = 252 [(module) = "wifi"];
         WifiConnectionResultReported wifi_connection_result_reported = 253 [(module) = "wifi"];
         AppFreezeChanged app_freeze_changed = 254 [(module) = "framework"];
-        SnapshotMergeReported snapshot_merge_reported = 255;
+        SnapshotMergeReported snapshot_merge_reported =
+            255 [(module) = "update_engine"];
         ForegroundServiceAppOpSessionEnded foreground_service_app_op_session_ended =
             256  [(module) = "framework"];
         // DisplayJankReported was deprecated in Android 12+
@@ -18615,6 +18618,10 @@ message OdrefreshReported {
 
         // Installation of artifacts failed.
         STATUS_INSTALL_FAILED = 7;
+
+        // Failed to access the dalvik-cache directory due to lack of
+        // permission.
+        STATUS_DALVIK_CACHE_PERMISSION_DENIED = 8;
     }
 
     optional Status status = 4;

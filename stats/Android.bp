@@ -22,14 +22,12 @@ package {
 }
 
 enum_protos = [
-    "enums/adservices/fledge/*.proto",
     "enums/app/**/*.proto",
     "enums/contexthub/*.proto",
     "enums/debug/*.proto",
     "enums/hardware/**/*.proto",
     "enums/hotword/*.proto",
     "enums/media/**/*.proto",
-    "enums/mms/*.proto",
     "enums/nearby/*.proto",
     "enums/net/*.proto",
     "enums/neuralnetworks/*.proto",
@@ -47,10 +45,7 @@ enum_protos = [
     "enums/stats/location/*.proto",
     "enums/stats/mediametrics/*.proto",
     "enums/stats/mediaprovider/*.proto",
-    "enums/stats/mobiledatadownload/*.proto",
     "enums/stats/otaupdate/*.proto",
-    "enums/stats/privacysignals/*.proto",
-    "enums/stats/safetycenter/*.proto",
     "enums/stats/storage/*.proto",
     "enums/stats/sysui/*.proto",
     "enums/stats/tls/*.proto",
