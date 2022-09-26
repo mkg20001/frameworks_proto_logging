@@ -74,13 +74,18 @@ atom_protos = [
     "atoms/gps/*.proto",
 ]
 
+atom_extension_protos = [
+    "atoms/placeholder/*.proto",
+]
+
 cc_library_host_shared {
     name: "libstats_proto_host",
     srcs: [
         "atom_field_options.proto",
         ":libstats_atoms_proto",
         ":libstats_atom_message_protos",
-    ] + enum_protos,
+    ] + enum_protos
+    + atom_extension_protos,
 
     proto: {
         type: "full",
