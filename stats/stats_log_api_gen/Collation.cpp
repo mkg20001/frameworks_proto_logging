@@ -37,6 +37,11 @@ using std::map;
 
 const bool dbg = false;
 
+const int PLATFORM_PULLED_ATOMS_START = 10000;
+const int PLATFORM_PULLED_ATOMS_END = 99999;
+const int VENDOR_PULLED_ATOMS_START = 150000;
+const int VENDOR_PULLED_ATOMS_END = 199999;
+
 //
 // AtomDecl class
 //
@@ -49,7 +54,7 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       name(that.name),
       message(that.message),
       fields(that.fields),
-      oneOfName(that.oneOfName),
+      atomType(that.atomType),
       fieldNumberToAnnotations(that.fieldNumberToAnnotations),
       primaryFields(that.primaryFields),
       exclusiveField(that.exclusiveField),
@@ -58,8 +63,8 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       nested(that.nested) {
 }
 
-AtomDecl::AtomDecl(int c, const string& n, const string& m, const string &o)
-    : code(c), name(n), message(m), oneOfName(o) {
+AtomDecl::AtomDecl(int c, const string& n, const string& m, AtomType a)
+    : code(c), name(n), message(m), atomType(a) {
 }
 
 AtomDecl::~AtomDecl() {
@@ -446,108 +451,122 @@ static void populateFieldNumberToAtomDeclSet(const shared_ptr<AtomDecl>& atomDec
     }
 }
 
+static AtomType getAtomType(const FieldDescriptor* atomField) {
+    const int atomId = atomField->number();
+    if ((atomId >= PLATFORM_PULLED_ATOMS_START && atomId <= PLATFORM_PULLED_ATOMS_END)
+            || (atomId >= VENDOR_PULLED_ATOMS_START && atomId <= VENDOR_PULLED_ATOMS_END)) {
+        return ATOM_TYPE_PULLED;
+    } else {
+        return ATOM_TYPE_PUSHED;
+    }
+}
+
+static int collate_from_field_descriptor(const FieldDescriptor* atomField, const string& moduleName,
+                                         Atoms* atoms) {
+    int errorCount = 0;
+
+    if (moduleName != DEFAULT_MODULE_NAME) {
+        const int moduleCount = atomField->options().ExtensionSize(os::statsd::module);
+        bool moduleFound = false;
+        for (int j = 0; j < moduleCount; ++j) {
+            const string atomModuleName =
+                    atomField->options().GetExtension(os::statsd::module, j);
+            if (atomModuleName == moduleName) {
+                moduleFound = true;
+                break;
+            }
+        }
+
+        // This atom is not in the module we're interested in; skip it.
+        if (!moduleFound) {
+            if (dbg) {
+                printf("   Skipping %s (%d)\n", atomField->name().c_str(), atomField->number());
+            }
+            return errorCount;
+        }
+    }
+
+    if (dbg) {
+        printf("   %s (%d)\n", atomField->name().c_str(), atomField->number());
+    }
+
+    // StatsEvent only has one oneof, which contains only messages. Don't allow
+    // other types.
+    if (atomField->type() != FieldDescriptor::TYPE_MESSAGE) {
+        print_error(atomField,
+                    "Bad type for atom. StatsEvent can only have message type "
+                    "fields: %s\n",
+                    atomField->name().c_str());
+        errorCount++;
+        return errorCount;
+    }
+
+    const AtomType atomType = getAtomType(atomField);
+
+    const Descriptor* atom = atomField->message_type();
+    shared_ptr<AtomDecl> atomDecl =
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                  atomType);
+
+    if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
+        addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
+                                ANNOTATION_ID_TRUNCATE_TIMESTAMP, ANNOTATION_TYPE_BOOL,
+                                AnnotationValue(true));
+        if (dbg) {
+            printf("%s can have timestamp truncated\n", atomField->name().c_str());
+        }
+    }
+
+    vector<java_type_t> signature;
+    errorCount += collate_atom(atom, atomDecl.get(), &signature);
+    if (!atomDecl->primaryFields.empty() && atomDecl->exclusiveField == 0) {
+        print_error(atomField, "Cannot have a primary field without an exclusive field: %s\n",
+                    atomField->name().c_str());
+        errorCount++;
+        return errorCount;
+    }
+
+    FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet =
+        atomType == ATOM_TYPE_PUSHED ?
+        atoms->signatureInfoMap[signature] :
+        atoms->pulledAtomsSignatureInfoMap[signature];
+    populateFieldNumberToAtomDeclSet(atomDecl, &fieldNumberToAtomDeclSet);
+
+    atoms->decls.insert(atomDecl);
+
+    shared_ptr<AtomDecl> nonChainedAtomDecl =
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
+                                  atomType);
+    vector<java_type_t> nonChainedSignature;
+    if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
+        FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
+                atoms->nonChainedSignatureInfoMap[nonChainedSignature];
+        populateFieldNumberToAtomDeclSet(nonChainedAtomDecl,
+                                         &nonChainedFieldNumberToAtomDeclSet);
+
+        atoms->non_chained_decls.insert(nonChainedAtomDecl);
+    }
+
+    return errorCount;
+}
+
 /**
  * Gather the info about the atoms.
  */
 int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms* atoms) {
     int errorCount = 0;
 
+    // Regular field atoms in Atom
     for (int i = 0; i < descriptor->field_count(); i++) {
         const FieldDescriptor* atomField = descriptor->field(i);
+        errorCount += collate_from_field_descriptor(atomField, moduleName, atoms);
+    }
 
-        if (moduleName != DEFAULT_MODULE_NAME) {
-            const int moduleCount = atomField->options().ExtensionSize(os::statsd::module);
-            int j;
-            for (j = 0; j < moduleCount; ++j) {
-                const string atomModuleName =
-                        atomField->options().GetExtension(os::statsd::module, j);
-                if (atomModuleName == moduleName) {
-                    break;
-                }
-            }
-
-            // This atom is not in the module we're interested in; skip it.
-            if (moduleCount == j) {
-                if (dbg) {
-                    printf("   Skipping %s (%d)\n", atomField->name().c_str(), atomField->number());
-                }
-                continue;
-            }
-        }
-
-        if (dbg) {
-            printf("   %s (%d)\n", atomField->name().c_str(), atomField->number());
-        }
-
-        // StatsEvent only has one oneof, which contains only messages. Don't allow
-        // other types.
-        if (atomField->type() != FieldDescriptor::TYPE_MESSAGE) {
-            print_error(atomField,
-                        "Bad type for atom. StatsEvent can only have message type "
-                        "fields: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        const OneofDescriptor* oneofAtom = atomField->containing_oneof();
-        if (oneofAtom == nullptr) {
-            print_error(atomField, "Atom is not declared in a `oneof` field: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        const Descriptor* atom = atomField->message_type();
-        shared_ptr<AtomDecl> atomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                      oneofAtom->name());
-
-        if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
-            addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
-                                    ANNOTATION_ID_TRUNCATE_TIMESTAMP, ANNOTATION_TYPE_BOOL,
-                                    AnnotationValue(true));
-            if (dbg) {
-                printf("%s can have timestamp truncated\n", atomField->name().c_str());
-            }
-        }
-
-        vector<java_type_t> signature;
-        errorCount += collate_atom(atom, atomDecl.get(), &signature);
-        if (!atomDecl->primaryFields.empty() && atomDecl->exclusiveField == 0) {
-            print_error(atomField, "Cannot have a primary field without an exclusive field: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        if ((oneofAtom->name() != ONEOF_PUSHED_ATOM_NAME) &&
-                 (oneofAtom->name() != ONEOF_PULLED_ATOM_NAME)) {
-            print_error(atomField, "Atom is neither a pushed nor pulled atom: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = oneofAtom->name() ==
-            ONEOF_PUSHED_ATOM_NAME ? atoms->signatureInfoMap[signature] :
-            atoms->pulledAtomsSignatureInfoMap[signature];
-        populateFieldNumberToAtomDeclSet(atomDecl, &fieldNumberToAtomDeclSet);
-
-        atoms->decls.insert(atomDecl);
-
-        shared_ptr<AtomDecl> nonChainedAtomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                      oneofAtom->name());
-        vector<java_type_t> nonChainedSignature;
-        if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
-            FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
-                    atoms->nonChainedSignatureInfoMap[nonChainedSignature];
-            populateFieldNumberToAtomDeclSet(nonChainedAtomDecl,
-                                             &nonChainedFieldNumberToAtomDeclSet);
-
-            atoms->non_chained_decls.insert(nonChainedAtomDecl);
-        }
+    // Extension field atoms in Atom.
+    vector<const FieldDescriptor*> extensions;
+    descriptor->file()->pool()->FindAllExtensions(descriptor, &extensions);
+    for (const FieldDescriptor* atomField : extensions) {
+        errorCount += collate_from_field_descriptor(atomField, moduleName, atoms);
     }
 
     if (dbg) {
