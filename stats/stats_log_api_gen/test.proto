@@ -293,3 +293,16 @@ message PushedAndPulledAtoms {
         AnotherIntAtom another_int_atom = 10;
     }
 }
+
+message ExtensionAtoms {
+    oneof pushed {
+        IntAtom int_atom_1 = 1;
+    }
+    oneof pulled {
+        OutOfOrderAtom out_of_order_atom = 100;
+    }
+
+    extensions 9999; // Pushed atom extension, ExtensionAtomPushed
+
+    extensions 100000; // Pulled atom extension, ExtensionAtomPulled
+}
