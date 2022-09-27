@@ -115,7 +115,7 @@ static void write_rust_method_signature(FILE* out, const char* namePrefix,
     if (isCode) {
         fprintf(out, "\n");
     }
-    if (atomDecl.oneOfName == ONEOF_PULLED_ATOM_NAME) {
+    if (atomDecl.atomType == ATOM_TYPE_PULLED) {
         if (isCode) {
             fprintf(out, "        ");
         }
@@ -302,7 +302,7 @@ static int write_rust_method_body(FILE* out, const AtomDecl& atomDecl,
         fprintf(stderr, "TODO: Do we need to handle this case?");
         return 1;
     }
-    if (atomDecl.oneOfName == ONEOF_PUSHED_ATOM_NAME) {
+    if (atomDecl.atomType == ATOM_TYPE_PUSHED) {
         fprintf(out, "            let __event = AStatsEvent_obtain();\n");
         fprintf(out, "            let __dropper = crate::AStatsEventDropper(__event);\n");
     } else {
@@ -365,7 +365,7 @@ static int write_rust_method_body(FILE* out, const AtomDecl& atomDecl,
         // write_annotations expects the first argument to have an index of 1.
         write_annotations(out, i + 1, atomDecl, "AStatsEvent_", "__event, ");
     }
-    if (atomDecl.oneOfName == ONEOF_PUSHED_ATOM_NAME) {
+    if (atomDecl.atomType == ATOM_TYPE_PUSHED) {
         fprintf(out, "            let __ret = AStatsEvent_write(__event);\n");
         fprintf(out, "            if __ret >= 0 { %s::StatsResult::Ok(()) }"
                 " else { Err(%s::StatsError::Return(__ret)) }\n", headerCrate,
@@ -382,7 +382,7 @@ static int write_rust_stats_write_method(FILE* out, const shared_ptr<AtomDecl>& 
                                           const AtomDecl& attributionDecl,
                                           const int minApiLevel,
                                           const char* headerCrate) {
-    if (atomDecl->oneOfName == ONEOF_PUSHED_ATOM_NAME) {
+    if (atomDecl->atomType == ATOM_TYPE_PUSHED) {
         write_rust_method_signature(out, "stats_write", *atomDecl, attributionDecl,
                                     true, false, headerCrate);
     } else {
@@ -468,7 +468,7 @@ static void write_rust_struct(FILE* out, const shared_ptr<AtomDecl>& atomDecl,
     fprintf(out, "    }\n");
 
     // Write the impl
-    bool isPush = atomDecl->oneOfName == ONEOF_PUSHED_ATOM_NAME;
+    bool isPush = atomDecl->atomType == ATOM_TYPE_PUSHED;
     if (isPush) {
         if (lifetime) {
             fprintf(out, "    impl<'a> %s<'a> {\n", make_camel_case_name(atomDecl->name).c_str());
