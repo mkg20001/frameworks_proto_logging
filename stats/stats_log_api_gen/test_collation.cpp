@@ -450,5 +450,37 @@ TEST(CollationTest, CollatePushedAndPulledAtoms) {
     EXPECT_EQ(atoms.decls.end(), atomIt);
 }
 
+TEST(CollationTest, CollateExtensionAtoms) {
+    Atoms atoms;
+    int errorCount = collate_atoms(ExtensionAtoms::descriptor(), "test_feature", &atoms);
+
+    EXPECT_EQ(0, errorCount);
+    EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
+    EXPECT_EQ(1ul, atoms.pulledAtomsSignatureInfoMap.size());
+
+    // ExtensionAtomPushed
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.signatureInfoMap, JAVA_TYPE_INT, JAVA_TYPE_LONG);
+
+    // ExtensionAtomPulled
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.pulledAtomsSignatureInfoMap, JAVA_TYPE_LONG);
+
+    EXPECT_EQ(2ul, atoms.decls.size());
+
+    AtomDeclSet::const_iterator atomIt = atoms.decls.begin();
+    EXPECT_EQ(9999, (*atomIt)->code);
+    EXPECT_EQ("extension_atom_pushed", (*atomIt)->name);
+    EXPECT_EQ("ExtensionAtomPushed", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    atomIt++;
+
+    EXPECT_EQ(100000, (*atomIt)->code);
+    EXPECT_EQ("extension_atom_pulled", (*atomIt)->name);
+    EXPECT_EQ("ExtensionAtomPulled", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    atomIt++;
+
+    EXPECT_EQ(atoms.decls.end(), atomIt);
+}
+
 }  // namespace stats_log_api_gen
 }  // namespace android
