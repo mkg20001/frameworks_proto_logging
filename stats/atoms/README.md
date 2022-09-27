@@ -21,3 +21,11 @@ filegroup {
 1. If not already present, add `":libstats_<feature>_atom_protos"` to the list of srcs in
 `"libstats_atom_protos"` filegroup in `../Android.bp`
 
+1. Reserve the atom ID by declaraing an extension in atoms.proto
+
+1. Define the extension in `<feature>_atoms.proto`:\
+```
+extend Atom {
+    optional FeatureAtom feature_atom = #### [(module) = "<feature>"];
+}
+```

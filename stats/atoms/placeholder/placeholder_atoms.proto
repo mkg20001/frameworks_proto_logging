@@ -18,6 +18,7 @@ syntax = "proto2";
 
 package android.os.statsd.placeholder;
 
+import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 
 message Atom9999 {
@@ -28,4 +29,10 @@ message Atom9999 {
 
 message Atom100000 {
     optional string label = 1;
+}
+
+extend Atom {
+    optional Atom9999 atom_9999 = 9999 [(module) = "placeholder"];
+
+    optional Atom atom_100000 = 100000 [(module) = "placeholder"];
 }
