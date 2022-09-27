@@ -50,6 +50,11 @@ const int FIRST_UID_IN_CHAIN_ID = 0;
 const char ONEOF_PUSHED_ATOM_NAME[] = "pushed";
 const char ONEOF_PULLED_ATOM_NAME[] = "pulled";
 
+enum AtomType {
+    ATOM_TYPE_PUSHED,
+    ATOM_TYPE_PULLED
+};
+
 enum AnnotationId : uint8_t {
     ANNOTATION_ID_IS_UID = 1,
     ANNOTATION_ID_TRUNCATE_TIMESTAMP = 2,
@@ -169,7 +174,7 @@ struct AtomDecl {
     string message;
     vector<AtomField> fields;
 
-    string oneOfName;
+    AtomType atomType;
 
     FieldNumberToAnnotations fieldNumberToAnnotations;
 
@@ -181,7 +186,7 @@ struct AtomDecl {
 
     AtomDecl();
     AtomDecl(const AtomDecl& that);
-    AtomDecl(int code, const string& name, const string& message, const string& oneOfName);
+    AtomDecl(int code, const string& name, const string& message, AtomType atomType);
     ~AtomDecl();
 
     inline bool operator<(const AtomDecl& that) const {
