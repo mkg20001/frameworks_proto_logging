@@ -18610,8 +18610,7 @@ message OdrefreshReported {
         // Dex2oat reported an error.
         STATUS_DEX2OAT_ERROR = 4;
 
-        // Time limit exceeded.
-        STATUS_TIME_LIMIT_EXCEEDED = 5;
+        reserved 5; // was STATUS_TIME_LIMIT_EXCEEDED
 
         // Failure creating staging area.
         STATUS_STAGING_FAILED = 6;
