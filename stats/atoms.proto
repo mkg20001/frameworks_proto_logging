@@ -4903,6 +4903,9 @@ message AppStartFullyDrawn {
 
     // The hash value of the activity name.
     optional int32 activity_name_hash = 13;
+
+    // The timestamp(SystemClock#elapsedRealtime()) when starting activity.
+    optional int64 activity_start_timestamp_millis = 14;
 }
 
 /**
