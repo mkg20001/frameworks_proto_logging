@@ -179,8 +179,10 @@ rust_library {
         "libthiserror",
     ],
     apex_available: [
+        "com.android.resolv",
         "com.android.virt",
     ],
+    min_sdk_version: "29",
 }
 
 genrule {
@@ -204,6 +206,8 @@ rust_library {
         "libstatspull_bindgen",
     ],
     apex_available: [
+        "com.android.resolv",
         "com.android.virt",
     ],
+    min_sdk_version: "29",
 }
