@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95665a02_d0494145",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-09-29T00:56:39Z",
+      "side": 1,
+      "message": "Merge conflicts: let\u0027s merge in internal master instead?",
+      "revId": "64c95d94dfc4d6dcffb161975c231a442199c7dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
