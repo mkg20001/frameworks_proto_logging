@@ -98,6 +98,48 @@
       "parentUuid": "2d38fea1_1e3c4f21",
       "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1918e2_93187ebd",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-10-03T15:04:40Z",
+      "side": 1,
+      "message": "Ah, I see. Then I\u0027m fine with this approach. Please also check with Roland.",
+      "parentUuid": "e5bf0782_53c054a3",
+      "range": {
+        "startLine": 18669,
+        "startChar": 0,
+        "endLine": 18679,
+        "endChar": 58
+      },
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff15bdc1_628049ea",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-10-03T15:04:40Z",
+      "side": 1,
+      "message": "Yeah, that could work!",
+      "parentUuid": "fd6add58_88e755f9",
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
