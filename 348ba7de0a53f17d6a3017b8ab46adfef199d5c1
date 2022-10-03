@@ -56,6 +56,48 @@
       "message": "Maybe I\u0027m missing something. How do you plan to express \"not run\" with this structure?",
       "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5bf0782_53c054a3",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-10-03T15:01:29Z",
+      "side": 1,
+      "message": "Comment removed by: Bill Rassieur; Reason: b/251146644",
+      "parentUuid": "1d34835c_a110651e",
+      "range": {
+        "startLine": 18669,
+        "startChar": 0,
+        "endLine": 18679,
+        "endChar": 58
+      },
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd6add58_88e755f9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-10-03T15:01:29Z",
+      "side": 1,
+      "message": "Actually your comment made me realise I have left out some changes - anyway, I am planning to add another value to the `ExecResultStatus` enum specifically for this case, which will be set when converting into an OdrMetricsRecord if the optional is null; do you think it could work in our case?",
+      "parentUuid": "2d38fea1_1e3c4f21",
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
