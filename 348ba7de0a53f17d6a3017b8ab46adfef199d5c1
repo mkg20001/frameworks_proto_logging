@@ -164,6 +164,30 @@
       },
       "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8aa5ca_b8986fc5",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-10-04T09:20:06Z",
+      "side": 1,
+      "message": "I see. Thanks for the link.",
+      "parentUuid": "0a75b7aa_a05afa0a",
+      "range": {
+        "startLine": 18669,
+        "startChar": 0,
+        "endLine": 18679,
+        "endChar": 58
+      },
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
