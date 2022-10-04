@@ -140,6 +140,30 @@
       "parentUuid": "fd6add58_88e755f9",
       "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a75b7aa_a05afa0a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 18679,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-10-04T08:58:53Z",
+      "side": 1,
+      "message": "Comment removed by: Bill Rassieur; Reason: b/251146644",
+      "parentUuid": "7a1918e2_93187ebd",
+      "range": {
+        "startLine": 18669,
+        "startChar": 0,
+        "endLine": 18679,
+        "endChar": 58
+      },
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
