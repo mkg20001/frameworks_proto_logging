@@ -6508,11 +6508,14 @@ message BootTimeEventElapsedTime {
         // Time when sys.boot_completed prop is set.
         // Logged from bootstat.
         BOOT_COMPLETE = 2;
-        // BOOT_COMPLETE for encrypted device.
+        // BOOT_COMPLETE for a device that uses full-disk encryption.  Note that
+        // no devices running Android 13 or later use full-disk encryption, as
+        // it has been replaced by file-based encryption.
         BOOT_COMPLETE_ENCRYPTION = 3;
-        // BOOT_COMPLETE for device with no encryption.
+        // BOOT_COMPLETE for a device that doesn't use full-disk encryption.
         BOOT_COMPLETE_NO_ENCRYPTION = 4;
-        // Adjusted BOOT_COMPLETE for encrypted device extracting decryption time.
+        // Adjusted BOOT_COMPLETE for a device that uses full-disk encryption,
+        // omitting the decryption time.
         BOOT_COMPLETE_POST_DECRYPT = 5;
         // BOOT_COMPLETE after factory reset.
         FACTORY_RESET_BOOT_COMPLETE = 6;
