@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88837e4f_4e398733",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 18658,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-10-05T12:55:06Z",
+      "side": 1,
+      "message": "This will be used as a value for invalid enum values. The UNKNOWN should be the first entry.",
+      "range": {
+        "startLine": 18657,
+        "startChar": 8,
+        "endLine": 18658,
+        "endChar": 40
+      },
+      "revId": "8fde33968d6e59ba6132e2c5faffd0bd722b5f49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

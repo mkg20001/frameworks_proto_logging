@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ae61ac2_83f8bec9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-10-05T12:55:06Z",
+      "side": 1,
+      "message": "Yes, please get a review, because this is new information and it may significantly increase the upload volume for metrics.\nFor example: can we use enums for the new fields to not have unbounded int32s?\n\nThe review should be quick and lightweight.",
+      "parentUuid": "70a0bf94_05c6a727",
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d34835c_a110651e",
         "filename": "stats/atoms.proto",
         "patchSetId": 1
