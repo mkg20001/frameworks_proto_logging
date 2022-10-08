@@ -41,3 +41,18 @@ java_library_static {
     sdk_version: "system_current",
     min_sdk_version: "30",
 }
+
+filegroup {
+    name: "tethering_proto",
+    srcs: [
+        "tethering.proto",
+    ],
+}
+
+
+filegroup {
+    name: "network_stack_proto",
+    srcs: [
+        "network_stack.proto",
+    ],
+}
