@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7791aef8_e40d64c9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-10-11T10:08:32Z",
+      "side": 1,
+      "message": "This CL won\u0027t be submitted, because I need to submit in internal gerrit first and cherry-pick in aosp.",
+      "revId": "fce8e271f0a8e1d988a16cd775fec9922280c652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
