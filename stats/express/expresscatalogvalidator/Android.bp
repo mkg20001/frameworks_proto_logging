@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2022 The Android Open Source Project
+// Copyright (C) 2023 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,24 +18,28 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-cc_library_host_shared {
-    name: "libexpressconfig_proto_host",
+cc_test_host {
+    name: "expresscatalogvalidator",
     srcs: [
-        "express_config.proto",
+        "main.cpp",
     ],
-
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    static_libs: [
+        "libgmock_host",
+    ],
+    shared_libs: [
+        "libbase",
+        "libexpresscatalog",
+        "libexpressconfig_proto_host",
+        "libprotobuf-cpp-full",
+    ],
     proto: {
         type: "full",
-        export_proto_headers: true,
-        include_dirs: [
-            "external/protobuf/src",
-        ],
     },
-}
-
-filegroup {
-    name: "metric_config_files",
-    srcs: [
-        "catalog/**/*.cfg",
+    data: [
+        ":metric_config_files",
     ],
 }
