@@ -31,6 +31,7 @@ enum_protos = [
     "enums/nearby/*.proto",
     "enums/net/*.proto",
     "enums/neuralnetworks/*.proto",
+    "enums/nfc/*.proto",
     "enums/os/*.proto",
     "enums/server/*.proto",
     "enums/server/display/*.proto",

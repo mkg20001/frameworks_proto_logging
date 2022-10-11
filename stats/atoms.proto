@@ -48,6 +48,7 @@ import "frameworks/proto_logging/stats/enums/media/enums.proto";
 import "frameworks/proto_logging/stats/enums/nearby/enums.proto";
 import "frameworks/proto_logging/stats/enums/net/enums.proto";
 import "frameworks/proto_logging/stats/enums/neuralnetworks/enums.proto";
+import "frameworks/proto_logging/stats/enums/nfc/enums.proto";
 import "frameworks/proto_logging/stats/enums/os/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/connectivity/data_stall_event.proto";
 import "frameworks/proto_logging/stats/enums/server/display/enums.proto";
@@ -759,6 +760,9 @@ message Atom {
         ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
         NetworkSliceSessionEnded network_slice_session_ended = 558 [(module) = "connectivity"];
         NetworkSliceDailyDataUsageReported network_slice_daily_data_usage_reported = 559 [(module) = "connectivity"];
+        NfcTagTypeOccurred nfc_tag_type_occurred = 560 [(module) = "nfc"];
+        NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
+        NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -9853,11 +9857,15 @@ message NfcCardemulationOccurred {
         HCE_PAYMENT = 1;
         HCE_OTHER = 2;
         OFFHOST = 3;
+        OFFHOST_PAYMENT = 4;
+        OFFHOST_OTHER = 5;
     }
     // Transaction belongs to HCE payment or HCE other category, or offhost.
     optional Category category = 1;
     // SeName from transaction: SIMx, eSEx, HCE, HCEF.
     optional string se_name = 2;
+
+    optional int32 uid = 3 [(is_uid) = true];
 }
 
 /**
@@ -9874,8 +9882,27 @@ message NfcTagOccurred {
         WIFI_CONNECT = 4;
         APP_LAUNCH = 5;
         OTHERS = 6;
+        FOREGROUND_DISPATCH = 7;
     }
     optional Type type = 1;
+
+    optional int32 uid = 2 [(is_uid) = true];
+    // Supported RF Technologies of the Tag
+    repeated android.nfc.RFTechnologyType rf_types = 3;
+    // Use for BT_PAIRING Type
+    optional android.bluetooth.MajorClassEnum bt_device_type = 4;
+    // Use for BT_PAIRING Type
+    // Should be empty for HEALTH and UNKNOWN MajorClassEnum
+    optional string bt_device_info = 5;
+}
+
+/**
+ * Logs NFC tag type when tag occurred
+ * Logged from:
+ *     packages/apps/Nfc/nci/jni/NfcTag.cpp
+ */
+message NfcTagTypeOccurred {
+    optional android.nfc.NfcTagType type = 1;
 }
 
 /**
@@ -9887,6 +9914,23 @@ message NfcHceTransactionOccurred {
     // The latency period(in microseconds) it took for the first HCE data
     // exchange.
     optional uint32 latency_micros = 1;
+}
+
+/**
+ * Logs when AID conflict occurred
+ * Logged from:
+ * packages/apps/Nfc/src/com/android/nfc/cardemulation/HostEmulationManager.java
+*/
+message NfcAIDConflictOccurred {
+    optional string conflicting_aid = 1;
+}
+
+/**
+ * Logs when reader app conflict occurred
+ * Logged from:
+ *     packages/apps/Nfc/src/com/android/nfc/NfcDispatcher.java
+*/
+message NfcReaderConflictOccurred {
 }
 
 /**
