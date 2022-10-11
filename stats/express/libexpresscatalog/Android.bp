@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2022 The Android Open Source Project
+// Copyright (C) 2023 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,23 +19,29 @@ package {
 }
 
 cc_library_host_shared {
-    name: "libexpressconfig_proto_host",
+    name: "libexpresscatalog",
     srcs: [
-        "express_config.proto",
+        "catalog.cpp",
     ],
-
+    local_include_dirs: [
+        "include/",
+    ],
+    export_include_dirs: [
+        "include/",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    static_libs: [
+        "libc++fs",
+    ],
+    shared_libs: [
+        "libbase",
+        "libexpressconfig_proto_host",
+        "libprotobuf-cpp-full",
+    ],
     proto: {
         type: "full",
-        export_proto_headers: true,
-        include_dirs: [
-            "external/protobuf/src",
-        ],
     },
-}
-
-filegroup {
-    name: "metric_config_files",
-    srcs: [
-        "catalog/**/*.cfg",
-    ],
 }
