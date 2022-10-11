@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a971991e_96a29edf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-10-11T13:23:01Z",
+      "side": 1,
+      "message": "Hi Rafal, unfortunately we can\u0027t collapse the tuple into a single enum. `error_code` and `signal` come from lower levels. `error_code` can be any number between 0 ~ 255, and `signal` can be any number between 0 ~ 31. Collapsing them into a int32 is technically possible, but I\u0027m not sure if the effort is worth it. I\u0027ll leave it to you and Stefano to judge.",
+      "parentUuid": "3af968e5_d171b22a",
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d34835c_a110651e",
         "filename": "stats/atoms.proto",
         "patchSetId": 1
