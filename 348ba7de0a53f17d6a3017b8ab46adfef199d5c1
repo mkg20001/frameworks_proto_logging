@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3af968e5_d171b22a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-10-11T13:09:38Z",
+      "side": 1,
+      "message": "Reviewed, it is an event_metric so the increase is slim.\n\noptional: Can the int32s be replaced with enums on the device? Could we collapse `(status, error_code, signal)` to a single enum? Or fewer fields? Or fields with default 0 placeholders?\nThis would be more efficient to upload because each field tag has a cost and -1 happens to not encode efficiently as proto varint.",
+      "parentUuid": "6ae61ac2_83f8bec9",
+      "revId": "348ba7de0a53f17d6a3017b8ab46adfef199d5c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d34835c_a110651e",
         "filename": "stats/atoms.proto",
         "patchSetId": 1
