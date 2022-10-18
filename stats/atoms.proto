@@ -54,6 +54,7 @@ import "frameworks/proto_logging/stats/enums/server/job/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/location/enums.proto";
 import "frameworks/proto_logging/stats/enums/service/enums.proto";
 import "frameworks/proto_logging/stats/enums/service/procstats_enum.proto";
+import "frameworks/proto_logging/stats/enums/stats/connectivity/connectivity_service.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/network_stack.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/tethering.proto";
 import "frameworks/proto_logging/stats/enums/stats/dnsresolver/dns_resolver.proto";
@@ -718,12 +719,14 @@ message Atom {
         MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
         VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice"];
         VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
+        DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
+        NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
     // Pulled events will start at field 10000.
-    // Next: 10153
+    // Next: 10165
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -912,6 +915,8 @@ message Atom {
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
         RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
         NetworkBpfMapInfo network_bpf_map_info = 10161 [(module) = "connectivity"];
+        ConnectivityStateSample connectivity_state_sample = 10163 [(module) = "connectivity"];
+        NetworkSelectionRematchReasonsInfo network_selection_rematch_reasons_info = 10164 [(module) = "connectivity"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -21305,4 +21310,230 @@ message NetworkBpfMapInfo {
 
     // The size of uid permission bpf map.
     optional int32 uid_permission_map_size = 3;
+}
+
+/**
+ * Logs the number of network count on each list of transports
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkCountPerTransports {
+    // the number of network count on each list of transports
+    repeated NetworkCountPerTransports network_count_per_transports = 1;
+}
+
+/**
+ * Logs the number of network count and transport type
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkCountForTransports {
+    // Transport types of the network
+    optional int32 transport_types = 1;
+
+    // Number of networks for one list of transport types
+    optional int32 network_count = 2;
+}
+
+/**
+ * Logs a list of networks
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkList {
+    repeated NetworkDescription network_description = 1;
+}
+
+/**
+ * Logs connection duration in seconds and list of transports
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectionDurationForTransports {
+    // Transport types of the network
+    optional int32 transport_types = 1;
+
+    // Time duration that the device stays connected to the network
+    optional int32 duration_sec = 2;
+}
+
+/**
+ * Logs connection duration on each list of transports, in seconds
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectionDurationPerTransports {
+    repeated ConnectionDurationForTransports connection_duration_for_transports = 1;
+}
+
+/**
+ * Logs network request count & request type
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message RequestCountForType {
+    // The type of network request
+    optional android.stats.connectivity.RequestType request_type = 1;
+
+    // Number of network requests
+    optional int32 request_count = 2;
+}
+
+/**
+ * Logs network request count
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkRequestCount {
+    // Network request count for request type
+    repeated RequestCountForType request_count_for_type = 1;
+}
+
+/**
+ * Logs information about a network
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkDescription {
+    // The transport types of the network. A network may include multiple transport types.
+    // Each transfer type is represented by a different bit, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int32 transport_types = 1;
+
+    // Indicates the network is metered, non-metered or temporarily-unmetered
+    optional android.stats.connectivity.MeteredState metered_state = 2;
+
+    // Indicates the network is validated, non-validated, partial or portal
+    optional android.stats.connectivity.ValidatedState validated_state = 3;
+
+    // Record the bitmask of all the policies applied to this score of network.
+    // Each policy is represented by a different bit, defined in
+    // packages/modules/Connectivity/service/src/com/android/server/connectivity/FullScore.java
+    optional int64 score_policies = 4;
+
+    // The capabilities of the network. A network may include multiple network capabilities.
+    // Each capability is represented by a different bit, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int64 capabilities = 5;
+
+    // Bitfield representing the network's enterprise capability identifier, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int32 enterprise_id = 6;
+}
+
+/**
+ * Pulls a list of NumberOfRematchesPerReason.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NumberOfRematchesPerReason {
+    // Number of network rematches for each rematch reason
+    repeated NumberOfRematchesForReason number_of_rematches_per_reason= 1;
+}
+
+/**
+ * Logs number of network rematches for rematch reason
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NumberOfRematchesForReason {
+    // The reason of network rematch
+    optional android.stats.connectivity.RematchReason rematch_reason = 1;
+
+    // Number of network rematches
+    optional int32 rematch_count = 2;
+};
+
+/**
+ * Pulls information for connectivity stats.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectivityStateSample {
+    // Number of networks per list of transports
+    optional NetworkCountPerTransports network_count_per_transports = 1
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // This is a list of networks with their transports and the duration
+    optional ConnectionDurationPerTransports connection_duration_per_transports = 2
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // Number of requests per category
+    optional NetworkRequestCount network_request_count  = 3
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // Full list of network details (slice by transport / meteredness / internet+validated)
+    optional NetworkList networks = 4 [(android.os.statsd.log_mode) = MODE_BYTES];
+}
+
+
+/**
+ * Pulls information for network selection rematch info.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkSelectionRematchReasonsInfo {
+    // Number of rematch per rematch reason
+    optional NumberOfRematchesPerReason number_of_rematches_per_reason = 1
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+}
+
+/**
+ * Logs rematch information for the default network
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message DefaultNetworkRematchInfo {
+    // The session id comes from each reboot, this is used to correlate the statistics of the
+    // networkselect on the same boot
+    optional int64 session_id = 1;
+
+    // The information of old device default network
+    optional NetworkDescription old_network = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The information of new device default network
+    optional NetworkDescription new_network = 3 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The reason of network rematch
+    optional android.stats.connectivity.RematchReason rematch_reason = 4;
+
+    // The time duration the device kept the old network as the default in seconds
+    optional int32 time_duration_on_old_network_sec = 5;
+}
+
+/**
+ * Logs network selection performance
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkSelectionPerformance {
+    // Number of network requests
+    optional int32 number_of_network_requests = 1;
+
+    // List of networks right now
+    // (slice by transport / meteredness / internet+validated)
+    optional NetworkList networks = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The latency of selection computed in milli-second
+    optional int32 selection_computed_latency_milli = 3;
+
+    // The latency of selection applied in milli-second
+    optional int32 selection_applied_latency_milli = 4;
+
+    // The latency of selection issued in milli-second
+    optional int32 selection_issued_latency_milli = 5;
 }

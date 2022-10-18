@@ -62,6 +62,7 @@ enum_protos = [
     ":dns_resolver_proto",
     ":launcher_proto",
     ":network_stack_proto",
+    ":connectivity_service_proto",
     ":srcs_bluetooth_protos",
     ":srcs_bluetooth_leaudio_protos",
     ":style_proto",
