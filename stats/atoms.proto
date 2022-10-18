@@ -18714,6 +18714,56 @@ message OdrefreshReported {
 
     // Compilation time of system_server classpath, in milliseconds.
     optional int32 system_server_compilation_millis = 12;
+
+    enum ExecResultStatus {
+        // Unable to get the status.
+        EXEC_RESULT_STATUS_UNKNOWN = 0;
+        // Process exited normally with an exit code.
+        EXEC_RESULT_STATUS_EXITED = 1;
+        // Process terminated by a signal.
+        EXEC_RESULT_STATUS_SIGNALED = 2;
+        // Process timed out and killed.
+        EXEC_RESULT_STATUS_TIMED_OUT = 3;
+        // Failed to start the process.
+        EXEC_RESULT_STATUS_START_FAILED = 4;
+        // Process was not run.
+        EXEC_RESULT_STATUS_NOT_RUN = 5;
+    }
+
+    // Status for the compilation of the boot
+    // classpath for the primary architecture.
+    optional ExecResultStatus primary_bcp_dex2oat_result_status = 13;
+
+    // Exit code for the compilation of the boot classpath for the
+    // primary architecture if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 primary_bcp_dex2oat_result_exit_code = 14;
+
+    // Signal for the compilation of the boot classpath for the
+    // primary architecture if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 primary_bcp_dex2oat_result_signal = 15;
+
+    // Status for the compilation of the boot
+    // classpath for the secondary architecture.
+    optional ExecResultStatus secondary_bcp_dex2oat_result_status = 16;
+
+    // Exit code for the compilation of the boot classpath for the
+    // secondary architecture if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 secondary_bcp_dex2oat_result_exit_code = 17;
+
+    // Signal for the compilation of the boot classpath for the
+    // secondary architecture if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 secondary_bcp_dex2oat_result_signal = 18;
+
+    // Status for the compilation of the boot classpath for the system_server.
+    optional ExecResultStatus system_server_dex2oat_result_status = 19;
+
+    // Exit code for the compilation of the boot classpath for the
+    // system_server if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 system_server_dex2oat_result_exit_code = 20;
+
+    // Signal for the compilation of the boot classpath for the
+    // system_server if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 system_server_dex2oat_result_signal = 21;
 };
 
 /*
