@@ -16694,6 +16694,8 @@ message TlsHandshakeReported {
     optional android.stats.tls.CipherSuite cipher_suite = 3;
 
     optional int32 handshake_duration_millis = 4;
+
+    optional android.stats.tls.Source source = 5;
 }
 
 /**
