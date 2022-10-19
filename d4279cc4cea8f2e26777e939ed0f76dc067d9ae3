@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf170067_4ab83d79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1581454
+      },
+      "writtenOn": "2022-10-19T22:16:31Z",
+      "side": 1,
+      "message": "Hi Christine, thanks for reviewing our new metrics. Could you please take a look at the aosp cherrypick?",
+      "revId": "d4279cc4cea8f2e26777e939ed0f76dc067d9ae3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
