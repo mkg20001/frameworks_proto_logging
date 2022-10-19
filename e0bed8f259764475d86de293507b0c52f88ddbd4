@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6e9988f_96c5d560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-19T17:50:17Z",
+      "side": 1,
+      "message": "Greetings Colleagues) Here is the next key change required to align work between client \u0026 server sides - please take a look at your convenience",
+      "revId": "e0bed8f259764475d86de293507b0c52f88ddbd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
