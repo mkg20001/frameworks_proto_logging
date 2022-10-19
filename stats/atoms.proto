@@ -54,6 +54,7 @@ import "frameworks/proto_logging/stats/enums/server/job/enums.proto";
 import "frameworks/proto_logging/stats/enums/server/location/enums.proto";
 import "frameworks/proto_logging/stats/enums/service/enums.proto";
 import "frameworks/proto_logging/stats/enums/service/procstats_enum.proto";
+import "frameworks/proto_logging/stats/enums/stats/connectivity/connectivity_service.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/network_stack.proto";
 import "frameworks/proto_logging/stats/enums/stats/connectivity/tethering.proto";
 import "frameworks/proto_logging/stats/enums/stats/dnsresolver/dns_resolver.proto";
@@ -716,12 +717,16 @@ message Atom {
         MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported = 509;
         MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported = 510;
         MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
+        VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice"];
+        VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
+        DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
+        NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
     // Pulled events will start at field 10000.
-    // Next: 10153
+    // Next: 10165
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -910,6 +915,8 @@ message Atom {
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
         RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
         NetworkBpfMapInfo network_bpf_map_info = 10161 [(module) = "connectivity"];
+        ConnectivityStateSample connectivity_state_sample = 10163 [(module) = "connectivity"];
+        NetworkSelectionRematchReasonsInfo network_selection_rematch_reasons_info = 10164 [(module) = "connectivity"];
     }
 
     // DO NOT USE field numbers above 100,000 in AOSP.
@@ -9104,22 +9111,41 @@ message AppCompacted {
   optional int64 after_zram_free_kilobytes = 18;
 }
 
+// Logs each upstream for a successful switch over
+message UpstreamEvent {
+  // Transport type of upstream network
+  optional android.stats.connectivity.UpstreamType upstream_type = 1;
+
+  // A time period that an upstream continued
+  optional int64 duration_millis = 2;
+}
+
+message UpstreamEvents {
+  repeated UpstreamEvent upstream_event = 1;
+}
+
 /**
  * Logs when a Tethering event occurs.
  *
  */
 message NetworkTetheringReported {
-  // tethering error code
+  // Tethering error code
   optional android.stats.connectivity.ErrorCode error_code = 1;
 
-  // tethering downstream type
+  // Tethering downstream type
   optional android.stats.connectivity.DownstreamType downstream_type = 2;
 
-  // transport type of upstream network
-  optional android.stats.connectivity.UpstreamType upstream_type = 3;
+  // Transport type of upstream network
+  optional android.stats.connectivity.UpstreamType upstream_type = 3 [deprecated = true];
 
-  // The user type of Tethering
+  // The user type of switching tethering
   optional android.stats.connectivity.UserType user_type= 4;
+
+  // Log each transport type of upstream network event
+  optional UpstreamEvents upstream_events = 5  [(log_mode) = MODE_BYTES];
+
+  // A time period that a downstreams exists
+  optional int64 duration_millis = 6;
 }
 
 /**
@@ -16668,6 +16694,8 @@ message TlsHandshakeReported {
     optional android.stats.tls.CipherSuite cipher_suite = 3;
 
     optional int32 handshake_duration_millis = 4;
+
+    optional android.stats.tls.Source source = 5;
 }
 
 /**
@@ -16894,6 +16922,39 @@ message VmExited {
     optional DeathReason death_reason = 3;
     // Elapsed time between start and termination of a VM
     optional int64 elapsed_time_millis = 4;
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ *
+ * For every second while VM is running, an atom is pushed that records CPU time information of VM.
+ * Logged from: packages/modules/Virtualization/
+ */
+message VmCpuStatusReported {
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+
+    optional int64 cpu_time_user_millis = 3;
+    optional int64 cpu_time_nice_millis = 4;
+    optional int64 cpu_time_sys_millis = 5;
+    optional int64 cpu_time_idle_millis = 6;
+}
+
+/**
+ * Logs telemetry for Android Virtualization framework
+ *
+ * For every second while VM is running, an atom is pushed that records memory information of VM.
+ * Logged from: packages/modules/Virtualization/
+ */
+message VmMemStatusReported {
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+
+    optional int64 mem_total_kb = 3;
+    optional int64 mem_free_kb = 4;
+    optional int64 mem_available_kb = 5;
+    optional int64 mem_buffer_kb = 6;
+    optional int64 mem_cached_kb = 7;
 }
 
 /**
@@ -18655,6 +18716,56 @@ message OdrefreshReported {
 
     // Compilation time of system_server classpath, in milliseconds.
     optional int32 system_server_compilation_millis = 12;
+
+    enum ExecResultStatus {
+        // Unable to get the status.
+        EXEC_RESULT_STATUS_UNKNOWN = 0;
+        // Process exited normally with an exit code.
+        EXEC_RESULT_STATUS_EXITED = 1;
+        // Process terminated by a signal.
+        EXEC_RESULT_STATUS_SIGNALED = 2;
+        // Process timed out and killed.
+        EXEC_RESULT_STATUS_TIMED_OUT = 3;
+        // Failed to start the process.
+        EXEC_RESULT_STATUS_START_FAILED = 4;
+        // Process was not run.
+        EXEC_RESULT_STATUS_NOT_RUN = 5;
+    }
+
+    // Status for the compilation of the boot
+    // classpath for the primary architecture.
+    optional ExecResultStatus primary_bcp_dex2oat_result_status = 13;
+
+    // Exit code for the compilation of the boot classpath for the
+    // primary architecture if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 primary_bcp_dex2oat_result_exit_code = 14;
+
+    // Signal for the compilation of the boot classpath for the
+    // primary architecture if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 primary_bcp_dex2oat_result_signal = 15;
+
+    // Status for the compilation of the boot
+    // classpath for the secondary architecture.
+    optional ExecResultStatus secondary_bcp_dex2oat_result_status = 16;
+
+    // Exit code for the compilation of the boot classpath for the
+    // secondary architecture if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 secondary_bcp_dex2oat_result_exit_code = 17;
+
+    // Signal for the compilation of the boot classpath for the
+    // secondary architecture if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 secondary_bcp_dex2oat_result_signal = 18;
+
+    // Status for the compilation of the boot classpath for the system_server.
+    optional ExecResultStatus system_server_dex2oat_result_status = 19;
+
+    // Exit code for the compilation of the boot classpath for the
+    // system_server if status is EXEC_RESULT_STATUS_EXITED, else -1.
+    optional int32 system_server_dex2oat_result_exit_code = 20;
+
+    // Signal for the compilation of the boot classpath for the
+    // system_server if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
+    optional int32 system_server_dex2oat_result_signal = 21;
 };
 
 /*
@@ -21251,4 +21362,230 @@ message NetworkBpfMapInfo {
 
     // The size of uid permission bpf map.
     optional int32 uid_permission_map_size = 3;
+}
+
+/**
+ * Logs the number of network count on each list of transports
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkCountPerTransports {
+    // the number of network count on each list of transports
+    repeated NetworkCountPerTransports network_count_per_transports = 1;
+}
+
+/**
+ * Logs the number of network count and transport type
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkCountForTransports {
+    // Transport types of the network
+    optional int32 transport_types = 1;
+
+    // Number of networks for one list of transport types
+    optional int32 network_count = 2;
+}
+
+/**
+ * Logs a list of networks
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkList {
+    repeated NetworkDescription network_description = 1;
+}
+
+/**
+ * Logs connection duration in seconds and list of transports
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectionDurationForTransports {
+    // Transport types of the network
+    optional int32 transport_types = 1;
+
+    // Time duration that the device stays connected to the network
+    optional int32 duration_sec = 2;
+}
+
+/**
+ * Logs connection duration on each list of transports, in seconds
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectionDurationPerTransports {
+    repeated ConnectionDurationForTransports connection_duration_for_transports = 1;
+}
+
+/**
+ * Logs network request count & request type
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message RequestCountForType {
+    // The type of network request
+    optional android.stats.connectivity.RequestType request_type = 1;
+
+    // Number of network requests
+    optional int32 request_count = 2;
+}
+
+/**
+ * Logs network request count
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkRequestCount {
+    // Network request count for request type
+    repeated RequestCountForType request_count_for_type = 1;
+}
+
+/**
+ * Logs information about a network
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkDescription {
+    // The transport types of the network. A network may include multiple transport types.
+    // Each transfer type is represented by a different bit, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int32 transport_types = 1;
+
+    // Indicates the network is metered, non-metered or temporarily-unmetered
+    optional android.stats.connectivity.MeteredState metered_state = 2;
+
+    // Indicates the network is validated, non-validated, partial or portal
+    optional android.stats.connectivity.ValidatedState validated_state = 3;
+
+    // Record the bitmask of all the policies applied to this score of network.
+    // Each policy is represented by a different bit, defined in
+    // packages/modules/Connectivity/service/src/com/android/server/connectivity/FullScore.java
+    optional int64 score_policies = 4;
+
+    // The capabilities of the network. A network may include multiple network capabilities.
+    // Each capability is represented by a different bit, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int64 capabilities = 5;
+
+    // Bitfield representing the network's enterprise capability identifier, defined in
+    // packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java
+    optional int32 enterprise_id = 6;
+}
+
+/**
+ * Pulls a list of NumberOfRematchesPerReason.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NumberOfRematchesPerReason {
+    // Number of network rematches for each rematch reason
+    repeated NumberOfRematchesForReason number_of_rematches_per_reason= 1;
+}
+
+/**
+ * Logs number of network rematches for rematch reason
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NumberOfRematchesForReason {
+    // The reason of network rematch
+    optional android.stats.connectivity.RematchReason rematch_reason = 1;
+
+    // Number of network rematches
+    optional int32 rematch_count = 2;
+};
+
+/**
+ * Pulls information for connectivity stats.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message ConnectivityStateSample {
+    // Number of networks per list of transports
+    optional NetworkCountPerTransports network_count_per_transports = 1
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // This is a list of networks with their transports and the duration
+    optional ConnectionDurationPerTransports connection_duration_per_transports = 2
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // Number of requests per category
+    optional NetworkRequestCount network_request_count  = 3
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // Full list of network details (slice by transport / meteredness / internet+validated)
+    optional NetworkList networks = 4 [(android.os.statsd.log_mode) = MODE_BYTES];
+}
+
+
+/**
+ * Pulls information for network selection rematch info.
+ *
+ * Pulled from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkSelectionRematchReasonsInfo {
+    // Number of rematch per rematch reason
+    optional NumberOfRematchesPerReason number_of_rematches_per_reason = 1
+    [(android.os.statsd.log_mode) = MODE_BYTES];
+}
+
+/**
+ * Logs rematch information for the default network
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message DefaultNetworkRematchInfo {
+    // The session id comes from each reboot, this is used to correlate the statistics of the
+    // networkselect on the same boot
+    optional int64 session_id = 1;
+
+    // The information of old device default network
+    optional NetworkDescription old_network = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The information of new device default network
+    optional NetworkDescription new_network = 3 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The reason of network rematch
+    optional android.stats.connectivity.RematchReason rematch_reason = 4;
+
+    // The time duration the device kept the old network as the default in seconds
+    optional int32 time_duration_on_old_network_sec = 5;
+}
+
+/**
+ * Logs network selection performance
+ *
+ * Logs from:
+ *   packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+ */
+message NetworkSelectionPerformance {
+    // Number of network requests
+    optional int32 number_of_network_requests = 1;
+
+    // List of networks right now
+    // (slice by transport / meteredness / internet+validated)
+    optional NetworkList networks = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+
+    // The latency of selection computed in milli-second
+    optional int32 selection_computed_latency_milli = 3;
+
+    // The latency of selection applied in milli-second
+    optional int32 selection_applied_latency_milli = 4;
+
+    // The latency of selection issued in milli-second
+    optional int32 selection_issued_latency_milli = 5;
 }
