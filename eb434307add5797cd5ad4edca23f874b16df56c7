@@ -16,6 +16,24 @@
       "message": "It\u0027s a best practice to set the `java_multiple_files \u003d true` option: https://g3doc.corp.google.com/engage/g3doc/standards/protos.md#proto-java-options",
       "revId": "eb434307add5797cd5ad4edca23f874b16df56c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a450a4a_e7e968e6",
+        "filename": "stats/express/express_config.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-20T20:32:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6eaafd1f_fcd1bcc5",
+      "revId": "eb434307add5797cd5ad4edca23f874b16df56c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
