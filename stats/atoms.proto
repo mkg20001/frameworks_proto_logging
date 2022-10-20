@@ -722,6 +722,7 @@ message Atom {
         VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
         DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
         NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
+        ExpressEventReported express_event_reported = 528 [(module) = "expresslog"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -17524,6 +17525,16 @@ message WifiPnoScanReported {
     }
 
     optional State state = 1;
+}
+
+/*
+ * Logs by Express library.
+ */
+message ExpressEventReported {
+    optional int64 metric_id = 1;
+
+    // for counter metric it is an incremental amount
+    optional int64 value = 2;
 }
 
 /**
