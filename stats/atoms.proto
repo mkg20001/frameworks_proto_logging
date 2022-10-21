@@ -717,10 +717,12 @@ message Atom {
         MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported = 509;
         MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported = 510;
         MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
+        AirplaneModeSessionReported airplane_mode_session_reported = 521 [(module) = "wifi", (module) = "bluetooth"];
         VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice"];
         VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
         DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
         NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
+        ExpressEventReported express_event_reported = 528 [(module) = "expresslog"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -17523,6 +17525,50 @@ message WifiPnoScanReported {
     }
 
     optional State state = 1;
+}
+
+/*
+ * Logs by Express library.
+ */
+message ExpressEventReported {
+    optional int64 metric_id = 1;
+
+    // for counter metric it is an incremental amount
+    optional int64 value = 2;
+}
+
+/**
+ * Logs when an airplane mode session happens.
+ *
+ * Logged from:
+ *   packages/modules/Wifi/service/java/com/android/server/wifi/WifiMetrics.java
+ *   packages/modules/Bluetooth/service/java/com/android/server/bluetooth/BluetoothAirplaneModeListener.java
+ */
+message AirplaneModeSessionReported {
+    enum PackageName {
+        WIFI = 0;
+        BLUETOOTH = 1;
+    }
+    // Module recording the airplane mode session
+    optional PackageName package_name = 1;
+    // State of the module before entering airplane mode
+    // False - module off
+    // True - module on
+    optional bool previous_state = 2;
+    // State of the module at the beginning of airplane mode
+    optional bool entering_state = 3;
+    // State of the module at the end of airplane mode
+    optional bool exiting_state = 4;
+    // Whether the user has activated the feature by
+    // toggling the module in airplane mode
+    optional bool feature_active = 5;
+    // Whether the user toggled the module during current airplane mode
+    optional bool user_toggled = 6;
+    // Whether the user toggled the module within one minute
+    optional bool user_toggled_within_minute = 7;
+    // Whether media profile was connected before entering airplane mode
+    // Only applicable to the Bluetooth module
+    optional bool media_profile_connected = 8;
 }
 
 /**
