@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ee57f7_87c00c2c",
+        "filename": "stats/express/express_log_api_gen/codegen_java.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-24T21:07:48Z",
+      "side": 1,
+      "message": "Thank you will consider this",
+      "parentUuid": "3182cd9e_50afd1d9",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "9541b0ac7f8e8b5ad040c7099d82bcc1af6025ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e0688f2_ba1b63be",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7509ad90_4f527a9f",
+        "filename": "stats/express/express_log_api_gen/codegen_native.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-24T21:07:48Z",
+      "side": 1,
+      "message": "For C++ the metric name check was not implemented yet - since it was an open question\n\nThe implementation is provided for reference and I have used it for some benchmarks\n\nThe commit is going to be deprecated since we agreed to go with hardcoded approach\n\nThank you",
+      "parentUuid": "5e0688f2_ba1b63be",
+      "range": {
+        "startLine": 54,
+        "startChar": 28,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "9541b0ac7f8e8b5ad040c7099d82bcc1af6025ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2209e712_45666dcb",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-24T19:49:17Z",
       "side": 1,
       "message": "c++ and java behavior differ, e.g., in the java generated code, you check existence, check type, but not in cpp version.  is it intended?",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "9541b0ac7f8e8b5ad040c7099d82bcc1af6025ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a28ba9d_84eaed88",
+        "filename": "stats/express/express_log_api_gen/codegen_native.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-24T21:07:48Z",
+      "side": 1,
+      "message": "Yes - for demo purpose I have put efforts to the Java code\n\nThe commit is going to be deprecated since we agreed to go with hardcoded approach\n\nThank you",
+      "parentUuid": "2209e712_45666dcb",
       "range": {
         "startLine": 99,
         "startChar": 34,
