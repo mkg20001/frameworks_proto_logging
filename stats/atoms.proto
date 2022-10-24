@@ -776,6 +776,7 @@ message Atom {
         NfcTagTypeOccurred nfc_tag_type_occurred = 560 [(module) = "nfc"];
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
+        ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -18147,6 +18148,45 @@ enum ArtDatumId {
     ART_DATUM_GC_FULL_HEAP_COLLECTION_DURATION_MS = 36;
 }
 
+// Indicates which kind of measurement ART is reporting as increments / deltas.
+// Next ID: 37
+enum ArtDatumDeltaId {
+    ART_DATUM_DELTA_INVALID = 0;
+
+    // These IDs are the equivalent of the ArtDatumId values,
+    // but for reporting increments / deltas.
+    ART_DATUM_DELTA_CLASS_VERIFICATION_COUNT = 16;
+    ART_DATUM_DELTA_CLASS_VERIFICATION_TIME_MICROS = 8;
+    ART_DATUM_DELTA_CLASS_LOADING_TIME_MICROS = 9;
+    ART_DATUM_DELTA_GC_FULL_HEAP_COLLECTION_COUNT = 5;
+    ART_DATUM_DELTA_GC_TOTAL_BYTES_ALLOCATED = 17;
+    ART_DATUM_DELTA_GC_TOTAL_COLLECTION_TIME_MS = 28;
+    ART_DATUM_DELTA_GC_YOUNG_GENERATION_COLLECTION_COUNT = 3;
+    ART_DATUM_DELTA_JIT_METHOD_COMPILE_COUNT = 21;
+    ART_DATUM_DELTA_JIT_METHOD_COMPILE_TIME_MICROS = 6;
+
+    // numerator from ART_DATUM_GC_WORLD_STOP_TIME_AVG_MICROS
+    ART_DATUM_DELTA_GC_WORLD_STOP_TIME_US = 29;
+    // denominator from ART_DATUM_GC_WORLD_STOP_TIME_AVG_MICROS
+    ART_DATUM_DELTA_GC_WORLD_STOP_COUNT = 30;
+    // numerator from ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_YOUNG_GENERATION_COLLECTION_SCANNED_BYTES = 31;
+    // numerator from ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_YOUNG_GENERATION_COLLECTION_FREED_BYTES = 32;
+    // denominator from ART_DATUM_GC_YOUNG_GENERATION_TRACING_THROUGHPUT_AVG_MB_PER_SEC
+    // and ART_DATUM_GC_YOUNG_GENERATION_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_YOUNG_GENERATION_COLLECTION_DURATION_MS = 33;
+    // numerator from ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_FULL_HEAP_COLLECTION_SCANNED_BYTES = 34;
+    // numerator from ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_FULL_HEAP_COLLECTION_FREED_BYTES = 35;
+    // denominator from ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC
+    // and ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
+    ART_DATUM_DELTA_GC_FULL_HEAP_COLLECTION_DURATION_MS = 36;
+
+    reserved 1, 2, 4, 7, 10, 11, 12, 13, 14, 15, 18, 19, 20, 22, 23, 24, 25, 26, 27;
+}
+
 // Indicates what class of thread the reported values apply to.
 enum ArtThreadType {
     ART_THREAD_UNKNOWN = 0;
@@ -18204,6 +18244,43 @@ message ArtDatumReported {
 
     // Which counter this is that is being reported.
     optional ArtDatumId kind = 7;
+
+    // The (absolute) value of the counter.
+    optional int64 value = 8;
+
+    // The type of dex metadata
+    optional ArtDexMetadataType dex_metadata_type = 9;
+
+    // The type of the APK file.
+    optional ArtApkType apk_type = 10;
+
+    // The ISA of the device.
+    optional ArtIsa isa = 11;
+}
+
+// ArtDatumDeltaReported is the same as ArtDatumReported, except for the kind field
+// (ArtDatumDeltaId here, ArtDatumId for ArtDatumReported)
+message ArtDatumDeltaReported {
+    // The session ID is used to correlate this report with others from the same ART instance.
+    optional int64 session_id = 1;
+
+    // The UID of the app that ART is running on behalf of.
+    optional int32 uid = 2 [(is_uid) = true];
+
+    // What compiler filter the APK or DEX file was compiled with.
+    optional ArtCompileFilter compile_filter = 3;
+
+    // Why the package was compiled the way it was.
+    optional ArtCompilationReason compilation_reason = 4;
+
+    // The number of milliseconds since the ART runtime instance was started.
+    optional int64 timestamp_millis = 5;
+
+    // What kind of thread (UI or background) this metric corresponds to.
+    optional ArtThreadType thread_type = 6;
+
+    // Which counter this is that is being reported.
+    optional ArtDatumDeltaId kind = 7;
 
     // The value of the counter.
     optional int64 value = 8;
