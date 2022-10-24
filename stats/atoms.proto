@@ -358,17 +358,28 @@ message Atom {
                 189 [(module) = "framework"];
         RoleRequestResultReported role_request_result_reported =
                 190 [(module) = "permissioncontroller"];
-        MediametricsAudiopolicyReported mediametrics_audiopolicy_reported = 191;
-        MediametricsAudiorecordReported mediametrics_audiorecord_reported = 192;
-        MediametricsAudiothreadReported mediametrics_audiothread_reported = 193;
-        MediametricsAudiotrackReported mediametrics_audiotrack_reported = 194;
-        MediametricsCodecReported mediametrics_codec_reported = 195;
-        MediametricsDrmWidevineReported mediametrics_drm_widevine_reported = 196;
-        MediametricsExtractorReported mediametrics_extractor_reported = 197;
-        MediametricsMediadrmReported mediametrics_mediadrm_reported = 198;
-        MediametricsNuPlayerReported mediametrics_nuplayer_reported = 199;
-        MediametricsRecorderReported mediametrics_recorder_reported = 200;
-        MediametricsDrmManagerReported mediametrics_drmmanager_reported = 201;
+        MediametricsAudiopolicyReported mediametrics_audiopolicy_reported =
+                191 [(module) = "media_metrics"];
+        MediametricsAudiorecordReported mediametrics_audiorecord_reported =
+                192[(module) = "media_metrics"];
+        MediametricsAudiothreadReported mediametrics_audiothread_reported =
+                193 [(module) = "media_metrics"];
+        MediametricsAudiotrackReported mediametrics_audiotrack_reported =
+                194 [(module) = "media_metrics"];
+        MediametricsCodecReported mediametrics_codec_reported =
+                195 [(module) = "media_metrics"];
+        MediametricsDrmWidevineReported mediametrics_drm_widevine_reported =
+                196 [(module) = "media_metrics"];
+        MediametricsExtractorReported mediametrics_extractor_reported =
+                197 [(module) = "media_metrics"];
+        MediametricsMediadrmReported mediametrics_mediadrm_reported =
+                198 [(module) = "media_metrics"];
+        MediametricsNuPlayerReported mediametrics_nuplayer_reported =
+                199 [(module) = "media_metrics"];
+        MediametricsRecorderReported mediametrics_recorder_reported =
+                200 [(module) = "media_metrics"];
+        MediametricsDrmManagerReported mediametrics_drmmanager_reported =
+                201 [(module) = "media_metrics"];
         CarPowerStateChanged car_power_state_changed = 203 [(module) = "car"];
         GarageModeInfo garage_mode_info = 204 [(module) = "car"];
         TestAtomReported test_atom_reported = 205
@@ -472,7 +483,8 @@ message Atom {
             app_permission_groups_fragment_auto_revoke_action =
             273 [(module) = "permissioncontroller"];
         EvsUsageStatsReported evs_usage_stats_reported = 274 [(module) = "evs"];
-        AudioPowerUsageDataReported audio_power_usage_data_reported = 275;
+        AudioPowerUsageDataReported audio_power_usage_data_reported =
+            275 [(module) = "media_metrics"];
         TvTunerStateChanged tv_tuner_state_changed = 276 [(module) = "framework"];
         MediaOutputOpSwitchReported mediaoutput_op_switch_reported =
             277 [(module) = "sysui"];
@@ -503,13 +515,13 @@ message Atom {
         NetworkValidationReported network_validation_reported = 292 [(module) = "network_stack"];
         NetworkStackQuirkReported network_stack_quirk_reported = 293 [(module) = "network_stack"];
         MediametricsAudioRecordDeviceUsageReported mediametrics_audiorecorddeviceusage_reported =
-            294;
+            294 [(module) = "media_metrics"];
         MediametricsAudioThreadDeviceUsageReported mediametrics_audiothreaddeviceusage_reported =
-            295;
+            295 [(module) = "media_metrics"];
         MediametricsAudioTrackDeviceUsageReported mediametrics_audiotrackdeviceusage_reported =
-            296;
+            296 [(module) = "media_metrics"];
         MediametricsAudioDeviceConnectionReported mediametrics_audiodeviceconnection_reported =
-            297;
+            297 [(module) = "media_metrics"];
         BlobCommitted blob_committed = 298 [(module) = "framework"];
         BlobLeased blob_leased = 299 [(module) = "framework"];
         BlobOpened blob_opened = 300 [(module) = "framework"];
@@ -530,7 +542,8 @@ message Atom {
         CarrierIdMismatchReported carrier_id_mismatch_reported = 313 [(module) = "telephony"];
         CarrierIdTableUpdated carrier_id_table_updated = 314 [(module) = "telephony"];
         DataStallRecoveryReported data_stall_recovery_reported = 315 [(module) = "telephony"];
-        MediametricsMediaParserReported mediametrics_mediaparser_reported = 316;
+        MediametricsMediaParserReported mediametrics_mediaparser_reported =
+                316 [(module) = "media_metrics"];
         TlsHandshakeReported tls_handshake_reported = 317 [(module) = "conscrypt"];
         TextClassifierApiUsageReported text_classifier_api_usage_reported = 318  [(module) = "textclassifier"];
         CarWatchdogKillStatsReported car_watchdog_kill_stats_reported = 319 [(module) = "car"];
@@ -561,7 +574,8 @@ message Atom {
             340 [(module) = "framework"];
         RebootEscrowRebootReported reboot_escrow_reboot_reported = 341 [(module) = "framework"];
         BinderLatencyReported binder_latency_reported = 342 [(module) = "framework"];
-        MediametricsAAudioStreamReported mediametrics_aaudiostream_reported = 343;
+        MediametricsAAudioStreamReported mediametrics_aaudiostream_reported =
+            343 [(module) = "media_metrics"];
         MediaTranscodingSessionEnded media_transcoding_session_ended = 344
             [(module) = "media"];
         MagnificationUsageReported magnification_usage_reported =
@@ -599,7 +613,8 @@ message Atom {
         SlowInputEventReported slow_input_event_reported = 375 [(module) = "input"];
         ANROccurredProcessingStarted anr_occurred_processing_started = 376 [(module) = "framework"];
         AppSearchRemoveStatsReported app_search_remove_stats_reported = 377 [(module) = "appsearch"];
-        MediaCodecReported media_codec_reported = 378 [(module) = "framework"];
+        MediaCodecReported media_codec_reported =
+            378 [(module) = "framework", (module) = "media_metrics"];
         PermissionUsageFragmentInteraction permission_usage_fragment_interaction = 379 [(module) = "permissioncontroller"];
         PermissionDetailsInteraction permission_details_interaction = 380 [(module) = "permissioncontroller"];
         PrivacySensorToggleInteraction privacy_sensor_toggle_interaction = 381 [(module) = "framework"];
@@ -640,7 +655,8 @@ message Atom {
         NearbyDeviceScanStateChanged nearby_device_scan_state_changed = 410 [(module) = "nearby"];
         CameraCompatControlEventReported camera_compat_control_event_reported = 411 [(module) = "framework"];
         ApplicationLocalesChanged application_locales_changed = 412 [(module) = "framework"];
-        MediametricsAudioTrackStatusReported mediametrics_audiotrackstatus_reported = 413;
+        MediametricsAudioTrackStatusReported mediametrics_audiotrackstatus_reported =
+            413 [(module) = "media_metrics"];
         FoldStateDurationReported fold_state_duration_reported = 414 [(module) = "framework"];
         LocationTimeZoneProviderControllerStateChanged location_time_zone_provider_controller_state_changed =
             415 [(module) = "framework"];
@@ -654,7 +670,8 @@ message Atom {
         PvmInfoGathered pvm_info_gathered = 422 [(module) = "framework"];
         WearSettingsUIInteracted wear_settings_ui_interacted = 423 [(module) = "wear_settings"];
         TracingServiceReportEvent tracing_service_report_event = 424 [(module) = "framework"];
-        MediametricsAudioRecordStatusReported mediametrics_audiorecordstatus_reported = 425;
+        MediametricsAudioRecordStatusReported mediametrics_audiorecordstatus_reported =
+            425 [(module) = "media_metrics"];
         LauncherLatency launcher_latency = 426 [(module) = "sysui"];
         DropboxEntryDropped dropbox_entry_dropped = 427 [(module) = "framework"];
         WifiP2pConnectionReported wifi_p2p_connection_reported = 428 [(module) = "wifi"];
@@ -713,10 +730,14 @@ message Atom {
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
         VmBooted vm_booted = 505 [(module) = "virtualizationservice"];
         VmExited vm_exited = 506 [(module) = "virtualizationservice"];
-        MediametricsSpatializerCapabilitiesReported mediametrics_spatializercapabilities_reported = 508;
-        MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported = 509;
-        MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported = 510;
-        MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported = 511;
+        MediametricsSpatializerCapabilitiesReported mediametrics_spatializercapabilities_reported =
+                508 [(module) = "media_metrics"];
+        MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported =
+                509 [(module) = "media_metrics"];
+        MediametricsHeadTrackerDeviceEnabledReported mediametrics_headtrackerdeviceenabled_reported =
+                510 [(module) = "media_metrics"];
+        MediametricsHeadTrackerDeviceSupportedReported mediametrics_headtrackerdevicesupported_reported =
+                511 [(module) = "media_metrics"];
         AirplaneModeSessionReported airplane_mode_session_reported = 521 [(module) = "wifi", (module) = "bluetooth"];
         VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice"];
         VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
@@ -841,7 +862,7 @@ message Atom {
         CpuCyclesPerUidCluster cpu_cycles_per_uid_cluster = 10096 [(module) = "framework"];
         DeviceRotatedData device_rotated_data = 10097 [(module) = "framework"];
         CpuCyclesPerThreadGroupCluster cpu_cycles_per_thread_group_cluster = 10098 [(module) = "framework"];
-        MediaDrmActivityInfo media_drm_activity_info = 10099;
+        MediaDrmActivityInfo media_drm_activity_info = 10099 [(module) = "media_metrics"];
         OemManagedBytesTransfer oem_managed_bytes_transfer = 10100 [(module) = "framework"];
         GnssPowerStats gnss_power_stats = 10101 [(module) = "framework"];
         TimeZoneDetectorState time_zone_detector_state = 10102 [(module) = "framework"];
