@@ -729,6 +729,7 @@ message Atom {
         BluetoothRemoteSupportedFeaturesReported bluetooth_remote_supported_features_reported = 531 [(module) = "bluetooth"];
         BluetoothLocalSupportedFeaturesReported bluetooth_local_supported_features_reported = 532 [(module) = "bluetooth"];
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
+        ArtDatumDeltaReported art_datum_delta_reported = 534 [(module) = "art"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -17863,6 +17864,13 @@ enum ArtDatumId {
     // denominator from ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC
     // and ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
     ART_DATUM_GC_FULL_HEAP_COLLECTION_DURATION_MS = 36;
+
+    ART_DATUM_JIT_METHOD_COMPILE_TIME_DELTA_MICROS = 37;
+    ART_DATUM_JIT_METHOD_COMPILE_COUNT_DELTA = 38;
+    ART_DATUM_CLASS_VERIFICATION_TIME_DELTA_MICROS = 39;
+    ART_DATUM_CLASS_VERIFICATION_COUNT_DELTA = 40;
+    ART_DATUM_CLASS_LOADING_TIME_DELTA_MICROS = 41;
+    ART_DATUM_GC_TOTAL_BYTES_ALLOCATED_DELTA = 42;
 }
 
 // Indicates what class of thread the reported values apply to.
@@ -17900,6 +17908,9 @@ enum ArtIsa {
     ART_ISA_MIPS64 = 6;
 }
 
+/**
+ Atom for reporting ART metrics as absolute values
+ */
 message ArtDatumReported {
     // The session ID is used to correlate this report with others from the same ART instance.
     optional int64 session_id = 1;
@@ -17922,7 +17933,7 @@ message ArtDatumReported {
     // Which counter this is that is being reported.
     optional ArtDatumId kind = 7;
 
-    // The value of the counter.
+    // The (absolute) value of the counter.
     optional int64 value = 8;
 
     // The type of dex metadata
@@ -17933,6 +17944,35 @@ message ArtDatumReported {
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
+}
+
+/**
+ Atom for reporting ART metrics as incremental values (deltas)
+ */
+message ArtDatumDeltaReported {
+    // What compiler filter the APK or DEX file was compiled with.
+    optional ArtCompileFilter compile_filter = 1;
+
+    // Why the package was compiled the way it was.
+    optional ArtCompilationReason compilation_reason = 2;
+
+    // What kind of thread (UI or background) this metric corresponds to.
+    optional ArtThreadType thread_type = 3;
+
+    // Which counter this is that is being reported.
+    optional ArtDatumId kind = 4;
+
+    // The (incremental) value of the counter.
+    optional int64 value = 5;
+
+    // The type of dex metadata
+    optional ArtDexMetadataType dex_metadata_type = 6;
+
+    // The type of the APK file.
+    optional ArtApkType apk_type = 7;
+
+    // The ISA of the device.
+    optional ArtIsa isa = 8;
 }
 
 /**
