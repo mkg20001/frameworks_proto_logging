@@ -23,6 +23,7 @@ option java_package = "com.android.os";
 option java_outer_classname = "AtomsProto";
 
 import "frameworks/proto_logging/stats/attribution_node.proto";
+import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/enums/app/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
@@ -109,7 +110,7 @@ message Atom {
         BleScanResultReceived ble_scan_result_received = 4 [(module) = "bluetooth"];
         SensorStateChanged sensor_state_changed =
                 5 [(module) = "framework", (module) = "statsdtest"];
-        GpsScanStateChanged gps_scan_state_changed = 6 [(module) = "framework"];
+        gps.GpsScanStateChanged gps_scan_state_changed = 6 [(module) = "framework"];
         SyncStateChanged sync_state_changed = 7 [(module) = "framework", (module) = "statsdtest"];
         ScheduledJobStateChanged scheduled_job_state_changed =
                 8 [(module) = "framework", (module) = "statsdtest"];
@@ -1622,22 +1623,6 @@ message SensorStateChanged {
         ON = 1;
     }
     optional State state = 3;
-}
-
-/**
- * Logs when GPS state changes.
- *
- * Logged from:
- *   frameworks/base/core/java/com/android/internal/os/BatteryStatsImpl.java
- */
-message GpsScanStateChanged {
-    repeated AttributionNode attribution_node = 1;
-
-    enum State {
-        OFF = 0;
-        ON = 1;
-    }
-    optional State state = 2;
 }
 
 /**
