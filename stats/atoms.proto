@@ -21418,7 +21418,7 @@ message NetworkBpfMapInfo {
  */
 message NetworkCountPerTransports {
     // the number of network count on each list of transports
-    repeated NetworkCountPerTransports network_count_per_transports = 1;
+    repeated NetworkCountForTransports network_count_for_transports = 1;
 }
 
 /**
