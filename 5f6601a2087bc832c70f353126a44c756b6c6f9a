@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8ae090_7504781f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-10-26T07:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "973e5f95_b4fd03bf",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 78
+      },
+      "revId": "5f6601a2087bc832c70f353126a44c756b6c6f9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5302ba8c_3f6d8fdb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-26T05:30:05Z",
       "side": 1,
       "message": "I think you need to explain why this is the case here.\n\n(we found that it\u0027s because it needs to be in the same apk at Tethering, which needs to release on R (SDK30) and above)",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "5f6601a2087bc832c70f353126a44c756b6c6f9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3ce4d8e_62538359",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-10-26T07:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5302ba8c_3f6d8fdb",
       "range": {
         "startLine": 8,
         "startChar": 0,
