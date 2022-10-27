@@ -17919,6 +17919,7 @@ enum ArtIsa {
     ART_ISA_X86_64 = 4;
     ART_ISA_MIPS = 5;
     ART_ISA_MIPS64 = 6;
+    ART_ISA_RISCV64 = 7;
 }
 
 message ArtDatumReported {
