@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e452d4_ccdf45a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2022-10-27T18:04:54Z",
+      "side": 1,
+      "message": "yaochen: do these enums need to have the same *values* as the corresponding ones in ART? (where mips/mips64 have been deleted, and i\u0027m not yet certain what riscv64 will be added as; see [https://android-review.googlesource.com/c/platform/art/+/2266237/1/libartbase/arch/instruction_set.h].)",
+      "revId": "5a4273c2052d5273699f55eb0c3c698c96318095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
