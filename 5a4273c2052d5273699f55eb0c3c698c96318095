@@ -16,6 +16,24 @@
       "message": "yaochen: do these enums need to have the same *values* as the corresponding ones in ART? (where mips/mips64 have been deleted, and i\u0027m not yet certain what riscv64 will be added as; see [https://android-review.googlesource.com/c/platform/art/+/2266237/1/libartbase/arch/instruction_set.h].)",
       "revId": "5a4273c2052d5273699f55eb0c3c698c96318095",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d4adbe_c63a8c1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2022-10-27T18:40:44Z",
+      "side": 1,
+      "message": "actually, a bit more searching answered my question:\n```\nconstexpr int32_t EncodeInstructionSet(InstructionSet isa) {\n  switch (isa) {\n    case InstructionSet::kArm:\n      // Fall-through.\n    case InstructionSet::kThumb2:\n      return statsd::ART_DATUM_REPORTED__ISA__ART_ISA_ARM;\n    case InstructionSet::kArm64:\n      return statsd::ART_DATUM_REPORTED__ISA__ART_ISA_ARM64;\n    case InstructionSet::kX86:\n      return statsd::ART_DATUM_REPORTED__ISA__ART_ISA_X86;\n    case InstructionSet::kX86_64:\n      return statsd::ART_DATUM_REPORTED__ISA__ART_ISA_X86_64;\n    case InstructionSet::kNone:\n      return statsd::ART_DATUM_REPORTED__ISA__ART_ISA_UNKNOWN;\n  }\n}\n```\nhttps://source.corp.google.com/android/art/runtime/metrics/statsd.cc;l\u003d215?q\u003dArtDatumReported%20case:yes\u0026sq\u003dpackage:%5Eandroid$\n\nso this should be fine. thanks!",
+      "parentUuid": "73e452d4_ccdf45a8",
+      "revId": "5a4273c2052d5273699f55eb0c3c698c96318095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
