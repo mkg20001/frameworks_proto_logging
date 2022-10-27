@@ -744,7 +744,7 @@ message Atom {
         DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
         NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
         NetworkNsdReported network_nsd_reported = 527 [(module) = "connectivity"];
-        ExpressEventReported express_event_reported = 528 [(module) = "expresslog"];
+        ExpressEventReported express_event_reported = 528 [(module) = "framework", (module) = "expresslog"];
         BluetoothDisconnectionReasonReported bluetooth_disconnection_reason_reported = 529 [(module) = "bluetooth"];
         BluetoothLocalVersionsReported bluetooth_local_versions_reported = 530 [(module) = "bluetooth"];
         BluetoothRemoteSupportedFeaturesReported bluetooth_remote_supported_features_reported = 531 [(module) = "bluetooth"];
