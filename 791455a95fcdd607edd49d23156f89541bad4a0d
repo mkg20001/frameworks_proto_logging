@@ -22,6 +22,30 @@
       },
       "revId": "791455a95fcdd607edd49d23156f89541bad4a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88b14b7b_cd952239",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-10-27T17:01:35Z",
+      "side": 1,
+      "message": "could not find a good reason for why do we need to present another genrule and separate Java class for semantically the same logging flow in framework",
+      "parentUuid": "1cc01edf_7fe8edcd",
+      "range": {
+        "startLine": 747,
+        "startChar": 71,
+        "endLine": 747,
+        "endChar": 80
+      },
+      "revId": "791455a95fcdd607edd49d23156f89541bad4a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
