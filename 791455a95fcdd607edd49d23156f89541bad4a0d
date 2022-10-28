@@ -46,6 +46,30 @@
       },
       "revId": "791455a95fcdd607edd49d23156f89541bad4a0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad98e88_0e9bb3ed",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-10-28T16:29:09Z",
+      "side": 1,
+      "message": "The main reason would be because the logging will also happen outside frameworks code eventually? We can also specify multiple modules here so we can do `[(module) \u003d \"framework\", (module) \u003d \"expresslog\"]`. That works too. We don\u0027t have to do this now though.",
+      "parentUuid": "88b14b7b_cd952239",
+      "range": {
+        "startLine": 747,
+        "startChar": 71,
+        "endLine": 747,
+        "endChar": 80
+      },
+      "revId": "791455a95fcdd607edd49d23156f89541bad4a0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
