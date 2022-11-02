@@ -21,6 +21,7 @@
 #include <map>
 
 #include "frameworks/proto_logging/stats/atoms.pb.h"
+#include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "utils.h"
 
 namespace android {
