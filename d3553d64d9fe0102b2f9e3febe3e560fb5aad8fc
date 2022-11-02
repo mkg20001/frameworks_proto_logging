@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a24dd5d_ab731dbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-11-02T17:39:34Z",
+      "side": 1,
+      "message": "This CL is for FYI only. It needs to be landed on internal master first due to merge conflicts.",
+      "revId": "d3553d64d9fe0102b2f9e3febe3e560fb5aad8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
