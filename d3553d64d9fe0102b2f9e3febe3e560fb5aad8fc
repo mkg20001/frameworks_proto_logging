@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa11b72_4b5ee71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-11-03T09:52:38Z",
+      "side": 1,
+      "message": "Recently I have seen a divergence in the `atoms.proto` file between AOSP and the internal repo that led to TreeHugger failures, so it might be the case for these changes, too.",
+      "revId": "d3553d64d9fe0102b2f9e3febe3e560fb5aad8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a354d069_5a399699",
