@@ -751,6 +751,7 @@ message Atom {
         BluetoothRemoteSupportedFeaturesReported bluetooth_remote_supported_features_reported = 531 [(module) = "bluetooth"];
         BluetoothLocalSupportedFeaturesReported bluetooth_local_supported_features_reported = 532 [(module) = "bluetooth"];
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
+        OdsignReported odsign_reported = 548 [(module) = "art"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -21764,4 +21765,36 @@ message NetworkSelectionPerformance {
 
     // The latency of selection issued in milli-second
     optional int32 selection_issued_latency_milli = 5;
+}
+
+/**
+ * Logs odsign metrics.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/pm/dex/OdsignStatsLogger.java
+ */
+message OdsignReported {
+    enum Status {
+        // Unknown value.
+        STATUS_UNSPECIFIED = 0;
+        // All artifacts are generated and signed.
+        STATUS_ALL_OK = 1;
+        // Some artifacts are generated and signed, but odrefresh failed to generate the rest. See
+        // odrefresh metrics for the odrefresh failure.
+        STATUS_PARTIAL_OK = 2;
+        // Odrefresh failed to generate any artifact. See odrefresh metrics for the odrefresh
+        // failure.
+        STATUS_ODREFRESH_FAILED = 3;
+        // Odsign failed when interacting with Keystore.
+        STATUS_KEYSTORE_FAILED = 4;
+        // Odsign failed when initializing certificate.
+        STATUS_CERT_FAILED = 5;
+        // Odsign failed when cleaning up existing artifacts. Note that odrefresh may also clean up
+        // existing artifacts, and failures about that are logged as `STATUS_ODREFRESH_FAILED`.
+        STATUS_CLEANUP_FAILED = 6;
+        // Odsign failed when signing artifacts.
+        STATUS_SIGNING_FAILED = 7;
+    }
+
+    optional Status status = 1;
 }
