@@ -16,6 +16,23 @@
       "message": "This CL is for FYI only. It needs to be landed on internal master first due to merge conflicts.",
       "revId": "d3553d64d9fe0102b2f9e3febe3e560fb5aad8fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a354d069_5a399699",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 21793,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-11-03T09:48:38Z",
+      "side": 1,
+      "message": "Best practices (https://engdoc.corp.google.com/eng/doc/devguide/proto/programming-guides/dos-donts.md#do-include-an-unspecified-value-in-an-enum) say the first value should be `STATUS_UNSPECIFIED`.",
+      "revId": "d3553d64d9fe0102b2f9e3febe3e560fb5aad8fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
