@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b1b106_2dd29264",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042638
+      },
+      "writtenOn": "2022-11-08T18:56:15Z",
+      "side": 1,
+      "message": "Hi Tej! Could you please give an owner\u0027s approval.",
+      "revId": "0fe2066e4ce211a65a84a86f52a73bfb797db594",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
