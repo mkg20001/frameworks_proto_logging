@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf0737f_197afe86",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-11-09T15:00:24Z",
+      "side": 1,
+      "message": "This must be the same as in http://ag/20411847.",
+      "range": {
+        "startLine": 755,
+        "startChar": 7,
+        "endLine": 755,
+        "endChar": 82
+      },
+      "revId": "87200d71009fb305ff2ad8cb302f903422c73a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
