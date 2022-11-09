@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e06232c6_0d179233",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2022-11-09T06:48:45Z",
+      "side": 1,
+      "message": "Need to submit aosp/2294437 before deprecating these atoms.",
+      "revId": "a974d16cf02687e6ca055bc98e873d5734f4f09b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
