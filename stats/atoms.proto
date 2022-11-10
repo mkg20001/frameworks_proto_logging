@@ -754,6 +754,7 @@ message Atom {
         BluetoothLocalSupportedFeaturesReported bluetooth_local_supported_features_reported = 532 [(module) = "bluetooth"];
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
         OdsignReported odsign_reported = 548 [(module) = "art"];
+        VmStatusReported vm_status_reported = 600 [(module) = "virtualizationservice"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -17089,6 +17090,18 @@ message VmMemStatusReported {
     optional int64 mem_available_kb = 5;
     optional int64 mem_buffer_kb = 6;
     optional int64 mem_cached_kb = 7;
+}
+
+message VmStatusReported {
+    optional int32 uid = 1 [(is_uid) = true];
+    optional string vm_identifier = 2;
+
+    // Guest time for CPU usage
+    optional int64 guest_time_millis = 3;
+
+    // RSS for memory usage
+    optional int64 rss_vm_kb = 4;
+    optional int64 rss_crosvm_kb = 5;
 }
 
 /**
