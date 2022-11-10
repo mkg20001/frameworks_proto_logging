@@ -754,6 +754,7 @@ message Atom {
         BluetoothLocalSupportedFeaturesReported bluetooth_local_supported_features_reported = 532 [(module) = "bluetooth"];
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
         OdsignReported odsign_reported = 548 [(module) = "art"];
+        ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -21884,4 +21885,26 @@ message IwlanPdnDisconnectedReasonReported {
   optional int32 transport_type = 3;
   // Wifi signal level
   optional int32 wifi_signal_level = 4;
+}
+
+/**
+ * Logs ART metrics that are device-specific (as opposed to app-specific ones logged by
+ * ArtDatumReported).
+ *
+ * Logged from:
+ *   art/runtime/metrics/statsd.cc
+ */
+message ArtDeviceDatumReported {
+    enum BootImageStatus {
+        // Unknown value.
+        STATUS_UNSPECIFIED = 0;
+        // Boot image(s) are fully usable.
+        STATUS_FULL = 1;
+        // Only the minimal boot image is usable.
+        STATUS_MINIMAL = 2;
+        // No boot image is usable.
+        STATUS_NONE = 3;
+    }
+
+    optional BootImageStatus boot_image_status = 1;
 }
