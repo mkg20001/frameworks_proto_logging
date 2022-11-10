@@ -21369,13 +21369,13 @@ message BackgroundDexoptJobEnded {
     // cancellation.
     optional android.app.job.StopReasonEnum cancellation_reason = 2;
 
-    // The duration of the job run, in milliseconds, not counting time spent in
-    // sleep.
+    // The duration of the job run, in milliseconds.
     optional int64 duration_ms = 3;
 
     // The duration of the job run, in milliseconds, including time spent in
-    // sleep.
-    optional int64 duration_including_sleep_ms = 4;
+    // sleep. Deprecated as the job scheduler holds a wake lock, hence this
+    // duration is always going to be the same as above.
+    optional int64 duration_including_sleep_ms = 4 [deprecated = true];
 }
 
 /**
