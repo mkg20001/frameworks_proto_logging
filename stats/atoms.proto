@@ -17057,6 +17057,13 @@ message VmExited {
     optional DeathReason death_reason = 3;
     // Elapsed time between start and termination of a VM
     optional int64 elapsed_time_millis = 4;
+
+    // Guest time for CPU usage
+    optional int64 guest_time_millis = 5;
+
+    // RSS for memory usage
+    optional int64 rss_vm_kb = 6;
+    optional int64 rss_crosvm_kb = 7;
 }
 
 /**
