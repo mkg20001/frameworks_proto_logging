@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc317941_dab4294d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1429802
+      },
+      "writtenOn": "2022-11-14T05:04:38Z",
+      "side": 1,
+      "message": "Yao, can you help approve this cl? Thanks",
+      "revId": "edb9e458e4acfbeff2c9a602d08d1b26894aacbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
