@@ -742,8 +742,8 @@ message Atom {
         IwlanSetupDataCallResultReported iwlan_setup_data_call_result_reported = 519 [(module) = "iwlan"];
         IwlanPdnDisconnectedReasonReported iwlan_pdn_disconnected_reason_reported = 520 [(module) = "iwlan"];
         AirplaneModeSessionReported airplane_mode_session_reported = 521 [(module) = "wifi", (module) = "bluetooth"];
-        VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice"];
-        VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice"];
+        VmCpuStatusReported vm_cpu_status_reported = 522 [(module) = "virtualizationservice", deprecated = true];
+        VmMemStatusReported vm_mem_status_reported = 523 [(module) = "virtualizationservice", deprecated = true];
         DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
         NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
         NetworkNsdReported network_nsd_reported = 527 [(module) = "connectivity"];
@@ -17060,12 +17060,15 @@ message VmExited {
 }
 
 /**
+ * (Deprecated)
  * Logs telemetry for Android Virtualization framework
  *
  * For every second while VM is running, an atom is pushed that records CPU time information of VM.
  * Logged from: packages/modules/Virtualization/
  */
 message VmCpuStatusReported {
+    option deprecated = true;
+
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
 
@@ -17076,12 +17079,15 @@ message VmCpuStatusReported {
 }
 
 /**
+ * (Deprecated)
  * Logs telemetry for Android Virtualization framework
  *
  * For every second while VM is running, an atom is pushed that records memory information of VM.
  * Logged from: packages/modules/Virtualization/
  */
 message VmMemStatusReported {
+    option deprecated = true;
+
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
 
