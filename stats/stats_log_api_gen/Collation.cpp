@@ -35,7 +35,7 @@ using google::protobuf::SourceLocation;
 using std::make_shared;
 using std::map;
 
-const bool dbg = false;
+constexpr bool dbg = false;
 
 //
 // AtomDecl class

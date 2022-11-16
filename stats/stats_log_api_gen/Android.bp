@@ -21,26 +21,46 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+cc_library_host_shared {
+    name: "libatomscollation",
+    srcs: [
+        "Collation.cpp",
+        "utils.cpp",
+    ],
+
+    export_include_dirs: ["include"],
+
+    shared_libs: [
+        "libbase",
+        "libprotobuf-cpp-full",
+        "libstats_proto_host",
+    ],
+
+    proto: {
+        type: "full",
+    },
+}
+
 cc_binary_host {
     name: "stats-log-api-gen",
     srcs: [
-        "Collation.cpp",
         "java_writer.cpp",
         "java_writer_q.cpp",
         "main.cpp",
         "native_writer.cpp",
         "rust_writer.cpp",
-        "utils.cpp",
     ],
+
     cflags: [
         "-Wall",
         "-Werror",
     ],
 
     shared_libs: [
+        "libatomscollation",
+        "libbase",
         "libstats_proto_host",
         "libprotobuf-cpp-full",
-        "libbase",
     ],
 
     proto: {
@@ -61,10 +81,8 @@ cc_test_host {
         "-DUNIT_TEST",
     ],
     srcs: [
-        "Collation.cpp",
         "test_collation.cpp",
         "test.proto",
-        "utils.cpp",
     ],
 
     static_libs: [
@@ -72,6 +90,7 @@ cc_test_host {
     ],
 
     shared_libs: [
+        "libatomscollation",
         "libstats_proto_host",
         "libprotobuf-cpp-full",
     ],

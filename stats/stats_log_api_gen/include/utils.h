@@ -29,9 +29,6 @@
 namespace android {
 namespace stats_log_api_gen {
 
-const char DEFAULT_CPP_NAMESPACE[] = "android,util";
-const char DEFAULT_CPP_HEADER_IMPORT[] = "statslog.h";
-
 const int API_LEVEL_CURRENT = 10000;
 const int API_Q = 29;
 const int API_R = 30;

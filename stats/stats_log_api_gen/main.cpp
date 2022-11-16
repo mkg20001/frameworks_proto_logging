@@ -1,4 +1,3 @@
-
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +19,9 @@
 namespace android {
 namespace stats_log_api_gen {
 
+const char DEFAULT_CPP_NAMESPACE[] = "android,util";
+const char DEFAULT_CPP_HEADER_IMPORT[] = "statslog.h";
+
 using android::os::statsd::Atom;
 
 static void print_usage() {
@@ -32,7 +34,8 @@ static void print_usage() {
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
     fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
     fprintf(stderr, "  --rustHeader FILENAME the rust file to output for write helpers\n");
-    fprintf(stderr, "  --rustHeaderCrate NAME        header crate to be used while "
+    fprintf(stderr,
+            "  --rustHeaderCrate NAME        header crate to be used while "
             "generating the code. Note: this should be the same as the crate_name "
             "created by rust_library for the header \n");
     fprintf(stderr, "  --module NAME        optional, module name to generate outputs for\n");
@@ -57,8 +60,7 @@ static void print_usage() {
     fprintf(stderr,
             "  --compileApiLevel API_LEVEL           specify which API level generated code is "
             "compiled against. (Java only).\n");
-    fprintf(stderr,
-            "                                        Default is \"current\".\n");
+    fprintf(stderr, "                                        Default is \"current\".\n");
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
@@ -79,6 +81,7 @@ static int run(int argc, char const* const* argv) {
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
     string cppHeaderImport = DEFAULT_CPP_HEADER_IMPORT;
+
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
     int compileApiLevel = API_LEVEL_CURRENT;
@@ -195,14 +198,13 @@ static int run(int argc, char const* const* argv) {
         index++;
     }
 
-    if (cppFilename.empty() && headerFilename.empty()
-        && javaFilename.empty() && rustFilename.empty()
-        && rustHeaderFilename.empty()) {
+    if (cppFilename.empty() && headerFilename.empty() && javaFilename.empty() &&
+        rustFilename.empty() && rustHeaderFilename.empty()) {
         print_usage();
         return 1;
     }
     if (DEFAULT_MODULE_NAME == moduleName &&
-            (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
+        (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
         // Default module only supports current API level.
         fprintf(stderr, "%s cannot support older API levels\n", moduleName.c_str());
         return 1;
@@ -228,7 +230,8 @@ static int run(int argc, char const* const* argv) {
     } else {
         if (minApiLevel > compileApiLevel) {
             // If specified, minApiLevel should always be lower than compileApiLevel.
-            fprintf(stderr, "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
+            fprintf(stderr,
+                    "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
                     " compileApiLevel are specified, minApiLevel should not be higher"
                     " than compileApiLevel.\n");
             return 1;
@@ -332,7 +335,7 @@ static int run(int argc, char const* const* argv) {
 
     // Write the main .rs file
     if (!rustFilename.empty()) {
-        if(rustHeaderCrate.empty()){
+        if (rustHeaderCrate.empty()) {
             fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
@@ -351,7 +354,7 @@ static int run(int argc, char const* const* argv) {
 
     // Write the header .rs file
     if (!rustHeaderFilename.empty()) {
-        if(rustHeaderCrate.empty()){
+        if (rustHeaderCrate.empty()) {
             fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
@@ -362,8 +365,8 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        android::stats_log_api_gen::write_stats_log_rust_header(
-                out, atoms, attributionDecl, rustHeaderCrate.c_str());
+        android::stats_log_api_gen::write_stats_log_rust_header(out, atoms, attributionDecl,
+                                                                rustHeaderCrate.c_str());
 
         fclose(out);
     }
