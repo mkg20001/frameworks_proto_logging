@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cc32170_cc8f6ee2",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-11-18T19:14:38Z",
+      "side": 1,
+      "message": "now I am thinking should we rename this test app since it tests libatomscollation APIs\n\nThoughts?",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "bf95f834fa350af3925e716aaaa6d8c63b28b1ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "955df4e2_f6356567",
         "filename": "stats/stats_log_api_gen/test_collation.cpp",
         "patchSetId": 1
@@ -14,6 +37,30 @@
       "writtenOn": "2022-11-18T09:33:22Z",
       "side": 1,
       "message": "for my understanding, is this calling the constructor of mImporter? I haven\u0027t seen this syntax before, so just curious. How are mSourceTree and mImporter initialized?",
+      "range": {
+        "startLine": 93,
+        "startChar": 22,
+        "endLine": 93,
+        "endChar": 31
+      },
+      "revId": "bf95f834fa350af3925e716aaaa6d8c63b28b1ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14008a94_6cf68d1d",
+        "filename": "stats/stats_log_api_gen/test_collation.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-11-18T19:14:38Z",
+      "side": 1,
+      "message": "That is correct - we call constructor for mImaprter with parameters\n\nBy C++ definition:\nClass data members (such as below) are initialized in order of declaration in the class definition:\n```\n    MFErrorCollector mErrorCollector;\n    google::protobuf::compiler::DiskSourceTree mSourceTree;\n    google::protobuf::compiler::Importer mImporter;\n```\n\nConstructor for mImporter will be called after mErrorCollector and mSourceTree are initialized\n\nSee more https://en.cppreference.com/w/cpp/language/constructor",
+      "parentUuid": "955df4e2_f6356567",
       "range": {
         "startLine": 93,
         "startChar": 22,
