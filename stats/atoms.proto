@@ -728,6 +728,7 @@ message Atom {
         ProviderAcquisitionEventReported provider_acquisition_event_reported =
                 477 [(module) = "framework"];
         BluetoothDeviceNameReported bluetooth_device_name_reported = 478 [(module) = "bluetooth"];
+        UwbStartRanging uwb_ranging_start = 489 [(module) = "uwb"];
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
         VmBooted vm_booted = 505 [(module) = "virtualizationservice"];
         VmExited vm_exited = 506 [(module) = "virtualizationservice"];
@@ -20225,6 +20226,28 @@ message UwbSessionClosed {
     optional int32 start_failure_count = 14;
     // Ranging start without valid ranging result count
     optional int32 start_no_valid_report_count = 15;
+}
+
+/*
+ * Logs details of start UWB ranging
+ * Logged from packages/modules/Uwb/service/java/com/android/server/uwb/UwbMetrics.java
+ */
+message UwbStartRanging {
+    // UWB profiles
+    optional android.uwb.Profile profile = 1;
+    // Scrambled timestamp sequence (STS) Type
+    optional android.uwb.Sts sts = 2;
+    // Was it an initiator as opposed to responder?
+    optional bool is_initiator = 3;
+    // Was it a controller as opposed to controlee?
+    optional bool is_controller = 4;
+    // Was the connection done by the app as opposed to by the framework?
+    optional bool is_framework_initiated = 5;
+    // Was it out-of-band connection as opposed to in-band connection?
+    // Note that this field is ignored if is_framework_initiated is false.
+    optional bool is_out_of_band = 6;
+    // The status code of ranging start.
+    optional android.uwb.RangingStatus status = 7;
 }
 
 /*
