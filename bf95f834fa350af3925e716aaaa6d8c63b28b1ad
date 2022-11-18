@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955df4e2_f6356567",
+        "filename": "stats/stats_log_api_gen/test_collation.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-11-18T09:33:22Z",
+      "side": 1,
+      "message": "for my understanding, is this calling the constructor of mImporter? I haven\u0027t seen this syntax before, so just curious. How are mSourceTree and mImporter initialized?",
+      "range": {
+        "startLine": 93,
+        "startChar": 22,
+        "endLine": 93,
+        "endChar": 31
+      },
+      "revId": "bf95f834fa350af3925e716aaaa6d8c63b28b1ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
