@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0311051_3f24c4de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-11-18T00:27:16Z",
+      "side": 1,
+      "message": "Greetings Colleagues\n\nCould you please review this CL at your convenience\n\nThe idea is to move collation APIs to shared library to be reused\n\nThank you\n\nSincerely\nVova",
+      "revId": "9e43d44d953a496874756ae8d2fd73c8e83ab591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
