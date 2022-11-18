@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
+#include <google/protobuf/compiler/importer.h>
 #include <gtest/gtest.h>
 #include <stdio.h>
+
+#include <filesystem>
 
 #include "Collation.h"
 #include "frameworks/proto_logging/stats/stats_log_api_gen/test.pb.h"
@@ -25,6 +28,8 @@ namespace stats_log_api_gen {
 
 using std::map;
 using std::vector;
+
+namespace fs = std::filesystem;
 
 /**
  * Return whether the map contains a vector of the elements provided.
@@ -73,12 +78,98 @@ static bool map_contains_vector(const SignatureInfoMap& s, int count, ...) {
         }                                                                    \
     } while (0)
 
+// Setup for test fixture.
+class CollationTest : public testing::TestWithParam<bool> {
+    class MFErrorCollector : public google::protobuf::compiler::MultiFileErrorCollector {
+    public:
+        virtual void AddError(const std::string& filename, int line, int column,
+                              const std::string& message) {
+            fprintf(stdout, "[Error] %s:%d:%d - %s", filename.c_str(), line, column,
+                    message.c_str());
+        }
+    };
+
+public:
+    CollationTest() : mImporter(&mSourceTree, &mErrorCollector) {
+        mSourceTree.MapPath("", fs::current_path().c_str());
+        mFileDescriptor = mImporter.Import("test_external.proto");
+    }
+
+protected:
+    void SetUp() override {
+        if (GetParam()) {
+            mEvent = Event::descriptor();
+            mIntAtom = IntAtom::descriptor();
+            mBadTypesEvent = BadTypesEvent::descriptor();
+            mBadSkippedFieldSingle = BadSkippedFieldSingle::descriptor();
+            mBadSkippedFieldMultiple = BadSkippedFieldMultiple::descriptor();
+            mBadAttributionNodePosition = BadAttributionNodePosition::descriptor();
+            mBadStateAtoms = BadStateAtoms::descriptor();
+            mGoodStateAtoms = GoodStateAtoms::descriptor();
+            mBadUidAtoms = BadUidAtoms::descriptor();
+            mGoodUidAtoms = GoodUidAtoms::descriptor();
+            mGoodEventWithBinaryFieldAtom = GoodEventWithBinaryFieldAtom::descriptor();
+            mBadEventWithBinaryFieldAtom = BadEventWithBinaryFieldAtom::descriptor();
+            mModuleAtoms = ModuleAtoms::descriptor();
+            mNotAPushNorPullAtom = NotAPushNorPullAtom::descriptor();
+            mAtomNotInAOneof = AtomNotInAOneof::descriptor();
+            mPushedAndPulledAtoms = PushedAndPulledAtoms::descriptor();
+        } else {
+            mEvent = mFileDescriptor->FindMessageTypeByName("Event");
+            mIntAtom = mFileDescriptor->FindMessageTypeByName("IntAtom");
+            mBadTypesEvent = mFileDescriptor->FindMessageTypeByName("BadTypesEvent");
+            mBadSkippedFieldSingle =
+                    mFileDescriptor->FindMessageTypeByName("BadSkippedFieldSingle");
+            mBadSkippedFieldMultiple =
+                    mFileDescriptor->FindMessageTypeByName("BadSkippedFieldMultiple");
+            mBadAttributionNodePosition =
+                    mFileDescriptor->FindMessageTypeByName("BadAttributionNodePosition");
+            mBadStateAtoms = mFileDescriptor->FindMessageTypeByName("BadStateAtoms");
+            mGoodStateAtoms = mFileDescriptor->FindMessageTypeByName("GoodStateAtoms");
+            mBadUidAtoms = mFileDescriptor->FindMessageTypeByName("BadUidAtoms");
+            mGoodUidAtoms = mFileDescriptor->FindMessageTypeByName("GoodUidAtoms");
+            mGoodEventWithBinaryFieldAtom =
+                    mFileDescriptor->FindMessageTypeByName("GoodEventWithBinaryFieldAtom");
+            mBadEventWithBinaryFieldAtom =
+                    mFileDescriptor->FindMessageTypeByName("BadEventWithBinaryFieldAtom");
+            mModuleAtoms = mFileDescriptor->FindMessageTypeByName("ModuleAtoms");
+            mNotAPushNorPullAtom = mFileDescriptor->FindMessageTypeByName("NotAPushNorPullAtom");
+            mAtomNotInAOneof = mFileDescriptor->FindMessageTypeByName("AtomNotInAOneof");
+            mPushedAndPulledAtoms = mFileDescriptor->FindMessageTypeByName("PushedAndPulledAtoms");
+        }
+    }
+
+    MFErrorCollector mErrorCollector;
+    google::protobuf::compiler::DiskSourceTree mSourceTree;
+    google::protobuf::compiler::Importer mImporter;
+    const google::protobuf::FileDescriptor* mFileDescriptor;
+
+    const Descriptor* mEvent;
+    const Descriptor* mIntAtom;
+    const Descriptor* mBadTypesEvent;
+    const Descriptor* mBadSkippedFieldSingle;
+    const Descriptor* mBadSkippedFieldMultiple;
+    const Descriptor* mBadAttributionNodePosition;
+    const Descriptor* mBadStateAtoms;
+    const Descriptor* mGoodStateAtoms;
+    const Descriptor* mBadUidAtoms;
+    const Descriptor* mGoodUidAtoms;
+    const Descriptor* mGoodEventWithBinaryFieldAtom;
+    const Descriptor* mBadEventWithBinaryFieldAtom;
+    const Descriptor* mModuleAtoms;
+    const Descriptor* mNotAPushNorPullAtom;
+    const Descriptor* mAtomNotInAOneof;
+    const Descriptor* mPushedAndPulledAtoms;
+};
+
+INSTANTIATE_TEST_SUITE_P(ProtoProvider, CollationTest, testing::Values(true, false));
+
 /**
  * Test a correct collation, with all the types.
  */
-TEST(CollationTest, CollateStats) {
+TEST_P(CollationTest, CollateStats) {
     Atoms atoms;
-    int errorCount = collate_atoms(Event::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mEvent, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(4ul, atoms.signatureInfoMap.size());
@@ -154,9 +245,9 @@ TEST(CollationTest, CollateStats) {
 /**
  * Test that event class that contains stuff other than the atoms is rejected.
  */
-TEST(CollationTest, NonMessageTypeFails) {
+TEST_P(CollationTest, NonMessageTypeFails) {
     Atoms atoms;
-    int errorCount = collate_atoms(IntAtom::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mIntAtom, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(1, errorCount);
 }
@@ -164,9 +255,9 @@ TEST(CollationTest, NonMessageTypeFails) {
 /**
  * Test that atoms that have unsupported field types are rejected.
  */
-TEST(CollationTest, FailOnBadTypes) {
+TEST_P(CollationTest, FailOnBadTypes) {
     Atoms atoms;
-    int errorCount = collate_atoms(BadTypesEvent::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadTypesEvent, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(20, errorCount);
 }
@@ -174,10 +265,9 @@ TEST(CollationTest, FailOnBadTypes) {
 /**
  * Test that atoms that skip field numbers (in the first position) are rejected.
  */
-TEST(CollationTest, FailOnSkippedFieldsSingle) {
+TEST_P(CollationTest, FailOnSkippedFieldsSingle) {
     Atoms atoms;
-    int errorCount =
-            collate_atoms(BadSkippedFieldSingle::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadSkippedFieldSingle, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(1, errorCount);
 }
@@ -186,10 +276,9 @@ TEST(CollationTest, FailOnSkippedFieldsSingle) {
  * Test that atoms that skip field numbers (not in the first position, and
  * multiple times) are rejected.
  */
-TEST(CollationTest, FailOnSkippedFieldsMultiple) {
+TEST_P(CollationTest, FailOnSkippedFieldsMultiple) {
     Atoms atoms;
-    int errorCount =
-            collate_atoms(BadSkippedFieldMultiple::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadSkippedFieldMultiple, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(2, errorCount);
 }
@@ -198,64 +287,61 @@ TEST(CollationTest, FailOnSkippedFieldsMultiple) {
  * Test that atoms that have an attribution chain not in the first position are
  * rejected.
  */
-TEST(CollationTest, FailBadAttributionNodePosition) {
+TEST_P(CollationTest, FailBadAttributionNodePosition) {
     Atoms atoms;
-    int errorCount =
-            collate_atoms(BadAttributionNodePosition::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadAttributionNodePosition, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(1, errorCount);
 }
 
-TEST(CollationTest, FailOnBadStateAtomOptions) {
+TEST_P(CollationTest, FailOnBadStateAtomOptions) {
     Atoms atoms;
-    int errorCount = collate_atoms(BadStateAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadStateAtoms, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(4, errorCount);
 }
 
-TEST(CollationTest, PassOnGoodStateAtomOptions) {
+TEST_P(CollationTest, PassOnGoodStateAtomOptions) {
     Atoms atoms;
-    int errorCount = collate_atoms(GoodStateAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mGoodStateAtoms, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(0, errorCount);
 }
 
-TEST(CollationTest, FailOnBadUidAtomOptions) {
+TEST_P(CollationTest, FailOnBadUidAtomOptions) {
     Atoms atoms;
-    int errorCount = collate_atoms(BadUidAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadUidAtoms, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(2, errorCount);
 }
 
-TEST(CollationTest, PassOnGoodUidAtomOptions) {
+TEST_P(CollationTest, PassOnGoodUidAtomOptions) {
     Atoms atoms;
-    int errorCount = collate_atoms(GoodUidAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mGoodUidAtoms, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(0, errorCount);
 }
 
-TEST(CollationTest, PassOnGoodBinaryFieldAtom) {
+TEST_P(CollationTest, PassOnGoodBinaryFieldAtom) {
     Atoms atoms;
-    int errorCount =
-            collate_atoms(GoodEventWithBinaryFieldAtom::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mGoodEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(0, errorCount);
 }
 
-TEST(CollationTest, FailOnBadBinaryFieldAtom) {
+TEST_P(CollationTest, FailOnBadBinaryFieldAtom) {
     Atoms atoms;
-    int errorCount =
-            collate_atoms(BadEventWithBinaryFieldAtom::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mBadEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_GT(errorCount, 0);
 }
 
-TEST(CollationTest, PassOnLogFromModuleAtom) {
+TEST_P(CollationTest, PassOnLogFromModuleAtom) {
     Atoms atoms;
-    int errorCount = collate_atoms(ModuleAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mModuleAtoms, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 4ul);
 }
 
-TEST(CollationTest, RecognizeModuleAtom) {
+TEST_P(CollationTest, RecognizeModuleAtom) {
     Atoms atoms;
-    int errorCount = collate_atoms(ModuleAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mModuleAtoms, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 4ul);
     EXPECT_EQ(atoms.signatureInfoMap.size(), 2u);
@@ -323,10 +409,10 @@ TEST(CollationTest, RecognizeModuleAtom) {
     EXPECT_EQ(0ul, fieldNumberToAtomDeclSet->size());
 }
 
-TEST(CollationTest, RecognizeModule1Atom) {
+TEST_P(CollationTest, RecognizeModule1Atom) {
     Atoms atoms;
     const string moduleName = "module1";
-    int errorCount = collate_atoms(ModuleAtoms::descriptor(), moduleName, &atoms);
+    int errorCount = collate_atoms(mModuleAtoms, moduleName, &atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 2ul);
     EXPECT_EQ(atoms.signatureInfoMap.size(), 1u);
@@ -387,11 +473,31 @@ TEST(CollationTest, RecognizeModule1Atom) {
 }
 
 /**
+ * Test that an atom is not a pushed nor pulled atom.
+ */
+TEST_P(CollationTest, InvalidAtomType) {
+    Atoms atoms;
+    int errorCount = collate_atoms(mNotAPushNorPullAtom, DEFAULT_MODULE_NAME, &atoms);
+
+    EXPECT_EQ(1, errorCount);
+}
+
+/**
+ * Test that an atom was not declared in a `oneof` field.
+ */
+TEST_P(CollationTest, AtomNotDeclaredInAOneof) {
+    Atoms atoms;
+    int errorCount = collate_atoms(mAtomNotInAOneof, DEFAULT_MODULE_NAME, &atoms);
+
+    EXPECT_EQ(1, errorCount);
+}
+
+/**
  * Test a correct collation with pushed and pulled atoms.
  */
-TEST(CollationTest, CollatePushedAndPulledAtoms) {
+TEST_P(CollationTest, CollatePushedAndPulledAtoms) {
     Atoms atoms;
-    int errorCount = collate_atoms(PushedAndPulledAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(mPushedAndPulledAtoms, DEFAULT_MODULE_NAME, &atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
