@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9702eba_24801f13",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-11-21T18:45:26Z",
+      "side": 1,
+      "message": "Yes, makes sense",
+      "parentUuid": "5cc32170_cc8f6ee2",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "bf95f834fa350af3925e716aaaa6d8c63b28b1ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "955df4e2_f6356567",
         "filename": "stats/stats_log_api_gen/test_collation.cpp",
         "patchSetId": 1
