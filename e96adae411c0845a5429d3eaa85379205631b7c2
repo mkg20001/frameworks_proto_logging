@@ -16,6 +16,24 @@
       "message": "This names might sounds a bit misleading, as if the (Android end) user would abort the background job by pressing a button or some other human interaction - can we find an alternative name for it (e.g., STATUS_ABORT_BY_API)?",
       "revId": "e96adae411c0845a5429d3eaa85379205631b7c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad86d6e0_43a9b122",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 21432,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-11-23T12:06:22Z",
+      "side": 1,
+      "message": "Good point! Done.",
+      "parentUuid": "781e8721_c455afb0",
+      "revId": "e96adae411c0845a5429d3eaa85379205631b7c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
