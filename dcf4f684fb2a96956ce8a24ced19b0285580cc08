@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7301eae0_a4fb850c",
+        "filename": "stats/atoms/gps/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-11-29T05:50:25Z",
+      "side": 1,
+      "message": "Feel free to submit so we have consistency, but is the filegroup needed? Sorry if I asked this before. Is it to mimic the changes to the enums? If it isn\u0027t needed, directly adding the files to the toplevel Android.bp saves a lot of these Android.bp files and makes things simpler. Looking at ag/19905054, only a few needed separate filegroups. I\u0027m not sure why, maybe it\u0027s only directories that already had android.bps?",
+      "revId": "dcf4f684fb2a96956ce8a24ced19b0285580cc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
