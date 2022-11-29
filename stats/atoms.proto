@@ -18223,6 +18223,17 @@ enum ArtIsa {
     ART_ISA_RISCV64 = 7;
 }
 
+// Indicates the GC collector type.
+enum ArtGcCollectorType {
+    ART_GC_COLLECTOR_TYPE_UNKNOWN = 0;
+    ART_GC_COLLECTOR_TYPE_MARK_SWEEP = 1;
+    ART_GC_COLLECTOR_TYPE_CONCURRENT_MARK_SWEEP = 2;
+    ART_GC_COLLECTOR_TYPE_CONCURRENT_MARK_COMPACT = 3;
+    ART_GC_COLLECTOR_TYPE_SEMI_SPACE = 4;
+    ART_GC_COLLECTOR_TYPE_CONCURRENT_COPYING = 5;
+    ART_GC_COLLECTOR_TYPE_CONCURRENT_COPYING_BACKGROUND = 6;
+}
+
 message ArtDatumReported {
     // The session ID is used to correlate this report with others from the same ART instance.
     optional int64 session_id = 1;
@@ -18256,6 +18267,9 @@ message ArtDatumReported {
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
+
+    // The Garbage Collector used in the Android Runtime.
+    optional ArtGcCollectorType gc = 12;
 }
 
 // ArtDatumDeltaReported is the same as ArtDatumReported, except for the kind field
@@ -18293,6 +18307,9 @@ message ArtDatumDeltaReported {
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
+
+    // The Garbage Collector used in the Android Runtime.
+    optional ArtGcCollectorType gc = 12;
 }
 
 /**
