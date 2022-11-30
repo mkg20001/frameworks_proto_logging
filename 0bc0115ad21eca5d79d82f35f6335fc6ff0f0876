@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed6797b2_9742876c",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-11-30T07:15:56Z",
+      "side": 0,
+      "message": "extract this into a helper method, collate_from_field_descriptor so it can be reused for extension fields",
+      "range": {
+        "startLine": 458,
+        "startChar": 0,
+        "endLine": 550,
+        "endChar": 9
+      },
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
