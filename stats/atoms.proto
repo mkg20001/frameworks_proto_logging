@@ -45,6 +45,7 @@ import "frameworks/proto_logging/stats/enums/hardware/sensor/assist/enums.proto"
 import "frameworks/proto_logging/stats/enums/hotword/enums.proto";
 import "frameworks/proto_logging/stats/enums/jank/enums.proto";
 import "frameworks/proto_logging/stats/enums/media/audio/enums.proto";
+import "frameworks/proto_logging/stats/enums/media/drm/enums.proto";
 import "frameworks/proto_logging/stats/enums/media/enums.proto";
 import "frameworks/proto_logging/stats/enums/mms/enums.proto";
 import "frameworks/proto_logging/stats/enums/nearby/enums.proto";
@@ -776,6 +777,12 @@ message Atom {
         NfcTagTypeOccurred nfc_tag_type_occurred = 560 [(module) = "nfc"];
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
+        MediaDrmCreated media_drm_created = 568 [(module) = "media_metrics"];
+        MediaDrmErrored media_drm_errored = 569 [(module) = "media_metrics"];
+        MediaDrmSessionOpened media_drm_session_opened = 570
+            [(module) = "media_metrics"];
+        MediaDrmSessionClosed media_drm_session_closed = 571
+            [(module) = "media_metrics"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -22568,4 +22575,83 @@ message ArtDeviceDatumReported {
     }
 
     optional BootImageStatus boot_image_status = 1;
+}
+
+/**
+ * Logs when a MediaDrm object is created.
+ *
+ * Logged from:
+ *   frameworks/av/drm/libmediadrm/DrmHal.cpp
+ */
+message MediaDrmCreated {
+  // UUID of the crypto scheme.
+  optional int64 uuid_lsb = 1;
+  optional int64 uuid_msb = 2;
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm object; it has no device or user association.
+  optional int64 object_nonce_lsb = 3;
+  optional int64 object_nonce_msb = 4;
+  // Version code if MediaDrm plugin is on an apex.
+  optional int64 apex_version = 5;
+}
+
+/**
+ * Logs when a MediaDrm object encountered an error.
+ *
+ * Logged from:
+ *   frameworks/av/drm/libmediadrm/DrmHal.cpp
+ */
+message MediaDrmErrored {
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm object; it has no device or user association.
+  optional int64 object_nonce_lsb = 1;
+  optional int64 object_nonce_msb = 2;
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm session; it has no device or user association.
+  optional int64 session_nonce_lsb = 3;
+  optional int64 session_nonce_msb = 4;
+  // The API that triggered the error.
+  optional android.media.drm.DrmApi api = 5;
+  // The encountered framework error.
+  optional android.media.drm.Status error_code = 6;
+  // Underlying plugin-specific (content decryption module) error.
+  optional int32 cdm_err = 7;
+  // Underlying OEM-specific error.
+  optional int32 oem_err = 8;
+}
+
+/**
+ * Logs when a MediaDrm session is opened.
+ *
+ * Logged from:
+ *   frameworks/av/drm/libmediadrm/DrmHal.cpp
+ */
+message MediaDrmSessionOpened {
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm object; it has no device or user association.
+  optional int64 object_nonce_lsb = 1;
+  optional int64 object_nonce_msb = 2;
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm session; it has no device or user association.
+  optional int64 session_nonce_lsb = 3;
+  optional int64 session_nonce_msb = 4;
+  // Input security level to MediaDrm#openSession.
+  optional android.media.drm.SecurityLevel requested_security_level = 5;
+  // Actual security level of the opened session.
+  optional android.media.drm.SecurityLevel opened_security_level = 6;
+}
+
+/**
+ * Logs when a MediaDrm session is closed.
+ *
+ * Logged from:
+ *   frameworks/av/drm/libmediadrm/DrmHal.cpp
+ */
+message MediaDrmSessionClosed {
+  // Randomly generated, globally unique 128 bit random number tied
+  // to a MediaDrm session; it has no device or user association.
+  optional int64 session_nonce_lsb = 1;
+  optional int64 session_nonce_msb = 2;
+  // Duration between session open-close in ms.
+  optional int64 session_lifespan_ms = 3;
 }
