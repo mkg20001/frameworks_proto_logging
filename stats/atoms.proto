@@ -28,6 +28,7 @@ import "frameworks/proto_logging/stats/atoms/art/background_dexopt_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/art/odrefresh_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/expresslog/expresslog_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
+import "frameworks/proto_logging/stats/atoms/media/media_drm_atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/enums/app/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
@@ -782,6 +783,12 @@ message Atom {
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
         art.ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
+        media.MediaDrmCreated media_drm_created = 568 [(module) = "media_metrics"];
+        media.MediaDrmErrored media_drm_errored = 569 [(module) = "media_metrics"];
+        media.MediaDrmSessionOpened media_drm_session_opened = 570
+            [(module) = "media_metrics"];
+        media.MediaDrmSessionClosed media_drm_session_closed = 571
+            [(module) = "media_metrics"];
         expresslog.ExpressHistogramSampleReported express_histogram_sample_reported = 593 [(module) = "framework", (module) = "expresslog"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
