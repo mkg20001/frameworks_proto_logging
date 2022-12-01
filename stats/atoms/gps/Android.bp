@@ -14,10 +14,13 @@
 //
 
 
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
 filegroup {
     name: "libstats_gps_atom_protos",
     srcs: [
         "gps_atoms.proto",
     ],
 }
-
