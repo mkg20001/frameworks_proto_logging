@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9574fc56_5ba53352",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:40:57Z",
+      "side": 1,
+      "message": "statsd uses this to determine if an atom is pulled: http://cs/android-internal/packages/modules/StatsD/statsd/src/external/StatsPullerManager.cpp;l\u003d116;rcl\u003d059e95ef8a541eae69e9392954441a0057b85bdc.\n\nwe could simplify the logic here to match that and just rely on the atom id ranges always?",
+      "revId": "e2cb44e029dbe7d0b132ea7dd168e16b2cf63cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ab3d23_e3039de2",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:40:57Z",
+      "side": 1,
+      "message": "mostly for my understanding are there any limitations for getting the extensions in this way? is it possible that the pool() doesn\u0027t have all extensions? perhaps leave a comment",
+      "range": {
+        "startLine": 585,
+        "startChar": 4,
+        "endLine": 585,
+        "endChar": 75
+      },
+      "revId": "e2cb44e029dbe7d0b132ea7dd168e16b2cf63cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf341d62_943c2af8",
+        "filename": "stats/stats_log_api_gen/test_collation.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:40:57Z",
+      "side": 1,
+      "message": "could we also see if the is_uid annotation is attached correctly?",
+      "revId": "e2cb44e029dbe7d0b132ea7dd168e16b2cf63cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
