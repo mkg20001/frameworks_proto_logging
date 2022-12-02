@@ -10,6 +10,7 @@
 
 #include "Collation.h"
 #include "frameworks/proto_logging/stats/atoms.pb.h"
+#include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "java_writer.h"
 #include "java_writer_q.h"
 #include "native_writer.h"
@@ -25,8 +26,8 @@ static void print_usage() {
     fprintf(stderr, "usage: stats-log-api-gen OPTIONS\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "OPTIONS\n");
-    fprintf(stderr, "  --cpp FILENAME       the header file to output for write helpers\n");
-    fprintf(stderr, "  --header FILENAME    the cpp file to output for write helpers\n");
+    fprintf(stderr, "  --cpp FILENAME       the cpp file to output for write helpers\n");
+    fprintf(stderr, "  --header FILENAME    the header file to output for write helpers\n");
     fprintf(stderr, "  --help               this message\n");
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
     fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
@@ -262,11 +263,6 @@ static int run(int argc, char const* const* argv) {
 
     // Write the .cpp file
     if (!cppFilename.empty()) {
-        FILE* out = fopen(cppFilename.c_str(), "w");
-        if (out == nullptr) {
-            fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
-            return 1;
-        }
         // If this is for a specific module, the namespace must also be provided.
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
@@ -278,6 +274,11 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Must supply --headerImport if supplying a specific module\n");
             return 1;
         }
+        FILE* out = fopen(cppFilename.c_str(), "w");
+        if (out == nullptr) {
+            fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
+            return 1;
+        }
         errorCount = android::stats_log_api_gen::write_stats_log_cpp(
                 out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel, bootstrap);
         fclose(out);
@@ -285,14 +286,14 @@ static int run(int argc, char const* const* argv) {
 
     // Write the .h file
     if (!headerFilename.empty()) {
+        // If this is for a specific module, the namespace must also be provided.
+        if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
+            fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
+        }
         FILE* out = fopen(headerFilename.c_str(), "w");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", headerFilename.c_str());
             return 1;
-        }
-        // If this is for a specific module, the namespace must also be provided.
-        if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
-            fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
         }
         errorCount = android::stats_log_api_gen::write_stats_log_header(
                 out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
@@ -331,14 +332,14 @@ static int run(int argc, char const* const* argv) {
 
     // Write the main .rs file
     if (!rustFilename.empty()) {
-        FILE* out = fopen(rustFilename.c_str(), "w");
-        if (out == nullptr) {
-            fprintf(stderr, "Unable to open file for write: %s\n", rustFilename.c_str());
+        if(rustHeaderCrate.empty()){
+            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
 
-        if(rustHeaderCrate.empty()){
-            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
+        FILE* out = fopen(rustFilename.c_str(), "w");
+        if (out == nullptr) {
+            fprintf(stderr, "Unable to open file for write: %s\n", rustFilename.c_str());
             return 1;
         }
 
@@ -350,14 +351,14 @@ static int run(int argc, char const* const* argv) {
 
     // Write the header .rs file
     if (!rustHeaderFilename.empty()) {
-        FILE* out = fopen(rustHeaderFilename.c_str(), "w");
-        if (out == nullptr) {
-            fprintf(stderr, "Unable to open file for write: %s\n", rustHeaderFilename.c_str());
+        if(rustHeaderCrate.empty()){
+            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
 
-        if(rustHeaderCrate.empty()){
-            fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
+        FILE* out = fopen(rustHeaderFilename.c_str(), "w");
+        if (out == nullptr) {
+            fprintf(stderr, "Unable to open file for write: %s\n", rustHeaderFilename.c_str());
             return 1;
         }
 
