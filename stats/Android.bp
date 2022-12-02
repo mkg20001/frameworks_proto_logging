@@ -70,6 +70,10 @@ enum_protos = [
     ":text_classifier_proto",
 ]
 
+atom_protos = [
+    "atoms/gps/*.proto",
+]
+
 cc_library_host_shared {
     name: "libstats_proto_host",
     srcs: [
@@ -92,8 +96,7 @@ filegroup {
     srcs: [
         "atoms.proto",
         "attribution_node.proto",
-        ":libstats_gps_atom_protos",
-    ],
+    ] + atom_protos,
 }
 
 filegroup {
