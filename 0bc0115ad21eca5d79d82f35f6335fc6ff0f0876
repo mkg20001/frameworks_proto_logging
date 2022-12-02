@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b9edcef_9320957b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:50:55Z",
+      "side": 1,
+      "message": "Is this CL meant to be submitted, or is it more proof of concept for ensuring extensions work? \n\nAlso, this is less important right now, but we might also want to create a CTS test on top of an extension atom, as well as flesh out any other common cases we have for referencing atoms.",
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd96da6_5e724722",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:50:55Z",
+      "side": 1,
+      "message": "nit: maybe do 99999 here just in case 100000 is used by someone as a vendor atom",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 48
+      },
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb816793_b5f325c6",
+        "filename": "stats/atoms/placeholder/placeholder_atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-02T02:50:55Z",
+      "side": 1,
+      "message": "should these go in the corresponding pulled and pushed_atom_extensions files?",
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
