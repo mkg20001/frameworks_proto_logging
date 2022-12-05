@@ -71,6 +71,8 @@ enum_protos = [
 ]
 
 atom_protos = [
+    "atoms.proto",
+    "attribution_node.proto",
     "atoms/gps/*.proto",
 ]
 
@@ -78,9 +80,8 @@ cc_library_host_shared {
     name: "libstats_proto_host",
     srcs: [
         "atom_field_options.proto",
-        ":libstats_atoms_proto",
         ":libstats_atom_message_protos",
-    ] + enum_protos,
+    ] + enum_protos + atom_protos,
 
     proto: {
         type: "full",
@@ -93,10 +94,7 @@ cc_library_host_shared {
 
 filegroup {
     name: "libstats_atoms_proto",
-    srcs: [
-        "atoms.proto",
-        "attribution_node.proto",
-    ] + atom_protos,
+    srcs: atom_protos,
 }
 
 filegroup {
