@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb659f99_45674be1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T08:40:33Z",
+      "side": 1,
+      "message": "This CL can be submitted so we have a reference for when clients add new atoms as extensions. The placeholder atoms can be removed once we have actual atoms as extensions.\n\nAdding a CTS test for logging an extension atom is a good idea. Filed b/261380514 to track.",
+      "parentUuid": "0b9edcef_9320957b",
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fd96da6_5e724722",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67300f45_4d777fde",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T08:40:33Z",
+      "side": 1,
+      "message": "Done. Actually, 99999 is the max",
+      "parentUuid": "3fd96da6_5e724722",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 48
+      },
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb816793_b5f325c6",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-12-02T02:50:55Z",
       "side": 1,
       "message": "should these go in the corresponding pulled and pushed_atom_extensions files?",
+      "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82651e7_19d5f260",
+        "filename": "stats/atoms/placeholder/placeholder_atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T08:40:33Z",
+      "side": 1,
+      "message": "No, turns out doing that is not very scalable: http://yaqs/2101745063796146176. Putting it inside \u003cfeature\u003e_atoms.proto also means one less file for clients to touch.",
+      "parentUuid": "fb816793_b5f325c6",
       "revId": "0bc0115ad21eca5d79d82f35f6335fc6ff0f0876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
