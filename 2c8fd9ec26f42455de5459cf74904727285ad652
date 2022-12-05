@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5ee0f75_d398624f",
+        "filename": "stats/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T18:24:44Z",
+      "side": 1,
+      "message": "I\u0027m a little confused. This filegroup is still not self-contained as it\u0027s missing the enum protos. Isn\u0027t that problematic?",
+      "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
