@@ -16,6 +16,24 @@
       "message": "I\u0027m a little confused. This filegroup is still not self-contained as it\u0027s missing the enum protos. Isn\u0027t that problematic?",
       "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e574eb_629957b2",
+        "filename": "stats/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1124746
+      },
+      "writtenOn": "2022-12-05T18:27:48Z",
+      "side": 1,
+      "message": "it is not used by the cc_library so it is ok for now, we are looking into a longer term solution at the mean time.",
+      "parentUuid": "d5ee0f75_d398624f",
+      "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
