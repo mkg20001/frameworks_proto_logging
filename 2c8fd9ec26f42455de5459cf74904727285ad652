@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10a14e02_f1b625d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T18:35:29Z",
+      "side": 1,
+      "message": "Can you also cherry-pick to tm-mainline-prod?",
+      "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5ee0f75_d398624f",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "it is not used by the cc_library so it is ok for now, we are looking into a longer term solution at the mean time.",
       "parentUuid": "d5ee0f75_d398624f",
+      "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc587a6_10ed5c0e",
+        "filename": "stats/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-05T18:35:29Z",
+      "side": 1,
+      "message": "I see, so it\u0027s only an issue when using in cc_library.",
+      "parentUuid": "43e574eb_629957b2",
       "revId": "2c8fd9ec26f42455de5459cf74904727285ad652",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
