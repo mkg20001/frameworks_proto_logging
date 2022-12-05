@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8b708e_b08c74d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2022-12-05T17:02:21Z",
+      "side": 1,
+      "message": "Make sure these annotations are added in google3 as well.",
+      "revId": "2bcf1b10d7d0023f8e86eade515ab88853de42b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
