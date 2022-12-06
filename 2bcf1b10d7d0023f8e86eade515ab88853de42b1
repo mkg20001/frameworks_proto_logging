@@ -16,6 +16,24 @@
       "message": "Make sure these annotations are added in google3 as well.",
       "revId": "2bcf1b10d7d0023f8e86eade515ab88853de42b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13adedf1_194914e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1941275
+      },
+      "writtenOn": "2022-12-06T02:05:53Z",
+      "side": 1,
+      "message": "Thanks for reminding! google3\u0027s already synced from cl/460436378.",
+      "parentUuid": "eb8b708e_b08c74d4",
+      "revId": "2bcf1b10d7d0023f8e86eade515ab88853de42b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
