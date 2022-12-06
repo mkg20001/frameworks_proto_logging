@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "803db8de_cfd07890",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-06T06:20:23Z",
+      "side": 1,
+      "message": "I think we should account for vendor pulled atoms as well here",
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e155a2ba_17003f17",
+        "filename": "stats/stats_log_api_gen/test.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-06T06:20:23Z",
+      "side": 1,
+      "message": "this is just to test the atom ranges?",
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5df53864_6d54b087",
+        "filename": "stats/stats_log_api_gen/test_collation.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-06T06:20:23Z",
+      "side": 1,
+      "message": "nit: is there a reason to declare these vars before using them? i think defining them at use can help w/ readability",
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d90f68_a1884e67",
+        "filename": "stats/stats_log_api_gen/test_collation.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-06T06:20:23Z",
+      "side": 1,
+      "message": "nit: can do annotationSet()-\u003ebegin()-\u003eget() and remove the unneeded iterator.",
+      "range": {
+        "startLine": 465,
+        "startChar": 4,
+        "endLine": 466,
+        "endChar": 40
+      },
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
