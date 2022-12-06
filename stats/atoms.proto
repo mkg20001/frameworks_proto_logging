@@ -9824,7 +9824,10 @@ message NfcStateChanged {
         ON_LOCKED = 3; // Secure Nfc enabled.
         CRASH_RESTART = 4; // NfcService watchdog timeout restart.
     }
-    optional State state = 1;
+    optional State state = 1 [
+        (state_field_option).exclusive_state = true,
+        (state_field_option).nested = false
+    ];
 }
 
 /**
