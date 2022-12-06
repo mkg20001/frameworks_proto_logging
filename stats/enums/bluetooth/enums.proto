@@ -265,3 +265,17 @@ enum AddressTypeEnum {
     ADDRESS_TYPE_UNKNOWN = 0xFFFF;
 }
 
+// Major Class from packages/modules/Bluetooth/framework/java/android/bluetooth/BluetoothClass.java
+enum MajorClassEnum {
+    MAJOR_CLASS_UNCATEGORIZED = 0x1F00;
+    MAJOR_CLASS_MISC = 0x0000;
+    MAJOR_CLASS_COMPUTER = 0x0100;
+    MAJOR_CLASS_PHONE = 0x0200;
+    MAJOR_CLASS_NETWORKING = 0x0300;
+    MAJOR_CLASS_AUDIO_VIDEO = 0x0400;
+    MAJOR_CLASS_PERIPHERAL = 0x0500;
+    MAJOR_CLASS_IMAGING = 0x0600;
+    MAJOR_CLASS_WEARABLE = 0x0700;
+    MAJOR_CLASS_TOY = 0x0800;
+    MAJOR_CLASS_HEALTH = 0x0900;
+}
