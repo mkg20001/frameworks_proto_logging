@@ -20,6 +20,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79904869_0141731e",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-06T18:16:34Z",
+      "side": 1,
+      "message": "I know that this an existing code just moved around - it is suggested to avoid rely on loop index terminal value - it is not straight forward that this if actually tests \"did we find an appropriate module\"\n\nIt would be better to define standalone explicit `bool moduleFound`, update the value in the loop and test after the loop",
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3847f4_d1c66d22",
+        "filename": "stats/stats_log_api_gen/Collation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-06T18:16:34Z",
+      "side": 1,
+      "message": "simple types are ok to pass by value - the enum maps to an int under the hood\nwe could remove const from an argument then in a same way as code argument in this API signature",
+      "range": {
+        "startLine": 189,
+        "startChar": 72,
+        "endLine": 189,
+        "endChar": 81
+      },
+      "revId": "eb8595747796b96f11124ea840c4f0c17051b046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e155a2ba_17003f17",
         "filename": "stats/stats_log_api_gen/test.proto",
         "patchSetId": 5
