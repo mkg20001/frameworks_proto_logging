@@ -17090,7 +17090,11 @@ message VmExited {
     }
     optional int32 uid = 1 [(is_uid) = true];
     optional string vm_identifier = 2;
+
     optional DeathReason death_reason = 3;
+    // Exit signal when VM was KILLED
+    optional int32 exit_signal = 8;
+
     // Elapsed time between start and termination of a VM
     optional int64 elapsed_time_millis = 4;
 
