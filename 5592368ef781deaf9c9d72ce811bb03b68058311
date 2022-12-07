@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ad7db1_ba45e5ff",
+        "filename": "stats/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-07T01:11:39Z",
+      "side": 1,
+      "message": "Mainly because aside from libstats_proto_host, other users of libstats_atoms_proto don\u0027t need the extension protos. The\u0027re test libraries though so it\u0027s probably file to add them. Added them in libstats_atoms_proto in the new patchset to keep things simple.",
+      "parentUuid": "67b57f58_f1917eb0",
+      "revId": "5592368ef781deaf9c9d72ce811bb03b68058311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94c17066_32230cd4",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-12-06T06:24:42Z",
       "side": 1,
       "message": "This seems incorrect based on your reply in the last patchset, same for pulled below",
+      "range": {
+        "startLine": 767,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 72
+      },
+      "revId": "5592368ef781deaf9c9d72ce811bb03b68058311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b70b25_20af50c9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-07T01:11:39Z",
+      "side": 1,
+      "message": "Ah, forgot to update this. Thanks",
+      "parentUuid": "94c17066_32230cd4",
       "range": {
         "startLine": 767,
         "startChar": 0,
