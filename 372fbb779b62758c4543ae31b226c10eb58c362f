@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7eb36a_66cf3a6e",
+        "filename": "stats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-07T15:51:48Z",
+      "side": 1,
+      "message": "nit: sorry for a question, I have missed the purpose of placeholder atom definitions here? Could you please elaborate? May be some comment could be added to the code to make it clear?\n\nThank you",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "372fbb779b62758c4543ae31b226c10eb58c362f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
