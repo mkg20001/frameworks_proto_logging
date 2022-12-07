@@ -47,4 +47,5 @@ enum NfcTagType {
     TAG_TYPE_4B = 5;
     TAG_TYPE_5 = 6;
     TAG_MIFARE_CLASSIC = 7;
+    TAG_KOVIO_BARCODE = 8;
 }
