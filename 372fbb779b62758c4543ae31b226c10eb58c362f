@@ -22,6 +22,30 @@
       },
       "revId": "372fbb779b62758c4543ae31b226c10eb58c362f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c522f8_86e21d3d",
+        "filename": "stats/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-07T17:35:19Z",
+      "side": 1,
+      "message": "It is just a sample extension atom to serve as an example for adding extension atoms going forward. Added a comment in placeholder_atoms.proto to indicate that.",
+      "parentUuid": "8c7eb36a_66cf3a6e",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "372fbb779b62758c4543ae31b226c10eb58c362f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
