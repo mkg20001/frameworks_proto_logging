@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f5a8ffe_1241fad3",
+        "filename": "stats/stats_log_api_gen/test.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-07T01:12:30Z",
+      "side": 0,
+      "message": "We can have atoms outside oneofs so these test atoms and the tests using these atoms are obsolete.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 1
+      },
+      "revId": "5592368ef781deaf9c9d72ce811bb03b68058311",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
