@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f084f281_817421cd",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1096713
+      },
+      "writtenOn": "2022-12-08T16:52:44Z",
+      "side": 1,
+      "message": "Do we want to give `atomType` a default value here so we don\u0027t risk using it uninitialized?  When this field was a `string`, the default constructor would be used here.  But as an `enum`, I don\u0027t believe there\u0027s any default constructor for the field, so it ends up uninitialized.",
+      "revId": "57182c8d257235a2d8664f084f2a4bf0638c9719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
