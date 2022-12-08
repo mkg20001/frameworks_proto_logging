@@ -46,7 +46,7 @@ const int VENDOR_PULLED_ATOMS_END = 199999;
 // AtomDecl class
 //
 
-AtomDecl::AtomDecl() : code(0), name() {
+AtomDecl::AtomDecl() : code(0), name(), atomType(ATOM_TYPE_PUSHED) {
 }
 
 AtomDecl::AtomDecl(const AtomDecl& that)
