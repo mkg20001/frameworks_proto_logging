@@ -387,26 +387,6 @@ TEST(CollationTest, RecognizeModule1Atom) {
 }
 
 /**
- * Test that an atom is not a pushed nor pulled atom.
- */
-TEST(CollationTest, InvalidAtomType) {
-    Atoms atoms;
-    int errorCount = collate_atoms(NotAPushNorPullAtom::descriptor(), DEFAULT_MODULE_NAME, &atoms);
-
-    EXPECT_EQ(1, errorCount);
-}
-
-/**
- * Test that an atom was not declared in a `oneof` field.
- */
-TEST(CollationTest, AtomNotDeclaredInAOneof) {
-    Atoms atoms;
-    int errorCount = collate_atoms(AtomNotInAOneof::descriptor(), DEFAULT_MODULE_NAME, &atoms);
-
-    EXPECT_EQ(1, errorCount);
-}
-
-/**
  * Test a correct collation with pushed and pulled atoms.
  */
 TEST(CollationTest, CollatePushedAndPulledAtoms) {
@@ -435,15 +415,90 @@ TEST(CollationTest, CollatePushedAndPulledAtoms) {
     EXPECT_NO_ENUM_FIELD((*atomIt));
     atomIt++;
 
-    EXPECT_EQ(10, (*atomIt)->code);
+    EXPECT_EQ(10000, (*atomIt)->code);
     EXPECT_EQ("another_int_atom", (*atomIt)->name);
     EXPECT_EQ("AnotherIntAtom", (*atomIt)->message);
     EXPECT_NO_ENUM_FIELD((*atomIt));
     atomIt++;
 
-    EXPECT_EQ(11, (*atomIt)->code);
+    EXPECT_EQ(99999, (*atomIt)->code);
     EXPECT_EQ("out_of_order_atom", (*atomIt)->name);
     EXPECT_EQ("OutOfOrderAtom", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    atomIt++;
+
+    EXPECT_EQ(atoms.decls.end(), atomIt);
+}
+
+TEST(CollationTest, CollateVendorAtoms) {
+    Atoms atoms;
+    int errorCount = collate_atoms(VendorAtoms::descriptor(), DEFAULT_MODULE_NAME, &atoms);
+
+    EXPECT_EQ(0, errorCount);
+    EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
+    EXPECT_EQ(1ul, atoms.pulledAtomsSignatureInfoMap.size());
+
+    // IntAtom
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.signatureInfoMap, JAVA_TYPE_INT);
+
+    // AnotherIntAtom
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.pulledAtomsSignatureInfoMap, JAVA_TYPE_INT);
+
+    EXPECT_EQ(2ul, atoms.decls.size());
+
+    AtomDeclSet::const_iterator atomIt = atoms.decls.begin();
+    EXPECT_EQ(100000, (*atomIt)->code);
+    EXPECT_EQ("pushed_atom_100000", (*atomIt)->name);
+    EXPECT_EQ("IntAtom", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    atomIt++;
+
+    EXPECT_EQ(199999, (*atomIt)->code);
+    EXPECT_EQ("pulled_atom_199999", (*atomIt)->name);
+    EXPECT_EQ("AnotherIntAtom", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    atomIt++;
+
+    EXPECT_EQ(atoms.decls.end(), atomIt);
+}
+
+TEST(CollationTest, CollateExtensionAtoms) {
+    Atoms atoms;
+    int errorCount = collate_atoms(ExtensionAtoms::descriptor(), "test_feature", &atoms);
+
+    EXPECT_EQ(0, errorCount);
+    EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
+    EXPECT_EQ(1ul, atoms.pulledAtomsSignatureInfoMap.size());
+
+    // ExtensionAtomPushed
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.signatureInfoMap, JAVA_TYPE_INT, JAVA_TYPE_LONG);
+
+    // ExtensionAtomPulled
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.pulledAtomsSignatureInfoMap, JAVA_TYPE_LONG);
+
+    EXPECT_EQ(2ul, atoms.decls.size());
+
+    AtomDeclSet::const_iterator atomIt = atoms.decls.begin();
+    EXPECT_EQ(9999, (*atomIt)->code);
+    EXPECT_EQ("extension_atom_pushed", (*atomIt)->name);
+    EXPECT_EQ("ExtensionAtomPushed", (*atomIt)->message);
+    EXPECT_NO_ENUM_FIELD((*atomIt));
+    FieldNumberToAnnotations* fieldNumberToAnnotations = &(*atomIt)->fieldNumberToAnnotations;
+    FieldNumberToAnnotations::const_iterator fieldNumberToAnnotationsIt =
+        fieldNumberToAnnotations->find(1);
+    EXPECT_NE(fieldNumberToAnnotations->end(), fieldNumberToAnnotationsIt);
+    const AnnotationSet* annotationSet = &fieldNumberToAnnotationsIt->second;
+    EXPECT_EQ(1ul, annotationSet->size());
+    Annotation* annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_IS_UID, annotation->annotationId);
+    EXPECT_EQ(9999, annotation->atomId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+    atomIt++;
+
+    EXPECT_EQ(99999, (*atomIt)->code);
+    EXPECT_EQ("extension_atom_pulled", (*atomIt)->name);
+    EXPECT_EQ("ExtensionAtomPulled", (*atomIt)->message);
     EXPECT_NO_ENUM_FIELD((*atomIt));
     atomIt++;
 
