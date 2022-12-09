@@ -32,6 +32,9 @@ cc_library_static {
         "hfp/enums.proto",
         "smp/enums.proto",
     ],
+    apex_available: [
+        "com.android.btservices",
+    ],
     min_sdk_version: "30",
 }
 
