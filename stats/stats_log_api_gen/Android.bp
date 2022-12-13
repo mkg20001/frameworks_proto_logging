@@ -66,6 +66,7 @@ cc_test_host {
     ],
     srcs: [
         "Collation.cpp",
+        "test_api_gen_vendor.cpp",
         "test_collation.cpp",
         "test.proto",
         "test_feature_atoms.proto",
@@ -74,6 +75,7 @@ cc_test_host {
 
     static_libs: [
         "libgmock_host",
+        "libtestvendoratoms",
     ],
 
     shared_libs: [
@@ -96,7 +98,24 @@ cc_test_host {
         ":libprotobuf-internal-protos",
         ":libstats_internal_protos",
         "test_external.proto",
+        "test_vendor_atoms.proto",
     ],
+}
+
+genrule {
+    name: "test_vendor_atoms.h",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --header $(genDir)/test_vendor_atoms.h --namespace android,VendorAtoms --proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto --vendor",
+    out: [
+        "test_vendor_atoms.h",
+    ],
+}
+
+cc_library_static {
+    name: "libtestvendoratoms",
+    host_supported: true,
+    generated_headers: ["test_vendor_atoms.h"],
+    export_generated_headers: ["test_vendor_atoms.h"],
 }
 
 // ==========================================================
