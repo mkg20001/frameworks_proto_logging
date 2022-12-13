@@ -992,7 +992,7 @@ enum Action {
     // OS: T
     ACTION_COLUMBUS_ACTION_FLASHLIGHT = 1787;
 
-    // ACTION: Settings > Display > Daydream ("Screen Saver")
+    // ACTION: Settings > Display > Daydream (Screen saver) > Choose a screen saver
     // CATEGORY: SETTINGS
     // OS: T
     ACTION_DREAM_SELECT_TYPE = 1788;
@@ -1013,6 +1013,70 @@ enum Action {
     // CATEGORY: SETTINGS
     // OS: T
     ACTION_DISABLE_AUTO_ROTATION_DEVICE_STATE = 1791;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <All apps>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_ALL_APPS = 1792;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <restricted>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_RESTRICTED = 1793;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <unrestricted>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_UNRESTRICTED = 1794;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <optimized>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_OPTIMIZED = 1795;
+
+    // Custom tag to log changes to the dock setup flow state
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STATE_CHANGED = 1796;
+
+    // Custom tag to log the start of each step in the dock setup flow
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STEP_START = 1797;
+
+    // Custom tag to log the result of each step in the dock setup flow
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STEP_COMPLETE = 1798;
+
+    // ACTION: Settings > Battery Usage > Click daily chart time slot
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_DAILY_TIME_SLOT = 1799;
+
+    // ACTION: Settings > Battery Usage > Click daily chart show all
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_DAILY_SHOW_ALL = 1800;
+
+    // Custom tag to log the battery history is loaded
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_HISTORY_LOADED = 1801;
+
+    // Custom tag to log the count of shown apps when battery usage is opened.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_SHOWN_APP_COUNT = 1802;
+
+    // Custom tag to log the count of hidden apps when battery usage is opened.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_HIDDEN_APP_COUNT = 1803;
 }
 
 /**
@@ -1179,7 +1243,7 @@ enum PageId {
     // OS: 6.0
     DISPLAY = 46;
 
-    // OPEN: Settings > Display > Daydream
+    // OPEN: Settings > Display > Daydream (Screen saver)
     // CATEGORY: SETTINGS
     // OS: 6.0
     DREAM = 47;
@@ -3366,6 +3430,33 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: T
     LE_AUDIO_BROADCAST_SCAN_QR_CODE = 1926;
+
+    // OPEN: Settings > About phone > Limited Warranty
+    // CATEGORY: SETTINGS
+    // OS: T
+    LIMITED_WARRANTY_COUNTRY_LIST = 1927;
+
+    // OPEN: Settings > About phone > Limited Warranty > Click any country
+    // CATEGORY: SETTINGS
+    // OS: T
+    LIMITED_WARRANTY_DETAILS = 1928;
+
+    // OPEN: Settings > Sound > Clear Calling
+    CLEAR_CALLING = 1929;
+
+    // The dialog will show after successfully pairing one of the binaural hearing aids
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_ACCESSIBILITY_HEARING_AID_PAIR_ANOTHER = 1930;
+
+    // OPEN: Settings > Apps > Battery optimized apps
+    // CATEGORY: SETTINGS
+    // OS: T
+    BATTERY_OPTIMIZED_APPS_LIST = 1931;
+
+    // OPEN: SUW choose a screen saver
+    // OS: T
+    SUW_DREAM = 1935;
 }
 
 // Battery Saver schedule types.
