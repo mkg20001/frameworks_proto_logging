@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cstdlib>
+#include <filesystem>
 #include <map>
 #include <set>
 #include <vector>
@@ -20,6 +22,7 @@
 namespace android {
 namespace stats_log_api_gen {
 
+namespace fs = std::filesystem;
 using android::os::statsd::Atom;
 
 static void print_usage() {
@@ -62,6 +65,9 @@ static void print_usage() {
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
+    fprintf(stderr,
+            "  --vendor-proto       Path to the proto file for vendor atoms logging\n"
+            "code generation.\n");
 }
 
 /**
@@ -79,6 +85,7 @@ static int run(int argc, char const* const* argv) {
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
     string cppHeaderImport = DEFAULT_CPP_HEADER_IMPORT;
+    string vendorProto;
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
     int compileApiLevel = API_LEVEL_CURRENT;
@@ -190,10 +197,24 @@ static int run(int argc, char const* const* argv) {
             }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
+        } else if (0 == strcmp("--vendor-proto", argv[index])) {
+            index++;
+            if (index >= argc) {
+                print_usage();
+                return 1;
+            }
+
+            vendorProto = argv[index];
         }
 
         index++;
     }
+    if (index < argc) {
+        fprintf(stderr, "Error: Unknown command line argument\n");
+        print_usage();
+        return 1;
+    }
+
 
     if (cppFilename.empty() && headerFilename.empty() && javaFilename.empty() &&
         rustFilename.empty() && rustHeaderFilename.empty()) {
@@ -250,8 +271,35 @@ static int run(int argc, char const* const* argv) {
     }
 
     // Collate the parameters
+    int errorCount = 0;
+
     Atoms atoms;
-    int errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+
+    MFErrorCollector errorCollector;
+    google::protobuf::compiler::DiskSourceTree sourceTree;
+    google::protobuf::compiler::Importer importer(&sourceTree, &errorCollector);
+
+    if (vendorProto.empty()) {
+        errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+    } else {
+        const google::protobuf::FileDescriptor* fileDescriptor;
+        sourceTree.MapPath("", fs::current_path().c_str());
+
+        const char* androidBuildTop = std::getenv("ANDROID_BUILD_TOP");
+
+        fs::path protobufSrc = androidBuildTop != nullptr ? androidBuildTop : fs::current_path();
+        protobufSrc /= "external/protobuf/src";
+        sourceTree.MapPath("", protobufSrc.c_str());
+
+        if (androidBuildTop != nullptr) {
+            sourceTree.MapPath("", androidBuildTop);
+        }
+
+        fileDescriptor = importer.Import(vendorProto);
+        errorCount =
+                collate_atoms(fileDescriptor->FindMessageTypeByName("Atom"), moduleName, &atoms);
+    }
+
     if (errorCount != 0) {
         return 1;
     }
@@ -263,6 +311,12 @@ static int run(int argc, char const* const* argv) {
 
     // Write the .cpp file
     if (!cppFilename.empty()) {
+        //TODO (sharaienko) b/248284745 - will be implemented as part os Milestone #2
+        if (!vendorProto.empty()) {
+            fprintf(stderr, "cpp APIs code-generation not supported for vendor atoms\n");
+            return 1;
+        }
+
         // If this is for a specific module, the namespace must also be provided.
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
@@ -295,8 +349,14 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Unable to open file for write: %s\n", headerFilename.c_str());
             return 1;
         }
-        errorCount = android::stats_log_api_gen::write_stats_log_header(
-                out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
+
+        if (vendorProto.empty()) {
+            errorCount = android::stats_log_api_gen::write_stats_log_header(
+                    out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
+        } else {
+            errorCount = android::stats_log_api_gen::write_stats_log_header_vendor(
+                    out, atoms, attributionDecl, cppNamespace);
+        }
         fclose(out);
     }
 
