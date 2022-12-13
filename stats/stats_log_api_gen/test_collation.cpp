@@ -82,8 +82,8 @@ static bool map_contains_vector(const SignatureInfoMap& s, int count, ...) {
 class CollationTest : public testing::TestWithParam<bool> {
     class MFErrorCollector : public google::protobuf::compiler::MultiFileErrorCollector {
     public:
-        virtual void AddError(const std::string& filename, int line, int column,
-                              const std::string& message) {
+        void AddError(const std::string& filename, int line, int column,
+                      const std::string& message) override {
             fprintf(stdout, "[Error] %s:%d:%d - %s", filename.c_str(), line, column,
                     message.c_str());
         }
