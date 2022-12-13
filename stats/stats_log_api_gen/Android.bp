@@ -66,6 +66,7 @@ cc_test_host {
     ],
     srcs: [
         "Collation.cpp",
+        "test_api_gen_vendor.cpp",
         "test_collation.cpp",
         "test.proto",
         "test_feature_atoms.proto",
@@ -74,6 +75,7 @@ cc_test_host {
 
     static_libs: [
         "libgmock_host",
+        "vendor_atoms",
     ],
 
     shared_libs: [
@@ -97,6 +99,32 @@ cc_test_host {
         ":libstats_internal_protos",
         "test_external.proto",
     ],
+}
+
+genrule {
+    name: "vendor_atoms.h",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --header $(genDir)/vendor_atoms.h --module health --namespace hardware,google,pixel,HealthAtoms --proto hardware/google/pixel/pixelstats/pixelatoms.proto --vendor",
+    out: [
+        "vendor_atoms.h",
+    ],
+}
+
+genrule {
+    name: "vendor_atoms.cpp",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --cpp $(genDir)/vendor_atoms.cpp --module health --namespace hardware,google,pixel,HealthAtoms --importHeader vendor_atoms.h --proto hardware/google/pixel/pixelstats/pixelatoms.proto --vendor",
+    out: [
+        "vendor_atoms.cpp",
+    ],
+}
+
+cc_library_static {
+    name: "vendor_atoms",
+    host_supported: true,
+    generated_sources: ["vendor_atoms.cpp"],
+    generated_headers: ["vendor_atoms.h"],
+    export_generated_headers: ["vendor_atoms.h"],
 }
 
 // ==========================================================
