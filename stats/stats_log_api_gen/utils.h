@@ -17,6 +17,7 @@
 #ifndef ANDROID_STATS_LOG_API_GEN_UTILS_H
 #define ANDROID_STATS_LOG_API_GEN_UTILS_H
 
+#include <google/protobuf/compiler/importer.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -71,6 +72,14 @@ void write_java_usage(FILE* out, const string& method_name, const string& atom_c
 int write_java_non_chained_methods(FILE* out, const SignatureInfoMap& signatureInfoMap);
 
 int write_java_work_source_methods(FILE* out, const SignatureInfoMap& signatureInfoMap);
+
+class MFErrorCollector : public google::protobuf::compiler::MultiFileErrorCollector {
+public:
+    virtual void AddError(const std::string& filename, int line, int column,
+                          const std::string& message) {
+        fprintf(stderr, "[Error] %s:%d:%d - %s\n", filename.c_str(), line, column, message.c_str());
+    }
+};
 
 }  // namespace stats_log_api_gen
 }  // namespace android
