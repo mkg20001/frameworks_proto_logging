@@ -106,6 +106,13 @@ filegroup {
 }
 
 filegroup {
+    name: "libatom_field_options_proto",
+    srcs: [
+        "atom_field_options.proto",
+    ]
+}
+
+filegroup {
     name: "libstats_internal_protos",
     srcs: [
         ":libstats_atoms_proto",
