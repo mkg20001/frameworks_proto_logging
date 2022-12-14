@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe35a62_81203293",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-14T20:55:14Z",
+      "side": 1,
+      "message": "Hello Colleagues\n\nThis is an implementation of stage one for the vendor atoms logging code auto-generation\n\nThe produced native files are going to contain atom ids and enum constants to start with\n\nThank you for the review\n\nSincerely\nVova",
+      "revId": "06a97826ee997b527dae38c47f009c2ad5c82910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
