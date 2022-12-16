@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5fb72c0_37333d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-16T21:58:33Z",
+      "side": 1,
+      "message": "Greetings Colleagus\n\nThe CL purpose is to decouple refactoring from the actual changes in preparation to https://r.android.com/2351902\n\nThank you\nSincerely\nVova",
+      "revId": "991db2be35263a7a289e34092b8e8417c03194b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
