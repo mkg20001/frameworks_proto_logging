@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9c68baf_131edb16",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-16T20:04:44Z",
+      "side": 1,
+      "message": "already - in hardware/google there is a lib defined libpixelatoms_defs\nand if to put host_supported into libpixelatoms_defs - this would be inconsistent with the purpose of atoms\n\nThe reason to have this lib here is to address specific test case - which is host based\n\nAlternative I could put dedicated proto file here just for test purpose specifically and use it for code gen test\n\nwdyt?",
+      "parentUuid": "3dc33e17_20beeffa",
+      "revId": "420614f677417c1b4767163ff4fbcf1cb16496b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba275fef_7f45641b",
         "filename": "stats/stats_log_api_gen/Android.bp",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2022-12-16T04:56:02Z",
       "side": 1,
       "message": "nit: libhealthvendoratoms?",
+      "range": {
+        "startLine": 123,
+        "startChar": 11,
+        "endLine": 123,
+        "endChar": 23
+      },
+      "revId": "420614f677417c1b4767163ff4fbcf1cb16496b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa087a3_fba1a603",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-16T20:04:44Z",
+      "side": 1,
+      "message": "the generated header includes all atoms from the pixelatoms.proto due to `module` annotation is not supported yet",
+      "parentUuid": "ba275fef_7f45641b",
       "range": {
         "startLine": 123,
         "startChar": 11,
