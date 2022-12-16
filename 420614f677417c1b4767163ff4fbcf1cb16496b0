@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "154622d2_531200f4",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-16T20:24:51Z",
+      "side": 1,
+      "message": "added test specific test_vendor_atoms.proto to be used for code generation validation",
+      "parentUuid": "e9c68baf_131edb16",
+      "revId": "420614f677417c1b4767163ff4fbcf1cb16496b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba275fef_7f45641b",
