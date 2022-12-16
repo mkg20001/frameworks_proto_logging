@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f7d7f89_ebd99ac2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-16T21:57:35Z",
+      "side": 1,
+      "message": "the CL purpose is to decouple actual changes from code style changes for https://r.android.com/2351902",
+      "revId": "6251be5849b222a5f5c3d041232ac30c631a6860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
