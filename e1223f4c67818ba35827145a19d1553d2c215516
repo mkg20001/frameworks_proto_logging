@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33801a2a_b7023efb",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "these additional params should be added to the help text above",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9710aabe_d7100411",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "For simplicity/safety, could we remove this param? If an external proto file is specified, we can assume it is vendor since all platform/system atoms are in atoms.proto. It reduces the risk of accidentally calling stats-log-api-gen with an external proto but forgetting to pass vendor, or passing vendor when it shouldn\u0027t be passed.",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ead9ef79_dd5c0f0a",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "It is a little hard to say which is better without knowing what the code will eventually look like, but another way to do this is to have a separate function called write_stats_log_cpp_vendor(); instead of adding vendor here. I don\u0027t know if this is a better approach or not. My thoughts\n\n - Separating it means fewer changes to existing codepaths\n - the cpp code will look very different from platform atoms (VendorAtom vs StatsEvent)\n - We can share code like write_native_method_signature() or write_namespace() as needed to avoid duplication\n \nWDYT? I\u0027m open to either approach",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24529ee_af7f49db",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "Given the higher overlap in shared code, I think it makes sense to add vendor as a param to writing the header file like you\u0027ve done. However, to keep the diff a little simpler, can we wrap everything below this line in this if case, rather than separating it out into two? (Can definitely change things when we add the logging methods)\n\n    if (!vendorLogging) {\n        write struct BytesField;\n        write native method headers;\n        etc...\n    }\n    write_closing_namespace",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a75b79_8476002a",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "Could we run these tests on a separate test vendor atoms file, like we do for the collation? I think it helps to decouple depepdencies",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "485131a3_81c6628f",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "nit; is virtual needed?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

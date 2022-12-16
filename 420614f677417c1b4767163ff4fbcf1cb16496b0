@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc33e17_20beeffa",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "could we put these genrules in hardware/google next to pixelatoms?",
+      "revId": "420614f677417c1b4767163ff4fbcf1cb16496b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba275fef_7f45641b",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-16T04:56:02Z",
+      "side": 1,
+      "message": "nit: libhealthvendoratoms?",
+      "range": {
+        "startLine": 123,
+        "startChar": 11,
+        "endLine": 123,
+        "endChar": 23
+      },
+      "revId": "420614f677417c1b4767163ff4fbcf1cb16496b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
