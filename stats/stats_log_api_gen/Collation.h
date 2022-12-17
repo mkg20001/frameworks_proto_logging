@@ -29,9 +29,9 @@
 namespace android {
 namespace stats_log_api_gen {
 
-using google::protobuf::OneofDescriptor;
 using google::protobuf::Descriptor;
 using google::protobuf::FieldDescriptor;
+using google::protobuf::OneofDescriptor;
 using std::map;
 using std::set;
 using std::shared_ptr;
@@ -50,10 +50,7 @@ const int FIRST_UID_IN_CHAIN_ID = 0;
 const char ONEOF_PUSHED_ATOM_NAME[] = "pushed";
 const char ONEOF_PULLED_ATOM_NAME[] = "pulled";
 
-enum AtomType {
-    ATOM_TYPE_PUSHED,
-    ATOM_TYPE_PULLED
-};
+enum AtomType { ATOM_TYPE_PUSHED, ATOM_TYPE_PULLED };
 
 enum AnnotationId : uint8_t {
     ANNOTATION_ID_IS_UID = 1,

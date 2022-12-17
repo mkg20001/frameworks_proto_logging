@@ -320,7 +320,8 @@ TEST_P(CollationTest, PassOnGoodUidAtomOptions) {
 
 TEST_P(CollationTest, PassOnGoodBinaryFieldAtom) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mGoodEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount =
+            collate_atoms(mGoodEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
     EXPECT_EQ(0, errorCount);
 }
 
@@ -569,7 +570,7 @@ TEST(CollationTest, CollateExtensionAtoms) {
     EXPECT_NO_ENUM_FIELD((*atomIt));
     FieldNumberToAnnotations* fieldNumberToAnnotations = &(*atomIt)->fieldNumberToAnnotations;
     FieldNumberToAnnotations::const_iterator fieldNumberToAnnotationsIt =
-        fieldNumberToAnnotations->find(1);
+            fieldNumberToAnnotations->find(1);
     EXPECT_NE(fieldNumberToAnnotations->end(), fieldNumberToAnnotationsIt);
     const AnnotationSet* annotationSet = &fieldNumberToAnnotationsIt->second;
     EXPECT_EQ(1ul, annotationSet->size());

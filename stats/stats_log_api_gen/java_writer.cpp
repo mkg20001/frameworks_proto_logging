@@ -48,7 +48,7 @@ static void write_java_annotation_constants(FILE* out, const int minApiLevel,
         for (const auto& [id, name] : ANNOTATION_ID_CONSTANTS) {
             fprintf(out, "    public static final byte %s = %hhu;\n", name.c_str(), id);
         }
-    } else if (minApiLevel <= API_R) { // compileApiLevel = S+
+    } else if (minApiLevel <= API_R) {  // compileApiLevel = S+
         for (const auto& [id, name] : ANNOTATION_ID_CONSTANTS) {
             fprintf(out, "    public static final byte %s =\n", name.c_str());
             fprintf(out, "            Build.VERSION.SDK_INT <= Build.VERSION_CODES.R ?\n");
@@ -57,8 +57,8 @@ static void write_java_annotation_constants(FILE* out, const int minApiLevel,
         }
     } else {
         for (const auto& [id, name] : ANNOTATION_ID_CONSTANTS) {
-            fprintf(out, "    public static final byte %s = StatsLog.%s;\n",
-                    name.c_str(), name.c_str());
+            fprintf(out, "    public static final byte %s = StatsLog.%s;\n", name.c_str(),
+                    name.c_str());
         }
     }
     fprintf(out, "\n");
@@ -154,23 +154,20 @@ static int write_method_body(FILE* out, const vector<java_type_t>& signature,
         }
         switch (*arg) {
             case JAVA_TYPE_BOOLEAN:
-                fprintf(out, "%s        builder.writeBoolean(arg%d);\n", indent.c_str(),
-                        argIndex);
+                fprintf(out, "%s        builder.writeBoolean(arg%d);\n", indent.c_str(), argIndex);
                 break;
             case JAVA_TYPE_INT:
             case JAVA_TYPE_ENUM:
                 fprintf(out, "%s        builder.writeInt(arg%d);\n", indent.c_str(), argIndex);
                 break;
             case JAVA_TYPE_FLOAT:
-                fprintf(out, "%s        builder.writeFloat(arg%d);\n", indent.c_str(),
-                        argIndex);
+                fprintf(out, "%s        builder.writeFloat(arg%d);\n", indent.c_str(), argIndex);
                 break;
             case JAVA_TYPE_LONG:
                 fprintf(out, "%s        builder.writeLong(arg%d);\n", indent.c_str(), argIndex);
                 break;
             case JAVA_TYPE_STRING:
-                fprintf(out, "%s        builder.writeString(arg%d);\n", indent.c_str(),
-                        argIndex);
+                fprintf(out, "%s        builder.writeString(arg%d);\n", indent.c_str(), argIndex);
                 break;
             case JAVA_TYPE_BYTE_ARRAY:
                 fprintf(out,
@@ -211,8 +208,8 @@ static int write_method_body(FILE* out, const vector<java_type_t>& signature,
                 const char* tagName = attributionDecl.fields.back().name.c_str();
 
                 fprintf(out, "%s        builder.writeAttributionChain(\n", indent.c_str());
-                fprintf(out, "%s                null == %s ? new int[0] : %s,\n",
-                        indent.c_str(), uidName, uidName);
+                fprintf(out, "%s                null == %s ? new int[0] : %s,\n", indent.c_str(),
+                        uidName, uidName);
                 fprintf(out, "%s                null == %s ? new String[0] : %s);\n",
                         indent.c_str(), tagName, tagName);
                 break;
@@ -229,7 +226,7 @@ static int write_method_body(FILE* out, const vector<java_type_t>& signature,
 }
 
 static int write_java_pushed_methods(FILE* out, const SignatureInfoMap& signatureInfoMap,
-                              const AtomDecl& attributionDecl, const int minApiLevel) {
+                                     const AtomDecl& attributionDecl, const int minApiLevel) {
     for (auto signatureInfoMapIt = signatureInfoMap.begin();
          signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
         // Print method signature.

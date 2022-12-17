@@ -49,8 +49,7 @@ void build_non_chained_decl_map(const Atoms& atoms,
 }
 
 const map<AnnotationId, string>& get_annotation_id_constants() {
-    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS =
-        new map<AnnotationId, string>{
+    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS = new map<AnnotationId, string>{
             {ANNOTATION_ID_IS_UID, "ANNOTATION_ID_IS_UID"},
             {ANNOTATION_ID_TRUNCATE_TIMESTAMP, "ANNOTATION_ID_TRUNCATE_TIMESTAMP"},
             {ANNOTATION_ID_PRIMARY_FIELD, "ANNOTATION_ID_PRIMARY_FIELD"},
@@ -59,7 +58,7 @@ const map<AnnotationId, string>& get_annotation_id_constants() {
             {ANNOTATION_ID_DEFAULT_STATE, "ANNOTATION_ID_DEFAULT_STATE"},
             {ANNOTATION_ID_TRIGGER_STATE_RESET, "ANNOTATION_ID_TRIGGER_STATE_RESET"},
             {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"},
-        };
+    };
 
     return *ANNOTATION_ID_CONSTANTS;
 }
