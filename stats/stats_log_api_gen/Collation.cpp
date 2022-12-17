@@ -27,10 +27,10 @@
 namespace android {
 namespace stats_log_api_gen {
 
-using google::protobuf::OneofDescriptor;
 using google::protobuf::EnumDescriptor;
 using google::protobuf::FieldDescriptor;
 using google::protobuf::FileDescriptor;
+using google::protobuf::OneofDescriptor;
 using google::protobuf::SourceLocation;
 using std::make_shared;
 using std::map;
@@ -140,8 +140,7 @@ static java_type_t java_type(const FieldDescriptor* field) {
  */
 void collate_enums(const EnumDescriptor& enumDescriptor, AtomField* atomField) {
     for (int i = 0; i < enumDescriptor.value_count(); i++) {
-        atomField->enumValues[enumDescriptor.value(i)->number()] =
-                enumDescriptor.value(i)->name();
+        atomField->enumValues[enumDescriptor.value(i)->number()] = enumDescriptor.value(i)->name();
     }
 }
 
@@ -163,10 +162,9 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
 
     if (field->options().HasExtension(os::statsd::state_field_option)) {
         if (is_repeated_field(javaType)) {
-            print_error(
-                field,
-                "State field annotations are not allowed for repeated fields: '%s'\n",
-                atomDecl->message.c_str());
+            print_error(field,
+                        "State field annotations are not allowed for repeated fields: '%s'\n",
+                        atomDecl->message.c_str());
             errorCount++;
             return errorCount;
         }
@@ -453,8 +451,8 @@ static void populateFieldNumberToAtomDeclSet(const shared_ptr<AtomDecl>& atomDec
 
 static AtomType getAtomType(const FieldDescriptor* atomField) {
     const int atomId = atomField->number();
-    if ((atomId >= PLATFORM_PULLED_ATOMS_START && atomId <= PLATFORM_PULLED_ATOMS_END)
-            || (atomId >= VENDOR_PULLED_ATOMS_START && atomId <= VENDOR_PULLED_ATOMS_END)) {
+    if ((atomId >= PLATFORM_PULLED_ATOMS_START && atomId <= PLATFORM_PULLED_ATOMS_END) ||
+        (atomId >= VENDOR_PULLED_ATOMS_START && atomId <= VENDOR_PULLED_ATOMS_END)) {
         return ATOM_TYPE_PULLED;
     } else {
         return ATOM_TYPE_PUSHED;
@@ -469,8 +467,7 @@ static int collate_from_field_descriptor(const FieldDescriptor* atomField, const
         const int moduleCount = atomField->options().ExtensionSize(os::statsd::module);
         bool moduleFound = false;
         for (int j = 0; j < moduleCount; ++j) {
-            const string atomModuleName =
-                    atomField->options().GetExtension(os::statsd::module, j);
+            const string atomModuleName = atomField->options().GetExtension(os::statsd::module, j);
             if (atomModuleName == moduleName) {
                 moduleFound = true;
                 break;
@@ -505,8 +502,7 @@ static int collate_from_field_descriptor(const FieldDescriptor* atomField, const
 
     const Descriptor* atom = atomField->message_type();
     shared_ptr<AtomDecl> atomDecl =
-            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                  atomType);
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(), atomType);
 
     if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
         addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
@@ -527,22 +523,19 @@ static int collate_from_field_descriptor(const FieldDescriptor* atomField, const
     }
 
     FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet =
-        atomType == ATOM_TYPE_PUSHED ?
-        atoms->signatureInfoMap[signature] :
-        atoms->pulledAtomsSignatureInfoMap[signature];
+            atomType == ATOM_TYPE_PUSHED ? atoms->signatureInfoMap[signature]
+                                         : atoms->pulledAtomsSignatureInfoMap[signature];
     populateFieldNumberToAtomDeclSet(atomDecl, &fieldNumberToAtomDeclSet);
 
     atoms->decls.insert(atomDecl);
 
     shared_ptr<AtomDecl> nonChainedAtomDecl =
-            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                  atomType);
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(), atomType);
     vector<java_type_t> nonChainedSignature;
     if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
         FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
                 atoms->nonChainedSignatureInfoMap[nonChainedSignature];
-        populateFieldNumberToAtomDeclSet(nonChainedAtomDecl,
-                                         &nonChainedFieldNumberToAtomDeclSet);
+        populateFieldNumberToAtomDeclSet(nonChainedAtomDecl, &nonChainedFieldNumberToAtomDeclSet);
 
         atoms->non_chained_decls.insert(nonChainedAtomDecl);
     }
