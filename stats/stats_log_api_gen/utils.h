@@ -60,6 +60,8 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces);
 
 void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl);
 
+void write_native_atom_enums(FILE* out, const Atoms& atoms);
+
 // Common Java helpers.
 void write_java_atom_codes(FILE* out, const Atoms& atoms);
 
