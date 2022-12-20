@@ -258,7 +258,7 @@ void write_native_atom_enums(FILE* out, const Atoms& atoms) {
          atomIt++) {
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
              field != (*atomIt)->fields.end(); field++) {
-            if (field->javaType == JAVA_TYPE_ENUM) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
                 fprintf(out, "// Values for %s.%s\n", (*atomIt)->message.c_str(),
                         field->name.c_str());
                 for (map<int, string>::const_iterator value = field->enumValues.begin();
@@ -305,7 +305,7 @@ void write_java_enum_values(FILE* out, const Atoms& atoms) {
          atomIt++) {
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
              field != (*atomIt)->fields.end(); field++) {
-            if (field->javaType == JAVA_TYPE_ENUM) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
                 fprintf(out, "    // Values for %s.%s\n", (*atomIt)->message.c_str(),
                         field->name.c_str());
                 for (map<int, string>::const_iterator value = field->enumValues.begin();
