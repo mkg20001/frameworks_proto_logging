@@ -177,6 +177,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b030f5_0a023a28",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-20T17:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a598e8b5_8c6213b0",
+      "revId": "e1223f4c67818ba35827145a19d1553d2c215516",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1a75b79_8476002a",

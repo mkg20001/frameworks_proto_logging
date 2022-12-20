@@ -140,6 +140,24 @@
       "parentUuid": "b8edc840_31f79897",
       "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f210d00a_a6200041",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-20T17:46:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07a716b8_e1713b44",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
