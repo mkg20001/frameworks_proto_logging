@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc9ca111_ac1af377",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-20T06:51:46Z",
+      "side": 1,
+      "message": "Code changes lgtm, just a couple comments on the tests",
+      "revId": "3fd124729e40edada534436313ea4bcdc4ed8c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "654b5eba_52aef450",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-20T06:51:46Z",
+      "side": 1,
+      "message": "nit: atoms.proto, same below",
+      "range": {
+        "startLine": 40,
+        "startChar": 30,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "3fd124729e40edada534436313ea4bcdc4ed8c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d52fbd77_a7b92b5a",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-20T06:51:46Z",
+      "side": 1,
+      "message": "Since this is now coming from a test file in this directory, I don\u0027t think these commnts are needed.",
+      "revId": "3fd124729e40edada534436313ea4bcdc4ed8c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454774f7_ec388e8c",
+        "filename": "stats/stats_log_api_gen/test_vendor_atoms.proto",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-20T06:51:46Z",
+      "side": 1,
+      "message": "Could we make this atoms as simple as possible to test what we want to test? (eg, remove unneeded fields and enums, likely also rename and change/remove comments). Only keeping what we need will make the tests more readable.",
+      "revId": "3fd124729e40edada534436313ea4bcdc4ed8c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

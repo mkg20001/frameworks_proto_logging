@@ -122,6 +122,24 @@
       "parentUuid": "acbdb3c1_f576ffe7",
       "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07a716b8_e1713b44",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2022-12-20T06:51:46Z",
+      "side": 1,
+      "message": "+1 to using TestAtomReported everywhere in this test to reduce dependencies on other atoms. We could also use AppBreadcrumbReported if we want a second atom. I think it\u0027s probably a bit better to use the existing libstatslog as opposed to adding support for external platform atom files.",
+      "parentUuid": "b8edc840_31f79897",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
