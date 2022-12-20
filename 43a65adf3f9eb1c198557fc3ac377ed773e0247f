@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "115c61b9_7159c4a8",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-20T03:24:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8a9e4d2_db130a3d",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be7a4a09_5b0cc89f",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5263692_dc72bf1a",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-20T03:24:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be7a4a09_5b0cc89f",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44504f46_3e69e2ec",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-12-20T03:04:21Z",
       "side": 1,
       "message": "Does this mean if we modify the BOOT_SEQUENCE_REPORTED atom, this test could fail if the same signature is not used by another atom?",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acbdb3c1_f576ffe7",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-20T03:24:35Z",
+      "side": 1,
+      "message": "Yes - it will fail. Which could be confusing by the user which changes BOOT_SEQUENCE_REPORTED\n\nI am thinking actually to put the atom definition into the test proto and update test accordingly - to make it more consistent and not depend on the real atoms in use\n\nOn the other hand it will require support to parse external proto file and distinguish platform vs vendor\n\n--vendorProto vs --platformProto or\n\n--proto and optional --vendor",
+      "parentUuid": "44504f46_3e69e2ec",
       "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
