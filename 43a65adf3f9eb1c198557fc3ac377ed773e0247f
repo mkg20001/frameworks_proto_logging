@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8a9e4d2_db130a3d",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-20T03:04:21Z",
+      "side": 1,
+      "message": "This is only temporary, right? Do you want to add a TODO here?",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7a4a09_5b0cc89f",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-20T03:04:21Z",
+      "side": 1,
+      "message": "nit: specify we\u0027re only testing native autogeneration here.",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44504f46_3e69e2ec",
+        "filename": "stats/stats_log_api_gen/test_api_gen.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-20T03:04:21Z",
+      "side": 1,
+      "message": "Does this mean if we modify the BOOT_SEQUENCE_REPORTED atom, this test could fail if the same signature is not used by another atom?",
+      "revId": "43a65adf3f9eb1c198557fc3ac377ed773e0247f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
