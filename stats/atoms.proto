@@ -20232,6 +20232,8 @@ message UwbSessionInitiated {
     optional int32 latency_ms = 9;
     // Initialization latency in step size of 200 ms if is_discovered_by_framework is true.
     optional int32 latency_200ms = 10;
+    // The uid of the app that initiates the connection.
+    optional int32 uid = 11 [(is_uid) = true];
 }
 
 /*
