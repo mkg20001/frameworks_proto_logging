@@ -16,6 +16,24 @@
       "message": "Do we also need it in rust: https://cs.android.com/android/platform/superproject/+/master:frameworks/proto_logging/stats/stats_log_api_gen/rust_writer.cpp;l\u003d199\n\nThat appears to only be called from write_stats_log_rust not  write_stats_log_rust_header, which seems confusing and maybe incorrect, but I don\u0027t know the rust gen code.",
       "revId": "430f682e3aa09abc311238e5621df78529174366",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21ab85ab_6d198b6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2022-12-20T00:57:46Z",
+      "side": 1,
+      "message": "I don\u0027t know Rust enough to answer unfortunately. There\u0027s an open bug for supporting repeated fields in Rust however: b/216543320",
+      "parentUuid": "31c8b018_5cecbe0d",
+      "revId": "430f682e3aa09abc311238e5621df78529174366",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
