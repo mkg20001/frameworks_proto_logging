@@ -3457,6 +3457,10 @@ enum PageId {
     // OPEN: SUW choose a screen saver
     // OS: T
     SUW_DREAM = 1935;
+
+    // OPEN: Settings > Developer Options > Snoop Logger Filters
+    // CATEGORY: SETTINGS
+    SETTINGS_SNOOP_LOGGER_DASHBOARD = 1936;
 }
 
 // Battery Saver schedule types.
