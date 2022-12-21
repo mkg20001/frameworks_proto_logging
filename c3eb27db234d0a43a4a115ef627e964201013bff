@@ -22,6 +22,30 @@
       },
       "revId": "c3eb27db234d0a43a4a115ef627e964201013bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7df3f67_7c191387",
+        "filename": "stats/enums/app/settings_enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 3463,
+      "author": {
+        "id": 1974186
+      },
+      "writtenOn": "2022-12-21T16:01:59Z",
+      "side": 1,
+      "message": "I\u0027ve missed it, thank you. I\u0027ve pushed corrected to internal as you suggested.",
+      "parentUuid": "3ffe03e1_59c89690",
+      "range": {
+        "startLine": 3461,
+        "startChar": 4,
+        "endLine": 3463,
+        "endChar": 43
+      },
+      "revId": "c3eb27db234d0a43a4a115ef627e964201013bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
