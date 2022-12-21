@@ -16,6 +16,24 @@
       "message": "Please fix the merge conflict.",
       "revId": "e0e31320649c16cf3db7cc9bd6e21f8694deb492",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cae187d7_f953f32d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2022-12-21T11:27:49Z",
+      "side": 1,
+      "message": "I have created a chain of CLs in the internal repo to solve the merge conflict in the git_tm-qpr-dev-plus-aosp branch downstream.",
+      "parentUuid": "c269326f_95ba98c2",
+      "revId": "e0e31320649c16cf3db7cc9bd6e21f8694deb492",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
