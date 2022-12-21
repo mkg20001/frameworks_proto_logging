@@ -23,7 +23,6 @@ option java_multiple_files = true;
 // These constants are defined in hardware/interfaces/health/1.0/types.hal
 // They are primarily used by android/os/BatteryManager.java.
 enum BatteryHealthEnum {
-    BATTERY_HEALTH_INVALID = 0;
     BATTERY_HEALTH_UNKNOWN = 1;
     BATTERY_HEALTH_GOOD = 2;
     BATTERY_HEALTH_OVERHEAT = 3;
@@ -31,6 +30,9 @@ enum BatteryHealthEnum {
     BATTERY_HEALTH_OVER_VOLTAGE = 5;
     BATTERY_HEALTH_UNSPECIFIED_FAILURE = 6;
     BATTERY_HEALTH_COLD = 7;
+    BATTERY_HEALTH_FAIR = 8;
+    BATTERY_HEALTH_NOT_AVAILABLE = 11;
+    BATTERY_HEALTH_INVALID = 12;
 }
 
 // Plug states, primarily used by android/os/BatteryManager.java.
