@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffe03e1_59c89690",
+        "filename": "stats/enums/app/settings_enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 3463,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2022-12-21T10:33:17Z",
+      "side": 1,
+      "message": "This id is already taken in the internal master branch. Please submit your change there first and cherry-pick here.",
+      "range": {
+        "startLine": 3461,
+        "startChar": 4,
+        "endLine": 3463,
+        "endChar": 43
+      },
+      "revId": "c3eb27db234d0a43a4a115ef627e964201013bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
