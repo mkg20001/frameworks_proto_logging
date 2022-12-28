@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec05b4ae_c16149d3",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2022-12-28T06:44:00Z",
+      "side": 1,
+      "message": "this code generates something like below\n```\nenum VendorAtom1_VendorAtom1Type : int {\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_UNKNOWN \u003d 0,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_1 \u003d 1,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_2 \u003d 2,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_3 \u003d 3\n};\n\nclass VendorAtom1 final {\npublic:\n\n    typedef VendorAtom1_VendorAtom1Type VendorAtom1Type;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_UNKNOWN \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_UNKNOWN;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_1 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_1;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_2 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_2;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_3 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_3;\n\n};\n```\n\nIt replicates the approach by protoc for enums",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
