@@ -35,10 +35,10 @@ TEST(ApiGenVendorAtomTest, AtomIdConstantsTest) {
  * Tests native auto generated code for specific vendor atom contains proper enums
  */
 TEST(ApiGenVendorAtomTest, AtomEnumsConstantsTest) {
-    EXPECT_EQ(VENDOR_ATOM1__TYPE__VENDOR_ATOM1_TYPE_UNKNOWN, 0);
-    EXPECT_EQ(VENDOR_ATOM1__TYPE__VENDOR_ATOM1_TYPE_1, 1);
-    EXPECT_EQ(VENDOR_ATOM1__TYPE__VENDOR_ATOM1_TYPE_2, 2);
-    EXPECT_EQ(VENDOR_ATOM1__TYPE__VENDOR_ATOM1_TYPE_3, 3);
+    EXPECT_EQ(VendorAtom1::VENDOR_ATOM1_TYPE_UNKNOWN, 0);
+    EXPECT_EQ(VendorAtom1::VENDOR_ATOM1_TYPE_1, 1);
+    EXPECT_EQ(VendorAtom1::VENDOR_ATOM1_TYPE_2, 2);
+    EXPECT_EQ(VendorAtom1::VENDOR_ATOM1_TYPE_3, 3);
 }
 
 }  // namespace stats_log_api_gen

@@ -575,7 +575,55 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
                                   const string& cppNamespace) {
     write_stats_log_header_preamble(out, cppNamespace, false);
     write_native_atom_constants(out, atoms, attributionDecl);
-    write_native_atom_enums(out, atoms);
+
+    for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
+         atomIt++) {
+        for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
+             field != (*atomIt)->fields.end(); field++) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
+                fprintf(out, "\n");
+                fprintf(out, "enum %s_%s : int {\n", (*atomIt)->message.c_str(),
+                        field->enumTypeName.c_str());
+
+                size_t i = 0;
+                for (map<int, string>::const_iterator value = field->enumValues.begin();
+                     value != field->enumValues.end(); value++) {
+                    fprintf(out, "    %s__%s__%s = %d", make_constant_name((*atomIt)->name).c_str(),
+                            make_constant_name(field->enumTypeName).c_str(),
+                            make_constant_name(value->second).c_str(), value->first);
+                    char const* const comma = (i == field->enumValues.size() - 1) ? "" : ",";
+                    fprintf(out, "%s\n", comma);
+                    i++;
+                }
+                fprintf(out, "};\n");
+            }
+        }
+
+        fprintf(out, "\n");
+        fprintf(out, "class %s final {\n", (*atomIt)->message.c_str());
+        fprintf(out, "public:\n\n");
+
+        for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
+             field != (*atomIt)->fields.end(); field++) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
+                fprintf(out, "    typedef %s_%s %s;\n", (*atomIt)->message.c_str(),
+                        field->enumTypeName.c_str(), field->enumTypeName.c_str());
+
+                for (map<int, string>::const_iterator value = field->enumValues.begin();
+                     value != field->enumValues.end(); value++) {
+                    fprintf(out, "    static constexpr %s %s = %s__%s__%s;\n",
+                            field->enumTypeName.c_str(), make_constant_name(value->second).c_str(),
+                            make_constant_name((*atomIt)->name).c_str(),
+                            make_constant_name(field->enumTypeName).c_str(),
+                            make_constant_name(value->second).c_str());
+                }
+                fprintf(out, "\n");
+            }
+        }
+
+        fprintf(out, "};\n\n");
+    }
+
     write_stats_log_header_epilogue(out, cppNamespace);
 
     return 0;
