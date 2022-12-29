@@ -1,0 +1,46 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.stats_log_api_gen;
+
+message Atom {
+    oneof pushed {
+        VendorAtom1 vendorAtom1 = 105501;
+        VendorAtom2 vendorAtom2 = 105502;
+    }
+}
+
+message VendorAtom1 {
+    enum VendorAtom1Type {
+        VENDOR_ATOM1_TYPE_UNKNOWN = 0;
+        VENDOR_ATOM1_TYPE_1 = 1;
+        VENDOR_ATOM1_TYPE_2 = 2;
+        VENDOR_ATOM1_TYPE_3 = 3;
+    }
+    optional string reverse_domain_name = 1;
+    optional VendorAtom1Type type = 2;
+    optional int32 int_value32 = 3;
+    optional int64 int_value64 = 4;
+    optional float float_value = 5;
+    optional bool bool_value = 6;
+}
+
+message VendorAtom2 {
+    optional string reverse_domain_name = 1;
+    optional int32 int_value = 2;
+}
