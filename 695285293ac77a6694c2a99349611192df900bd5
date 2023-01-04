@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c1332e50_96c12c12",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-04T04:35:23Z",
+      "side": 1,
+      "message": "Correct, here I am looking for a \"Foo\" to enable generation constant and typedef such as \u003cAtom\u003e_\u003cEnumType\u003e - `VendorAtom1_VendorAtom1Type`",
+      "parentUuid": "72231626_18edd2e1",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ec05b4ae_c16149d3",
         "filename": "stats/stats_log_api_gen/native_writer.cpp",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I\u0027ll defer to Muhammad for the review, but I have a couple of questions\n\n1. Code size - will it be a lot bigger? I know enums/classes in cpp are fairly lightweight\n2. Any chance of a conflict with other enums? The reason we have two underscores is to avoid collisions. What if the same atom has two enums, like below:\n\n\n    message AtomDef {\n        enum  Foo {\n            unknown \u003d 0;\n        }\n        Foo foo \u003d 1;\n        enum FooState {\n            unknown \u003d 2;\n        }\n        FooState foo_state \u003d 2;\n    }\n\nI believe the gen code for the class part would look like:\n    \n    class AtomDef final {\n    public:\n        typedef AtomDef_Foo Foo;\n        static constexpr Foo ATOM_DEF_UNKNOWN \u003d ATOM_DEF__FOO__UNKNOWN;\n        \n        typedef AtomDef_FooState FooState;\n        static constexpr FooState ATOM_DEF_UNKNOWN \u003d ATOM_DEF__FOO_STATE__UNKNOWN;\n    };\n    \nWhich would result in a collision. cpp protos would likely have the same issue, so maybe it is not a big deal, but this was the reasoning behind the double underscore approach.\n\n3. This will result in the vendor code being inconsistent with the platform code stylistically. That might be worth the tradeoff for an easier migration, but I did want to note it.",
       "parentUuid": "ec05b4ae_c16149d3",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36a8478_85a95f11",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-04T04:35:23Z",
+      "side": 1,
+      "message": "The example here is invalid protobuf definition which will lead to protoc compile time error on the first place\n\nThe failure is expected behavior - see https://github.com/protocolbuffers/protobuf/issues/5425\n\nSee more here http://b/263825707#comment4",
+      "parentUuid": "13d67163_bd02ed00",
       "revId": "695285293ac77a6694c2a99349611192df900bd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
