@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "72231626_18edd2e1",
+        "filename": "stats/stats_log_api_gen/Collation.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-01-04T03:33:03Z",
+      "side": 1,
+      "message": "How is the enum type name different from the field name?\n\n    Foo foo_state \u003d 1\n    \nWould we store `foo` or `foo_state`? If we store foo, and foo is reused in the same atom, we might have collisions.",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ec05b4ae_c16149d3",
@@ -14,6 +31,41 @@
       "writtenOn": "2022-12-28T06:44:00Z",
       "side": 1,
       "message": "this code generates something like below\n```\nenum VendorAtom1_VendorAtom1Type : int {\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_UNKNOWN \u003d 0,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_1 \u003d 1,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_2 \u003d 2,\n    VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_3 \u003d 3\n};\n\nclass VendorAtom1 final {\npublic:\n\n    typedef VendorAtom1_VendorAtom1Type VendorAtom1Type;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_UNKNOWN \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_UNKNOWN;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_1 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_1;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_2 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_2;\n    static constexpr VendorAtom1Type VENDOR_ATOM1_TYPE_3 \u003d VENDOR_ATOM1__VENDOR_ATOM1_TYPE__VENDOR_ATOM1_TYPE_3;\n\n};\n```\n\nIt replicates the approach by protoc for enums",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d67163_bd02ed00",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-01-04T03:33:03Z",
+      "side": 1,
+      "message": "I\u0027ll defer to Muhammad for the review, but I have a couple of questions\n\n1. Code size - will it be a lot bigger? I know enums/classes in cpp are fairly lightweight\n2. Any chance of a conflict with other enums? The reason we have two underscores is to avoid collisions. What if the same atom has two enums, like below:\n\n\n    message AtomDef {\n        enum  Foo {\n            unknown \u003d 0;\n        }\n        Foo foo \u003d 1;\n        enum FooState {\n            unknown \u003d 2;\n        }\n        FooState foo_state \u003d 2;\n    }\n\nI believe the gen code for the class part would look like:\n    \n    class AtomDef final {\n    public:\n        typedef AtomDef_Foo Foo;\n        static constexpr Foo ATOM_DEF_UNKNOWN \u003d ATOM_DEF__FOO__UNKNOWN;\n        \n        typedef AtomDef_FooState FooState;\n        static constexpr FooState ATOM_DEF_UNKNOWN \u003d ATOM_DEF__FOO_STATE__UNKNOWN;\n    };\n    \nWhich would result in a collision. cpp protos would likely have the same issue, so maybe it is not a big deal, but this was the reasoning behind the double underscore approach.\n\n3. This will result in the vendor code being inconsistent with the platform code stylistically. That might be worth the tradeoff for an easier migration, but I did want to note it.",
+      "parentUuid": "ec05b4ae_c16149d3",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a1a103_26fc5077",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-01-04T03:33:03Z",
+      "side": 1,
+      "message": "This inner for loop is almost identical to write_native_atom_enums. I have a preference to keep things consistent and reuse the code for the enum/int generation if reasonable. We could still build the classes on top of that.",
       "revId": "695285293ac77a6694c2a99349611192df900bd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
