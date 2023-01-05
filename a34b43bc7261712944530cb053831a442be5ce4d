@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147cee44_6fd6bf1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-01-05T02:25:30Z",
+      "side": 1,
+      "message": "This is duplicate of aosp/2361869, but with a different number. I would delete this one and update the other as there is already some comment there",
+      "revId": "a34b43bc7261712944530cb053831a442be5ce4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
