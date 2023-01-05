@@ -30,6 +30,27 @@ enum MetricUnit {
 enum MetricType {
     METRIC_TYPE_UNKNOWN = 0;
     COUNTER = 1;
+    COUNTER_HISTOGRAM = 2;
+}
+
+enum BinningType {
+    BINNING_TYPE_UNKNOWN = 0;
+    BINS_WITH_FIXED_RANGE = 1;
+    BINS_WITH_SCALED_FACTOR = 2;
+}
+
+message HistogramBinningOptions {
+    optional BinningType binning_type = 1;
+
+    optional int32 bins_count = 2;
+
+    optional int64 min_sample_value = 3;
+
+    optional int64 max_sample_value = 4;
+
+    optional int32 first_bin_size = 5;
+
+    optional float scale_factor = 6;
 }
 
 message ExpressMetric {
@@ -44,6 +65,8 @@ message ExpressMetric {
     repeated string owner_email = 5;
 
     optional MetricUnit unit = 6;
+
+    optional HistogramBinningOptions histogram_binning_options = 7;
 }
 
 message ExpressMetricConfigFile {
