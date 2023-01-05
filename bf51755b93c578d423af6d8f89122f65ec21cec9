@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84482fc2_b1b74d1d",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-05T20:45:20Z",
+      "side": 1,
+      "message": "call to f1(0) will lead compile time failure as part of API safety strategy\n\n```\nerror: cannot initialize a parameter of type \u0027VendorAtom1::EnumType\u0027 with an rvalue of type \u0027int\u0027\n```",
+      "revId": "bf51755b93c578d423af6d8f89122f65ec21cec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

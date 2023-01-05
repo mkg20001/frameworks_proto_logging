@@ -122,6 +122,24 @@
       "parentUuid": "d8a1a103_26fc5077",
       "revId": "695285293ac77a6694c2a99349611192df900bd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f71f8b40_79dc6ca6",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-05T20:45:20Z",
+      "side": 1,
+      "message": "I have eliminated outer scope enum generation - leaving only the class with enum in it\n\nThis will give as less code generation, but still the same API safety \u0026 simplicity aspects:\n\n- Enable to use AtomType::EnumType as an argument to a vendor atom logging helper functions in future\n- Keep implicit enum to int conversion - and not vise versa",
+      "parentUuid": "d77f9b60_e2e61d24",
+      "revId": "695285293ac77a6694c2a99349611192df900bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
