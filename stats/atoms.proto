@@ -776,6 +776,8 @@ message Atom {
         NfcTagTypeOccurred nfc_tag_type_occurred = 560 [(module) = "nfc"];
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
+        ExpressHistogramIntSampleReported express_histogram_int_sample_reported = 563 [(module) = "framework", (module) = "expresslog"];
+        ExpressHistogramFloatSampleReported express_histogram_float_sample_reported = 564 [(module) = "framework", (module) = "expresslog"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -17940,6 +17942,8 @@ message ExpressEventReported {
 
     // for counter metric it is an incremental amount
     optional int64 value = 2;
+
+    optional int32 bin_index = 3;
 }
 
 /**
