@@ -17941,6 +17941,8 @@ message ExpressEventReported {
 
     // for counter metric it is an incremental amount
     optional int64 value = 2;
+
+    optional int32 bin_index = 3;
 }
 
 /**
