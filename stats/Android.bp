@@ -114,6 +114,13 @@ filegroup {
 }
 
 filegroup {
+    name: "libstats_atom_options_protos",
+    srcs: [
+        "atom_field_options.proto",
+    ],
+}
+
+filegroup {
     name: "libstats_atom_enum_protos",
     srcs: enum_protos,
 }
