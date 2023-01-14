@@ -578,19 +578,25 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
 
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-        fprintf(out, "class %s final {\n", (*atomIt)->message.c_str());
-        fprintf(out, "public:\n\n");
 
         set<string> processedEnums;
+
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
              field != (*atomIt)->fields.end(); field++) {
-            // there might be N fields with the same enum type
-            // avoid duplication definitions
-            if (processedEnums.find(field->enumTypeName) != processedEnums.end()) {
-                continue;
-            }
-            processedEnums.insert(field->enumTypeName);
             if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
+                // there might be N fields with the same enum type
+                // avoid duplication definitions
+                if (processedEnums.find(field->enumTypeName) != processedEnums.end()) {
+                    continue;
+                }
+
+                if(processedEnums.empty()) {
+                    fprintf(out, "class %s final {\n", (*atomIt)->message.c_str());
+                    fprintf(out, "public:\n\n");
+                }
+
+                processedEnums.insert(field->enumTypeName);
+
                 fprintf(out, "enum %s {\n", field->enumTypeName.c_str());
                 size_t i = 0;
                 for (map<int, string>::const_iterator value = field->enumValues.begin();
@@ -601,11 +607,13 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
                     fprintf(out, "%s\n", comma);
                     i++;
                 }
+
                 fprintf(out, "};\n");
             }
         }
-
-        fprintf(out, "};\n\n");
+        if (!processedEnums.empty()) {
+            fprintf(out, "};\n\n");
+        }
     }
 
     write_stats_log_header_epilogue(out, cppNamespace);
