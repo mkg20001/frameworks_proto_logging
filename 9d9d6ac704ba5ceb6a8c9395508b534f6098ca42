@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971a7f59_b490f95a",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-01-15T08:33:08Z",
+      "side": 1,
+      "message": "You can also processedEnums instead of the extra classIsDefined bool:\n  \n    if (processedEnums.empty()) {\n      fprintf(out, \"class %s final {\\n\", (*atomIt)-\u003emessage.c_str());\n      fprintf(out, \"public:\\n\\n\");\n    }\n    processedEnums.insert(field-\u003eenumTypeName);",
+      "range": {
+        "startLine": 593,
+        "startChar": 16,
+        "endLine": 599,
+        "endChar": 17
+      },
+      "revId": "9d9d6ac704ba5ceb6a8c9395508b534f6098ca42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
