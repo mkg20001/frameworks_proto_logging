@@ -781,6 +781,8 @@ message Atom {
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
+    extensions 666; // IkeIOExceptionReported
+
     // Pushed atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
     extensions 9999; // Atom9999 atom_9999

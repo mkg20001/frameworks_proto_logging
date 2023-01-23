@@ -82,6 +82,7 @@ atom_protos = [
     "attribution_node.proto",
     "atoms/gps/*.proto",
     "atoms/placeholder/*.proto",
+    "atoms/ipsec/*.proto",
 ]
 
 cc_library_host_shared {
