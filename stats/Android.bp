@@ -46,6 +46,7 @@ enum_protos = [
     "enums/stats/accessibility/*.proto",
     "enums/stats/docsui/*.proto",
     "enums/stats/hdmi/*.proto",
+    "enums/stats/ike/*.proto",
     "enums/stats/intelligence/*.proto",
     "enums/stats/location/*.proto",
     "enums/stats/mediametrics/*.proto",
@@ -86,6 +87,7 @@ atom_protos = [
     "atoms/corenetworking/**/*.proto",
     "atoms/expresslog/*.proto",
     "atoms/gps/*.proto",
+    "atoms/ike/*.proto",
     "atoms/placeholder/*.proto",
     "atoms/media/*.proto",
 ]
