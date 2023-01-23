@@ -24,6 +24,7 @@ option java_outer_classname = "AtomsProto";
 
 import "frameworks/proto_logging/stats/attribution_node.proto";
 import "frameworks/proto_logging/stats/atoms/corenetworking/connectivity/connectivity_atoms.proto";
+import "frameworks/proto_logging/stats/atoms/ike/ike_extension_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/media/media_drm_atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
@@ -789,6 +790,8 @@ message Atom {
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         // StatsdStats tracks platform atoms with ids up to 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
+
+        ike.IkeSessionTerminated ike_session_terminated = 678 [(module) = "ike"];
     }
 
     // Pushed atom extensions.
@@ -811,7 +814,8 @@ message Atom {
     extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
     extensions 664; // RkpdPoolStats rkpd_pool_stats
     extensions 665; // RkpdClientOperation rkpd_client_operation
-    extensions 666;  // RestrictedBluetoothDeviceNameReported restricted_bluetooth_device_name_reported
+    extensions 666; // RestrictedBluetoothDeviceNameReported restricted_bluetooth_device_name_reported
+    // extensions 678; // IkeSessionTerminated ike_session_terminated
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
