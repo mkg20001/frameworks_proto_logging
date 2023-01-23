@@ -84,6 +84,7 @@ atom_protos = [
     "atoms/expresslog/*.proto",
     "atoms/gps/*.proto",
     "atoms/placeholder/*.proto",
+    "atoms/ipsec/*.proto",
 ]
 
 cc_library_host_shared {
