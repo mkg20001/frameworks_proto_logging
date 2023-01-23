@@ -811,6 +811,7 @@ message Atom {
     extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
     extensions 664; // RkpdPoolStats rkpd_pool_stats
     extensions 665; // RkpdClientOperation rkpd_client_operation
+    extensions 678; // IkeSessionTerminated ike_session_terminated
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
