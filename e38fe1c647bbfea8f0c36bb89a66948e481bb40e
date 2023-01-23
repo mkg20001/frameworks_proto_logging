@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bebaddf2_d291a823",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-23T21:51:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "345497f3_71b73ff1",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 5
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bf7ecb6_86536f94",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b3fb269_89273b0e",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-23T21:51:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9bf7ecb6_86536f94",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cad08bc0_ca5288fd",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-23T10:47:29Z",
       "side": 1,
       "message": "Do we need the `COUNTER_` prefix?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b6f76c5_41708a97",
+        "filename": "stats/express/express_config.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-01-23T21:51:05Z",
+      "side": 1,
+      "message": "agree - it adds some confusion so also prefer to remove it",
+      "parentUuid": "cad08bc0_ca5288fd",
       "range": {
         "startLine": 33,
         "startChar": 4,
