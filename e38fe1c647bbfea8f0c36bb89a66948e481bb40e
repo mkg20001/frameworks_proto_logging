@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345497f3_71b73ff1",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-01-23T10:47:29Z",
+      "side": 1,
+      "message": "optional: Could we make the options more compact and reduce duplicated words?\n\n```\nhistogram_options {\n  uniform_bins {\n    count: 50\n    start / min: 1\n    end / max: 1e6\n  }\n}\n```\n\nI think \"uniform\" describes better what kind of bins we have. \"Fixed range\" only suggests that (start, end) are fixed.\n\nExample of tools using \"uniform\":\n- https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges\n- https://www.mathworks.com/help/matlab/ref/matlab.graphics.chart.primitive.histogram.html",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 5
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf7ecb6_86536f94",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-01-23T10:47:29Z",
+      "side": 1,
+      "message": "optional: Can we make the options more compact and reduce duplicated words?\n\n```\nhistogram_options {\n  scaled_bins {\n    count: 50\n    start / min: 1\n    first_bin_width: 10\n    scale: 1.6\n  }\n}\n```\n\nI think \"width\" is used commonly than \"size\". Sometimes \"scaled bins\" could be \"exponential bins\", but \"scaled\" sounds simpler.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad08bc0_ca5288fd",
+        "filename": "stats/express/express_config.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-01-23T10:47:29Z",
+      "side": 1,
+      "message": "Do we need the `COUNTER_` prefix?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "e38fe1c647bbfea8f0c36bb89a66948e481bb40e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
