@@ -812,6 +812,7 @@ message Atom {
     extensions 650; // DailykeepaliveInfoReported daily_keepalive_info_reported
     extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
     extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
+    extensions 678; // IkeSessionTerminated ike_session_terminated
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
