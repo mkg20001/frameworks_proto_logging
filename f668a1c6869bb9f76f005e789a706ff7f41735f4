@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6632fab_7d2cd4de",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22139,
+      "author": {
+        "id": 1060286
+      },
+      "writtenOn": "2023-01-24T18:37:30Z",
+      "side": 1,
+      "message": "will you always set these or only when the scheme is \"OTHER\"",
+      "range": {
+        "startLine": 22138,
+        "startChar": 1,
+        "endLine": 22139,
+        "endChar": 30
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd6d578c_4b1d366e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22213,
+      "author": {
+        "id": 1060286
+      },
+      "writtenOn": "2023-01-24T18:37:30Z",
+      "side": 1,
+      "message": "if this is a base64encoding then is needs to be a string,  here and below.",
+      "range": {
+        "startLine": 22213,
+        "startChar": 11,
+        "endLine": 22213,
+        "endChar": 16
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd6d429a_92aca705",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22219,
+      "author": {
+        "id": 1060286
+      },
+      "writtenOn": "2023-01-24T18:37:30Z",
+      "side": 1,
+      "message": "spell out miliseconds.",
+      "range": {
+        "startLine": 22219,
+        "startChar": 44,
+        "endLine": 22219,
+        "endChar": 46
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
