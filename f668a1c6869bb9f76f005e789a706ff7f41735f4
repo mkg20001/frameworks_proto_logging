@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38877f24_681f7ed3",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22139,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2023-01-24T18:53:08Z",
+      "side": 1,
+      "message": "Always set.",
+      "parentUuid": "e6632fab_7d2cd4de",
+      "range": {
+        "startLine": 22138,
+        "startChar": 1,
+        "endLine": 22139,
+        "endChar": 30
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd6d578c_4b1d366e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "491efaeb_2c98cb57",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22213,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2023-01-24T18:53:08Z",
+      "side": 1,
+      "message": "Done in change 2401752. Will this change to sync internal \u0026 aosp first.",
+      "parentUuid": "fd6d578c_4b1d366e",
+      "range": {
+        "startLine": 22213,
+        "startChar": 11,
+        "endLine": 22213,
+        "endChar": 16
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6d429a_92aca705",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-01-24T18:37:30Z",
       "side": 1,
       "message": "spell out miliseconds.",
+      "range": {
+        "startLine": 22219,
+        "startChar": 44,
+        "endLine": 22219,
+        "endChar": 46
+      },
+      "revId": "f668a1c6869bb9f76f005e789a706ff7f41735f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d7fafc_1cefa813",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 22219,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2023-01-24T18:53:08Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "cd6d429a_92aca705",
       "range": {
         "startLine": 22219,
         "startChar": 44,
