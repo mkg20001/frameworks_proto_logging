@@ -22210,12 +22210,12 @@ message MediaDrmSessionClosed {
   optional int64 apex_version = 6;
   // Base64 encoding of a randomly generated, globally unique 128 bit number
   // tied to a MediaDrm object; it has no device or user association.
-  optional int64 object_nonce  = 7;
+  optional string object_nonce  = 7;
   // Base64 encoding of a randomly generated, globally unique 128 bit number
   // tied to a MediaDrm session; it has no device or user association.
-  optional int64 session_nonce = 8;
+  optional string session_nonce = 8;
   // Security level of the opened session.
   optional android.media.drm.SecurityLevel opened_security_level = 9;
-  // Duration between session open-close in ms.
+  // Duration between session open-close in milliseconds.
   optional int64 session_lifespan_ms = 10;
 }
