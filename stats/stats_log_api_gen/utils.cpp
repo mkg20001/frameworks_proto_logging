@@ -174,8 +174,7 @@ bool is_repeated_field(java_type_t type) {
 }
 
 // Native
-// Writes namespaces for the cpp and header files, returning the number of
-// namespaces written.
+// Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
     vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {

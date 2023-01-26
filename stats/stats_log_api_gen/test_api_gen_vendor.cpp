@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
+#include <aidl/android/frameworks/stats/VendorAtom.h>
 #include <gtest/gtest.h>
-
 #include <test_vendor_atoms.h>
 #include <test_vendor_atoms_with_module.h>
 
@@ -23,6 +23,7 @@ namespace android {
 namespace stats_log_api_gen {
 
 using namespace android::VendorAtoms;
+using namespace aidl::android::frameworks::stats;
 
 /**
  * Tests native auto generated code for specific vendor atom contains proper ids
@@ -80,6 +81,22 @@ TEST(ApiGenVendorAtomTest, AtomIdModuleTest) {
     EXPECT_EQ(VendorAtomsModule::VENDOR_ATOM4, 105504);
     EXPECT_EQ(VendorAtomsModule::VendorAtom4::TYPE_UNKNOWN, 0);
     EXPECT_EQ(VendorAtomsModule::VendorAtom4::TYPE_1, 1);
+}
+
+TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
+    typedef void (*VendorAtom3BuildFunc)(VendorAtom & atom, int32_t code, char const* arg1,
+                                         int32_t arg2);
+    VendorAtom3BuildFunc func = &buildVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom;
+    func(atom, 105503, "test_string", 105503);
+
+    EXPECT_EQ(atom.atomId, 105503);
+    EXPECT_EQ(atom.reverseDomainName, "");
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), 105503);
 }
 
 }  // namespace stats_log_api_gen

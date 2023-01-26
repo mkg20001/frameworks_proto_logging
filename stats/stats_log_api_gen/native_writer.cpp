@@ -116,7 +116,7 @@ static void write_native_method_signature(FILE* out, const string& signaturePref
     fprintf(out, ")%s\n", closer.c_str());
 }
 
-static int write_native_method_body(FILE* out, vector<java_type_t>& signature,
+static int write_native_method_body(FILE* out, const vector<java_type_t>& signature,
                                     const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet,
                                     const AtomDecl& attributionDecl, const int minApiLevel) {
     int argIndex = 1;
@@ -234,10 +234,7 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
                                             const AtomDecl& attributionDecl, const int minApiLevel,
                                             bool bootstrap) {
     fprintf(out, "\n");
-    for (auto signatureInfoMapIt = signatureInfoMap.begin();
-         signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
-        vector<java_type_t> signature = signatureInfoMapIt->first;
-        const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = signatureInfoMapIt->second;
+    for (const auto& [signature, fieldNumberToAtomDeclSet] : signatureInfoMap) {
         write_native_method_signature(out, "int stats_write(", signature, attributionDecl, " {");
 
         // Write method body.
@@ -371,14 +368,146 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
     return 0;
 }
 
+static int write_native_build_vendor_atom_methods(FILE* out,
+                                                  const SignatureInfoMap& signatureInfoMap,
+                                                  const AtomDecl& attributionDecl,
+                                                  const int minApiLevel) {
+    fprintf(out, "\n");
+    for (const auto& [signature, fieldNumberToAtomDeclSet] : signatureInfoMap) {
+        // TODO (b/264922532): provide vendor implementation to skip arg1 for reverseDomainName
+        write_native_method_signature(out, "void buildVendorAtom(VendorAtom& atom, ", signature,
+                                      attributionDecl, " {");
+
+        // Write method body.
+        fprintf(out, "    atom.atomId = code;\n");
+        fprintf(out, "    atom.reverseDomainName.clear();\n");
+
+        FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+                fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
+        if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()) {
+            // TODO (b/264922532): provide support to pass annotations information
+            fprintf(stderr, "Encountered field level annotation - skip\n");
+        }
+
+        // we exclude first field - which is reverseDomainName
+        const int vendorAtomValuesCount = signature.size() - 1;
+        fprintf(out, "    vector<VendorAtomValue> values(%d);\n", vendorAtomValuesCount);
+
+        // we use 1-based index to access signature arguments
+        for (int argIndex = 2; argIndex <= signature.size(); argIndex++) {
+            const java_type_t& argType = signature[argIndex - 1];
+
+            const int atomValueIndex = argIndex - 2;
+
+            if (minApiLevel < API_T && is_repeated_field(argType)) {
+                fprintf(stderr, "Found repeated field type with min api level < T.");
+                return 1;
+            }
+            switch (argType) {
+                case JAVA_TYPE_ATTRIBUTION_CHAIN: {
+                    fprintf(stderr, "Found attribution chain - not supported.\n");
+                    return 1;
+                }
+                case JAVA_TYPE_BYTE_ARRAY:
+                    fprintf(out, "    {\n");
+                    fprintf(out, "    const vector<uint8_t> arrayValue(\n");
+                    fprintf(out, "        reinterpret_cast<const uint8_t*>(arg%d.arg),\n",
+                            argIndex);
+                    fprintf(out,
+                            "        reinterpret_cast<const uint8_t*>(arg%d.arg) + "
+                            "arg%d.arg_length);\n",
+                            argIndex, argIndex);
+                    fprintf(out,
+                            "    "
+                            "values[%d].set<VendorAtomValue::byteArrayValue>(std::move(arrayValue))"
+                            ";\n",
+                            atomValueIndex);
+                    fprintf(out, "    }\n");
+                    break;
+                case JAVA_TYPE_BOOLEAN:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::boolValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_INT:
+                    [[fallthrough]];
+                case JAVA_TYPE_ENUM:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::intValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_FLOAT:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::floatValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_LONG:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::longValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_STRING:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::stringValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_BOOLEAN_ARRAY:
+                    fprintf(out, "    {\n");
+                    fprintf(out, "    vector<bool> arrayValue(\n");
+                    fprintf(out, "        arg%d,\n", argIndex);
+                    fprintf(out, "        arg%d + arg%d_length);\n", argIndex, argIndex);
+                    fprintf(out,
+                            "    "
+                            "values[%d].set<VendorAtomValue::repeatedBoolValue>(std::move("
+                            "arrayValue));\n",
+                            atomValueIndex);
+                    fprintf(out, "    }\n");
+                    break;
+                case JAVA_TYPE_INT_ARRAY:
+                    [[fallthrough]];
+                case JAVA_TYPE_ENUM_ARRAY:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::repeatedIntValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_FLOAT_ARRAY:
+                    fprintf(out,
+                            "    values[%d].set<VendorAtomValue::repeatedFloatValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_LONG_ARRAY:
+                    fprintf(out, "    values[%d].set<VendorAtomValue::repeatedLongValue>(arg%d);\n",
+                            atomValueIndex, argIndex);
+                    break;
+                case JAVA_TYPE_STRING_ARRAY:
+                    fprintf(out, "    {\n");
+                    fprintf(out, "    vector<optional<string>> arrayValue(\n");
+                    fprintf(out, "        arg%d.begin(), arg%d.end());\n", argIndex, argIndex);
+                    fprintf(out,
+                            "    "
+                            "values[%d].set<VendorAtomValue::repeatedStringValue>(std::move("
+                            "arrayValue));\n",
+                            atomValueIndex);
+                    fprintf(out, "    }\n");
+                    break;
+                default:
+                    // Unsupported types: OBJECT, DOUBLE
+                    fprintf(stderr, "Encountered unsupported type.\n");
+                    return 1;
+            }
+            FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+                    fieldNumberToAtomDeclSet.find(argIndex);
+            if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()) {
+                // TODO (b/264922532): provide support to pass annotations information
+                fprintf(stderr, "Encountered field level annotation - skip\n");
+            }
+        }
+
+        fprintf(out, "    atom.values = std::move(values);\n");  // end method body.
+        fprintf(out, "}\n\n");                                   // end method.
+    }
+    return 0;
+}
+
 static void write_native_stats_write_non_chained_methods(FILE* out,
                                                          const SignatureInfoMap& signatureInfoMap,
                                                          const AtomDecl& attributionDecl) {
     fprintf(out, "\n");
-    for (auto signature_it = signatureInfoMap.begin(); signature_it != signatureInfoMap.end();
-         signature_it++) {
-        vector<java_type_t> signature = signature_it->first;
-
+    for (const auto& [signature, _] : signatureInfoMap) {
         write_native_method_signature(out, "int stats_write_non_chained(", signature,
                                       attributionDecl, " {");
 
@@ -410,10 +539,7 @@ static int write_native_build_stats_event_methods(FILE* out,
                                                   const AtomDecl& attributionDecl,
                                                   const int minApiLevel) {
     fprintf(out, "\n");
-    for (auto signatureInfoMapIt = signatureInfoMap.begin();
-         signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
-        vector<java_type_t> signature = signatureInfoMapIt->first;
-        const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = signatureInfoMapIt->second;
+    for (const auto& [signature, fieldNumberToAtomDeclSet] : signatureInfoMap) {
         write_native_method_signature(out, "void addAStatsEvent(AStatsEventList* pulled_data, ",
                                       signature, attributionDecl, " {");
 
@@ -433,10 +559,7 @@ static int write_native_build_stats_event_methods(FILE* out,
 static void write_native_method_header(FILE* out, const string& methodName,
                                        const SignatureInfoMap& signatureInfoMap,
                                        const AtomDecl& attributionDecl) {
-    for (auto signatureInfoMapIt = signatureInfoMap.begin();
-         signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
-        vector<java_type_t> signature = signatureInfoMapIt->first;
-
+    for (const auto& [signature, _] : signatureInfoMap) {
         write_native_method_signature(out, methodName, signature, attributionDecl, ";");
     }
 }
@@ -494,7 +617,39 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
     return 0;
 }
 
-void write_stats_log_header_preamble(FILE* out, const string& cppNamespace, bool includePull) {
+int write_stats_log_cpp_vendor(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                               const string& cppNamespace, const string& importHeader,
+                               const int minApiLevel) {
+    // Print prelude
+    fprintf(out, "// This file is autogenerated\n");
+    fprintf(out, "\n");
+
+    fprintf(out, "#include <%s>\n", importHeader.c_str());
+    fprintf(out, "#include <aidl/android/frameworks/stats/VendorAtom.h>\n");
+
+    fprintf(out, "\n");
+    write_namespace(out, cppNamespace);
+    fprintf(out, "\n");
+    fprintf(out, "using namespace aidl::android::frameworks::stats;\n");
+    fprintf(out, "using std::make_optional;\n");
+    fprintf(out, "using std::optional;\n");
+    fprintf(out, "using std::vector;\n");
+    fprintf(out, "using std::string;\n");
+
+    int ret = write_native_build_vendor_atom_methods(out, atoms.signatureInfoMap, attributionDecl,
+                                                     minApiLevel);
+    if (ret != 0) {
+        return ret;
+    }
+    // Print footer
+    fprintf(out, "\n");
+    write_closing_namespace(out, cppNamespace);
+
+    return 0;
+}
+
+void write_stats_log_header_preamble(FILE* out, const string& cppNamespace, bool includePull,
+                                     bool includeIStats = false) {
     // Print prelude
     fprintf(out, "// This file is autogenerated\n");
     fprintf(out, "\n");
@@ -507,6 +662,14 @@ void write_stats_log_header_preamble(FILE* out, const string& cppNamespace, bool
     if (includePull) {
         fprintf(out, "#include <stats_pull_atom_callback.h>\n");
     }
+
+    if (includeIStats) {
+        fprintf(out, "\n// forward declaration for VendorAtom \n");
+        write_namespace(out, "aidl,android,frameworks,stats");
+        fprintf(out, "class VendorAtom;\n");
+        write_closing_namespace(out, "aidl,android,frameworks,stats");
+    }
+
     fprintf(out, "\n");
 
     write_namespace(out, cppNamespace);
@@ -573,12 +736,11 @@ int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attrib
 
 int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
                                   const string& cppNamespace) {
-    write_stats_log_header_preamble(out, cppNamespace, false);
+    write_stats_log_header_preamble(out, cppNamespace, false, true);
     write_native_atom_constants(out, atoms, attributionDecl);
 
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-
         set<string> processedEnums;
 
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
@@ -590,7 +752,7 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
                     continue;
                 }
 
-                if(processedEnums.empty()) {
+                if (processedEnums.empty()) {
                     fprintf(out, "class %s final {\n", (*atomIt)->message.c_str());
                     fprintf(out, "public:\n\n");
                 }
@@ -615,6 +777,16 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
             fprintf(out, "};\n\n");
         }
     }
+
+    fprintf(out, "using ::aidl::android::frameworks::stats::VendorAtom;\n");
+
+    // Print write methods
+    fprintf(out, "//\n");
+    fprintf(out, "// Write methods\n");
+    fprintf(out, "//\n");
+    write_native_method_header(out, "void buildVendorAtom(VendorAtom& atom, ",
+                               atoms.signatureInfoMap, attributionDecl);
+    fprintf(out, "\n");
 
     write_stats_log_header_epilogue(out, cppNamespace);
 
