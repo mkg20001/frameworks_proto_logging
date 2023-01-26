@@ -174,8 +174,7 @@ bool is_repeated_field(java_type_t type) {
 }
 
 // Native
-// Writes namespaces for the cpp and header files, returning the number of
-// namespaces written.
+// Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
     vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {
@@ -193,7 +192,8 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces) {
 
 static void write_cpp_usage(FILE* out, const string& method_name, const string& atom_code_name,
                             const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl) {
-    fprintf(out, "     * Usage: %s(StatsLog.%s", method_name.c_str(), atom_code_name.c_str());
+    const char* delimiterStr = method_name.find("(") == string::npos ? " (" : " ";
+    fprintf(out, "     * Usage: %s%s%s", method_name.c_str(), delimiterStr, atom_code_name.c_str());
 
     for (vector<AtomField>::const_iterator field = atom->fields.begin();
          field != atom->fields.end(); field++) {
@@ -215,7 +215,8 @@ static void write_cpp_usage(FILE* out, const string& method_name, const string& 
     fprintf(out, ");\n");
 }
 
-void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl) {
+void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                                 const string methodName) {
     fprintf(out, "/**\n");
     fprintf(out, " * Constants for atom codes.\n");
     fprintf(out, " */\n");
@@ -232,11 +233,11 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
-        write_cpp_usage(out, "stats_write", constant, *atomIt, attributionDecl);
+        write_cpp_usage(out, methodName, constant, *atomIt, attributionDecl);
 
         auto non_chained_decl = atom_code_to_non_chained_decl_map.find((*atomIt)->code);
         if (non_chained_decl != atom_code_to_non_chained_decl_map.end()) {
-            write_cpp_usage(out, "stats_write_non_chained", constant, *non_chained_decl->second,
+            write_cpp_usage(out, methodName + "_non_chained", constant, *non_chained_decl->second,
                             attributionDecl);
         }
         fprintf(out, "     */\n");
