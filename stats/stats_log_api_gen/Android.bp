@@ -125,6 +125,8 @@ genrule {
     ],
     srcs: [
         "test_vendor_atoms.proto",
+        ":libprotobuf-internal-descriptor-proto",
+        ":libstats_atom_options_protos",
     ],
 }
 
