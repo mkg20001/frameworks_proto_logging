@@ -3464,6 +3464,10 @@ message BluetoothSmpPairingEventReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 5;
+    // Tracking the IO Capability of the pairing operation that is exchanged. Based
+    // on the command that is sent/received we can track the IO Capability of the
+    // Pairing Exchange
+    optional android.bluetooth.smp.PairingIOCapability io_capability = 6;
 }
 
 /**
