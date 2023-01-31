@@ -981,6 +981,102 @@ enum Action {
     // CATEGORY: SETTINGS
     // OS: S
     FIELD_BATTERY_SAVER_PERCENTAGE_VALUE = 1785;
+
+    // ACTION: Settings > System > Multiple users > Add supervised user
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_USER_SUPERVISED_ADD = 1786;
+
+    // ACTION: Settings > System > Gestures > Quick tap for actions > Toggle flashlight
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_COLUMBUS_ACTION_FLASHLIGHT = 1787;
+
+    // ACTION: Settings > Display > Daydream (Screen saver) > Choose a screen saver
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DREAM_SELECT_TYPE = 1788;
+
+    // ACTION: Settings > Display > Screen timeout > Docked timeout
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_SCREEN_TIMEOUT_DOCKED_CHANGED = 1789;
+
+    // ACTION: Settings > Display > Auto-rotate screen > Auto-rotate when <device_state>
+    //  SUBTYPE: Integer with device state id. Device dependant.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_ENABLE_AUTO_ROTATION_DEVICE_STATE = 1790;
+
+    // ACTION: Settings > Display > Auto-rotate screen > Auto-rotate when <device_state>
+    //  SUBTYPE: Integer with device state id. Device dependant.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DISABLE_AUTO_ROTATION_DEVICE_STATE = 1791;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <All apps>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_ALL_APPS = 1792;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <restricted>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_RESTRICTED = 1793;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <unrestricted>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_UNRESTRICTED = 1794;
+
+    // ACTION: Settings > Apps > Battery optimized apps > filter set to
+    // <optimized>
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_OPTIMIZED_APPS_FILTER_OPTIMIZED = 1795;
+
+    // Custom tag to log changes to the dock setup flow state
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STATE_CHANGED = 1796;
+
+    // Custom tag to log the start of each step in the dock setup flow
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STEP_START = 1797;
+
+    // Custom tag to log the result of each step in the dock setup flow
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_SETUP_STEP_COMPLETE = 1798;
+
+    // ACTION: Settings > Battery Usage > Click daily chart time slot
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_DAILY_TIME_SLOT = 1799;
+
+    // ACTION: Settings > Battery Usage > Click daily chart show all
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_DAILY_SHOW_ALL = 1800;
+
+    // Custom tag to log the battery history is loaded
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_HISTORY_LOADED = 1801;
+
+    // Custom tag to log the count of shown apps when battery usage is opened.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_SHOWN_APP_COUNT = 1802;
+
+    // Custom tag to log the count of hidden apps when battery usage is opened.
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_BATTERY_USAGE_HIDDEN_APP_COUNT = 1803;
 }
 
 /**
@@ -1147,7 +1243,7 @@ enum PageId {
     // OS: 6.0
     DISPLAY = 46;
 
-    // OPEN: Settings > Display > Daydream
+    // OPEN: Settings > Display > Daydream (Screen saver)
     // CATEGORY: SETTINGS
     // OS: 6.0
     DREAM = 47;
@@ -3175,6 +3271,16 @@ enum PageId {
     // OS: S
     CREDENTIAL_MANAGEMENT_APP_REMOVE_APP = 1895;
 
+    // OPEN: Settings > Display > Lock screen > Hub mode
+    // CATEGORY: SETTINGS
+    // OS: S
+    COMMUNAL_MODE_SETTINGS = 1896;
+
+    // OPEN: Settings > Users > Install app in other user
+    // CATEGORY: SETTINGS
+    // OS: T
+    USERS_APP_COPYING = 1897;
+
     // OPEN: Settings -> Accessibility -> Timing controls -> Time to take action (Accessibility timeout)
     // CATEGORY: SETTINGS
     // OS: S
@@ -3220,11 +3326,137 @@ enum PageId {
     // OS: S
     SOUND_NOTIFICATIONS = 1906;
 
+    // OPEN: Settings > Display > Lock screen > Hub mode > Shared Apps
+    // CATEGORY: SETTINGS
+    // OS: T
+    COMMUNAL_MODE_SHARED_APP_SETTINGS = 1907;
+
     // OPEN: Settings > System > Gestures > System navigation > 2-/3-button
     // navigation gear icon
     // CATEGORY: SETTINGS
     // OS: S
     SETTINGS_BUTTON_NAV_DLG = 1908;
+
+    // OPEN: Settings > Display > Lock screen > Hub mode > Trusted networks
+    // CATEGORY: SETTINGS
+    // OS: T
+    COMMUNAL_MODE_TRUSTED_NETWORKS_SETTINGS = 1909;
+
+    // OPEN: Settings > Connected devices > Connection preferences > Fast Pair
+    // CATEGORY: SETTINGS
+    // OS: T
+    CONNECTION_DEVICE_ADVANCED_FAST_PAIR = 1910;
+
+    // OPEN: Settings > Languages & input > App Languages
+    // CATEGORY: SETTINGS
+    // OS: T
+    APPS_LOCALE_LIST = 1911;
+
+    // OPEN: Settings > Accessibility > Text and reading options
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACCESSIBILITY_TEXT_READING_OPTIONS = 1912;
+
+    // OPEN: Settings > Developer options > Reboot with MTE > Info dialog
+    // CATEGORY: SETTINGS
+    // OS: T
+    REBOOT_WITH_MTE = 1913;
+
+    // OPEN: Settings > System > Developer options > Enable freeform windows > Reboot dialog
+    // OPEN: Settings > System > Developer options > Force desktop mode > Reboot dialog
+    // CATEGORY: SETTINGS
+    // OS: T
+    REBOOT_CONFIRMATION_DIALOG = 1914;
+
+    // OPEN: SUW Welcome Screen -> Vision Settings -> Text and reading options
+    // OPEN: SUW Welcome Screen -> Anything else? -> Text and reading options
+    // CATEGORY: SETTINGS
+    // OS: T
+    SUW_ACCESSIBILITY_TEXT_READING_OPTIONS = 1915;
+
+    // OPEN: Settings > System > Multiple users > Switch to admin user when
+    // docked
+    // CATEGORY: SETTINGS
+    // OS: T
+    TIMEOUT_TO_USER_ZERO = 1916;
+
+    // OPEN: Settings > Security & Privacy (if safety center is enabled)
+    // CATEGORY: SETTINGS
+    // OS: T
+    SAFETY_CENTER = 1917;
+
+    // OPEN: Settings > Accessibility -> Color and motion
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACCESSIBILITY_COLOR_AND_MOTION = 1918;
+
+    // OPEN: Settings > Display > Screen timeout > Docked timeout
+    // CATEGORY: SETTINGS
+    // OS: T
+    SCREEN_TIMEOUT_DOCKED = 1919;
+
+    // OPEN: Settings > Display -> Screen resolution
+    // CATEGORY: SETTINGS
+    // OS: T
+    SCREEN_RESOLUTION = 1920;
+
+    // OPEN: Settings > Sound > Spatial audio
+    // CATEGORY: SETTINGS
+    // OS: T
+    SETTINGS_SPATIAL_AUDIO = 1921;
+
+    // Logs that the user has edited the turn screen on settings.
+    // CATEGORY: SETTINGS
+    // OS: T
+    SETTINGS_MANAGE_TURN_SCREEN_ON = 1922;
+
+    // OPEN: Settings > Accessibility > Magnification > Settings > Magnification area > Magnification triple tap warning dialog
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_MAGNIFICATION_TRIPLE_TAP_WARNING = 1923;
+
+    // OPEN: Settings > Accessibility > Display size and text > Click
+    // "Reset settings" > Reset settings dialog
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_RESET_SETTINGS = 1924;
+
+    // OPEN: Settings > Developer Options > Predictive gesture animations > Click
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_BACK_ANIMATIONS = 1925;
+
+    // OPEN: Le audio broadcast dialog > Find a broadcast > Scan QR code
+    // CATEGORY: SETTINGS
+    // OS: T
+    LE_AUDIO_BROADCAST_SCAN_QR_CODE = 1926;
+
+    // OPEN: Settings > About phone > Limited Warranty
+    // CATEGORY: SETTINGS
+    // OS: T
+    LIMITED_WARRANTY_COUNTRY_LIST = 1927;
+
+    // OPEN: Settings > About phone > Limited Warranty > Click any country
+    // CATEGORY: SETTINGS
+    // OS: T
+    LIMITED_WARRANTY_DETAILS = 1928;
+
+    // OPEN: Settings > Sound > Clear Calling
+    CLEAR_CALLING = 1929;
+
+    // The dialog will show after successfully pairing one of the binaural hearing aids
+    // CATEGORY: SETTINGS
+    // OS: T
+    DIALOG_ACCESSIBILITY_HEARING_AID_PAIR_ANOTHER = 1930;
+
+    // OPEN: Settings > Apps > Battery optimized apps
+    // CATEGORY: SETTINGS
+    // OS: T
+    BATTERY_OPTIMIZED_APPS_LIST = 1931;
+
+    // OPEN: SUW choose a screen saver
+    // OS: T
+    SUW_DREAM = 1935;
 }
 
 // Battery Saver schedule types.
