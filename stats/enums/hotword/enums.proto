@@ -29,3 +29,4 @@ enum HotwordDetectorType {
     // Indicates that it is a software trusted hotword detector.
     TRUSTED_DETECTOR_SOFTWARE = 2;
 }
+
