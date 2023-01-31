@@ -84,3 +84,12 @@ enum PairingFailReasonEnum {
     PAIRING_FAIL_REASON_FAIL = 0x0118;
     PAIRING_FAIL_REASON_CONNECTION_TIMEOUT = 0x0119;
 }
+
+// Pairing IO Capability that is exchanged
+enum PairingIOCapability {
+    PAIRING_DISPLAY_ONLY = 0x00;
+    PAIRING_DISPLAY_YES_NO = 0x01;
+    PAIRING_KEYBOARD_ONLY = 0x02;
+    PAIRING_NO_INPUT_NO_OUTPUT = 0x03;
+    PAIRING_KEYBOARD_DISPLAY = 0x04;
+}
