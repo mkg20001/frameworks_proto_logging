@@ -21,25 +21,32 @@
 #include <map>
 
 #include "frameworks/proto_logging/stats/atoms.pb.h"
+#include "frameworks/proto_logging/stats/attribution_node.pb.h"
+#include "utils.h"
 
 namespace android {
 namespace stats_log_api_gen {
 
-using google::protobuf::OneofDescriptor;
 using google::protobuf::EnumDescriptor;
 using google::protobuf::FieldDescriptor;
 using google::protobuf::FileDescriptor;
+using google::protobuf::OneofDescriptor;
 using google::protobuf::SourceLocation;
 using std::make_shared;
 using std::map;
 
 const bool dbg = false;
 
+const int PLATFORM_PULLED_ATOMS_START = 10000;
+const int PLATFORM_PULLED_ATOMS_END = 99999;
+const int VENDOR_PULLED_ATOMS_START = 150000;
+const int VENDOR_PULLED_ATOMS_END = 199999;
+
 //
 // AtomDecl class
 //
 
-AtomDecl::AtomDecl() : code(0), name() {
+AtomDecl::AtomDecl() : code(0), name(), atomType(ATOM_TYPE_PUSHED) {
 }
 
 AtomDecl::AtomDecl(const AtomDecl& that)
@@ -47,7 +54,7 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       name(that.name),
       message(that.message),
       fields(that.fields),
-      oneOfName(that.oneOfName),
+      atomType(that.atomType),
       fieldNumberToAnnotations(that.fieldNumberToAnnotations),
       primaryFields(that.primaryFields),
       exclusiveField(that.exclusiveField),
@@ -56,8 +63,8 @@ AtomDecl::AtomDecl(const AtomDecl& that)
       nested(that.nested) {
 }
 
-AtomDecl::AtomDecl(int c, const string& n, const string& m, const string &o)
-    : code(c), name(n), message(m), oneOfName(o) {
+AtomDecl::AtomDecl(int c, const string& n, const string& m, AtomType a)
+    : code(c), name(n), message(m), atomType(a) {
 }
 
 AtomDecl::~AtomDecl() {
@@ -90,54 +97,41 @@ static void print_error(const FieldDescriptor* field, const char* format, ...) {
  */
 static java_type_t java_type(const FieldDescriptor* field) {
     int protoType = field->type();
+    bool isRepeatedField = field->is_repeated();
+
     switch (protoType) {
-        case FieldDescriptor::TYPE_DOUBLE:
-            return JAVA_TYPE_DOUBLE;
         case FieldDescriptor::TYPE_FLOAT:
-            return JAVA_TYPE_FLOAT;
+            return isRepeatedField ? JAVA_TYPE_FLOAT_ARRAY : JAVA_TYPE_FLOAT;
         case FieldDescriptor::TYPE_INT64:
-            return JAVA_TYPE_LONG;
-        case FieldDescriptor::TYPE_UINT64:
-            return JAVA_TYPE_LONG;
+            return isRepeatedField ? JAVA_TYPE_LONG_ARRAY : JAVA_TYPE_LONG;
         case FieldDescriptor::TYPE_INT32:
-            return JAVA_TYPE_INT;
-        case FieldDescriptor::TYPE_FIXED64:
-            return JAVA_TYPE_LONG;
-        case FieldDescriptor::TYPE_FIXED32:
-            return JAVA_TYPE_INT;
+            return isRepeatedField ? JAVA_TYPE_INT_ARRAY : JAVA_TYPE_INT;
         case FieldDescriptor::TYPE_BOOL:
-            return JAVA_TYPE_BOOLEAN;
+            return isRepeatedField ? JAVA_TYPE_BOOLEAN_ARRAY : JAVA_TYPE_BOOLEAN;
         case FieldDescriptor::TYPE_STRING:
-            return JAVA_TYPE_STRING;
+            return isRepeatedField ? JAVA_TYPE_STRING_ARRAY : JAVA_TYPE_STRING;
+        case FieldDescriptor::TYPE_ENUM:
+            return isRepeatedField ? JAVA_TYPE_ENUM_ARRAY : JAVA_TYPE_ENUM;
         case FieldDescriptor::TYPE_GROUP:
-            return JAVA_TYPE_UNKNOWN;
+            return JAVA_TYPE_UNKNOWN_OR_INVALID;
         case FieldDescriptor::TYPE_MESSAGE:
             if (field->message_type()->full_name() == "android.os.statsd.AttributionNode") {
                 return JAVA_TYPE_ATTRIBUTION_CHAIN;
-            } else if (field->message_type()->full_name() == "android.os.statsd.KeyValuePair") {
-                return JAVA_TYPE_KEY_VALUE_PAIR;
-            } else if (field->options().GetExtension(os::statsd::log_mode) ==
-                       os::statsd::LogMode::MODE_BYTES) {
+            } else if ((field->options().GetExtension(os::statsd::log_mode) ==
+                        os::statsd::LogMode::MODE_BYTES) &&
+                       !isRepeatedField) {
                 return JAVA_TYPE_BYTE_ARRAY;
             } else {
-                return JAVA_TYPE_OBJECT;
+                return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_OBJECT;
             }
         case FieldDescriptor::TYPE_BYTES:
-            return JAVA_TYPE_BYTE_ARRAY;
+            return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_BYTE_ARRAY;
+        case FieldDescriptor::TYPE_UINT64:
+            return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_LONG;
         case FieldDescriptor::TYPE_UINT32:
-            return JAVA_TYPE_INT;
-        case FieldDescriptor::TYPE_ENUM:
-            return JAVA_TYPE_ENUM;
-        case FieldDescriptor::TYPE_SFIXED32:
-            return JAVA_TYPE_INT;
-        case FieldDescriptor::TYPE_SFIXED64:
-            return JAVA_TYPE_LONG;
-        case FieldDescriptor::TYPE_SINT32:
-            return JAVA_TYPE_INT;
-        case FieldDescriptor::TYPE_SINT64:
-            return JAVA_TYPE_LONG;
+            return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_INT;
         default:
-            return JAVA_TYPE_UNKNOWN;
+            return JAVA_TYPE_UNKNOWN_OR_INVALID;
     }
 }
 
@@ -146,8 +140,7 @@ static java_type_t java_type(const FieldDescriptor* field) {
  */
 void collate_enums(const EnumDescriptor& enumDescriptor, AtomField* atomField) {
     for (int i = 0; i < enumDescriptor.value_count(); i++) {
-        atomField->enumValues[enumDescriptor.value(i)->number()] =
-                enumDescriptor.value(i)->name();
+        atomField->enumValues[enumDescriptor.value(i)->number()] = enumDescriptor.value(i)->name();
     }
 }
 
@@ -168,6 +161,14 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
     int errorCount = 0;
 
     if (field->options().HasExtension(os::statsd::state_field_option)) {
+        if (is_repeated_field(javaType)) {
+            print_error(field,
+                        "State field annotations are not allowed for repeated fields: '%s'\n",
+                        atomDecl->message.c_str());
+            errorCount++;
+            return errorCount;
+        }
+
         const os::statsd::StateAtomFieldOption& stateFieldOption =
                 field->options().GetExtension(os::statsd::state_field_option);
         const bool primaryField = stateFieldOption.primary_field();
@@ -184,8 +185,8 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
         }
 
         if (primaryField) {
-            if (javaType == JAVA_TYPE_UNKNOWN || javaType == JAVA_TYPE_ATTRIBUTION_CHAIN ||
-                javaType == JAVA_TYPE_OBJECT || javaType == JAVA_TYPE_BYTE_ARRAY) {
+            if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN || javaType == JAVA_TYPE_OBJECT ||
+                javaType == JAVA_TYPE_BYTE_ARRAY) {
                 print_error(field, "Invalid primary state field: '%s'\n",
                             atomDecl->message.c_str());
                 errorCount++;
@@ -212,8 +213,8 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
         }
 
         if (exclusiveState) {
-            if (javaType == JAVA_TYPE_UNKNOWN || javaType == JAVA_TYPE_ATTRIBUTION_CHAIN ||
-                javaType == JAVA_TYPE_OBJECT || javaType == JAVA_TYPE_BYTE_ARRAY) {
+            if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN || javaType == JAVA_TYPE_OBJECT ||
+                javaType == JAVA_TYPE_BYTE_ARRAY) {
                 print_error(field, "Invalid exclusive state field: '%s'\n",
                             atomDecl->message.c_str());
                 errorCount++;
@@ -258,8 +259,10 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
     }
 
     if (field->options().GetExtension(os::statsd::is_uid) == true) {
-        if (javaType != JAVA_TYPE_INT) {
-            print_error(field, "is_uid annotation can only be applied to int32 fields: '%s'\n",
+        if (javaType != JAVA_TYPE_INT && javaType != JAVA_TYPE_INT_ARRAY) {
+            print_error(field,
+                        "is_uid annotation can only be applied to int32 fields and repeated int32 "
+                        "fields: '%s'\n",
                         atomDecl->message.c_str());
             errorCount++;
         }
@@ -312,13 +315,19 @@ int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>
 
         java_type_t javaType = java_type(field);
 
-        if (javaType == JAVA_TYPE_UNKNOWN) {
-            print_error(field, "Unknown type for field: %s\n", field->name().c_str());
+        if (javaType == JAVA_TYPE_UNKNOWN_OR_INVALID) {
+            if (field->is_repeated()) {
+                print_error(field, "Repeated field type %d is not allowed for field: %s\n",
+                            field->type(), field->name().c_str());
+            } else {
+                print_error(field, "Field type %d is not allowed for field: %s\n", field->type(),
+                            field->name().c_str());
+            }
             errorCount++;
             continue;
-        } else if (javaType == JAVA_TYPE_OBJECT && atomDecl->code < PULL_ATOM_START_ID) {
+        } else if (javaType == JAVA_TYPE_OBJECT) {
             // Allow attribution chain, but only at position 1.
-            print_error(field, "Message type not allowed for field in pushed atoms: %s\n",
+            print_error(field, "Message type not allowed for field without mode_bytes: %s\n",
                         field->name().c_str());
             errorCount++;
             continue;
@@ -330,27 +339,6 @@ int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>
 
         if (isBinaryField && javaType != JAVA_TYPE_BYTE_ARRAY) {
             print_error(field, "Cannot mark field %s as bytes.\n", field->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        // Doubles are not supported yet.
-        if (javaType == JAVA_TYPE_DOUBLE) {
-            print_error(field,
-                        "Doubles are not supported in atoms. Please change field %s "
-                        "to float\n",
-                        field->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        if (field->is_repeated() &&
-            !(javaType == JAVA_TYPE_ATTRIBUTION_CHAIN || javaType == JAVA_TYPE_KEY_VALUE_PAIR)) {
-            print_error(field,
-                        "Repeated fields are not supported in atoms. Please make "
-                        "field %s not "
-                        "repeated.\n",
-                        field->name().c_str());
             errorCount++;
             continue;
         }
@@ -382,7 +370,8 @@ int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>
 
         AtomField atField(field->name(), javaType);
 
-        if (javaType == JAVA_TYPE_ENUM) {
+        if (javaType == JAVA_TYPE_ENUM || javaType == JAVA_TYPE_ENUM_ARRAY) {
+            atField.enumTypeName = field->enum_type()->name();
             // All enums are treated as ints when it comes to function signatures.
             collate_enums(*field->enum_type(), &atField);
         }
@@ -391,6 +380,8 @@ int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>
         if (javaType == JAVA_TYPE_ENUM) {
             // All enums are treated as ints when it comes to function signatures.
             signature->push_back(JAVA_TYPE_INT);
+        } else if (javaType == JAVA_TYPE_ENUM_ARRAY) {
+            signature->push_back(JAVA_TYPE_INT_ARRAY);
         } else if (javaType == JAVA_TYPE_OBJECT && isBinaryField) {
             signature->push_back(JAVA_TYPE_BYTE_ARRAY);
         } else {
@@ -459,108 +450,117 @@ static void populateFieldNumberToAtomDeclSet(const shared_ptr<AtomDecl>& atomDec
     }
 }
 
+static AtomType getAtomType(const FieldDescriptor* atomField) {
+    const int atomId = atomField->number();
+    if ((atomId >= PLATFORM_PULLED_ATOMS_START && atomId <= PLATFORM_PULLED_ATOMS_END) ||
+        (atomId >= VENDOR_PULLED_ATOMS_START && atomId <= VENDOR_PULLED_ATOMS_END)) {
+        return ATOM_TYPE_PULLED;
+    } else {
+        return ATOM_TYPE_PUSHED;
+    }
+}
+
+static int collate_from_field_descriptor(const FieldDescriptor* atomField, const string& moduleName,
+                                         Atoms* atoms) {
+    int errorCount = 0;
+
+    if (moduleName != DEFAULT_MODULE_NAME) {
+        const int moduleCount = atomField->options().ExtensionSize(os::statsd::module);
+        bool moduleFound = false;
+        for (int j = 0; j < moduleCount; ++j) {
+            const string atomModuleName = atomField->options().GetExtension(os::statsd::module, j);
+            if (atomModuleName == moduleName) {
+                moduleFound = true;
+                break;
+            }
+        }
+
+        // This atom is not in the module we're interested in; skip it.
+        if (!moduleFound) {
+            if (dbg) {
+                printf("   Skipping %s (%d)\n", atomField->name().c_str(), atomField->number());
+            }
+            return errorCount;
+        }
+    }
+
+    if (dbg) {
+        printf("   %s (%d)\n", atomField->name().c_str(), atomField->number());
+    }
+
+    // StatsEvent only has one oneof, which contains only messages. Don't allow
+    // other types.
+    if (atomField->type() != FieldDescriptor::TYPE_MESSAGE) {
+        print_error(atomField,
+                    "Bad type for atom. StatsEvent can only have message type "
+                    "fields: %s\n",
+                    atomField->name().c_str());
+        errorCount++;
+        return errorCount;
+    }
+
+    const AtomType atomType = getAtomType(atomField);
+
+    const Descriptor* atom = atomField->message_type();
+    shared_ptr<AtomDecl> atomDecl =
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(), atomType);
+
+    if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
+        addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
+                                ANNOTATION_ID_TRUNCATE_TIMESTAMP, ANNOTATION_TYPE_BOOL,
+                                AnnotationValue(true));
+        if (dbg) {
+            printf("%s can have timestamp truncated\n", atomField->name().c_str());
+        }
+    }
+
+    vector<java_type_t> signature;
+    errorCount += collate_atom(atom, atomDecl.get(), &signature);
+    if (!atomDecl->primaryFields.empty() && atomDecl->exclusiveField == 0) {
+        print_error(atomField, "Cannot have a primary field without an exclusive field: %s\n",
+                    atomField->name().c_str());
+        errorCount++;
+        return errorCount;
+    }
+
+    FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet =
+            atomType == ATOM_TYPE_PUSHED ? atoms->signatureInfoMap[signature]
+                                         : atoms->pulledAtomsSignatureInfoMap[signature];
+    populateFieldNumberToAtomDeclSet(atomDecl, &fieldNumberToAtomDeclSet);
+
+    atoms->decls.insert(atomDecl);
+
+    shared_ptr<AtomDecl> nonChainedAtomDecl =
+            make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(), atomType);
+    vector<java_type_t> nonChainedSignature;
+    if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
+        FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
+                atoms->nonChainedSignatureInfoMap[nonChainedSignature];
+        populateFieldNumberToAtomDeclSet(nonChainedAtomDecl, &nonChainedFieldNumberToAtomDeclSet);
+
+        atoms->non_chained_decls.insert(nonChainedAtomDecl);
+    }
+
+    return errorCount;
+}
+
 /**
  * Gather the info about the atoms.
  */
 int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms* atoms) {
     int errorCount = 0;
 
+    // Regular field atoms in Atom
     for (int i = 0; i < descriptor->field_count(); i++) {
         const FieldDescriptor* atomField = descriptor->field(i);
+        errorCount += collate_from_field_descriptor(atomField, moduleName, atoms);
+    }
 
-        if (moduleName != DEFAULT_MODULE_NAME) {
-            const int moduleCount = atomField->options().ExtensionSize(os::statsd::module);
-            int j;
-            for (j = 0; j < moduleCount; ++j) {
-                const string atomModuleName =
-                        atomField->options().GetExtension(os::statsd::module, j);
-                if (atomModuleName == moduleName) {
-                    break;
-                }
-            }
-
-            // This atom is not in the module we're interested in; skip it.
-            if (moduleCount == j) {
-                if (dbg) {
-                    printf("   Skipping %s (%d)\n", atomField->name().c_str(), atomField->number());
-                }
-                continue;
-            }
-        }
-
-        if (dbg) {
-            printf("   %s (%d)\n", atomField->name().c_str(), atomField->number());
-        }
-
-        // StatsEvent only has one oneof, which contains only messages. Don't allow
-        // other types.
-        if (atomField->type() != FieldDescriptor::TYPE_MESSAGE) {
-            print_error(atomField,
-                        "Bad type for atom. StatsEvent can only have message type "
-                        "fields: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        const OneofDescriptor* oneofAtom = atomField->containing_oneof();
-        if (oneofAtom == nullptr) {
-            print_error(atomField, "Atom is not declared in a `oneof` field: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        const Descriptor* atom = atomField->message_type();
-        shared_ptr<AtomDecl> atomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                      oneofAtom->name());
-
-        if (atomField->options().GetExtension(os::statsd::truncate_timestamp)) {
-            addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
-                                    ANNOTATION_ID_TRUNCATE_TIMESTAMP, ANNOTATION_TYPE_BOOL,
-                                    AnnotationValue(true));
-            if (dbg) {
-                printf("%s can have timestamp truncated\n", atomField->name().c_str());
-            }
-        }
-
-        vector<java_type_t> signature;
-        errorCount += collate_atom(atom, atomDecl.get(), &signature);
-        if (!atomDecl->primaryFields.empty() && atomDecl->exclusiveField == 0) {
-            print_error(atomField, "Cannot have a primary field without an exclusive field: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        if ((oneofAtom->name() != ONEOF_PUSHED_ATOM_NAME) &&
-                 (oneofAtom->name() != ONEOF_PULLED_ATOM_NAME)) {
-            print_error(atomField, "Atom is neither a pushed nor pulled atom: %s\n",
-                        atomField->name().c_str());
-            errorCount++;
-            continue;
-        }
-
-        FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = oneofAtom->name() ==
-            ONEOF_PUSHED_ATOM_NAME ? atoms->signatureInfoMap[signature] :
-            atoms->pulledAtomsSignatureInfoMap[signature];
-        populateFieldNumberToAtomDeclSet(atomDecl, &fieldNumberToAtomDeclSet);
-
-        atoms->decls.insert(atomDecl);
-
-        shared_ptr<AtomDecl> nonChainedAtomDecl =
-                make_shared<AtomDecl>(atomField->number(), atomField->name(), atom->name(),
-                                      oneofAtom->name());
-        vector<java_type_t> nonChainedSignature;
-        if (get_non_chained_node(atom, nonChainedAtomDecl.get(), &nonChainedSignature)) {
-            FieldNumberToAtomDeclSet& nonChainedFieldNumberToAtomDeclSet =
-                    atoms->nonChainedSignatureInfoMap[nonChainedSignature];
-            populateFieldNumberToAtomDeclSet(nonChainedAtomDecl,
-                                             &nonChainedFieldNumberToAtomDeclSet);
-
-            atoms->non_chained_decls.insert(nonChainedAtomDecl);
-        }
+    // Extension field atoms in Atom.
+    vector<const FieldDescriptor*> extensions;
+    descriptor->file()->pool()->FindAllExtensions(descriptor, &extensions);
+    for (const FieldDescriptor* atomField : extensions) {
+        errorCount += collate_from_field_descriptor(atomField, moduleName, atoms);
     }
 
     if (dbg) {

@@ -49,15 +49,16 @@ void build_non_chained_decl_map(const Atoms& atoms,
 }
 
 const map<AnnotationId, string>& get_annotation_id_constants() {
-    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS =
-        new map<AnnotationId, string>{
+    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS = new map<AnnotationId, string>{
             {ANNOTATION_ID_IS_UID, "ANNOTATION_ID_IS_UID"},
             {ANNOTATION_ID_TRUNCATE_TIMESTAMP, "ANNOTATION_ID_TRUNCATE_TIMESTAMP"},
             {ANNOTATION_ID_PRIMARY_FIELD, "ANNOTATION_ID_PRIMARY_FIELD"},
-            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID, "ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID"},
             {ANNOTATION_ID_EXCLUSIVE_STATE, "ANNOTATION_ID_EXCLUSIVE_STATE"},
+            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID, "ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID"},
+            {ANNOTATION_ID_DEFAULT_STATE, "ANNOTATION_ID_DEFAULT_STATE"},
             {ANNOTATION_ID_TRIGGER_STATE_RESET, "ANNOTATION_ID_TRIGGER_STATE_RESET"},
-            {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"}};
+            {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"},
+    };
 
     return *ANNOTATION_ID_CONSTANTS;
 }
@@ -91,7 +92,7 @@ const char* cpp_type_name(java_type_t type) {
     switch (type) {
         case JAVA_TYPE_BOOLEAN:
             return "bool";
-        case JAVA_TYPE_INT:
+        case JAVA_TYPE_INT:  // Fallthrough.
         case JAVA_TYPE_ENUM:
             return "int32_t";
         case JAVA_TYPE_LONG:
@@ -104,6 +105,19 @@ const char* cpp_type_name(java_type_t type) {
             return "char const*";
         case JAVA_TYPE_BYTE_ARRAY:
             return "const BytesField&";
+        case JAVA_TYPE_BOOLEAN_ARRAY:
+            return "const bool*";
+        case JAVA_TYPE_INT_ARRAY:  // Fallthrough.
+        case JAVA_TYPE_ENUM_ARRAY:
+            return "const std::vector<int32_t>&";
+        case JAVA_TYPE_LONG_ARRAY:
+            return "const std::vector<int64_t>&";
+        case JAVA_TYPE_FLOAT_ARRAY:
+            return "const std::vector<float>&";
+        case JAVA_TYPE_STRING_ARRAY:
+            return "const std::vector<char const*>&";
+        case JAVA_TYPE_DOUBLE_ARRAY:
+            return "const std::vector<double>&";
         default:
             return "UNKNOWN";
     }
@@ -113,7 +127,7 @@ const char* java_type_name(java_type_t type) {
     switch (type) {
         case JAVA_TYPE_BOOLEAN:
             return "boolean";
-        case JAVA_TYPE_INT:
+        case JAVA_TYPE_INT:  // Fallthrough.
         case JAVA_TYPE_ENUM:
             return "int";
         case JAVA_TYPE_LONG:
@@ -126,8 +140,36 @@ const char* java_type_name(java_type_t type) {
             return "java.lang.String";
         case JAVA_TYPE_BYTE_ARRAY:
             return "byte[]";
+        case JAVA_TYPE_BOOLEAN_ARRAY:
+            return "boolean[]";
+        case JAVA_TYPE_INT_ARRAY:  // Fallthrough.
+        case JAVA_TYPE_ENUM_ARRAY:
+            return "int[]";
+        case JAVA_TYPE_LONG_ARRAY:
+            return "long[]";
+        case JAVA_TYPE_FLOAT_ARRAY:
+            return "float[]";
+        case JAVA_TYPE_STRING_ARRAY:
+            return "java.lang.String[]";
+        case JAVA_TYPE_DOUBLE_ARRAY:
+            return "double[]";
         default:
             return "UNKNOWN";
+    }
+}
+
+// Does not include AttributionChain type.
+bool is_repeated_field(java_type_t type) {
+    switch (type) {
+        case JAVA_TYPE_BOOLEAN_ARRAY:
+        case JAVA_TYPE_INT_ARRAY:
+        case JAVA_TYPE_FLOAT_ARRAY:
+        case JAVA_TYPE_LONG_ARRAY:
+        case JAVA_TYPE_STRING_ARRAY:
+        case JAVA_TYPE_ENUM_ARRAY:
+            return true;
+        default:
+            return false;
     }
 }
 
@@ -166,14 +208,6 @@ static void write_cpp_usage(FILE* out, const string& method_name, const string& 
                             chainField.name.c_str());
                 }
             }
-        } else if (field->javaType == JAVA_TYPE_KEY_VALUE_PAIR) {
-            fprintf(out,
-                    ", const std::map<int, int32_t>& %s_int"
-                    ", const std::map<int, int64_t>& %s_long"
-                    ", const std::map<int, char const*>& %s_str"
-                    ", const std::map<int, float>& %s_float",
-                    field->name.c_str(), field->name.c_str(), field->name.c_str(),
-                    field->name.c_str());
         } else {
             fprintf(out, ", %s %s", cpp_type_name(field->javaType), field->name.c_str());
         }
@@ -215,63 +249,29 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
     fprintf(out, "\n");
 }
 
-void write_native_method_signature(FILE* out, const string& signaturePrefix,
-                                   const vector<java_type_t>& signature,
-                                   const AtomDecl& attributionDecl, const string& closer) {
-    fprintf(out, "%sint32_t code", signaturePrefix.c_str());
-    int argIndex = 1;
-    for (vector<java_type_t>::const_iterator arg = signature.begin(); arg != signature.end();
-         arg++) {
-        if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
-            for (const auto& chainField : attributionDecl.fields) {
-                if (chainField.javaType == JAVA_TYPE_STRING) {
-                    fprintf(out, ", const std::vector<%s>& %s", cpp_type_name(chainField.javaType),
-                            chainField.name.c_str());
-                } else {
-                    fprintf(out, ", const %s* %s, size_t %s_length",
-                            cpp_type_name(chainField.javaType), chainField.name.c_str(),
-                            chainField.name.c_str());
+void write_native_atom_enums(FILE* out, const Atoms& atoms) {
+    // Print constants for the enum values.
+    fprintf(out, "//\n");
+    fprintf(out, "// Constants for enum values\n");
+    fprintf(out, "//\n\n");
+    for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
+         atomIt++) {
+        for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
+             field != (*atomIt)->fields.end(); field++) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
+                fprintf(out, "// Values for %s.%s\n", (*atomIt)->message.c_str(),
+                        field->name.c_str());
+                for (map<int, string>::const_iterator value = field->enumValues.begin();
+                     value != field->enumValues.end(); value++) {
+                    fprintf(out, "const int32_t %s__%s__%s = %d;\n",
+                            make_constant_name((*atomIt)->message).c_str(),
+                            make_constant_name(field->name).c_str(),
+                            make_constant_name(value->second).c_str(), value->first);
                 }
+                fprintf(out, "\n");
             }
-        } else if (*arg == JAVA_TYPE_KEY_VALUE_PAIR) {
-            fprintf(out,
-                    ", const std::map<int, int32_t>& arg%d_1, "
-                    "const std::map<int, int64_t>& arg%d_2, "
-                    "const std::map<int, char const*>& arg%d_3, "
-                    "const std::map<int, float>& arg%d_4",
-                    argIndex, argIndex, argIndex, argIndex);
-        } else {
-            fprintf(out, ", %s arg%d", cpp_type_name(*arg), argIndex);
         }
-        argIndex++;
     }
-    fprintf(out, ")%s\n", closer.c_str());
-}
-
-void write_native_method_call(FILE* out, const string& methodName,
-                              const vector<java_type_t>& signature, const AtomDecl& attributionDecl,
-                              int argIndex) {
-    fprintf(out, "%s(code", methodName.c_str());
-    for (vector<java_type_t>::const_iterator arg = signature.begin(); arg != signature.end();
-         arg++) {
-        if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
-            for (const auto& chainField : attributionDecl.fields) {
-                if (chainField.javaType == JAVA_TYPE_STRING) {
-                    fprintf(out, ", %s", chainField.name.c_str());
-                } else {
-                    fprintf(out, ",  %s,  %s_length", chainField.name.c_str(),
-                            chainField.name.c_str());
-                }
-            }
-        } else if (*arg == JAVA_TYPE_KEY_VALUE_PAIR) {
-            fprintf(out, ", arg%d_1, arg%d_2, arg%d_3, arg%d_4", argIndex, argIndex, argIndex,
-                    argIndex);
-        } else {
-            fprintf(out, ", arg%d", argIndex);
-        }
-        argIndex++;
-    }
-    fprintf(out, ");\n");
 }
 
 // Java
@@ -305,7 +305,7 @@ void write_java_enum_values(FILE* out, const Atoms& atoms) {
          atomIt++) {
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
              field != (*atomIt)->fields.end(); field++) {
-            if (field->javaType == JAVA_TYPE_ENUM) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
                 fprintf(out, "    // Values for %s.%s\n", (*atomIt)->message.c_str(),
                         field->name.c_str());
                 for (map<int, string>::const_iterator value = field->enumValues.begin();
@@ -329,8 +329,6 @@ void write_java_usage(FILE* out, const string& method_name, const string& atom_c
          field++) {
         if (field->javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
             fprintf(out, ", android.os.WorkSource workSource");
-        } else if (field->javaType == JAVA_TYPE_KEY_VALUE_PAIR) {
-            fprintf(out, ", android.util.SparseArray<Object> value_map");
         } else if (field->javaType == JAVA_TYPE_BYTE_ARRAY) {
             fprintf(out, ", byte[] %s", field->name.c_str());
         } else {
@@ -351,9 +349,6 @@ int write_java_non_chained_methods(FILE* out, const SignatureInfoMap& signatureI
              arg++) {
             if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
                 fprintf(stderr, "Non chained signatures should not have attribution chains.\n");
-                return 1;
-            } else if (*arg == JAVA_TYPE_KEY_VALUE_PAIR) {
-                fprintf(stderr, "Module logging does not yet support key value pair.\n");
                 return 1;
             } else {
                 fprintf(out, ", %s arg%d", java_type_name(*arg), argIndex);
