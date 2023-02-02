@@ -336,6 +336,7 @@ message Atom {
                 166 [(module) = "bluetooth"];
         BluetoothSmpPairingEventReported bluetooth_smp_pairing_event_reported =
                 167 [(module) = "bluetooth"];
+
         ScreenTimeoutExtensionReported screen_timeout_extension_reported =
                 168 [(module) = "framework"];
         ProcessStartTime process_start_time = 169 [(module) = "framework"];
@@ -783,13 +784,14 @@ message Atom {
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
         art.ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
-        media.MediaDrmCreated media_drm_created = 568 [(module) = "media_metrics"];
+       media.MediaDrmCreated media_drm_created = 568 [(module) = "media_metrics"];
         media.MediaDrmErrored media_drm_errored = 569 [(module) = "media_metrics"];
         media.MediaDrmSessionOpened media_drm_session_opened = 570
             [(module) = "media_metrics"];
         media.MediaDrmSessionClosed media_drm_session_closed = 571
             [(module) = "media_metrics"];
         expresslog.ExpressHistogramSampleReported express_histogram_sample_reported = 593 [(module) = "framework", (module) = "expresslog"];
+        BluetoothLEACLConnectionEvent bluetooth_le_acl_connection_event = 594 [(module) = "bluetooth"];
         // StatsdStats tracks platform atoms with ids upto 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -3475,6 +3477,37 @@ message BluetoothSmpPairingEventReported {
     // session for the same remote device.
     // Default: 0 if the device's metric id is unknown.
     optional int32 metric_id = 5;
+}
+
+/**
+ * Logs when a Bluetooth LE ACL Connection is made
+ *
+ * Logged from:
+ *    system/bt
+ */
+message BluetoothLEACLConnectionEvent {
+  // An identifier that can be used to match events for this device.
+  // Currently, this is a salted hash of the MAC address of this Bluetooth device.
+  // Salt: Randomly generated 256 bit value
+  // Hash algorithm: HMAC-SHA256
+  // Size: 32 byte
+  // Default: null or empty if the device identifier is not known
+  optional bytes obfuscated_id = 1 [(android.os.statsd.log_mode) = MODE_BYTES];
+  // An identifier that can be used to match events for this device.
+  // The incremental identifier is locally generated and guaranteed not derived
+  // from any globally unique hardware id.
+  // For paired devices, it stays consistent between Bluetooth toggling for the
+  // same remote device.
+  // For unpaired devices, it stays consistent within the same Bluetooth adapter
+  // session for the same remote device.
+  // Default: 0 if the device's metric id is unknown.
+  optional int32 metric_id = 2;
+  // Tracking whether the LE-ACL Connection event has started or not
+  // Default: false
+  optional bool is_ended = 3;
+  // Tracking why the LE-ACL Connection actually failed
+  // Default: 0x00
+  optional android.bluetooth.hci.StatusEnum failure_reason = 4;
 }
 
 /**
