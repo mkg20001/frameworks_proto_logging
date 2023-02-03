@@ -46,6 +46,30 @@
       },
       "revId": "c3eb27db234d0a43a4a115ef627e964201013bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d71af7_db4c8986",
+        "filename": "stats/enums/app/settings_enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 3463,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-02-03T21:48:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7df3f67_7c191387",
+      "range": {
+        "startLine": 3461,
+        "startChar": 4,
+        "endLine": 3463,
+        "endChar": 43
+      },
+      "revId": "c3eb27db234d0a43a4a115ef627e964201013bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
