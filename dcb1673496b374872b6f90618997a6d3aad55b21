@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b73f70_2830048a",
+        "filename": "stats/enums/os/enums.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1854976
+      },
+      "writtenOn": "2023-02-07T04:06:48Z",
+      "side": 1,
+      "message": "lack for index 9 and 10?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "dcb1673496b374872b6f90618997a6d3aad55b21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
