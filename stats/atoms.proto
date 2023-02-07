@@ -22087,6 +22087,8 @@ message IwlanSetupDataCallResultReported {
   optional int32 handover_failure_mode = 15;
   // Retry duration
   optional int32 retry_duration_millis = 16;
+  // Iwlan error classname + 1st line of stack trace if setup failed
+   optional string iwlan_error_wrapped_classname_and_stack = 17;
 }
 
 /**
