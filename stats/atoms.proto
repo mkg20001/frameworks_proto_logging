@@ -3479,6 +3479,9 @@ message BluetoothSmpPairingEventReported {
     // on the command that is sent/received we can track the IO Capability of the
     // Pairing Exchange
     optional android.bluetooth.smp.PairingIOCapability io_capability = 6;
+    // Tracking whether the pairing session is an OOB pairing session
+    // Default: false
+    optional bool is_oob = 7;
 }
 
 /**
