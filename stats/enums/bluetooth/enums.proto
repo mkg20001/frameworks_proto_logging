@@ -144,6 +144,18 @@ enum SocketRoleEnum {
     SOCKET_ROLE_CONNECTION = 2;
 }
 
+enum L2capCocConnectionResult {
+    RESULT_L2CAP_CONN_UNKNOWN = 0;
+    RESULT_L2CAP_CONN_SUCCESS = 1;
+    RESULT_L2CAP_CONN_TIMEOUT = 2;
+    RESULT_L2CAP_CONN_PENDING = 3;
+    RESULT_L2CAP_CONN_NO_PSM = 4;
+    RESULT_L2CAP_CONN_SECURITY_BLOCK = 5;
+    RESULT_L2CAP_CONN_NO_RESOURCES = 6;
+    RESULT_L2CAP_CONN_NO_LINK = 7;
+    RESULT_L2CAP_CONN_CANCEL = 8;
+}
+
 enum CodePathCounterKeyEnum {
     KEY_UNKNOWN = 0;
     // Reserver smaller counters for very important bt features
