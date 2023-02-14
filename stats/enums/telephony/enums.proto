@@ -107,6 +107,9 @@ enum SignalStrengthEnum {
     SIGNAL_STRENGTH_MODERATE = 2;
     SIGNAL_STRENGTH_GOOD = 3;
     SIGNAL_STRENGTH_GREAT = 4;
+    //Add by kayun.kuang start
+    SIGNAL_STRENGTH_HIGHEST = 5;
+    //Add by kayun.kuang end
 }
 
 enum ServiceStateEnum {
