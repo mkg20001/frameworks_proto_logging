@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cf05b56_6ae5f77e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1959861
+      },
+      "writtenOn": "2023-02-14T20:47:18Z",
+      "side": 1,
+      "message": "Thanks Christine for the review. Updated comments.",
+      "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cd46da3_046f297e",
@@ -18,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cb0896_cbf92170",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1959861
+      },
+      "writtenOn": "2023-02-14T20:47:18Z",
+      "side": 1,
+      "message": "We\u0027ve never logged LE_SCAN_* enums yet from device side yet.\nAlso, server side change (cl/508192732) is corresponding to the proposed aosp change.",
+      "parentUuid": "8cd46da3_046f297e",
+      "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "898d9b7f_14dc7c2a",
@@ -31,6 +66,24 @@
       "writtenOn": "2023-02-14T20:16:46Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c3c2e1_1111902c",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1959861
+      },
+      "writtenOn": "2023-02-14T20:47:18Z",
+      "side": 1,
+      "message": "We\u0027ve never logged LE_SCAN_* enums yet from device side yet.\nAlso, server side change (cl/508192732) is corresponding to the proposed aosp change.",
+      "parentUuid": "898d9b7f_14dc7c2a",
       "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
