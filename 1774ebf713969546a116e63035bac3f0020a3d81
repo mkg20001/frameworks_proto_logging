@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cd46da3_046f297e",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2023-02-14T20:16:46Z",
+      "side": 1,
+      "message": "Please add this using a new field id. Enum values shouldn\u0027t be changed once they\u0027ve been logged.",
+      "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "898d9b7f_14dc7c2a",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2023-02-14T20:16:46Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "1774ebf713969546a116e63035bac3f0020a3d81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
