@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5066e0_2a8f3768",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-16T00:47:28Z",
+      "side": 1,
+      "message": "Added basic test to test the auto-generated API which populates the vendor atom",
+      "revId": "4dd1d5f1ed3c568d3dd35b2fee24704df395d0ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
