@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "827277ac_5d09d1ef",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-16T00:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f15fa3ba_d785b385",
+      "revId": "b3512038dcdfc42f7b45bb6307d2fc502cff2028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92a6f1a1_8cb65b6a",
@@ -58,6 +76,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3941c5_da621d50",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-16T00:47:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "92a6f1a1_8cb65b6a",
+      "revId": "b3512038dcdfc42f7b45bb6307d2fc502cff2028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a078e619_cbd9c583",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-16T00:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7b536a6_6e0ca4be",
+      "range": {
+        "startLine": 401,
+        "startChar": 42,
+        "endLine": 401,
+        "endChar": 45
+      },
+      "revId": "b3512038dcdfc42f7b45bb6307d2fc502cff2028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddc821ab_322f97bf",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-02-15T19:11:47Z",
       "side": 1,
       "message": "Please fix this WARNING reported by Check Contents: Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nAnalyzer Description: Validates that changes do not have prohibited expressions in them.\nOwner: ayeaye-team@google.com\n\nLines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 110
+      },
+      "revId": "b3512038dcdfc42f7b45bb6307d2fc502cff2028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f0cdcd_a51abbb1",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-16T00:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddc821ab_322f97bf",
       "range": {
         "startLine": 455,
         "startChar": 0,
