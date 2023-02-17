@@ -16,6 +16,24 @@
       "message": "the primary purpose of adding enums here is if they are also used in logging to statsd. I have no issue with adding them, but if they are not going to be logged, this might be unneccesary.",
       "revId": "e4f81c979c8094afe878ecca37594622308cf5af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b828c85_5646ec56",
+        "filename": "stats/enums/os/enums.proto",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1653796
+      },
+      "writtenOn": "2023-02-17T06:06:18Z",
+      "side": 1,
+      "message": "Got it. Thanks!",
+      "parentUuid": "88b6aa36_598bd7e9",
+      "revId": "e4f81c979c8094afe878ecca37594622308cf5af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
