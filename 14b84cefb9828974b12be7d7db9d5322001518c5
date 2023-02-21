@@ -34,6 +34,24 @@
       "parentUuid": "83539a21_e7c55ef7",
       "revId": "14b84cefb9828974b12be7d7db9d5322001518c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7771099f_51d6928e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2023-02-21T11:22:19Z",
+      "side": 1,
+      "message": "Thanks, it appears it works to AOSP too, at last. Next time, but now I\u0027ve already prepared this topic.\n\nRafal?",
+      "parentUuid": "8a69178f_0975653f",
+      "revId": "14b84cefb9828974b12be7d7db9d5322001518c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
