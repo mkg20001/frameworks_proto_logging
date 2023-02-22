@@ -394,8 +394,6 @@ message Atom {
                 201 [(module) = "media_metrics"];
         CarPowerStateChanged car_power_state_changed = 203 [(module) = "car"];
         GarageModeInfo garage_mode_info = 204 [(module) = "car"];
-        TestAtomReported test_atom_reported = 205
-            [(module) = "cts", (module) = "statsdtest"];
         ContentCaptureCallerMismatchReported content_capture_caller_mismatch_reported =
                 206 [(module) = "framework"];
         ContentCaptureServiceEvents content_capture_service_events = 207 [(module) = "framework"];
@@ -799,6 +797,7 @@ message Atom {
 
     // Pushed atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
+    extensions 205; // TestAtomReported test_atom_reported
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
@@ -6200,29 +6199,6 @@ message BinaryPushStateChanged {
     optional int32 reason = 9;
     // Whether or not this is a rollback event.
     optional bool is_rollback = 10;
-}
-
-/* Test atom, is not logged anywhere */
-message TestAtomReported {
-    repeated AttributionNode attribution_node = 1;
-    optional int32 int_field = 2;
-    optional int64 long_field = 3;
-    optional float float_field = 4;
-    optional string string_field = 5;
-    optional bool boolean_field = 6;
-    enum State {
-        UNKNOWN = 0;
-        OFF = 1;
-        ON = 2;
-    }
-    optional State state = 7;
-    optional TrainExperimentIds bytes_field = 8 [(android.os.statsd.log_mode) = MODE_BYTES];
-    repeated int32 repeated_int_field = 9;
-    repeated int64 repeated_long_field = 10;
-    repeated float repeated_float_field = 11;
-    repeated string repeated_string_field = 12;
-    repeated bool repeated_boolean_field = 13;
-    repeated State repeated_enum_field = 14;
 }
 
 /** Represents USB port overheat event. */

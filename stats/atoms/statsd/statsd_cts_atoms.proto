@@ -1,0 +1,54 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.os.statsd;
+
+option optimize_for = CODE_SIZE;
+option java_package = "com.android.os";
+option java_outer_classname = "StatsdCts";
+
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+import "frameworks/proto_logging/stats/attribution_node.proto";
+
+extend Atom {
+    optional TestAtomReported test_atom_reported = 205 [(module) = "cts", (module) = "statsdtest"];
+}
+
+/* Test atom, is not logged anywhere */
+message TestAtomReported {
+    repeated AttributionNode attribution_node = 1;
+    optional int32 int_field = 2;
+    optional int64 long_field = 3;
+    optional float float_field = 4;
+    optional string string_field = 5;
+    optional bool boolean_field = 6;
+    enum State {
+        UNKNOWN = 0;
+        OFF = 1;
+        ON = 2;
+    }
+    optional State state = 7;
+    optional TrainExperimentIds bytes_field = 8 [(android.os.statsd.log_mode) = MODE_BYTES];
+    repeated int32 repeated_int_field = 9;
+    repeated int64 repeated_long_field = 10;
+    repeated float repeated_float_field = 11;
+    repeated string repeated_string_field = 12;
+    repeated bool repeated_boolean_field = 13;
+    repeated State repeated_enum_field = 14;
+}
