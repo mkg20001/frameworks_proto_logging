@@ -281,3 +281,4 @@ enum MajorClassEnum {
     MAJOR_CLASS_TOY = 0x0800;
     MAJOR_CLASS_HEALTH = 0x0900;
 }
+
