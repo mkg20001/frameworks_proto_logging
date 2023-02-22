@@ -33,6 +33,24 @@
       "message": "sharaienko@\n\nthis fix is similar to aosp/2401794.",
       "revId": "9e6139af23096a56feb02580c8b4c015cbd75135",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41a4876_d17aacb6",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1938760
+      },
+      "writtenOn": "2023-02-22T03:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83d71378_37018304",
+      "revId": "9e6139af23096a56feb02580c8b4c015cbd75135",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
