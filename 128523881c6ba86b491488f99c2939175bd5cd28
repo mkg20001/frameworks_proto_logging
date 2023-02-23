@@ -16,6 +16,24 @@
       "message": "Just to double check - it have not been collected by any WW metric yet? and the atom not in the google3 - could you please confirm",
       "revId": "128523881c6ba86b491488f99c2939175bd5cd28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abdc235f_8035714a",
+        "filename": "stats/atoms/media/media_drm_atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2023-02-23T06:55:14Z",
+      "side": 1,
+      "message": "Correct, cl/485378400 is still pending.",
+      "parentUuid": "7d0cee6e_9a49261c",
+      "revId": "128523881c6ba86b491488f99c2939175bd5cd28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
