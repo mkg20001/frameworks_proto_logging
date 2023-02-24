@@ -1,5 +1,131 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fcb9fd_43791b06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "Apologies for the late review. Still trying to catch up after the IC deadlines last wee.\n\nYou likely have already done this, but could you share \n1. a platform cpp codegen before \u0026 after this change to see any diffs\n2. a sample vendor codegen\n\nCan be done offline.",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bb6416f_8fed99fc",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "The aidl versioning story is a little bit unclear to me, but I have two questions:\n1. ag/19934204 added support for repeated fields in september. This would be too late for T, and would only be for U\n\n2. more generally, is \"minApiLevel\" a concept that makes sense for vendor logging? My understanding is that there will be freezes in the aidl every year, and any client linking the aidl must link a specific version of the aidl. Given that, should we instead have a param for aidl version? Looking at https://cs.android.com/android/platform/superproject/+/master:frameworks/hardware/interfaces/stats/aidl/aidl_api/android.frameworks.stats/, we have version 1 \u0026 current?",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adefb570_184a6d0d",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "Just want to point this out since it was an issue with the platform code gen: vector\u003cbool\u003e has no .data() due to space optimization. This is why we did not use vector\u003cbool\u003e in the interface. However, since aidl uses vector\u003cbool\u003e, I think it might be more beneficial use vector\u003cbool\u003e in the header for the vendor codegen and avoid needing to do create it here. WDYT?",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa431c6e_6d1c0659",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "Mostly for my understanding, can you explain why this is desired? It allows us to avoid including the Vendor Atom header. Is there a reason for that? Given that the functions use Vendor Atom, I think it is okay to include it, similar to how pulled atoms include stats_pull_atom_callback? go/cstyle#Forward_Declarations also recommends against forward declarations in favor of including header files.",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95ebe148_0e2b5714",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "nit: go/totw/119 recommends against having namespace aliases in header files",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55994c6a_c890581c",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "nit: these variables should be declared in an anonymous namespace",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "543a6b05_ff1c6a38",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-24T06:58:56Z",
+      "side": 1,
+      "message": "teeny nit: I don\u0027t think we want this space? the idea is to have \n\n  stats_write(ATOM_CONSTANT_HERE, etc)\n\non platform, and on vendor have:\n  \n  buildVendorAtom(VendorAtom\u0026 atom, ATOM_CONSTANT_HERE, etc);",
+      "range": {
+        "startLine": 195,
+        "startChar": 72,
+        "endLine": 195,
+        "endChar": 73
+      },
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
