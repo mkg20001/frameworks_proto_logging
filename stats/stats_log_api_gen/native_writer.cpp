@@ -740,6 +740,15 @@ int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl&
     write_native_atom_constants(out, atoms, attributionDecl,
                                 "buildVendorAtom(VendorAtom& atom,");
 
+    fprintf(out, "struct BytesField {\n");
+    fprintf(out,
+            "  BytesField(char const* array, size_t len) : arg(array), "
+            "arg_length(len) {}\n");
+    fprintf(out, "  char const* arg;\n");
+    fprintf(out, "  size_t arg_length;\n");
+    fprintf(out, "};\n");
+    fprintf(out, "\n");
+
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
         set<string> processedEnums;
