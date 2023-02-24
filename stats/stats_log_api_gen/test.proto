@@ -292,6 +292,7 @@ message VendorAtoms {
 message ExtensionAtoms {
     oneof pushed {
         IntAtom int_atom_1 = 1;
+        IntAtom int_atom_2 = 2;
     }
     oneof pulled {
         OutOfOrderAtom out_of_order_atom = 10000;
