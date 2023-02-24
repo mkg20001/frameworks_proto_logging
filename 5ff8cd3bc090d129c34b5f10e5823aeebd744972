@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "532f451a_a7c20e75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-24T17:15:53Z",
+      "side": 1,
+      "message": "Thank you Tej for the comments I will follow up then in the next CL\n\nWill put links to new changes where appropriate",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bb6416f_8fed99fc",
