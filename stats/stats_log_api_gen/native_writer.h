@@ -29,8 +29,15 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
                         const string& cppNamespace, const string& importHeader,
                         const int minApiLevel, bool bootstrap);
 
+int write_stats_log_cpp_vendor(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                               const string& cppNamespace, const string& importHeader,
+                               const int minApiLevel);
+
 int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
                            const string& cppNamespace, const int minApiLevel, bool bootstrap);
+
+int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                                  const string& cppNamespace);
 
 }  // namespace stats_log_api_gen
 }  // namespace android

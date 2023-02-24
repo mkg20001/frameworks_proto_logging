@@ -29,9 +29,9 @@
 namespace android {
 namespace stats_log_api_gen {
 
-using google::protobuf::OneofDescriptor;
 using google::protobuf::Descriptor;
 using google::protobuf::FieldDescriptor;
+using google::protobuf::OneofDescriptor;
 using std::map;
 using std::set;
 using std::shared_ptr;
@@ -49,6 +49,8 @@ const int FIRST_UID_IN_CHAIN_ID = 0;
  */
 const char ONEOF_PUSHED_ATOM_NAME[] = "pushed";
 const char ONEOF_PULLED_ATOM_NAME[] = "pulled";
+
+enum AtomType { ATOM_TYPE_PUSHED, ATOM_TYPE_PULLED };
 
 enum AnnotationId : uint8_t {
     ANNOTATION_ID_IS_UID = 1,
@@ -146,11 +148,16 @@ struct AtomField {
     // If the field is of type enum, the following map contains the list of enum
     // values.
     map<int /* numeric value */, string /* value name */> enumValues;
+    // If the field is of type enum, the following field contains enum type name
+    string enumTypeName;
 
     inline AtomField() : name(), javaType(JAVA_TYPE_UNKNOWN_OR_INVALID) {
     }
     inline AtomField(const AtomField& that)
-        : name(that.name), javaType(that.javaType), enumValues(that.enumValues) {
+        : name(that.name),
+          javaType(that.javaType),
+          enumValues(that.enumValues),
+          enumTypeName(that.enumTypeName) {
     }
 
     inline AtomField(string n, java_type_t jt) : name(n), javaType(jt) {
@@ -169,7 +176,7 @@ struct AtomDecl {
     string message;
     vector<AtomField> fields;
 
-    string oneOfName;
+    AtomType atomType;
 
     FieldNumberToAnnotations fieldNumberToAnnotations;
 
@@ -181,7 +188,7 @@ struct AtomDecl {
 
     AtomDecl();
     AtomDecl(const AtomDecl& that);
-    AtomDecl(int code, const string& name, const string& message, const string& oneOfName);
+    AtomDecl(int code, const string& name, const string& message, AtomType atomType);
     ~AtomDecl();
 
     inline bool operator<(const AtomDecl& that) const {

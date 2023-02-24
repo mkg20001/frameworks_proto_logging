@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cstdlib>
+#include <filesystem>
 #include <map>
 #include <set>
 #include <vector>
@@ -20,6 +22,7 @@
 namespace android {
 namespace stats_log_api_gen {
 
+namespace fs = std::filesystem;
 using android::os::statsd::Atom;
 
 static void print_usage() {
@@ -32,7 +35,8 @@ static void print_usage() {
     fprintf(stderr, "  --java FILENAME      the java file to output\n");
     fprintf(stderr, "  --rust FILENAME      the rust file to output\n");
     fprintf(stderr, "  --rustHeader FILENAME the rust file to output for write helpers\n");
-    fprintf(stderr, "  --rustHeaderCrate NAME        header crate to be used while "
+    fprintf(stderr,
+            "  --rustHeaderCrate NAME        header crate to be used while "
             "generating the code. Note: this should be the same as the crate_name "
             "created by rust_library for the header \n");
     fprintf(stderr, "  --module NAME        optional, module name to generate outputs for\n");
@@ -57,11 +61,13 @@ static void print_usage() {
     fprintf(stderr,
             "  --compileApiLevel API_LEVEL           specify which API level generated code is "
             "compiled against. (Java only).\n");
-    fprintf(stderr,
-            "                                        Default is \"current\".\n");
+    fprintf(stderr, "                                        Default is \"current\".\n");
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
+    fprintf(stderr,
+            "  --vendor-proto       Path to the proto file for vendor atoms logging\n"
+            "code generation.\n");
 }
 
 /**
@@ -79,6 +85,7 @@ static int run(int argc, char const* const* argv) {
     string moduleName = DEFAULT_MODULE_NAME;
     string cppNamespace = DEFAULT_CPP_NAMESPACE;
     string cppHeaderImport = DEFAULT_CPP_HEADER_IMPORT;
+    string vendorProto;
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
     int compileApiLevel = API_LEVEL_CURRENT;
@@ -190,19 +197,31 @@ static int run(int argc, char const* const* argv) {
             }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
+        } else if (0 == strcmp("--vendor-proto", argv[index])) {
+            index++;
+            if (index >= argc) {
+                print_usage();
+                return 1;
+            }
+
+            vendorProto = argv[index];
         }
 
         index++;
     }
+    if (index < argc) {
+        fprintf(stderr, "Error: Unknown command line argument\n");
+        print_usage();
+        return 1;
+    }
 
-    if (cppFilename.empty() && headerFilename.empty()
-        && javaFilename.empty() && rustFilename.empty()
-        && rustHeaderFilename.empty()) {
+    if (cppFilename.empty() && headerFilename.empty() && javaFilename.empty() &&
+        rustFilename.empty() && rustHeaderFilename.empty()) {
         print_usage();
         return 1;
     }
     if (DEFAULT_MODULE_NAME == moduleName &&
-            (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
+        (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
         // Default module only supports current API level.
         fprintf(stderr, "%s cannot support older API levels\n", moduleName.c_str());
         return 1;
@@ -228,7 +247,8 @@ static int run(int argc, char const* const* argv) {
     } else {
         if (minApiLevel > compileApiLevel) {
             // If specified, minApiLevel should always be lower than compileApiLevel.
-            fprintf(stderr, "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
+            fprintf(stderr,
+                    "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
                     " compileApiLevel are specified, minApiLevel should not be higher"
                     " than compileApiLevel.\n");
             return 1;
@@ -250,8 +270,35 @@ static int run(int argc, char const* const* argv) {
     }
 
     // Collate the parameters
+    int errorCount = 0;
+
     Atoms atoms;
-    int errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+
+    MFErrorCollector errorCollector;
+    google::protobuf::compiler::DiskSourceTree sourceTree;
+    google::protobuf::compiler::Importer importer(&sourceTree, &errorCollector);
+
+    if (vendorProto.empty()) {
+        errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+    } else {
+        const google::protobuf::FileDescriptor* fileDescriptor;
+        sourceTree.MapPath("", fs::current_path().c_str());
+
+        const char* androidBuildTop = std::getenv("ANDROID_BUILD_TOP");
+
+        fs::path protobufSrc = androidBuildTop != nullptr ? androidBuildTop : fs::current_path();
+        protobufSrc /= "external/protobuf/src";
+        sourceTree.MapPath("", protobufSrc.c_str());
+
+        if (androidBuildTop != nullptr) {
+            sourceTree.MapPath("", androidBuildTop);
+        }
+
+        fileDescriptor = importer.Import(vendorProto);
+        errorCount =
+                collate_atoms(fileDescriptor->FindMessageTypeByName("Atom"), moduleName, &atoms);
+    }
+
     if (errorCount != 0) {
         return 1;
     }
@@ -279,8 +326,14 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
             return 1;
         }
-        errorCount = android::stats_log_api_gen::write_stats_log_cpp(
-                out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel, bootstrap);
+        if (vendorProto.empty()) {
+            errorCount = android::stats_log_api_gen::write_stats_log_cpp(
+                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel,
+                    bootstrap);
+        } else {
+            errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
+                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel);
+        }
         fclose(out);
     }
 
@@ -295,8 +348,14 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Unable to open file for write: %s\n", headerFilename.c_str());
             return 1;
         }
-        errorCount = android::stats_log_api_gen::write_stats_log_header(
-                out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
+
+        if (vendorProto.empty()) {
+            errorCount = android::stats_log_api_gen::write_stats_log_header(
+                    out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
+        } else {
+            errorCount = android::stats_log_api_gen::write_stats_log_header_vendor(
+                    out, atoms, attributionDecl, cppNamespace);
+        }
         fclose(out);
     }
 
@@ -332,7 +391,7 @@ static int run(int argc, char const* const* argv) {
 
     // Write the main .rs file
     if (!rustFilename.empty()) {
-        if(rustHeaderCrate.empty()){
+        if (rustHeaderCrate.empty()) {
             fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
@@ -351,7 +410,7 @@ static int run(int argc, char const* const* argv) {
 
     // Write the header .rs file
     if (!rustHeaderFilename.empty()) {
-        if(rustHeaderCrate.empty()){
+        if (rustHeaderCrate.empty()) {
             fprintf(stderr, "rustHeaderCrate flag is either not passed or is empty");
             return 1;
         }
@@ -362,8 +421,8 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        android::stats_log_api_gen::write_stats_log_rust_header(
-                out, atoms, attributionDecl, rustHeaderCrate.c_str());
+        android::stats_log_api_gen::write_stats_log_rust_header(out, atoms, attributionDecl,
+                                                                rustHeaderCrate.c_str());
 
         fclose(out);
     }

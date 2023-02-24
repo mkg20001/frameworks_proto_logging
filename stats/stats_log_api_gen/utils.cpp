@@ -49,8 +49,7 @@ void build_non_chained_decl_map(const Atoms& atoms,
 }
 
 const map<AnnotationId, string>& get_annotation_id_constants() {
-    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS =
-        new map<AnnotationId, string>{
+    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS = new map<AnnotationId, string>{
             {ANNOTATION_ID_IS_UID, "ANNOTATION_ID_IS_UID"},
             {ANNOTATION_ID_TRUNCATE_TIMESTAMP, "ANNOTATION_ID_TRUNCATE_TIMESTAMP"},
             {ANNOTATION_ID_PRIMARY_FIELD, "ANNOTATION_ID_PRIMARY_FIELD"},
@@ -59,7 +58,7 @@ const map<AnnotationId, string>& get_annotation_id_constants() {
             {ANNOTATION_ID_DEFAULT_STATE, "ANNOTATION_ID_DEFAULT_STATE"},
             {ANNOTATION_ID_TRIGGER_STATE_RESET, "ANNOTATION_ID_TRIGGER_STATE_RESET"},
             {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"},
-        };
+    };
 
     return *ANNOTATION_ID_CONSTANTS;
 }
@@ -175,8 +174,7 @@ bool is_repeated_field(java_type_t type) {
 }
 
 // Native
-// Writes namespaces for the cpp and header files, returning the number of
-// namespaces written.
+// Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
     vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {
@@ -194,7 +192,8 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces) {
 
 static void write_cpp_usage(FILE* out, const string& method_name, const string& atom_code_name,
                             const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl) {
-    fprintf(out, "     * Usage: %s(StatsLog.%s", method_name.c_str(), atom_code_name.c_str());
+    const char* delimiterStr = method_name.find('(') == string::npos ? " (" : " ";
+    fprintf(out, "     * Usage: %s%s%s", method_name.c_str(), delimiterStr, atom_code_name.c_str());
 
     for (vector<AtomField>::const_iterator field = atom->fields.begin();
          field != atom->fields.end(); field++) {
@@ -216,7 +215,8 @@ static void write_cpp_usage(FILE* out, const string& method_name, const string& 
     fprintf(out, ");\n");
 }
 
-void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl) {
+void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                                 const string& methodName) {
     fprintf(out, "/**\n");
     fprintf(out, " * Constants for atom codes.\n");
     fprintf(out, " */\n");
@@ -233,11 +233,11 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
-        write_cpp_usage(out, "stats_write", constant, *atomIt, attributionDecl);
+        write_cpp_usage(out, methodName, constant, *atomIt, attributionDecl);
 
         auto non_chained_decl = atom_code_to_non_chained_decl_map.find((*atomIt)->code);
         if (non_chained_decl != atom_code_to_non_chained_decl_map.end()) {
-            write_cpp_usage(out, "stats_write_non_chained", constant, *non_chained_decl->second,
+            write_cpp_usage(out, methodName + "_non_chained", constant, *non_chained_decl->second,
                             attributionDecl);
         }
         fprintf(out, "     */\n");
@@ -248,6 +248,31 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
     fprintf(out, "\n");
     fprintf(out, "};\n");
     fprintf(out, "\n");
+}
+
+void write_native_atom_enums(FILE* out, const Atoms& atoms) {
+    // Print constants for the enum values.
+    fprintf(out, "//\n");
+    fprintf(out, "// Constants for enum values\n");
+    fprintf(out, "//\n\n");
+    for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
+         atomIt++) {
+        for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
+             field != (*atomIt)->fields.end(); field++) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
+                fprintf(out, "// Values for %s.%s\n", (*atomIt)->message.c_str(),
+                        field->name.c_str());
+                for (map<int, string>::const_iterator value = field->enumValues.begin();
+                     value != field->enumValues.end(); value++) {
+                    fprintf(out, "const int32_t %s__%s__%s = %d;\n",
+                            make_constant_name((*atomIt)->message).c_str(),
+                            make_constant_name(field->name).c_str(),
+                            make_constant_name(value->second).c_str(), value->first);
+                }
+                fprintf(out, "\n");
+            }
+        }
+    }
 }
 
 // Java
@@ -281,7 +306,7 @@ void write_java_enum_values(FILE* out, const Atoms& atoms) {
          atomIt++) {
         for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
              field != (*atomIt)->fields.end(); field++) {
-            if (field->javaType == JAVA_TYPE_ENUM) {
+            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
                 fprintf(out, "    // Values for %s.%s\n", (*atomIt)->message.c_str(),
                         field->name.c_str());
                 for (map<int, string>::const_iterator value = field->enumValues.begin();
