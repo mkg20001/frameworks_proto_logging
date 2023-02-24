@@ -21,11 +21,23 @@
 
 #include <limits>
 
+#include "frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.pb.h"
+
 namespace android {
 namespace stats_log_api_gen {
 
 using namespace android::VendorAtoms;
 using namespace aidl::android::frameworks::stats;
+
+namespace {
+
+static const int32_t kTestIntValue = 100;
+static const int64_t kTestLongValue = std::numeric_limits<int64_t>::max() - kTestIntValue;
+static const float kTestFloatValue = (float)kTestIntValue / kTestLongValue;
+static const bool kTestBoolValue = true;
+static const char* kTestStringValue = "test_string";
+
+}  // namespace
 
 /**
  * Tests native auto generated code for specific vendor atom contains proper ids
@@ -85,12 +97,6 @@ TEST(ApiGenVendorAtomTest, AtomIdModuleTest) {
     EXPECT_EQ(VendorAtomsModule::VendorAtom4::TYPE_1, 1);
 }
 
-static const int32_t kTestIntValue = 100;
-static const int64_t kTestLongValue = std::numeric_limits<int64_t>::max() - kTestIntValue;
-static const float kTestFloatValue = (float)kTestIntValue / kTestLongValue;
-static const bool kTestBoolValue = true;
-static const char* kTestStringValue = "test_string";
-
 TEST(ApiGenVendorAtomTest, buildVendorAtom1ApiTest) {
     typedef void (*VendorAtom1BuildFunc)(
             VendorAtom & atom, int32_t code, char const* reverse_domain_name, int32_t enumField1,
@@ -132,6 +138,49 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
     EXPECT_EQ(atom.values.size(), static_cast<size_t>(1));
     EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), kTestIntValue);
+}
+
+TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
+    typedef void (*VendorAtom5BuildFunc)(VendorAtom & atom, int32_t code, char const* arg1,
+                                         float arg2, int32_t arg3, int64_t arg4,
+                                         const std::vector<uint8_t>& arg5);
+    VendorAtom5BuildFunc func = &buildVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    ::android::stats_log_api_gen::TestNestedMessage nestedMessage;
+    nestedMessage.set_float_field(kTestFloatValue);
+    nestedMessage.set_int_field(kTestIntValue);
+    nestedMessage.set_long_field(kTestLongValue);
+
+    std::string nestedMessageString;
+    nestedMessage.SerializeToString(&nestedMessageString);
+
+    std::vector<uint8_t> nestedMessageBytes(nestedMessageString.begin(), nestedMessageString.end());
+    // std::copy(nestedMessageString.begin(), nestedMessageBytes.end(), nestedMessageBytes.begin());
+
+    VendorAtom atom;
+    func(atom, VENDOR_ATOM5, kTestStringValue, kTestFloatValue, kTestIntValue, kTestLongValue,
+         nestedMessageBytes);
+
+    EXPECT_EQ(atom.atomId, VENDOR_ATOM5);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(4));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::floatValue>(), kTestFloatValue);
+    EXPECT_EQ(atom.values[1].get<VendorAtomValue::intValue>(), kTestIntValue);
+    EXPECT_EQ(atom.values[2].get<VendorAtomValue::longValue>(), kTestLongValue);
+    EXPECT_EQ(atom.values[3].get<VendorAtomValue::byteArrayValue>(), nestedMessageBytes);
+
+    std::string nestedMessageStringResult(
+            atom.values[3].get<VendorAtomValue::byteArrayValue>()->begin(),
+            atom.values[3].get<VendorAtomValue::byteArrayValue>()->end());
+    EXPECT_EQ(nestedMessageStringResult, nestedMessageString);
+
+    ::android::stats_log_api_gen::TestNestedMessage nestedMessageResult;
+    nestedMessageResult.ParseFromString(nestedMessageStringResult);
+    EXPECT_EQ(nestedMessageResult.float_field(), kTestFloatValue);
+    EXPECT_EQ(nestedMessageResult.int_field(), kTestIntValue);
+    EXPECT_EQ(nestedMessageResult.long_field(), kTestLongValue);
 }
 
 }  // namespace stats_log_api_gen
