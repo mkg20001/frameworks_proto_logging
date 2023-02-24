@@ -16,6 +16,24 @@
       "message": "Optional, but looking at aosp/2401793 we create a vector that is moved into the VendorAtomValues for byte arrays. Given that, it might make more sense to use vector\u003cuint8_t\u003e directly in the header file for vendor instead of the custom BytesField struct?",
       "revId": "c932612875fdef90a3ddb3a051bf2dc90062b486",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273603eb_605531bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-24T17:17:19Z",
+      "side": 1,
+      "message": "I agree - will update this CL also including comments from https://r.android.com/2401793",
+      "parentUuid": "cf190f43_112fe9f5",
+      "revId": "c932612875fdef90a3ddb3a051bf2dc90062b486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
