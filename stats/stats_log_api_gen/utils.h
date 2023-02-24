@@ -48,7 +48,7 @@ const map<AnnotationId, string>& get_annotation_id_constants();
 
 string make_constant_name(const string& str);
 
-const char* cpp_type_name(java_type_t type);
+const char* cpp_type_name(java_type_t type, bool isVendorAtomLogging = false);
 
 const char* java_type_name(java_type_t type);
 
@@ -60,7 +60,8 @@ void write_namespace(FILE* out, const string& cppNamespaces);
 void write_closing_namespace(FILE* out, const string& cppNamespaces);
 
 void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                                 const string& methodName = "stats_write");
+                                 const string& methodName = "stats_write",
+                                 bool isVendorAtomLogging = false);
 
 void write_native_atom_enums(FILE* out, const Atoms& atoms);
 
