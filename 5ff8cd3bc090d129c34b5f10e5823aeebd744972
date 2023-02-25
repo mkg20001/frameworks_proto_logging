@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b1af64d_412a523d",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:31Z",
+      "side": 1,
+      "message": "Fully agree - if we can keep things current and avoid versioning, that is definitely preferred. However, can customers always link against \"current\"? I think they are required to link against a specific version. Eg, the test app in this cl links against  \"android.frameworks.stats-V2-ndk\". I assume we need to finalize v2 soon, at which point current will become v3.\n\nLooking at https://source.corp.google.com/search?q\u003dandroid.frameworks.stats%20f:android.bp\u0026sq\u003dpackage:%5Eandroid-internal$, i see many customers are also linking against V1: android.frameworks.stats-V1-ndk, android.frameworks.stats-V1-java, android.frameworks.stats@1.0 (is this the HIDL version..?)",
+      "parentUuid": "6e2bd36b_0bf626fd",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adefb570_184a6d0d",
         "filename": "stats/stats_log_api_gen/native_writer.cpp",
         "patchSetId": 6
@@ -188,6 +206,24 @@
       "side": 1,
       "message": "I agree with all aspects of http://go/cstyle#Aliases guide\n\nIMO the use case here aligned with the guide:\n```\nDon\u0027t put an alias in your public API just to save typing in the implementation; do so only if you intend it to be used by your clients.\n```\n\nThe VendorAtom is intended to be used by the clients\n\nWDYT?",
       "parentUuid": "95ebe148_0e2b5714",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdb202d_e9ed70d5",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:31Z",
+      "side": 1,
+      "message": "Ultimately, I\u0027ll defer to you. I think either way is reasonable. I still might prefer to avoid the alias since this code will be used by many people in many different scenarios, and I don\u0027t want to create collisions. But I agree that VendorAtom is part of the API, not implementation detail, so it can be a small ease of use improvement to include it.",
+      "parentUuid": "782c1940_ff20014e",
       "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
