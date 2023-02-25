@@ -73,6 +73,24 @@
       "message": "it might be useful to include repeated fields (eg in vendor atom 4) as well to make sure the signature is as expected.",
       "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad0fd324_6db5a2d2",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-25T03:34:06Z",
+      "side": 1,
+      "message": "do you mean repeated nested field?",
+      "parentUuid": "504f2a4b_8de260e4",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
