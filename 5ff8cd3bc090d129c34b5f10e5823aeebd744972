@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e319ce2_2b27fdab",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-25T03:30:02Z",
+      "side": 1,
+      "message": "V1 is also AIDL - before repeated fields were added\n\nUser cannot use word \"current\" in the android.bp file - instead version needs to be defined explicitly\n\ntechnically it is an option when user wants to stick to V1 and start use stats-log-api-gen\n\nIf that the case - it is Ok, until the user started to use features from V2 (repeated fields) in the proto file: if user will try - it will lead to compiler error (not sure how readable the error will be). This could be a concern - and solution to introduce the AIDL version check as part of stats-log-api-gen\n\nIMO could be added in follow up CL - once at least one user of V1 will transition to stats-log-api-gen with repeated fields in atom proto\n\nWDYT?",
+      "parentUuid": "9b1af64d_412a523d",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adefb570_184a6d0d",
         "filename": "stats/stats_log_api_gen/native_writer.cpp",
         "patchSetId": 6
@@ -224,6 +242,24 @@
       "side": 1,
       "message": "Ultimately, I\u0027ll defer to you. I think either way is reasonable. I still might prefer to avoid the alias since this code will be used by many people in many different scenarios, and I don\u0027t want to create collisions. But I agree that VendorAtom is part of the API, not implementation detail, so it can be a small ease of use improvement to include it.",
       "parentUuid": "782c1940_ff20014e",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a31b0f2_d4b10c98",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-25T03:30:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5fdb202d_e9ed70d5",
       "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
