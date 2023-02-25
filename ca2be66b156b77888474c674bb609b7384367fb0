@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18b2f9d6_38edbb4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:09Z",
+      "side": 1,
+      "message": "nit: can you update this to reflect the changes added",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e8166d_77edb85a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:09Z",
+      "side": 1,
+      "message": "Could you share a before/after of a generated non-vendor cpp/header file (before aosp/2401793, and after this cl), as well as a vendor cpp \u0026 header file. Can be shared offline.",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40cc7558_17928062",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:09Z",
+      "side": 1,
+      "message": "nit: here and everywhere else, can you supply inline comments for what this bool is? eg: `/*isVendor\u003d*/ true`",
+      "range": {
+        "startLine": 765,
+        "startChar": 72,
+        "endLine": 765,
+        "endChar": 76
+      },
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "504f2a4b_8de260e4",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-25T01:39:09Z",
+      "side": 1,
+      "message": "it might be useful to include repeated fields (eg in vendor atom 4) as well to make sure the signature is as expected.",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
