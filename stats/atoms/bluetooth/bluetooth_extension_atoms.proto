@@ -82,6 +82,9 @@ message BluetoothL2capCocClientConnection {
 
  // Latency between connection start and end
  optional int64 connection_latency_millis = 5;
+
+ // Uid of the app who calls l2cap coc connection API
+ optional int32 uid = 6 [(is_uid) = true];
 }
 
 /**
@@ -113,4 +116,7 @@ message BluetoothL2capCocServerConnection {
 
  // Timeout for connection acceptance. -1 if not timeout.
  optional int64 timeout_millis = 6;
+
+ // Uid of the app who calls l2cap coc connection API
+ optional int32 uid = 7 [(is_uid) = true];
 }
