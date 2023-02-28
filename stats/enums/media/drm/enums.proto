@@ -72,40 +72,40 @@ enum SecurityLevel {
     SECURITY_LEVEL_UNKNOWN = 0;
 
     /**
+     * Indicates that the maximum security level supported by the device should
+     * be used when opening a session. This is the default security level
+     * selected when a session is opened.
+     */
+    SECURITY_LEVEL_MAX = 1;
+
+    /**
      * DRM key management uses software-based whitebox crypto.
      */
-    SECURITY_LEVEL_SW_SECURE_CRYPTO = 1;
+    SECURITY_LEVEL_SW_SECURE_CRYPTO = 2;
 
     /**
      * DRM key management and decoding use software-based whitebox crypto.
      */
-    SECURITY_LEVEL_SW_SECURE_DECODE = 2;
+    SECURITY_LEVEL_SW_SECURE_DECODE = 3;
 
     /**
      * DRM key management and crypto operations are performed within a hardware
      * backed trusted execution environment.
      */
-    SECURITY_LEVEL_HW_SECURE_CRYPTO = 3;
+    SECURITY_LEVEL_HW_SECURE_CRYPTO = 4;
 
     /**
      * DRM key management, crypto operations and decoding of content are
      * performed within a hardware backed trusted execution environment.
      */
-    SECURITY_LEVEL_HW_SECURE_DECODE = 4;
+    SECURITY_LEVEL_HW_SECURE_DECODE = 5;
 
     /**
      * DRM key management, crypto operations, decoding of content and all
      * handling of the media (compressed and uncompressed) is handled within a
      * hardware backed trusted execution environment.
      */
-    SECURITY_LEVEL_HW_SECURE_ALL = 5;
-
-    /**
-     * Indicates that the maximum security level supported by the device should
-     * be used when opening a session. This is the default security level
-     * selected when a session is opened.
-     */
-    SECURITY_LEVEL_MAX = 6;
+    SECURITY_LEVEL_HW_SECURE_ALL = 6;
 }
 
 // DrmApi represents methods of the IDrm interface.
