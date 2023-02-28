@@ -145,6 +145,24 @@
       "parentUuid": "f7f40a6e_3f851c8c",
       "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a921a3_518c3f5d",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-28T00:44:40Z",
+      "side": 1,
+      "message": "Sure, a follow up also works. Ideally they could have been added in aosp/2401793 since that added support for repeated fields in the gen code.",
+      "parentUuid": "811e104e_12689829",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
