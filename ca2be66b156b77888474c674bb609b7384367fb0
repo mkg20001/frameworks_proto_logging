@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17af3df9_5e1c9dca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-28T00:39:17Z",
+      "side": 1,
+      "message": "will do and will add links to the bug - early next week",
+      "parentUuid": "71e8166d_77edb85a",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40cc7558_17928062",
         "filename": "stats/stats_log_api_gen/native_writer.cpp",
         "patchSetId": 5
@@ -107,6 +125,24 @@
       "side": 1,
       "message": "No, repeated primitive fields (repeated int/string/etc). I don\u0027t think you have tests on those types, unless I am missing something.",
       "parentUuid": "ad0fd324_6db5a2d2",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811e104e_12689829",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-28T00:39:17Z",
+      "side": 1,
+      "message": "repeated field tests will be added in separate CLs\n\nThis CL for byte array to represent nested message",
+      "parentUuid": "f7f40a6e_3f851c8c",
       "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
