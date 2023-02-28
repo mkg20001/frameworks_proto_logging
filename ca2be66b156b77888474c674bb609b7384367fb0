@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c124858c_9498f795",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-28T21:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18b2f9d6_38edbb4d",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71e8166d_77edb85a",
@@ -66,6 +84,30 @@
       "writtenOn": "2023-02-25T01:39:09Z",
       "side": 1,
       "message": "nit: here and everywhere else, can you supply inline comments for what this bool is? eg: `/*isVendor\u003d*/ true`",
+      "range": {
+        "startLine": 765,
+        "startChar": 72,
+        "endLine": 765,
+        "endChar": 76
+      },
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad0756a2_e29d33ce",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-28T21:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40cc7558_17928062",
       "range": {
         "startLine": 765,
         "startChar": 72,
@@ -161,6 +203,24 @@
       "side": 1,
       "message": "Sure, a follow up also works. Ideally they could have been added in aosp/2401793 since that added support for repeated fields in the gen code.",
       "parentUuid": "811e104e_12689829",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "478772c2_cc4f107a",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-02-28T21:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a921a3_518c3f5d",
       "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
