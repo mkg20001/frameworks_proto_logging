@@ -91,6 +91,24 @@
       "parentUuid": "504f2a4b_8de260e4",
       "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7f40a6e_3f851c8c",
+        "filename": "stats/stats_log_api_gen/test_api_gen_vendor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-02-28T00:36:33Z",
+      "side": 1,
+      "message": "No, repeated primitive fields (repeated int/string/etc). I don\u0027t think you have tests on those types, unless I am missing something.",
+      "parentUuid": "ad0fd324_6db5a2d2",
+      "revId": "ca2be66b156b77888474c674bb609b7384367fb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
