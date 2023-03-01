@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e8d8fd3_fa707cc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1951601
+      },
+      "writtenOn": "2023-03-01T17:18:01Z",
+      "side": 1,
+      "message": "I will cherry-pick this change direcltly to udc-dev branch as I am not sure how do I resolve these conflicts across different branches.",
+      "revId": "45ab84f7f9056fa08627e9a0c691834c17b9e16a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
