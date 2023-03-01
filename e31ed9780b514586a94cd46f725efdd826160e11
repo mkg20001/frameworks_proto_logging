@@ -16,6 +16,24 @@
       "message": "This was like this from before so it\u0027s not required to fix in this CL but maybe something to track?\nThere\u0027s also been a change/new addition to best practice surrounding smart pointers in function parameters: go/totw/188",
       "revId": "e31ed9780b514586a94cd46f725efdd826160e11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "812d5301_1abe4ae2",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-03-01T18:25:12Z",
+      "side": 1,
+      "message": "Created bug to follow up http://b/271291402",
+      "parentUuid": "a16ef7e4_9715c259",
+      "revId": "e31ed9780b514586a94cd46f725efdd826160e11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
