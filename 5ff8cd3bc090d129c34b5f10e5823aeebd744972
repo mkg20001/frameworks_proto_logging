@@ -123,6 +123,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b45e06a_3be20603",
+        "filename": "stats/stats_log_api_gen/native_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-03-01T22:12:12Z",
+      "side": 1,
+      "message": "Will follow up with this in scope of http://b/271324398",
+      "parentUuid": "6e319ce2_2b27fdab",
+      "revId": "5ff8cd3bc090d129c34b5f10e5823aeebd744972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adefb570_184a6d0d",
