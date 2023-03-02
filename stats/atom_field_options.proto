@@ -103,14 +103,24 @@ enum LogMode {
 
 // Used to annotate an atom as belonging to a retriction category.
 enum RestrictionCategory {
-    RESTRICTION_UNSET = 0;
-    RESTRICTION_DIAGNOSTIC = 1;
+    RESTRICTION_CATEGORY_UNSET = 0;
+    RESTRICTION_CATEGORY_DIAGNOSTIC = 1;
+    RESTRICTION_CATEGORY_SYSTEM_INTELLIGENCE = 2;
+    RESTRICTION_CATEGORY_AUTHENTICATION = 3;
+    RESTRICTION_CATEGORY_FRAUD_AND_ABUSE = 4;
 }
 
 // Options for restricting fields of atoms
 message FieldRestrictionOption {
     optional bool peripheral_device_info = 1;
-    optional bool coarse_app_usage_personalization = 2;
+    optional bool app_usage = 2;
+    optional bool app_activity = 3;
+    optional bool health_connect = 4;
+    optional bool accessibility = 5;
+    optional bool system_search = 6;
+    optional bool user_engagement = 7;
+    optional bool ambient_sensing = 8;
+    optional bool demographic_classification = 9;
 }
 
 extend google.protobuf.FieldOptions {
