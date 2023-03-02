@@ -215,7 +215,6 @@ static int run(int argc, char const* const* argv) {
         return 1;
     }
 
-
     if (cppFilename.empty() && headerFilename.empty() && javaFilename.empty() &&
         rustFilename.empty() && rustHeaderFilename.empty()) {
         print_usage();
@@ -311,12 +310,6 @@ static int run(int argc, char const* const* argv) {
 
     // Write the .cpp file
     if (!cppFilename.empty()) {
-        //TODO b/248284745: will be implemented as part os Milestone #2
-        if (!vendorProto.empty()) {
-            fprintf(stderr, "cpp APIs code-generation not supported for vendor atoms\n");
-            return 1;
-        }
-
         // If this is for a specific module, the namespace must also be provided.
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
@@ -333,8 +326,14 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
             return 1;
         }
-        errorCount = android::stats_log_api_gen::write_stats_log_cpp(
-                out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel, bootstrap);
+        if (vendorProto.empty()) {
+            errorCount = android::stats_log_api_gen::write_stats_log_cpp(
+                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel,
+                    bootstrap);
+        } else {
+            errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
+                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport);
+        }
         fclose(out);
     }
 

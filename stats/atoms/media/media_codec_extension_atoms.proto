@@ -1,0 +1,78 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.os.statsd.media;
+
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+import "frameworks/proto_logging/stats/enums/media/codec/enums.proto";
+
+extend Atom {
+  optional MediaCodecReclaimRequestCompleted
+      media_codec_reclaim_request_completed = 600
+        [(module) = "framework", (module) = "media_metrics"];
+}
+
+/**
+ * MediaResourceManagerService (media.resource_manager) logs this event
+ * when a client requests to reclaim codec(s) from other process(es).
+ *
+ * To decide from which process to reclaim the resources, the
+ * MediaResourceManagerService uses "out of memory" score to prioritize
+ * the requesting processes. Lower the oom score, higher the priority.
+ *
+ * If multiple codecs are reclaimed to satisfy the current (codec) reclaim
+ * request, then there will be one MediaCodecReclaimRequestCompleted atom logged
+ * for each codec reclaimed.
+ * The target_index will index through the reclaimed codecs.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ */
+message MediaCodecReclaimRequestCompleted {
+    // Requester Information: Process that triggered codec reclaim event.
+    // The uid of the Requester.
+    optional int32 requester_uid = 1 [(is_uid) = true];
+
+    // The oom score of the Requester.
+    optional int32 requester_oom_score = 2;
+
+    // Codec Information: Codec that the Requester wants to initialize.
+    // The name of the codec that requester needs.
+    // eg. `OMX.google.aac.decoder`
+    optional string codec = 3;
+
+    // The number of concurrent instances of this codec, when the
+    // reclaim request was made.
+    optional int32 no_of_concurrent_codecs = 4;
+
+    // Reclaim Information:
+    // Status of reclaim request.
+    optional android.media.codec.ReclaimStatus reclaim_status = 5;
+
+    // If it was a successful reclaim, the number of codecs that have been reclaimed.
+    optional int32 no_of_codecs_reclaimed = 6;
+
+    // Information of the (target) process that it belonged to.
+    // If no_of_codecs_reclaimed is more than 1, this will be target index.
+    optional int32 target_index = 7;
+    // The uid of the Target.
+    optional int32 target_uid = 8 [(is_uid) = true];
+    // The oom score of the Target.
+    optional int32 target_oom_score = 9;
+}
