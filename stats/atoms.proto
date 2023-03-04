@@ -803,6 +803,7 @@ message Atom {
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
+    extensions 616; // BluetoothLEConnectionSession bluetooth_le_connection_session
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
