@@ -1,0 +1,57 @@
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+package android.bluetooth.le;
+
+option java_outer_classname = "BluetoothLEProtoEnums";
+option java_multiple_files = true;
+
+
+// LE ACL Connection State. This as per - go/bluetooth-le-connection-metrics
+enum LEACLConnectionState {
+  LE_ACL_UNSPECIFIED = 0;
+  LE_ACL_SUCCESS = 1;
+  LE_ACL_FAILED = 2;
+  LE_ACL_ALREADY_PRESENT = 3;
+}
+
+// Transaction Origin type.
+enum LETransactionOriginType {
+  ORIGIN_UNSPECIFIED = 0;
+  ORIGIN_NATIVE = 1;
+  ORIGIN_JAVA = 2;
+}
+
+// LE Connection Type
+enum LEACLConnectionType {
+  TRANSACTION_TYPE_UNSPECIFIED = 0;
+  TRANSACTION_TYPE_GATT = 1;
+  TRANSACTION_TYPE_LE_AUDIO = 2;
+  TRANSACTION_TYPE_LE_ACL = 3;
+}
+
+// LE Transaction State
+enum LEConnectionTransactionState {
+  STATE_UNSPECIFIED = 0;
+  STATE_GATT_CONNECT_JAVA = 1;
+  STATE_GATT_CONNECT_NATIVE = 2;
+  STATE_LE_ACL_START = 3;
+  STATE_LE_ACL_END = 4;
+  STATE_LE_ACL_TIMEOUT = 5;
+  STATE_LE_ACL_CANCEL = 6;
+}
+
