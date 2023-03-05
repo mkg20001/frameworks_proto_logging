@@ -49,6 +49,7 @@ enum ArtCompilationReason {
     ART_COMPILATION_REASON_PREBUILT = 18;
     ART_COMPILATION_REASON_CMDLINE = 19;
     ART_COMPILATION_REASON_VDEX = 20;
+    ART_COMPILATION_REASON_BOOT_AFTER_MAINLINE_UPDATE = 21;
 }
 
 // Indicates which kind of measurement ART is reporting.

@@ -88,7 +88,7 @@ string make_constant_name(const string& str) {
     return result;
 }
 
-const char* cpp_type_name(java_type_t type) {
+const char* cpp_type_name(java_type_t type, bool isVendorAtomLogging) {
     switch (type) {
         case JAVA_TYPE_BOOLEAN:
             return "bool";
@@ -104,9 +104,9 @@ const char* cpp_type_name(java_type_t type) {
         case JAVA_TYPE_STRING:
             return "char const*";
         case JAVA_TYPE_BYTE_ARRAY:
-            return "const BytesField&";
+            return isVendorAtomLogging ? "const std::vector<uint8_t>&" : "const BytesField&";
         case JAVA_TYPE_BOOLEAN_ARRAY:
-            return "const bool*";
+            return isVendorAtomLogging ? "const std::vector<bool>&" : "const bool*";
         case JAVA_TYPE_INT_ARRAY:  // Fallthrough.
         case JAVA_TYPE_ENUM_ARRAY:
             return "const std::vector<int32_t>&";
@@ -174,8 +174,7 @@ bool is_repeated_field(java_type_t type) {
 }
 
 // Native
-// Writes namespaces for the cpp and header files, returning the number of
-// namespaces written.
+// Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
     vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {
@@ -192,8 +191,10 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces) {
 }
 
 static void write_cpp_usage(FILE* out, const string& method_name, const string& atom_code_name,
-                            const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl) {
-    fprintf(out, "     * Usage: %s(StatsLog.%s", method_name.c_str(), atom_code_name.c_str());
+                            const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl,
+                            bool isVendorAtomLogging = false) {
+    const char* delimiterStr = method_name.find('(') == string::npos ? "(" : " ";
+    fprintf(out, "     * Usage: %s%s%s", method_name.c_str(), delimiterStr, atom_code_name.c_str());
 
     for (vector<AtomField>::const_iterator field = atom->fields.begin();
          field != atom->fields.end(); field++) {
@@ -209,13 +210,15 @@ static void write_cpp_usage(FILE* out, const string& method_name, const string& 
                 }
             }
         } else {
-            fprintf(out, ", %s %s", cpp_type_name(field->javaType), field->name.c_str());
+            fprintf(out, ", %s %s", cpp_type_name(field->javaType, isVendorAtomLogging),
+                    field->name.c_str());
         }
     }
     fprintf(out, ");\n");
 }
 
-void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl) {
+void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
+                                 const string& methodName, bool isVendorAtomLogging) {
     fprintf(out, "/**\n");
     fprintf(out, " * Constants for atom codes.\n");
     fprintf(out, " */\n");
@@ -232,12 +235,12 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
-        write_cpp_usage(out, "stats_write", constant, *atomIt, attributionDecl);
+        write_cpp_usage(out, methodName, constant, *atomIt, attributionDecl, isVendorAtomLogging);
 
         auto non_chained_decl = atom_code_to_non_chained_decl_map.find((*atomIt)->code);
         if (non_chained_decl != atom_code_to_non_chained_decl_map.end()) {
-            write_cpp_usage(out, "stats_write_non_chained", constant, *non_chained_decl->second,
-                            attributionDecl);
+            write_cpp_usage(out, methodName + "_non_chained", constant, *non_chained_decl->second,
+                            attributionDecl, isVendorAtomLogging);
         }
         fprintf(out, "     */\n");
         char const* const comma = (i == atoms.decls.size() - 1) ? "" : ",";

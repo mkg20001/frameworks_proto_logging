@@ -1,0 +1,116 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.os.statsd.bluetooth;
+
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
+
+option java_package = "com.android.os.bluetooth";
+option java_multiple_files = true;
+
+extend Atom {
+    optional BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
+        = 613 [(module) = "bluetooth"];
+    optional BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
+        = 614 [(module) = "bluetooth"];
+    optional BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
+        = 615 [(module) = "bluetooth"];
+}
+
+/**
+* Logs hashed Bluetooth device names
+*
+* Logged from:
+*     packages/modules/Bluetooth
+*/
+message BluetoothHashedDeviceNameReported {
+
+ // An identifier that can be used to match events for this device.
+ // The incremental identifier is locally generated and guaranteed not derived
+ // from any globally unique hardware id.
+ // For paired devices, it stays consistent between Bluetooth toggling for the
+ // same remote device.
+ // For unpaired devices, it stays consistent within the same Bluetooth adapter
+ // session for the same remote device.
+ // Default: 0 if the device's metric id is unknown.
+ optional int32 metric_id = 1;
+
+ // SHA256 hashed Bluetooth device name.
+ optional string device_name_hash = 2;
+}
+
+/**
+* Logs when L2CAP CoC on a Bluetooth device connects and disconnects.
+*/
+message BluetoothL2capCocClientConnection {
+
+ // An identifier that can be used to match events for this device.
+ // The incremental identifier is locally generated and guaranteed not derived
+ // from any globally unique hardware id.
+ // For paired devices, it stays consistent between Bluetooth toggling for the
+ // same remote device.
+ // For unpaired devices, it stays consistent within the same Bluetooth adapter
+ // session for the same remote device.
+ // Default: 0 if the device's metric id is unknown.
+ optional int32 metric_id = 1;
+
+ // Port used for the connection session
+ optional int32 port = 2;
+
+ // Flag to show if the connection is secured or not
+ optional bool isSecured = 3;
+
+ // Result of L2CAP CoC connection
+ optional android.bluetooth.L2capCocConnectionResult result = 4;
+
+ // Latency between connection start and end
+ optional int64 connection_latency_millis = 5;
+}
+
+/**
+* Logs when L2CAP CoC on a Bluetooth device connects and disconnects.
+*/
+message BluetoothL2capCocServerConnection {
+
+ // An identifier that can be used to match events for this device.
+ // The incremental identifier is locally generated and guaranteed not derived
+ // from any globally unique hardware id.
+ // For paired devices, it stays consistent between Bluetooth toggling for the
+ // same remote device.
+ // For unpaired devices, it stays consistent within the same Bluetooth adapter
+ // session for the same remote device.
+ // Default: 0 if the device's metric id is unknown.
+ optional int32 metric_id = 1;
+
+ // Port used for the connection session
+ optional int32 port = 2;
+
+ // Flag to show if the connection is secured or not
+ optional bool isSecured = 3;
+
+ // Result of L2CAP CoC connection
+ optional android.bluetooth.L2capCocConnectionResult result = 4;
+
+ // Latency between connection start and end
+ optional int64 latency_since_listening_millis = 5;
+
+ // Timeout for connection acceptance. -1 if not timeout.
+ optional int64 timeout_millis = 6;
+}

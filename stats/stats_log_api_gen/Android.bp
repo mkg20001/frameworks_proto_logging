@@ -53,7 +53,7 @@ cc_binary_host {
 }
 
 // ==========================================================
-// Build the host test executable: stats-log-api-gen
+// Build the host test executable: stats-log-api-gen-test
 // ==========================================================
 cc_test_host {
     name: "stats-log-api-gen-test",
@@ -71,6 +71,7 @@ cc_test_host {
         "test_collation.cpp",
         "test.proto",
         "test_feature_atoms.proto",
+        "test_vendor_atoms.proto",
         "utils.cpp",
     ],
 
@@ -80,6 +81,7 @@ cc_test_host {
     ],
 
     shared_libs: [
+        "android.frameworks.stats-V2-ndk",
         "libstats_proto_host",
         "libprotobuf-cpp-full",
         "libstatslog",
@@ -107,7 +109,7 @@ cc_test_host {
 genrule {
     name: "test_vendor_atoms.h",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --header $(genDir)/test_vendor_atoms.h --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --header $(out) --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms.h",
     ],
@@ -119,9 +121,23 @@ genrule {
 }
 
 genrule {
+    name: "test_vendor_atoms.cpp",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --cpp $(out) --importHeader test_vendor_atoms.h --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    out: [
+        "test_vendor_atoms.cpp",
+    ],
+    srcs: [
+        "test_vendor_atoms.proto",
+        ":libprotobuf-internal-descriptor-proto",
+        ":libstats_atom_options_protos",
+    ],
+}
+
+genrule {
     name: "test_vendor_atoms_with_module.h",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --header $(genDir)/test_vendor_atoms_with_module.h --module test --namespace android,VendorAtomsModule --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --header $(out) --module test --namespace android,VendorAtomsModule --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms_with_module.h",
     ],
@@ -139,10 +155,16 @@ cc_library_static {
         "test_vendor_atoms.h",
         "test_vendor_atoms_with_module.h",
     ],
+    generated_sources: [
+        "test_vendor_atoms.cpp",
+    ],
     export_generated_headers: [
         "test_vendor_atoms.h",
         "test_vendor_atoms_with_module.h",
     ],
+    shared_libs: [
+        "android.frameworks.stats-V2-ndk",
+    ]
 }
 
 // ==========================================================

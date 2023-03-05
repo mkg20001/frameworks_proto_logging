@@ -26,6 +26,7 @@ message Atom {
         VendorAtom2 vendorAtom2 = 105502;
         VendorAtom3 vendorAtom3 = 105503;
         VendorAtom4 vendorAtom4 = 105504 [(android.os.statsd.module) = "test"];
+        VendorAtom5 vendorAtom5 = 105505;
     }
 }
 
@@ -71,10 +72,11 @@ message VendorAtom2 {
     }
 
     optional string reverse_domain_name = 1;
-    optional EnumType enumField1 = 2;
-    optional EnumType enumField2 = 3;
-    optional EnumType2 enumField3 = 4;
-    optional EnumType2 enumField4 = 5;
+    optional int32 intField = 2;
+    optional EnumType enumField1 = 3;
+    optional EnumType enumField2 = 4;
+    optional EnumType2 enumField3 = 5;
+    optional EnumType2 enumField4 = 6;
 }
 
 message VendorAtom3 {
@@ -90,5 +92,29 @@ message VendorAtom4 {
 
     optional string reverse_domain_name = 1;
     optional float float_field = 2;
-    optional EnumType4 type4 = 3;
+    optional int32 int_field = 3;
+    optional int64 long_field = 4;
+    optional bool bool_field = 5;
+    optional EnumType4 type4 = 6;
+
+    repeated bool bool_repeated = 7;
+    repeated float float_repeated = 8;
+    repeated int32 int_repeated = 9;
+    repeated int64 long_repeated = 10;
+    repeated string string_repeated = 11;
+    repeated EnumType4 enum_repeated = 12;
+}
+
+message TestNestedMessage {
+    optional float float_field = 1;
+    optional int32 int_field = 2;
+    optional int64 long_field = 3;
+}
+
+message VendorAtom5 {
+    optional string reverse_domain_name = 1;
+    optional float float_field = 2;
+    optional int32 int_field = 3;
+    optional int64 long_field = 4;
+    optional TestNestedMessage nested_message_field = 5 [(android.os.statsd.log_mode) = MODE_BYTES];
 }
