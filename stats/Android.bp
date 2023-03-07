@@ -88,6 +88,7 @@ atom_protos = [
     "atoms/gps/*.proto",
     "atoms/placeholder/*.proto",
     "atoms/media/*.proto",
+    "atoms/uwb/*.proto",
 ]
 
 cc_library_host_shared {
