@@ -332,7 +332,7 @@ static int run(int argc, char const* const* argv) {
                     bootstrap);
         } else {
             errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
-                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel);
+                    out, atoms, attributionDecl, cppNamespace, cppHeaderImport);
         }
         fclose(out);
     }
