@@ -791,6 +791,7 @@ message Atom {
         media.MediaDrmSessionClosed media_drm_session_closed = 571
             [(module) = "media_metrics"];
         expresslog.ExpressHistogramSampleReported express_histogram_sample_reported = 593 [(module) = "framework", (module) = "expresslog"];
+        expresslog.ExpressUidEventReported express_uid_event_reported = 644 [(module) = "framework", (module) = "expresslog"];
         corenetworking.connectivity.NetworkValidationFailureStatsDailyReported
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         // StatsdStats tracks platform atoms with ids up to 750.
