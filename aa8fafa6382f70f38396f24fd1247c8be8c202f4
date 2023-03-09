@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d1e2bb_cb24f50e",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-03-09T00:15:47Z",
+      "side": 1,
+      "message": "this needs to go to internal master branch first - first available id will be ~ 643\n\nLet me cherry-pick it for you",
+      "revId": "aa8fafa6382f70f38396f24fd1247c8be8c202f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
