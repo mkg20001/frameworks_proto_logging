@@ -167,6 +167,9 @@ enum L2capCocConnectionResult {
     RESULT_L2CAP_CONN_BlUETOOTH_SOCKET_CONNECTION_CLOSED = 1001;
     RESULT_L2CAP_CONN_BlUETOOTH_UNABLE_TO_SEND_RPC = 1002;
     RESULT_L2CAP_CONN_BlUETOOTH_NULL_BLUETOOTH_DEVICE = 1003;
+
+    // Modify the curresponding value of BluetoothServerSocket.java
+    RESULT_L2CAP_CONN_SERVER_FAILURE= 2000;
 }
 
 enum CodePathCounterKeyEnum {
