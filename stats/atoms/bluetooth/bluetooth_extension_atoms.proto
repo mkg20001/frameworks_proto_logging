@@ -75,7 +75,7 @@ message BluetoothL2capCocClientConnection {
  optional int32 port = 2;
 
  // Flag to show if the connection is secured or not
- optional bool isSecured = 3;
+ optional bool is_secured = 3;
 
  // Result of L2CAP CoC connection
  optional android.bluetooth.L2capCocConnectionResult result = 4;
@@ -106,7 +106,7 @@ message BluetoothL2capCocServerConnection {
  optional int32 port = 2;
 
  // Flag to show if the connection is secured or not
- optional bool isSecured = 3;
+ optional bool is_secured = 3;
 
  // Result of L2CAP CoC connection
  optional android.bluetooth.L2capCocConnectionResult result = 4;
