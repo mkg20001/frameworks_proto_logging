@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6718fb_bc881957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1581454
+      },
+      "writtenOn": "2023-03-13T18:52:51Z",
+      "side": 1,
+      "message": "This CL has been blocked by Bluetooth presubmit since Thursday. I tried to wait it patiently but the Bluetooth presubmit is still broken. We have other work based on this one (eg cl/515740462) and other future works on blocked. Moreover we had got merge conflict on this one. \n\nNeed to merge it now.",
+      "revId": "559f04deefcc5a1fd475ca8ed8c55be12f024425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
