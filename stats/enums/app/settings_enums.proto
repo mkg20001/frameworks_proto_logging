@@ -1077,6 +1077,11 @@ enum Action {
     // CATEGORY: SETTINGS
     // OS: T
     ACTION_BATTERY_USAGE_HIDDEN_APP_COUNT = 1803;
+
+    // ACTION: Settings > Battery settings > Battery tip > Dock Defender tip
+    // CATEGORY: SETTINGS
+    // OS: T
+    ACTION_DOCK_DEFENDER_TIP = 1804;
 }
 
 /**
