@@ -480,6 +480,12 @@ enum AppExitSubReasonCode {
      * {@link #REASON_USER_REQUESTED}.
      */
     SUBREASON_PACKAGE_UPDATE = 25;
+
+    /**
+     * The process was killed because of undelivered broadcasts; this would be set only when the
+     * reason is {@link #REASON_OTHER}.
+     */
+    SUBREASON_UNDELIVERED_BROADCAST = 26;
 }
 
 /**
