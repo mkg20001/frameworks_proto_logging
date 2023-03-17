@@ -17542,6 +17542,7 @@ message IsolatedCompilationEnded {
         RESULT_COMPILATION_FAILED = 5;
         RESULT_UNEXPECTED_COMPILATION_RESULT = 6;
         RESULT_COMPOSD_DIED = 7;
+        RESULT_FAILED_TO_ENABLE_FSVERITY = 8;
     }
     // Time between compilation job starts to when it ends.
     // Note: this does not include the time between compilation job being scheduled (or when apex is staged)
