@@ -729,9 +729,9 @@ message Atom {
         OnsOpportunisticEsimProvisioningComplete ons_opportunistic_esim_provisioning_complete = 459 [(module) = "ons"];
         TelephonyAnomalyDetected telephony_anomaly_detected = 461 [(module) = "telephony"];
         LetterboxPositionChanged letterbox_position_changed = 462 [(module) = "framework"];
-        RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
-        RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
-        RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "rkpd"];
+        RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "rkpd"];
+        RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "rkpd"];
         MediaOutputOpInteractionReported mediaoutput_op_interaction_report = 466 [(module) = "sysui"];
         art.BackgroundDexoptJobEnded background_dexopt_job_ended = 467 [(module) = "art"];
         SyncExemptionOccurred sync_exemption_occurred = 468 [(module) = "framework"];
@@ -801,6 +801,8 @@ message Atom {
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         expresslog.ExpressUidEventReported express_uid_event_reported =
             644 [(module) = "framework", (module) = "expresslog"];
+        RkpdPoolStats rkpd_pool_stats = 602 [(module) = "rkpd"];
+        RkpdErrorCounts rkpd_error_counts = 603 [(module) = "rkpd"];
         // StatsdStats tracks platform atoms with ids up to 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
@@ -927,7 +929,7 @@ message Atom {
         GnssPowerStats gnss_power_stats = 10101 [(module) = "framework"];
         TimeZoneDetectorState time_zone_detector_state = 10102 [(module) = "framework"];
         Keystore2StorageStats keystore2_storage_stats = 10103 [(module) = "framework"];
-        RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework"];
+        RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework", deprecated = true];
         ProcessDmabufMemory process_dmabuf_memory = 10105 [(module) = "framework"];
         PendingAlarmInfo pending_alarm_info = 10106 [(module) = "framework"];
         UserLevelHibernatedApps user_level_hibernated_apps = 10107 [(module) = "framework"];
@@ -1002,7 +1004,7 @@ message Atom {
         UserInfo user_info = 10152 [(module) = "framework"];
         TelephonyNetworkRequestsV2 telephony_network_requests_v2 = 10153 [(module) = "telephony"];
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
-        RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
+        RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner", deprecated = true];
         IncomingMms incoming_mms = 10157 [(module) = "mms"];
         OutgoingMms outgoing_mms = 10158 [(module) = "mms"];
         MultiUserInfo multi_user_info = 10160 [(module) = "framework"];
@@ -16933,6 +16935,8 @@ message RkpErrorStats {
 
 
 /**
+ * Deprecated in U. Use RkpdPoolStats instead.
+ *
  * Logs: Status of the attestation key pool related to
  * Remote Key Provisioning (RKP).
  * Logged from: system/security/keystore2
@@ -16965,7 +16969,35 @@ message RkpPoolStats {
      * The total number of attestation keys.
      */
     optional int32 total = 5;
+}
 
+/**
+ * Logs: Status of the attestation key pool related to Remote Key Provisioning.
+ * Logged from: packages/modules/RemoteKeyProvisioning
+ */
+message RkpdPoolStats {
+    /**
+     * The name of the IRemotelyProvisionedComponent for which the keys were
+     * provisioned. There is a small number (~3) of values per device.
+     */
+    optional string remotely_provisioned_component = 1;
+
+    /**
+     * The number of signed attestation certificate chains which are
+     * expired.
+     */
+    optional int32 expiring = 2;
+
+    /**
+     * The number of signed attestation certificate chains which have
+     * not yet been assigned to an app.
+     */
+    optional int32 unassigned = 3;
+
+    /**
+     * The total number of attestation keys.
+     */
+    optional int32 total = 4;
 }
 
 /**
@@ -21609,7 +21641,7 @@ message SyncExemptionOccurred {
 // completely out of attestation keys.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningAttempt {
     // The reason for the provisioning attempt.
     enum Cause {
@@ -21651,13 +21683,19 @@ message RemoteKeyProvisioningAttempt {
 
     // Indicates success or failure of the provisioning attempt.
     optional com.android.remoteprovisioner.RemoteKeyProvisioningStatus status = 6;
+
+    // A digest of the root key that certified the provisioned certificates
+    optional string root_cert_fingerprint = 7;
+
+    // The depth of the cert chains issued to the device
+    optional int32 cert_chain_length = 8;
 }
 
 // Logs that correlate remote key provisioning status with the active
 // network for the given provisioning attempt.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningNetworkInfo {
     // The network transport, according ConnectivityManager::getActiveNetwork().
     optional android.stats.connectivity.TransportType transport_type = 1;
@@ -21673,7 +21711,7 @@ message RemoteKeyProvisioningNetworkInfo {
 // taking to perform various sub-tasks. This is intended to be used with KLL metrics.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningTiming {
     // Time spent waiting on the RKP service to reply.
     optional int32 server_wait_millis = 1;
@@ -21698,11 +21736,13 @@ message RemoteKeyProvisioningTiming {
     optional string remotely_provisioned_component = 6;
 }
 
+// Deprecated in U. Use RkpdErrorCounts instead.
+//
 // Counters that track how many errors we're seeing on the device for the
 // given boot.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningErrorCounts {
     // The total number of RKP attempts there have been this boot.
     optional int32 total_count = 1;
@@ -21713,6 +21753,64 @@ message RemoteKeyProvisioningErrorCounts {
     // How many bytes of data have been sent that resulted in errors. These
     // bytes count against an error budget, so it's important to track.
     optional int32 error_bytes = 3;
+}
+
+// Counters that track how many errors we're seeing on the device for the
+// given boot.
+//
+// Logged from:
+//   packages/modules/RemoteKeyProvisioning
+message RkpdErrorCounts {
+    // The total number of RKP attempts there have been this boot.
+    optional int32 total_count = 1;
+
+    // How many errors this device has encountered this boot.
+    optional int32 error_count = 2;
+
+    // How many bytes of data have been sent that resulted in errors. These
+    // bytes count against an error budget, so it's important to track.
+    optional int32 error_bytes = 3;
+}
+
+// Records an operation from an Remote Key Provisioning Daemon client.
+//
+// Logged from:
+//   packages/modules/RemoteKeyProvisioning
+message RkpdClientOperation {
+    enum Operation {
+        OPERATION_UNKNOWN = 0;
+        OPERATION_GET_REGISTRATION = 1;
+        OPERATION_GET_KEY = 2;
+        OPERATION_CANCEL_GET_KEY = 3;
+        OPERATION_STORE_UPGRADED_KEY = 4;
+    }
+
+    enum Result {
+        RESULT_UNKNOWN = 0;
+        RESULT_SUCCESS = 1;
+        RESULT_CANCELED = 2;
+
+        // results specific to OPERATION_GET_KEY
+        RESULT_ERROR_REQUIRES_SECURITY_PATCH = 3;
+        RESULT_ERROR_PENDING_INTERNET_CONNECTIVITY = 4;
+        RESULT_ERROR_PERMANENT = 5;
+
+        // results specific to OPERATION_GET_REGISTRATION
+        RESULT_ERROR_INVALID_HAL = 6;
+    }
+
+    // The client package that is requesting keys. The API is exposed to
+    // system, so all clients are built-in system applications.
+    optional string client_package = 1;
+
+    // Which operation the client requested
+    optional Operation operation = 2;
+
+    // The result of the operation
+    optional Result result = 3;
+
+    // Total time the operation took to run
+    optional int32 operation_time_millis = 4;
 }
 
 /*
