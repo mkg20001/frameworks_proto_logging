@@ -799,8 +799,6 @@ message Atom {
         expresslog.ExpressHistogramSampleReported express_histogram_sample_reported = 593 [(module) = "framework", (module) = "expresslog"];
         corenetworking.connectivity.NetworkValidationFailureStatsDailyReported
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
-        expresslog.ExpressUidEventReported express_uid_event_reported =
-            644 [(module) = "framework", (module) = "expresslog"];
         // StatsdStats tracks platform atoms with ids up to 750.
         // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
