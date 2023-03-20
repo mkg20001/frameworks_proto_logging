@@ -16,6 +16,24 @@
       "message": "CC Seungjae, as we\u0027ll need to autoramp again...",
       "revId": "b5f0ee8a25f3d017d6865574e761b634cefadd15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "582c4885_b9e68581",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1950816
+      },
+      "writtenOn": "2023-03-20T01:03:47Z",
+      "side": 1,
+      "message": "Fortunately, IIRC adding or modifying fields in the specific atom doesn\u0027t need the autoramping stage, and just syncing the code into google3 as well would be enough :)",
+      "parentUuid": "bb8429d8_aa919155",
+      "revId": "b5f0ee8a25f3d017d6865574e761b634cefadd15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
