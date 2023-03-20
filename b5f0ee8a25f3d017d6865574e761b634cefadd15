@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ddf0787_6adebc15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2023-03-20T18:15:43Z",
+      "side": 1,
+      "message": "Ah yes, since it\u0027s not a new field, we don\u0027t need to create a versioned event, etc.\n\nBut, when I checked the current v2 config, it seems we\u0027re not really collecting those atoms. I\u0027ll share more internal details in a bug.",
+      "parentUuid": "582c4885_b9e68581",
+      "revId": "b5f0ee8a25f3d017d6865574e761b634cefadd15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b2e538e_e2475404",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Errm, yes. I don\u0027t understand either.",
       "parentUuid": "1c099b25_f2917835",
+      "revId": "b5f0ee8a25f3d017d6865574e761b634cefadd15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16a2d45_fcc27bf4",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 17545,
+      "author": {
+        "id": 1042276
+      },
+      "writtenOn": "2023-03-20T18:15:43Z",
+      "side": 1,
+      "message": "Thanks Shikha for identifying the inconsistent name in the other change!",
+      "parentUuid": "aa8b1af6_f1c52654",
       "revId": "b5f0ee8a25f3d017d6865574e761b634cefadd15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
