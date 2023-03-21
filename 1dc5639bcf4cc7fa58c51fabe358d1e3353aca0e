@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef4a525e_95967da5",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1937166
+      },
+      "writtenOn": "2023-03-21T00:23:12Z",
+      "side": 1,
+      "message": "Should this also be marked as deprecated?",
+      "revId": "1dc5639bcf4cc7fa58c51fabe358d1e3353aca0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
