@@ -16,6 +16,29 @@
       "message": "Should this also be marked as deprecated?",
       "revId": "1dc5639bcf4cc7fa58c51fabe358d1e3353aca0e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c9fccf8_063bedeb",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 21748,
+      "author": {
+        "id": 1937166
+      },
+      "writtenOn": "2023-03-21T00:24:04Z",
+      "side": 1,
+      "message": "can we not reuse this and RkpPoolStats?",
+      "range": {
+        "startLine": 21748,
+        "startChar": 8,
+        "endLine": 21748,
+        "endChar": 40
+      },
+      "revId": "1dc5639bcf4cc7fa58c51fabe358d1e3353aca0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
