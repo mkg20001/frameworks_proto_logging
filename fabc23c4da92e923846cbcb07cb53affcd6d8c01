@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fcb6f83_694fa80a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-03-22T22:27:07Z",
+      "side": 1,
+      "message": "Is there something in the build error that indicates that this cl is causing the issue? I took a look and it seems like some sort of infra issue:\n\ncd packages/modules/Bluetooth/ \u0026\u0026 python3 floss/build/build-in-container.py --use-docker --no-tty\nError response from daemon: No such container: floss-container-runner\nError: No such container: floss-container-runner\n\nAlternatively, it looks like only bluetooth code is being built, in which case reverting only ag/2503956 should fix the issue. @ahujapalash@google.com feel free to comment",
+      "revId": "fabc23c4da92e923846cbcb07cb53affcd6d8c01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
