@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f72ec31_d69bd323",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-03-22T22:15:21Z",
+      "side": 1,
+      "message": "this should have used the same change-id. it gets much harder to track which branches have which changes (in case of reverts, etc) when they use different change ids.",
+      "revId": "d628f960720bfece0c033deb0c9baf3d98b80c21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
