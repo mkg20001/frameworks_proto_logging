@@ -34,6 +34,24 @@
       "parentUuid": "8fcb6f83_694fa80a",
       "revId": "fabc23c4da92e923846cbcb07cb53affcd6d8c01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0fe2190_50fec693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1836438
+      },
+      "writtenOn": "2023-03-22T22:38:30Z",
+      "side": 1,
+      "message": "The actual error is in `build.log` and not `build_error.log` (which makes this look like an infra error). b/274819846 is open to fix this.\n\nAlso, agreed that only the BT changes probably need to be reverted. I will abandon this portion of the revert.",
+      "parentUuid": "b60d8b82_bcf9d54e",
+      "revId": "fabc23c4da92e923846cbcb07cb53affcd6d8c01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
