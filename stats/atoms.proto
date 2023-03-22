@@ -812,7 +812,6 @@ message Atom {
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
     extensions 650; // DailykeepaliveInfoReported daily_keepalive_info_reported
-    extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
