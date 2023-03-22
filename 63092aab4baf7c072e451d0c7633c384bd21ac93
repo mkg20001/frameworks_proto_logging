@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981a48d6_20403af0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2023-03-22T05:45:38Z",
+      "side": 1,
+      "message": "Please take a look. This is the cherry pick of https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Bluetooth/+/22021139",
+      "revId": "63092aab4baf7c072e451d0c7633c384bd21ac93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
