@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be1a9109_8c2714bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-03-23T21:01:34Z",
+      "side": 1,
+      "message": "Need to wait until atom will be merged into master \u0026 then cherry-pick to udc-dev \u0026 udc-d1-dev\n\nThank you",
+      "revId": "fafdbff808a7660defa3b209eeec73546d19a810",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
