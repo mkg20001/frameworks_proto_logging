@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee92e2f_68f63226",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 16987,
+      "author": {
+        "id": 1833664
+      },
+      "writtenOn": "2023-03-27T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5054be67_7b8e1992",
+      "range": {
+        "startLine": 16987,
+        "startChar": 7,
+        "endLine": 16987,
+        "endChar": 14
+      },
+      "revId": "b325b2b5a074e9c1434e39d5e89e3c244603b515",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11866b59_da24703d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc2f87b_32fa9623",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 21759,
+      "author": {
+        "id": 1833664
+      },
+      "writtenOn": "2023-03-27T23:20:35Z",
+      "side": 1,
+      "message": "I just dropped this. We can get counts from the other events.",
+      "parentUuid": "11866b59_da24703d",
+      "range": {
+        "startLine": 21759,
+        "startChar": 9,
+        "endLine": 21759,
+        "endChar": 13
+      },
+      "revId": "b325b2b5a074e9c1434e39d5e89e3c244603b515",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef76db15_fd2256d3",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-22T22:07:21Z",
       "side": 1,
       "message": "Does this mean operations, or specifically get_key attempts?",
+      "range": {
+        "startLine": 21764,
+        "startChar": 31,
+        "endLine": 21764,
+        "endChar": 39
+      },
+      "revId": "b325b2b5a074e9c1434e39d5e89e3c244603b515",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "343b7325_76cfadb5",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 21764,
+      "author": {
+        "id": 1833664
+      },
+      "writtenOn": "2023-03-27T23:20:35Z",
+      "side": 1,
+      "message": "Dropping this.",
+      "parentUuid": "ef76db15_fd2256d3",
       "range": {
         "startLine": 21764,
         "startChar": 31,
