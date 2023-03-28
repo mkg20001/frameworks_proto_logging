@@ -58,6 +58,12 @@ enum Status {
     ERROR_STORAGE_READ = 31;
     ERROR_STORAGE_WRITE = 32;
     ERROR_ZERO_SUBSAMPLES = 33;
+    ERROR_DRM_INVALID_STATE = 34;
+    ERROR_BAD_VALUE = 35;
+    ERROR_DRM_NOT_PROVISIONED = 36;
+    ERROR_DRM_DEVICE_REVOKED = 37;
+    ERROR_DRM_DECRYPT = 38;
+    ERROR_DEAD_OBJECT = 39;
 }
 
 // Security level represents the robustness of the DRM implementation.
