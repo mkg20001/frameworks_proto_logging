@@ -70,6 +70,8 @@ void write_java_atom_codes(FILE* out, const Atoms& atoms);
 
 void write_java_enum_values(FILE* out, const Atoms& atoms);
 
+void write_java_enum_values_vendor(FILE* out, const Atoms& atoms);
+
 void write_java_usage(FILE* out, const string& method_name, const string& atom_code_name,
                       const AtomDecl& atom);
 
