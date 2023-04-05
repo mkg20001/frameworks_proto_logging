@@ -35,6 +35,7 @@ cc_binary_host {
     cflags: [
         "-Wall",
         "-Werror",
+        "-Wno-deprecated-declarations",
     ],
 
     shared_libs: [
@@ -57,12 +58,16 @@ cc_binary_host {
 // ==========================================================
 cc_test_host {
     name: "stats-log-api-gen-test",
+    test_suites: [
+        "general-tests",
+    ],
     cflags: [
         "-Wall",
         "-Wextra",
         "-Werror",
         "-g",
         "-DUNIT_TEST",
+        "-Wno-deprecated-declarations",
     ],
     srcs: [
         "Collation.cpp",
@@ -102,6 +107,17 @@ cc_test_host {
         ":libprotobuf-internal-protos",
         ":libstats_internal_protos",
         "test_external.proto",
+        "test_vendor_atoms.proto",
+    ],
+}
+
+// Filegroup for stats-log-api-gen test proto.
+filegroup {
+    name: "stats_log_api_gen_test_protos",
+    srcs: [
+        "test.proto",
+        "test_external.proto",
+        "test_feature_atoms.proto",
         "test_vendor_atoms.proto",
     ],
 }
