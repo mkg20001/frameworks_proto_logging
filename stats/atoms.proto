@@ -20227,6 +20227,10 @@ message UwbSessionInitiated {
     optional int32 latency_200ms = 10;
     // The uid of the app that initiates the connection.
     optional int32 uid = 11 [(is_uid) = true];
+    // Ranging interval of the session in ms.
+    optional int32 ranging_interval_ms = 12;
+    // How many ongoing session when current session is initiated?
+    optional int32 parallel_session_count = 13;
 }
 
 /*
