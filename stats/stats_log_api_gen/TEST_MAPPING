@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "VendorAtomCodeGenHostTest",
+      "host" : true
+    },
+    {
+      "name": "stats-log-api-gen-test",
+      "host" : true
+    }
+]
+}
