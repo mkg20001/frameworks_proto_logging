@@ -387,6 +387,11 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
                     compileApiLevel, supportWorkSource);
         } else {
+            if (minApiLevel < API_S) {
+                fprintf(stderr, "The vendor atoms logging codegen is not supported for " \
+                                "Android below S");
+                return 1;
+            }
             if (supportWorkSource) {
                 fprintf(stderr, "The attribtion chain is not supported for vendor atoms");
                 return 1;

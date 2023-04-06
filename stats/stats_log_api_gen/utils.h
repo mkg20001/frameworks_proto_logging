@@ -36,6 +36,7 @@ const char DEFAULT_CPP_HEADER_IMPORT[] = "statslog.h";
 const int API_LEVEL_CURRENT = 10000;
 const int API_Q = 29;
 const int API_R = 30;
+const int API_S = 31;
 const int API_T = 33;
 
 const int JAVA_MODULE_REQUIRES_FLOAT = 0x01;
