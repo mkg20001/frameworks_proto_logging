@@ -387,6 +387,11 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
                     compileApiLevel, supportWorkSource);
         } else {
+            if (minApiLevel < API_S) {
+                fprintf(stderr, "The vendor atoms logging codegen is not supported for " \
+                                "Android below S");
+                return 1;
+            }
             if (supportWorkSource) {
                 fprintf(stderr, "The attribtion chain & WorkSource are not supported for " \
                                 "vendor atoms");
@@ -394,8 +399,7 @@ static int run(int argc, char const* const* argv) {
             }
 
             errorCount = android::stats_log_api_gen::write_stats_log_java_vendor(
-                    out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
-                    compileApiLevel);
+                    out, atoms, javaClass, javaPackage, compileApiLevel);
         }
 
         fclose(out);
