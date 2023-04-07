@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04064031_ce8ff786",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-07T03:27:35Z",
+      "side": 1,
+      "message": "more will be done in follow up cl to distinguish S vs T where repeated fields support were added",
+      "revId": "7d6af5b062ccdb1e03808415467bf2efdda22b4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
