@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef8f8f56_825978fd",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "nit: if we are not going to support attribution node, do we need to pass this? we should just error if there is an attribution node type",
+      "range": {
+        "startLine": 365,
+        "startChar": 63,
+        "endLine": 365,
+        "endChar": 98
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8deeb796_77f6b729",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "paired with the comment above, but right now these imports aren\u0027t used and can be deleted. I doubt they will be used in the end either.",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "519c3d8a_723594af",
+        "filename": "stats/stats_log_api_gen/java_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "nit: i think we discussed this with the native version, but didn\u0027t we agree to just support one version of vendor logging, ie \"current\"? in that case, these fields should not be needed",
+      "range": {
+        "startLine": 37,
+        "startChar": 77,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d67b78_e9266179",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "why do we depend on tradefed? Not sure if this helps, but here\u0027s what I did for FrameworkStatsdHostTest, which is another host side test: https://source.corp.google.com/android-internal/packages/modules/StatsD/framework/test/hostsidetests/Android.bp;l\u003d56?q\u003dframeworkstatsdhosttest\u0026sq\u003dpackage:%5Eandroid-internal$\u0026type\u003dcs\n\n\nThis one is a bit different in that it has no device-side dependency, so it should be simpler.",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af81c7d5_d6395089",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "this isn\u0027t cts, it\u0027s just a unit test.",
+      "range": {
+        "startLine": 17,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ffc73c_9a53e629",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-07T02:41:30Z",
+      "side": 1,
+      "message": "I ideally would eventually like to make the platform and vendor constants consistent, since it is confusing, but I think I agree that avoiding this duplication is good, and making them different from each other is probably worth it.\n\n@muhammadq@google.com \u0026 @tsaichristine@google.com, curious what you think as well?",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
