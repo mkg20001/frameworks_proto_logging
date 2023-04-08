@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1adc30c1_5519bc46",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-08T01:48:51Z",
+      "side": 1,
+      "message": "Done - updated the API signature and the error will be reported with the createVendorAtom api generation during signature processing",
+      "parentUuid": "ef8f8f56_825978fd",
+      "range": {
+        "startLine": 365,
+        "startChar": 63,
+        "endLine": 365,
+        "endChar": 98
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8deeb796_77f6b729",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-07T02:41:30Z",
       "side": 1,
       "message": "paired with the comment above, but right now these imports aren\u0027t used and can be deleted. I doubt they will be used in the end either.",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ef58c5_6f16171c",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-08T01:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8deeb796_77f6b729",
       "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c34c8f_7bf4b1a7",
+        "filename": "stats/stats_log_api_gen/java_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-08T01:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519c3d8a_723594af",
+      "range": {
+        "startLine": 37,
+        "startChar": 77,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3d67b78_e9266179",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5509267f_42434d5b",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-08T01:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3d67b78_e9266179",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af81c7d5_d6395089",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-04-07T02:41:30Z",
       "side": 1,
       "message": "this isn\u0027t cts, it\u0027s just a unit test.",
+      "range": {
+        "startLine": 17,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fa6fc74_97b22699",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-08T01:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af81c7d5_d6395089",
       "range": {
         "startLine": 17,
         "startChar": 41,
