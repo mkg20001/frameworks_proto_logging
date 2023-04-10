@@ -227,6 +227,24 @@
       "message": "I ideally would eventually like to make the platform and vendor constants consistent, since it is confusing, but I think I agree that avoiding this duplication is good, and making them different from each other is probably worth it.\n\n@muhammadq@google.com \u0026 @tsaichristine@google.com, curious what you think as well?",
       "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad55a41_f16078da",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-10T23:07:38Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "38ffc73c_9a53e629",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

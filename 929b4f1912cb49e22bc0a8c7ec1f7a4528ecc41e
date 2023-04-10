@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "649d56ac_a73a9ce4",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-10T23:07:38Z",
+      "side": 1,
+      "message": "attribution",
+      "range": {
+        "startLine": 391,
+        "startChar": 37,
+        "endLine": 391,
+        "endChar": 47
+      },
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4cb4cc0_f7577d95",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-10T23:07:38Z",
+      "side": 1,
+      "message": "Do we need to keep this comment?",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
