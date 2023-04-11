@@ -26,6 +26,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35969bf3_c1c1f8bd",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T04:41:13Z",
+      "side": 1,
+      "message": "just want to note that the worksource flag is specifically for passing in a WorkSource object for attribution nodes in the write() interfaces.\n\nWe can still have atoms with attribution nodes even if the user does not pass in the --supportWorkSource flag, which won\u0027t be supported in vendor and will need to appropriately error.",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4914100_9f96ec9c",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T04:41:13Z",
+      "side": 1,
+      "message": "I think for platform java, a module name is required now. I think we should have the same rules for java vendor. WDYT?\n\nhttp://cs/android-internal/frameworks/proto_logging/stats/stats_log_api_gen/main.cpp;l\u003d374;rcl\u003deeae447b7baf32568765801cb304d72dadfcd739 should check it, but there is a bug. it passes when the module name \u003d\u003d DEFAULT_MODULE_NAME.\n\ncc @muhammadq@google.com to keep me honest.",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "959cd0d1_a27c2f41",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T04:41:13Z",
+      "side": 1,
+      "message": "Is this needed for stats-log-api-gen invocations? we should be using proto full, so we shouldn\u0027t need to specify descriptor. None of the platform atoms api gen invocations need to specify it.",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa2db5f_9ad8c48c",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T04:41:13Z",
+      "side": 1,
+      "message": "a bit ancillary to this CL, but I think the plan was to remove this from the pixelatoms libraries (or remove pixelatoms libraries entirely) from the device in the U timeframe. I think we\u0027ve hit some challenges with making that happen, so just curious what your plan is with this.",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4cb4cc0_f7577d95",
         "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
         "patchSetId": 7
@@ -37,6 +105,24 @@
       "writtenOn": "2023-04-10T23:07:38Z",
       "side": 1,
       "message": "Do we need to keep this comment?",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68cba2d7_91b748d3",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T04:41:13Z",
+      "side": 1,
+      "message": "+1, I\u0027m not too familiar with these androidtest.xml files, but we should remove these if they are not needed.",
+      "parentUuid": "b4cb4cc0_f7577d95",
       "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
