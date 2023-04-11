@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01304d5e_b28ea85c",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "nit: remove or move to appropriate place",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68466d7b_459221eb",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "nit: you could just collapse this into the default case.",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c46bf30a_5c007cfc",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "Do you know what the behavior of write_method_signature is if it encounters an attr node and doesn\u0027t have this decl? just want to make sure we fail gracefully. If it is ok, could you leave a comment?",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff665634_02f78e6e",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "this might need to be device-tests if this is becoming a device-side test.",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "432f5ec2_09b0d643",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "is this needed? if this is vendor java code, shouldn\u0027t it not even have access to any platform apis..?",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07c112c8_5c63fcd4",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-11T05:13:09Z",
+      "side": 1,
+      "message": "2023",
+      "range": {
+        "startLine": 3,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
