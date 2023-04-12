@@ -371,7 +371,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        if (moduleName.empty()) {
+        if (moduleName == DEFAULT_MODULE_NAME) {
             fprintf(stderr, "Must supply --module if supplying a Java filename");
             return 1;
         }
