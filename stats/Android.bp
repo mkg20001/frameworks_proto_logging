@@ -84,6 +84,7 @@ atom_protos = [
     "atoms/art/*.proto",
     "atoms/bluetooth/*.proto",
     "atoms/corenetworking/**/*.proto",
+    "atoms/cronet/*.proto",
     "atoms/expresslog/*.proto",
     "atoms/gps/*.proto",
     "atoms/placeholder/*.proto",
