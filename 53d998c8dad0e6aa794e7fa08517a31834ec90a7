@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c2724d_9049f8d2",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01304d5e_b28ea85c",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68466d7b_459221eb",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-11T05:13:09Z",
       "side": 1,
       "message": "nit: you could just collapse this into the default case.",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab212f6_60bb7a60",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "prefer to keep it here to make an explicit error message",
+      "parentUuid": "68466d7b_459221eb",
       "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -52,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5730175d_87d39528",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "I have updated implementation to address this use case - see updated `write_method_signature` API",
+      "parentUuid": "c46bf30a_5c007cfc",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff665634_02f78e6e",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-04-11T05:13:09Z",
       "side": 1,
       "message": "this might need to be device-tests if this is becoming a device-side test.",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9cf1854_e6eecbb8",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "According to the guide https://source.android.com/docs/core/tests/development/test-mapping\n\n```\ngeneral-tests - tests that don\u0027t depend on device-specific functionality (such as\nvendor-specific hardware that most devices don\u0027t have).\nMost tests should be in the general-tests suite\n```",
+      "parentUuid": "ff665634_02f78e6e",
       "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +158,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09a05394_f469ffb1",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "thanks - that is copy/paste from reference code",
+      "parentUuid": "432f5ec2_09b0d643",
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07c112c8_5c63fcd4",
@@ -99,6 +189,30 @@
       "writtenOn": "2023-04-11T05:13:09Z",
       "side": 1,
       "message": "2023",
+      "range": {
+        "startLine": 3,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "53d998c8dad0e6aa794e7fa08517a31834ec90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "283a2ac6_a0600f03",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07c112c8_5c63fcd4",
       "range": {
         "startLine": 3,
         "startChar": 21,

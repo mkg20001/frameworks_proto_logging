@@ -16,6 +16,24 @@
       "message": "I thought an androidtest.xml was still needed for device-side tests (eg StatsdFrameworkTest has one: https://source.corp.google.com/android-internal/packages/modules/StatsD/framework/test/unittests/)\n\nBut I really don\u0027t understand these files.",
       "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eeb632d_e5e95da6",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T04:17:07Z",
+      "side": 0,
+      "message": "Usually AndroidTest.xml is used by tradefed for various options with host side tests - such as preinstall some apk before test run \u0026 uninstall it after, or customize other aspects (sim card, etc)\n\nSince this test does not require specific preparations steps and is device test only - we can skip it\n\nmore here http://g3doc/wireless/android/partner/compatibility/g3doc/dev/write-a-test/device-side-test",
+      "parentUuid": "60d569c5_a53d0560",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
