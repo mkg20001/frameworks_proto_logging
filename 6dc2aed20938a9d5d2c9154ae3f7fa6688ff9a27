@@ -245,6 +245,24 @@
       "parentUuid": "38ffc73c_9a53e629",
       "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ce4bb1_ab7156a3",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "added to follow up http://b/277841934",
+      "parentUuid": "6ad55a41_f16078da",
+      "revId": "6dc2aed20938a9d5d2c9154ae3f7fa6688ff9a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f0bfd2_6cc63046",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "649d56ac_a73a9ce4",
+      "range": {
+        "startLine": 391,
+        "startChar": 37,
+        "endLine": 391,
+        "endChar": 47
+      },
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "306c6ca2_2ee25176",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "in such case the code generation will fail during atom logging api signature generation, which is not the part of this commit - since this is only about constants\n\nthe appropriate error will be returned at updated implementation for `write_method_signature` in CL https://r.android.com/2528300",
+      "parentUuid": "35969bf3_c1c1f8bd",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4914100_9f96ec9c",
@@ -92,6 +134,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3039be48_4b168959",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "when we call stats-log-api-gen with platform atoms - the atoms definition comes from prebuilt host shared libraries:\n```\n    \"libstats_proto_host\",\n    \"libprotobuf-cpp-full\",\n```\n\nFor the `--vendor-proto` the proto compilation is performed in runtime - and these are required dependencies to make the proto compilation work with `aprotoc` tool\n\nSo the input should be proto files which are added explicitly to be visible by the tool stats-log-api-gen\n\nAlso, listing these proto filegroups in the `src` section will force soong to track changes to corresponding files \u0026 trigger target rebuild if changes are detected",
+      "parentUuid": "959cd0d1_a27c2f41",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4000d754_8b6514b4",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "The plan was to remove pixelatoms.proto shared library to be built for device - instead import the desired vendor external proto file and compile on the host in runtime to provide codegen\n\nThe pixelatoms.proto shared library could not be referenced by stats-log-api-gen in a similar way as libstats_proto_host - due to hardware/ \u0026 vendor/ modules are not visible to the framework Android.bp files and also we cannot have dependency on vendor version of pixelatoms since it is not available in aosp - and the soong does not have support for the conditional builds\n\nSimilar topic was discussed while external proto support implementation for statsd_testdrive - see more here - http://yaqs/6637239324465168384",
+      "parentUuid": "baa2db5f_9ad8c48c",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4cb4cc0_f7577d95",
@@ -123,6 +201,24 @@
       "side": 1,
       "message": "+1, I\u0027m not too familiar with these androidtest.xml files, but we should remove these if they are not needed.",
       "parentUuid": "b4cb4cc0_f7577d95",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0879480a_ae14b659",
+        "filename": "stats/stats_log_api_gen/test_java/AndroidTest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-12T03:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68cba2d7_91b748d3",
       "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
