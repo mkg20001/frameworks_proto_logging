@@ -102,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2853986d_d2de8791",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-12T20:06:01Z",
+      "side": 1,
+      "message": "yeah we should require module name as much as possible. All platform java gen code should be created with the --module arg. There is a bug for java platform generation as Tej mentioned. All *new* platform C++ gen code should also be using the --module arg. The --module arg has been kept optional for platform C++ gen code because of legacy usages of the monolithic statslog.{h|cpp} that we haven\u0027t been able to fully migrate away.",
+      "parentUuid": "b4914100_9f96ec9c",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "959cd0d1_a27c2f41",
         "filename": "stats/stats_log_api_gen/test_java/Android.bp",
         "patchSetId": 7
