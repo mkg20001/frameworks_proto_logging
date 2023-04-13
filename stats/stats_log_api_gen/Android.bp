@@ -125,7 +125,7 @@ filegroup {
 genrule {
     name: "test_vendor_atoms.h",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --header $(out) --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --header $(out) --module test --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms.h",
     ],
@@ -139,23 +139,9 @@ genrule {
 genrule {
     name: "test_vendor_atoms.cpp",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --cpp $(out) --importHeader test_vendor_atoms.h --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --cpp $(out) --module test --importHeader test_vendor_atoms.h --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms.cpp",
-    ],
-    srcs: [
-        "test_vendor_atoms.proto",
-        ":libprotobuf-internal-descriptor-proto",
-        ":libstats_atom_options_protos",
-    ],
-}
-
-genrule {
-    name: "test_vendor_atoms_with_module.h",
-    tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --header $(out) --module test --namespace android,VendorAtomsModule --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
-    out: [
-        "test_vendor_atoms_with_module.h",
     ],
     srcs: [
         "test_vendor_atoms.proto",
@@ -169,14 +155,12 @@ cc_library_static {
     host_supported: true,
     generated_headers: [
         "test_vendor_atoms.h",
-        "test_vendor_atoms_with_module.h",
     ],
     generated_sources: [
         "test_vendor_atoms.cpp",
     ],
     export_generated_headers: [
         "test_vendor_atoms.h",
-        "test_vendor_atoms_with_module.h",
     ],
     shared_libs: [
         "android.frameworks.stats-V2-ndk",

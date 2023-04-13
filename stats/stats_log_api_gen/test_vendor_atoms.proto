@@ -22,11 +22,11 @@ package android.stats_log_api_gen;
 
 message Atom {
     oneof pushed {
-        VendorAtom1 vendorAtom1 = 105501;
-        VendorAtom2 vendorAtom2 = 105502;
-        VendorAtom3 vendorAtom3 = 105503;
+        VendorAtom1 vendorAtom1 = 105501 [(android.os.statsd.module) = "test"];
+        VendorAtom2 vendorAtom2 = 105502 [(android.os.statsd.module) = "test"];
+        VendorAtom3 vendorAtom3 = 105503 [(android.os.statsd.module) = "test"];
         VendorAtom4 vendorAtom4 = 105504 [(android.os.statsd.module) = "test"];
-        VendorAtom5 vendorAtom5 = 105505;
+        VendorAtom5 vendorAtom5 = 105505 [(android.os.statsd.module) = "test"];
     }
 }
 
