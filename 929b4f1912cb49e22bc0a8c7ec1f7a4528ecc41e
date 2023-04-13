@@ -118,6 +118,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df87c07f_1e853fd2",
+        "filename": "stats/stats_log_api_gen/test_java/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-13T01:23:36Z",
+      "side": 1,
+      "message": "ack\n\nadded `--module test`\n\nupdated native code gen tests as well since dedicated test for module is not required any more",
+      "parentUuid": "2853986d_d2de8791",
+      "revId": "929b4f1912cb49e22bc0a8c7ec1f7a4528ecc41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "959cd0d1_a27c2f41",
