@@ -16,6 +16,29 @@
       "message": "why we enforce it only for Java",
       "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc50211_2deacd54",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-13T06:10:17Z",
+      "side": 1,
+      "message": "nit: i might prefer `empty || default`",
+      "range": {
+        "startLine": 374,
+        "startChar": 12,
+        "endLine": 374,
+        "endChar": 22
+      },
+      "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
