@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fffffce_7be7f433",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-13T00:56:27Z",
+      "side": 1,
+      "message": "why we enforce it only for Java",
+      "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
