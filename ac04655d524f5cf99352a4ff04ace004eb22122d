@@ -22,6 +22,30 @@
       },
       "revId": "ac04655d524f5cf99352a4ff04ace004eb22122d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14d8b7e7_1572cc58",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1941970
+      },
+      "writtenOn": "2023-04-18T23:13:19Z",
+      "side": 1,
+      "message": "AOSP files are way behind internal files. We only need to sync the OWNER file from AOSP, per the lint in the internal CL.",
+      "parentUuid": "820398cb_29bdb3be",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "ac04655d524f5cf99352a4ff04ace004eb22122d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
