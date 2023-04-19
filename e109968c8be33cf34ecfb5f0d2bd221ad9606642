@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3376f0b0_7e5c2119",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-19T23:56:02Z",
+      "side": 1,
+      "message": "we discussed offline, but the only conflict is within write_java_pushed_atoms. It might be easier to omit that bit of the change in this cl, and have a separate cl for that part, since this cl is approved and ready to be submitted.",
+      "parentUuid": "d76b7f52_4b921877",
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dffe25a_515a0131",
         "filename": "stats/stats_log_api_gen/java_writer.cpp",
         "patchSetId": 4
