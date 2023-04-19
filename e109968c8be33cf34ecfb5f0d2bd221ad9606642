@@ -16,6 +16,24 @@
       "message": "Another merge conflict - so this CL should be merged into internal master first\n\nWill cherry-pick this CL, suggestion to merge https://r.android.com/2523181 into aosp first\n\nWDYT?",
       "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e85d7a4_9eec15e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-04-19T01:18:16Z",
+      "side": 1,
+      "message": "sounds good. do you know what the merge conflict is? could we tweak this cl to avoid it?",
+      "parentUuid": "75f83c07_752a35c2",
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
