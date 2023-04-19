@@ -22,6 +22,30 @@
       },
       "revId": "96b9f6db2c895d5d6db78b325783d23593c4e35a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96368436_0d0065d2",
+        "filename": "stats/.gitignore",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-19T21:01:02Z",
+      "side": 1,
+      "message": "will fix this in the follow up cl",
+      "parentUuid": "7a56118c_b082f8c8",
+      "range": {
+        "startLine": 1,
+        "startChar": 10,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "96b9f6db2c895d5d6db78b325783d23593c4e35a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
