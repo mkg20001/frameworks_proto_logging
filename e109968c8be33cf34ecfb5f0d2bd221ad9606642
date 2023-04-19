@@ -52,6 +52,29 @@
       "parentUuid": "3e85d7a4_9eec15e3",
       "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dffe25a_515a0131",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2023-04-19T03:37:16Z",
+      "side": 1,
+      "message": "minor nit: slightly cleaner to do this here and below (feel free to ignore)\n\nif (write_method_signature(out, signature, attributionDecl) {\nreturn 1;\n}",
+      "range": {
+        "startLine": 323,
+        "startChar": 8,
+        "endLine": 326,
+        "endChar": 9
+      },
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
