@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a56118c_b082f8c8",
+        "filename": "stats/.gitignore",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2023-04-19T03:23:04Z",
+      "side": 1,
+      "message": "nit: settings",
+      "range": {
+        "startLine": 1,
+        "startChar": 10,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "96b9f6db2c895d5d6db78b325783d23593c4e35a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
