@@ -75,6 +75,30 @@
       },
       "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf29de4_ec7c7c3a",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-19T23:22:07Z",
+      "side": 1,
+      "message": "I think having the value could be handy for below reason:\nif in future we would like to differentiate the return code to show more appropriate error message or do some post processing - we need to have exact return value",
+      "parentUuid": "5dffe25a_515a0131",
+      "range": {
+        "startLine": 323,
+        "startChar": 8,
+        "endLine": 326,
+        "endChar": 9
+      },
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
