@@ -27,7 +27,6 @@ import "frameworks/proto_logging/stats/atoms/art/art_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/art/background_dexopt_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/art/odrefresh_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/corenetworking/connectivity/connectivity_atoms.proto";
-import "frameworks/proto_logging/stats/atoms/expresslog/expresslog_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/media/media_drm_atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
@@ -352,7 +351,7 @@ message Atom {
         AssistGestureProgressReported assist_gesture_progress_reported = 176 [(module) = "sysui"];
         TouchGestureClassified touch_gesture_classified = 177 [(module) = "framework"];
         HiddenApiUsed hidden_api_used = 178 [(module) = "framework"];
-        StyleUIChanged style_ui_changed = 179 [(module) = "sysui"];
+        StyleUIChanged style_ui_changed = 179 [(module) = "sysui", (module) = "wallpaper"];
         PrivacyIndicatorsInteracted privacy_indicators_interacted =
                 180 [(module) = "permissioncontroller"];
         AppInstallOnExternalStorageReported app_install_on_external_storage_reported =
@@ -729,9 +728,9 @@ message Atom {
         OnsOpportunisticEsimProvisioningComplete ons_opportunistic_esim_provisioning_complete = 459 [(module) = "ons"];
         TelephonyAnomalyDetected telephony_anomaly_detected = 461 [(module) = "telephony"];
         LetterboxPositionChanged letterbox_position_changed = 462 [(module) = "framework"];
-        RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "remoteprovisioner"];
-        RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "remoteprovisioner"];
-        RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "remoteprovisioner"];
+        RemoteKeyProvisioningAttempt remote_key_provisioning_attempt = 463 [(module) = "rkpd"];
+        RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "rkpd"];
+        RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "rkpd"];
         MediaOutputOpInteractionReported mediaoutput_op_interaction_report = 466 [(module) = "sysui"];
         art.BackgroundDexoptJobEnded background_dexopt_job_ended = 467 [(module) = "art"];
         SyncExemptionOccurred sync_exemption_occurred = 468 [(module) = "framework"];
@@ -751,6 +750,7 @@ message Atom {
         NetworkDnsServerSupportReported network_dns_server_support_reported = 504 [(module) = "resolv"];
         VmBooted vm_booted = 505 [(module) = "virtualizationservice"];
         VmExited vm_exited = 506 [(module) = "virtualizationservice"];
+        AmbientBrightnessStatsReported ambient_brightness_stats_reported = 507 [(module) = "framework"];
         MediametricsSpatializerCapabilitiesReported mediametrics_spatializercapabilities_reported =
                 508 [(module) = "media_metrics"];
         MediametricsSpatializerDeviceEnabledReported mediametrics_spatializerdeviceenabled_reported =
@@ -770,12 +770,13 @@ message Atom {
         DefaultNetworkRematchInfo default_network_rematch_info = 525 [(module) = "connectivity"];
         NetworkSelectionPerformance network_selection_performance = 526 [(module) = "connectivity"];
         NetworkNsdReported network_nsd_reported = 527 [(module) = "connectivity"];
-        expresslog.ExpressEventReported express_event_reported = 528 [(module) = "framework", (module) = "expresslog"];
         BluetoothDisconnectionReasonReported bluetooth_disconnection_reason_reported = 529 [(module) = "bluetooth"];
         BluetoothLocalVersionsReported bluetooth_local_versions_reported = 530 [(module) = "bluetooth"];
         BluetoothRemoteSupportedFeaturesReported bluetooth_remote_supported_features_reported = 531 [(module) = "bluetooth"];
         BluetoothLocalSupportedFeaturesReported bluetooth_local_supported_features_reported = 532 [(module) = "bluetooth"];
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
+        BrightnessConfigurationUpdated brightness_configuration_updated = 534 [(module) = "framework"];
+        LauncherImpressionEvent launcher_impression_event = 547 [(module) = "sysui"];
         art.OdsignReported odsign_reported = 548 [(module) = "art"];
         art.ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
         NetworkSliceSessionEnded network_slice_session_ended = 558 [(module) = "connectivity"];
@@ -790,7 +791,9 @@ message Atom {
             [(module) = "media_metrics"];
         media.MediaDrmSessionClosed media_drm_session_closed = 571
             [(module) = "media_metrics"];
-        expresslog.ExpressHistogramSampleReported express_histogram_sample_reported = 593 [(module) = "framework", (module) = "expresslog"];
+        PerformanceHintSessionReported performance_hint_session_reported = 574 [(module) = "framework"];
+        HotwordAudioEgressEventReported hotword_audio_egress_event_reported =
+                578 [(module) = "framework"];
         corenetworking.connectivity.NetworkValidationFailureStatsDailyReported
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         // StatsdStats tracks platform atoms with ids up to 750.
@@ -799,14 +802,22 @@ message Atom {
 
     // Pushed atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
+    extensions 528; // ExpressEventReported express_event_reported
+    extensions 593; // ExpressHistogramSampleReported express_histogram_sample_reported
     extensions 600; // MediaCodecReclaimRequestCompleted media_codec_reclaim_request_completed
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
+    extensions 644; // ExpressUidEventReported express_uid_event_reported
+    extensions 650; // DailykeepaliveInfoReported daily_keepalive_info_reported
+    extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
+    extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
+    extensions 664; // RkpdPoolStats rkpd_pool_stats
+    extensions 665; // RkpdClientOperation rkpd_client_operation
     extensions 9999; // Atom9999 atom_9999
 
     // Pulled events will start at field 10000.
-    // Next: 10169
+    // Next: 10175
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -918,7 +929,7 @@ message Atom {
         GnssPowerStats gnss_power_stats = 10101 [(module) = "framework"];
         TimeZoneDetectorState time_zone_detector_state = 10102 [(module) = "framework"];
         Keystore2StorageStats keystore2_storage_stats = 10103 [(module) = "framework"];
-        RkpPoolStats rkp_pool_stats = 10104 [(module) = "framework"];
+        RkpPoolStats rkp_pool_stats = 10104 [deprecated = true];
         ProcessDmabufMemory process_dmabuf_memory = 10105 [(module) = "framework"];
         PendingAlarmInfo pending_alarm_info = 10106 [(module) = "framework"];
         UserLevelHibernatedApps user_level_hibernated_apps = 10107 [(module) = "framework"];
@@ -993,7 +1004,7 @@ message Atom {
         UserInfo user_info = 10152 [(module) = "framework"];
         TelephonyNetworkRequestsV2 telephony_network_requests_v2 = 10153 [(module) = "telephony"];
         DeviceTelephonyProperties device_telephony_properties = 10154 [(module) = "telephony"];
-        RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [(module) = "remoteprovisioner"];
+        RemoteKeyProvisioningErrorCounts remote_key_provisioning_error_counts = 10155 [deprecated = true];
         IncomingMms incoming_mms = 10157 [(module) = "mms"];
         OutgoingMms outgoing_mms = 10158 [(module) = "mms"];
         MultiUserInfo multi_user_info = 10160 [(module) = "framework"];
@@ -1001,6 +1012,8 @@ message Atom {
         ConnectivityStateSample connectivity_state_sample = 10163 [(module) = "connectivity"];
         NetworkSelectionRematchReasonsInfo network_selection_rematch_reasons_info = 10164 [(module) = "connectivity"];
         NetworkSliceRequestCountSample network_slice_request_count = 10168 [(module) = "connectivity"];
+        ADPFSystemComponentInfo adpf_system_component_info = 10173 [(module) = "framework"];
+        NotificationMemoryUse notification_memory_use = 10174 [(module) = "sysui"];
     }
 
     // Pulled atom extensions.
@@ -4227,6 +4240,21 @@ message SmartSpaceCardReported {
     optional int32 received_latency_millis = 11;
     // The sub cards.
     optional SmartSpaceSubcards subcards_info = 12 [(log_mode) = MODE_BYTES];
+    // Holds all the dimensions for this event. See go/ss-dimensional-logging for details.
+    optional SmartspaceCardDimensionalInfo dimensional_info = 13 [(log_mode) = MODE_BYTES];
+}
+
+// Holds all the dimensions tied to a Smartspace event.
+message SmartspaceCardDimensionalInfo {
+    repeated SmartspaceFeatureDimension feature_dimensions = 1;
+}
+
+message SmartspaceFeatureDimension {
+    // This maps to an enum value in Android System Intelligence.
+    optional int32 feature_dimension_id = 1;
+
+    // The value for this dimension.
+    optional int32 feature_dimension_value = 2;
 }
 
 /**
@@ -4365,6 +4393,8 @@ message LauncherLayoutSnapshot {
 
   // List of attributes attached to the event.
   optional LauncherAttributes attributes = 19 [(log_mode) = MODE_BYTES];
+
+  optional bool is_kids_mode = 20;
 }
 
 /**
@@ -4395,6 +4425,8 @@ message StyleUIChanged {
     optional int32 first_wallpaper_apply_date_since_setup = 18;
     optional int32 app_launch_count = 19;
     optional int32 color_variant = 20;
+    optional int64 time_elapsed_millis = 21;
+    optional int32 effect_status_code = 22;
 }
 
 /**
@@ -5801,6 +5833,77 @@ message NotificationChannelModified {
     optional bool is_conversation_demoted = 9;
     // whether this conversation is marked as being a priority
     optional bool is_conversation_priority = 10;
+}
+
+/**
+ * Snapshot of notification memory use aggregated per-package and per-style.
+ * One message for each notification style of each package showing notifications.
+ * Logged from
+ *    frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/notification/logging
+ */
+ message NotificationMemoryUse {
+    // UID if the application (can be mapped to package and version)
+    optional int32 uid = 1;
+    // Integer enum value showing aggregated notification style.
+    optional int32 style = 2;
+    // Number of notifications that were aggregated into this metric.
+    optional int32 count = 3;
+    // Number of notifications with actually inflated views in this metric.
+    optional int32 countWithInflatedViews = 4;
+    // Memory use of small icon Bitmaps in KB.
+    optional int32 smallIconObject = 5;
+    // Count of notifications with small icons as bitmaps.
+    optional int32 smallIconBitmapCount = 6;
+    // Memory use of large icon Bitmaps in KB.
+    optional int32 largeIconObject = 7;
+    // Count of notifications with large icons as bitmaps.
+    optional int32 largeIconBitmapCount = 8;
+    // Memory use of big picture style Bitmaps in KB.
+    optional int32 bigPictureObject = 9;
+    // Count of notifications with big picture images as bitmaps.
+    optional int32 bigPictureBitmapCount = 10;
+    // Complete memory use of extras in Notification object, in KB.
+    optional int32 extras = 11;
+    // Memory use of extenders in KB.
+    optional int32 extenders = 12;
+    // Combined memory use of small icon drawables in views, in KB.
+    optional int32 smallIconViews = 13;
+    // Combined memory use of large icon drawables in views, in KB.
+    optional int32 largeIconViews = 14;
+    // Combined memory use of system icon drawables in views, in KB.
+    optional int32 systemIconViews = 15;
+    // Combined memory use of style drawables (e.g. BigPicture) in views, in KB.
+    optional int32 styleViews = 16;
+    // Combined memory use of custom view drawables in views, in KB.
+    optional int32 customViews = 17;
+    // Extra memory used due to usage of software bitmaps, in KB.
+    optional int32 softwareBitmaps = 18;
+    // How many notifications were actually ever shown to the user.
+    optional int32 seenCount = 19;
+}
+
+/**
+ * Logged when notification are dismissed. If multiple notifications are dismissed together,
+ * this is only logged once per style per UID.
+ * Logged from
+ *    frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/notification/logging
+ */
+message NotificationDismissed {
+    // UID if the application (can be mapped to package and version)
+    optional int32 uid = 1 [(is_uid) = true];
+    // Integer enum value showing aggregated notification style.
+    optional android.stats.sysui.NotificationStyle style = 2;
+    // Reason for dismissal, based on REASON_ constants in
+    // frameworks/base/core/java/android/service/notification/NotificationListenerService.java
+    optional int32 reason = 3;
+    // Number of notifications dismissed.
+    optional int32 count = 4;
+    // Memory use of Notification object being dismissed, in KB.
+    optional int32 notificationObjectMemoryUse = 5;
+    // Memory use of Notification views being dismissed, in KB.
+    optional int32 notificationViewMemoryUse = 6;
+    // Current memory use of SystemUI, RSS Anon in KB.
+    optional int32 systemUiMemoryUse = 7;
 }
 
 /**
@@ -9350,13 +9453,21 @@ message AppCompacted {
   optional int64 after_zram_free_kilobytes = 18;
 }
 
-// Logs each upstream for a successful switch over
+/**
+ * Represents an event that logs information about a successful switch to an upstream network.
+ */
 message UpstreamEvent {
-  // Transport type of upstream network
+  // Indicates the transport type of network.
   optional android.stats.connectivity.UpstreamType upstream_type = 1;
 
-  // A time period that an upstream continued
+  // The duration of network usage.
   optional int64 duration_millis = 2;
+
+  // The amount of data received from tethered clients.
+  optional int64 tx_bytes = 3;
+
+  // The amount of data received from remote.
+  optional int64 rx_bytes = 4;
 }
 
 message UpstreamEvents {
@@ -10347,6 +10458,9 @@ message SplitscreenUIChanged {
         ROOT_TASK_VANISHED = 6;
         APP_FINISHED = 7;
         APP_DOES_NOT_SUPPORT_MULTIWINDOW = 8;
+        CHILD_TASK_ENTER_PIP = 9;
+        RECREATE_SPLIT = 10;
+        FULLSCREEN_SHORTCUT = 11;
     }
 
     // The event action
@@ -13662,7 +13776,7 @@ message PerfettoUploaded {
     // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
     // This state exists because of legacy reasons (i.e. these values existed
     // before go/perfetto-monitoring was a thing).
-    // Next id: 52.
+    // Next id: 53.
     enum Event {
         PERFETTO_UNDEFINED = 0;
 
@@ -13712,6 +13826,7 @@ message PerfettoUploaded {
         PERFETTO_TRACED_START_TRACING_INVALID_SESSION_STATE = 36;
         PERFETTO_TRACED_ENABLE_TRACING_INVALID_FILTER = 47;
         PERFETTO_TRACED_ENABLE_TRACING_OOB_TARGET_BUFFER = 48;
+        PERFETTO_TRACED_ENABLE_TRACING_INVALID_TRIGGER_MODE = 52;
 
         // Checkpoints inside perfetto_cmd after tracing has finished.
         PERFETTO_ON_TRACING_DISABLED = 4;
@@ -14446,6 +14561,9 @@ message VoiceCallSession {
 
     // Duration after the call was connected.
     optional android.telephony.CallDuration call_duration = 33;
+
+    // Last known Radio access technology (RAT).
+    optional android.telephony.NetworkTypeEnum last_known_rat = 34;
 }
 
 /**
@@ -16826,6 +16944,8 @@ message RkpErrorStats {
 
 
 /**
+ * Deprecated in U. Use RkpdPoolStats instead.
+ *
  * Logs: Status of the attestation key pool related to
  * Remote Key Provisioning (RKP).
  * Logged from: system/security/keystore2
@@ -16858,7 +16978,6 @@ message RkpPoolStats {
      * The total number of attestation keys.
      */
     optional int32 total = 5;
-
 }
 
 /**
@@ -17437,6 +17556,7 @@ message IsolatedCompilationEnded {
         RESULT_COMPILATION_FAILED = 5;
         RESULT_UNEXPECTED_COMPILATION_RESULT = 6;
         RESULT_COMPOSD_DIED = 7;
+        RESULT_FAILED_TO_ENABLE_FSVERITY = 8;
     }
     // Time between compilation job starts to when it ends.
     // Note: this does not include the time between compilation job being scheduled (or when apex is staged)
@@ -20647,6 +20767,34 @@ message LauncherLatency {
     optional int64 latency_in_millis = 4;
     optional int32 type = 5;
     optional int32 query_length = 6 [default = -1];
+    optional int32 sub_event_type = 7;
+}
+
+/**
+ * Logs for Launcher Impression logging.
+ *
+ * Logged from:
+ *      vendor/unbundled_google/packages/NexusLauncher
+ */
+message LauncherImpressionEvent {
+    // The event id generated from go/uievents
+    optional int32 event_id = 1;
+    // The instance id to track multiple partial impression event.
+    optional int32 instance_id = 2;
+
+    // The state defines the surface where the impression is being logged.
+    optional int32 state = 3;
+    optional int32 query_length = 4 [default = -1];
+
+    // ResultType of the search result as defined in frameworks/libs/systemui/searchuilib/src/com/android/app/search/ResultType.java
+    repeated int32 result_type = 5;
+
+    // Number of results of corresponding result_type.
+    repeated int32 result_count = 6;
+
+    // If the corresponding result_type is above or below keyboard.
+    // If 50% of result is visible, then is_above_keyboard = true
+    repeated bool is_above_keyboard = 7;
 }
 
 /*
@@ -20732,6 +20880,9 @@ message HotwordDetectionServiceInitResultReported {
         CALLBACK_INIT_STATE_UNKNOWN_TIMEOUT = 4;
     }
     optional Result result = 2;
+
+    // The UID for which assistant application is active.
+    optional int32 uid = 3 [(is_uid) = true];
 }
 
 /**
@@ -20756,6 +20907,9 @@ message HotwordDetectionServiceRestarted {
         CRASH = 3;
     }
     optional Reason reason = 2;
+
+    // The UID for which assistant application is active.
+    optional int32 uid = 3 [(is_uid) = true];
 }
 
 /**
@@ -20804,6 +20958,9 @@ message HotwordDetectorKeyphraseTriggered {
     }
     // What result after detecting.
     optional Result result = 2;
+
+    // The UID for which assistant application is active.
+    optional int32 uid = 3 [(is_uid) = true];
 }
 
 /**
@@ -20858,6 +21015,64 @@ message HotwordDetectorEvents {
         // Indicates that the system got the security exception when handling external
         // source detected callback.
         EXTERNAL_SOURCE_DETECT_SECURITY_EXCEPTION = 13;
+
+        // Indicates that the callback onStatusReported was not invoked successfully.
+        CALLBACK_ON_STATUS_REPORTED_EXCEPTION = 14;
+
+        // Indicates that the callback onError was not invoked successfully.
+        CALLBACK_ON_ERROR_EXCEPTION = 15;
+
+        // Indicates that the callback onRejected was not invoked successfully.
+        CALLBACK_ON_REJECTED_EXCEPTION = 16;
+
+        // Indicates that the callback onDetected was not invoked successfully.
+        CALLBACK_ON_DETECTED_EXCEPTION = 17;
+
+        // Indicates that the callback onProcessRestarted was not invoked successfully.
+        CALLBACK_ON_PROCESS_RESTARTED_EXCEPTION = 18;
+
+        // Indicates that the updateState was not invoked successfully.
+        CALL_UPDATE_STATE_EXCEPTION = 19;
+
+        // Indicates that the audio egress starts.
+        AUDIO_EGRESS_START = 20;
+
+        // Indicates that the audio egress ends.
+        AUDIO_EGRESS_END = 21;
+
+        // Indicates that the audio egress got interrupted exception.
+        AUDIO_EGRESS_INTERRUPTED_EXCEPTION = 22;
+
+        // Indicates that the client is not granted permission to access audio
+        // egress.
+        AUDIO_EGRESS_NO_PERMISSION = 23;
+
+        // Indicates that the client is inactive over a period of time.
+        AUDIO_EGRESS_INACTIVE_CLIENT = 24;
+
+        // Indicates that the HotwordDetectionService is inactive over a period
+        // of time.
+        AUDIO_EGRESS_INACTIVE_HOTWORD_DETECTION_SERVICE = 25;
+
+        // Indicates that the list of audio stream is empty.
+        AUDIO_EGRESS_EMPTY_AUDIO_STREAM_LIST = 26;
+
+        // Indicates that there is no data from the system audio stream.
+        AUDIO_EGRESS_SOURCE_IS_EMPTY = 27;
+
+        // Indicates that the copy buffer size the client sets is illegal.
+        AUDIO_EGRESS_ILLEGAL_COPY_BUFFER_SIZE = 28;
+
+        // Indicates that the audio egress is closed with error from the system.
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_SYSTEM = 29;
+
+        // Indicates that the audio egress is closed with error from the client
+        // side.
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_CLIENT = 30;
+
+        // Indicates that the audio egress is closed with error from the
+        // HotwordDetectionService.
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_HOTWORD_DETECTION_SERVICE = 31;
     }
     optional Event event = 2;
 
@@ -21262,6 +21477,34 @@ message AutofillPresentationEventReported {
   // Whether a new request was triggered or alternatively served from cached
   // response.
   optional bool is_request_triggered = 12;
+
+  // Timestamps are in milliseconds, relative to when the Session was created
+  // For example, if timestamp has a value = 100, the event was triggered
+  // 100ms after the session was created.
+  // Since these are relative to Session creation, you can subtract events to
+  // get the latency duration between events.
+  // t1 = 100
+  // t2 = 300
+  // duration = t2 - t1 = 200ms
+  // ------------------------------------------------------------------------
+  // Timestamp of when FillRequest is sent to Autofill provider
+  // This is also the latency of when a field is focused to Framework sending a FillRequest
+  optional int32 fill_request_sent_timestamp_ms = 13;
+
+  // Timestamp of when Autofill provider returns a FillResponse
+  // The latency of the Autofill provider IPC can be calculated
+  // by fillResponseReceivedTimestampMs - fillRequestSentTimestampMs
+  optional int32 fill_response_received_timestamp_ms = 14;
+
+  // Timestamp of when FillResponse is sent to the IME/Dropdown handler/Fill Dialog UI
+  // The latency of processing provider FillResponse to when suggestions are sent to be rendered
+  // can be calculated by suggestionSentTimestampMs - fillResponseReceivedTimestampMs
+  optional int32 suggestion_sent_timestamp_ms = 15;
+
+  // Timestamp of when the suggestion is shown
+  // The latency of showing suggestions can be calculated by
+  // suggestionPresentedTimestampMs - suggestionSentTimestampMs
+  optional int32 suggestion_presented_timestamp_ms = 16;
 }
 
 // Tells how Autofill dataset was/will-be displayed.
@@ -21378,7 +21621,7 @@ message SyncExemptionOccurred {
 // completely out of attestation keys.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningAttempt {
     // The reason for the provisioning attempt.
     enum Cause {
@@ -21420,13 +21663,19 @@ message RemoteKeyProvisioningAttempt {
 
     // Indicates success or failure of the provisioning attempt.
     optional com.android.remoteprovisioner.RemoteKeyProvisioningStatus status = 6;
+
+    // A digest of the root key that certified the provisioned certificates
+    optional string root_cert_fingerprint = 7;
+
+    // The depth of the cert chains issued to the device
+    optional int32 cert_chain_length = 8;
 }
 
 // Logs that correlate remote key provisioning status with the active
 // network for the given provisioning attempt.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningNetworkInfo {
     // The network transport, according ConnectivityManager::getActiveNetwork().
     optional android.stats.connectivity.TransportType transport_type = 1;
@@ -21442,7 +21691,7 @@ message RemoteKeyProvisioningNetworkInfo {
 // taking to perform various sub-tasks. This is intended to be used with KLL metrics.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningTiming {
     // Time spent waiting on the RKP service to reply.
     optional int32 server_wait_millis = 1;
@@ -21467,11 +21716,13 @@ message RemoteKeyProvisioningTiming {
     optional string remotely_provisioned_component = 6;
 }
 
+// Deprecated in U.
+//
 // Counters that track how many errors we're seeing on the device for the
 // given boot.
 //
 // Logged from:
-//   packages/apps/RemoteProvisioner/src/com/android/remoteprovisioner/
+//   packages/modules/RemoteKeyProvisioning
 message RemoteKeyProvisioningErrorCounts {
     // The total number of RKP attempts there have been this boot.
     optional int32 total_count = 1;
@@ -22091,6 +22342,10 @@ message IwlanSetupDataCallResultReported {
   optional int32 handover_failure_mode = 15;
   // Retry duration
   optional int32 retry_duration_millis = 16;
+  // Iwlan error wrapped exception classname
+  optional string iwlan_error_wrapped_classname = 17;
+  // Iwlan error wrapped exception 1st line of stack trace
+  optional string iwlan_error_wrapped_stack_first_frame = 18;
 }
 
 /**
@@ -22112,4 +22367,124 @@ message IwlanPdnDisconnectedReasonReported {
   optional int32 transport_type = 3;
   // Wifi signal level
   optional int32 wifi_signal_level = 4;
+}
+
+// Logs daily ambient brightness stats.
+message AmbientBrightnessStatsReported {
+
+    // How much time was spent in each of the buckets, in seconds.
+    repeated float bucket_size_seconds = 1;
+
+    // Ambient brightness values for creating bucket boundaries from.
+    repeated float bucket_boundary_lux = 2;
+}
+
+/**
+ * Logs the Brightness Configuration pushed by the long term model. The Brightness Configuration is
+ * expressed as a curve where each point is a pair of ambient light (lux) and the corresponding
+ * screen brightness (nits).
+ *
+ * Logged from:
+ *    frameworks/base/services/core/java/com/android/server/display/DisplayManagerService.java
+ */
+message BrightnessConfigurationUpdated {
+    // Array of ambient light values (in lux) to define the configuration.
+    repeated float lux = 1;
+    // Array of screen brightness values (in nits) corresponding to the lux
+    // values above.
+    repeated float nits = 2;
+    // Physical display id, with format $ADAPTER_PREFIX:$ID, in this case
+    // "local:$PHYSICAL_ID".
+    optional string physical_display_id = 3;
+}
+
+/**
+ * Logs information related to audio egress in hotword.
+ */
+message HotwordAudioEgressEventReported {
+    // The type of detector.
+    optional android.hotword.HotwordDetectorType detector_type = 1;
+
+    // The type of event.
+    enum Event {
+        // UNKNOWN value.
+        UNKNOWN = 0;
+
+        // Indicates that the audio egress started.
+        STARTED = 1;
+
+        // Indicates that the audio egress ended.
+        ENDED = 2;
+
+        // Indicates that the audio egress got interrupted exception.
+        INTERRUPTED_EXCEPTION = 3;
+
+        // Indicates that the client is not granted permission to access audio egress.
+        NO_PERMISSION = 4;
+
+        // Indicates that the client is inactive over a period of time.
+        INACTIVE_CLIENT = 5;
+
+        // Indicates that the HotwordDetectionService is inactive over a period
+        // of time.
+        INACTIVE_HOTWORD_DETECTION_SERVICE = 6;
+
+        // Indicates that the list of audio stream is empty.
+        EMPTY_AUDIO_STREAM_LIST = 7;
+
+        // Indicates that there is no data from the system audio stream.
+        SOURCE_IS_EMPTY = 8;
+
+        // Indicates that the copy buffer size the client sets is illegal.
+        ILLEGAL_COPY_BUFFER_SIZE = 9;
+
+        // Indicates that the audio egress is closed with error from the system.
+        CLOSE_ERROR_FROM_SYSTEM = 10;
+
+        // Indicates that the audio egress is closed with error from the client side.
+        CLOSE_ERROR_FROM_CLIENT = 11;
+
+        // Indicates that the audio egress is closed with error from the
+        // HotwordDetectionService.
+        CLOSE_ERROR_FROM_HOTWORD_DETECTION_SERVICE = 12;
+   }
+    optional Event event = 2;
+
+    // The UID for which the assistant application is active.
+    optional int32 uid = 3 [(is_uid) = true];
+
+    // The number of bytes egressed in audio stream
+    optional int32 egressed_stream_size_bytes = 4;
+
+    // The number of bytes egressed in metadata bundle
+    optional int32 egressed_metadata_bundle_size_bytes = 5;
+
+    // The count of audio streams
+    optional int32 stream_count = 6;
+}
+
+/**
+ * Logs information related to Android Dynamic Performance Framework (ADPF).
+ */
+
+message PerformanceHintSessionReported {
+    // UID of the package.
+    optional int32 package_uid = 1 [(is_uid) = true];
+
+    // Unique ID of the hint session.
+    optional int64 session_id = 2;
+
+    // Hint session target duration, in nanoseconds.
+    optional int64 target_duration_ns = 3;
+
+    // Number of threads affected by this session
+    optional int32 tid_count = 4;
+}
+
+message ADPFSystemComponentInfo {
+    // True if SurfaceFlinger CPU hint is enabled on the device.
+    optional bool surfaceflinger_cpu_hint_enabled = 1;
+
+    // True if HWUI hint is enabled on the device.
+    optional bool hwui_hint_enabled = 2;
 }

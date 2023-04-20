@@ -21,6 +21,8 @@ package android.os.statsd.bluetooth;
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/le/enums.proto";
 
 option java_package = "com.android.os.bluetooth";
 option java_multiple_files = true;
@@ -32,6 +34,8 @@ extend Atom {
         = 614 [(module) = "bluetooth"];
     optional BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
         = 615 [(module) = "bluetooth"];
+    optional BluetoothLeSessionConnected bluetooth_le_session_connected
+        = 656 [(module) = "bluetooth"];
 }
 
 /**
@@ -75,13 +79,22 @@ message BluetoothL2capCocClientConnection {
  optional int32 port = 2;
 
  // Flag to show if the connection is secured or not
- optional bool isSecured = 3;
+ optional bool is_secured = 3;
 
  // Result of L2CAP CoC connection
  optional android.bluetooth.L2capCocConnectionResult result = 4;
 
  // Latency between connection start and end
  optional int64 connection_latency_millis = 5;
+
+ // Uid of the app who calls l2cap coc connection API
+ optional int32 uid = 6 [(is_uid) = true];
+
+ // Latency of BluetoothSocket constructor
+ optional int64 socket_creation_latency_millis = 7;
+
+ // Latency of BluetoothSocket.connect
+ optional int64 socket_connection_latency_millis = 8;
 }
 
 /**
@@ -103,7 +116,7 @@ message BluetoothL2capCocServerConnection {
  optional int32 port = 2;
 
  // Flag to show if the connection is secured or not
- optional bool isSecured = 3;
+ optional bool is_secured = 3;
 
  // Result of L2CAP CoC connection
  optional android.bluetooth.L2capCocConnectionResult result = 4;
@@ -113,4 +126,56 @@ message BluetoothL2capCocServerConnection {
 
  // Timeout for connection acceptance. -1 if not timeout.
  optional int64 timeout_millis = 6;
+
+ // Uid of the app who calls l2cap coc connection API
+ optional int32 uid = 7 [(is_uid) = true];
+
+ // Latency of BluetoothServerSocket constructor
+ optional int64 socket_creation_latency_millis = 8;
+
+ // Latency of BluetoothServerSocket.accept
+ optional int64 socket_acceptance_latency_millis = 9;
+}
+
+/**
+ * Logs when Bluetooth LE Connection Session is made
+ *
+ * Logged from: system/bt
+ */
+message BluetoothLeSessionConnected {
+  // Contains the state of the LE Connection Session
+  // Default: LE_ACL_ABSENT
+  optional android.bluetooth.le.LeAclConnectionState acl_state = 1;
+  // Origin type of the connection whether it was from the ORIGIN_JAVA
+  // or the ORIGIN_NATIVE layer
+  // Default: ORIGIN_NATIVE
+  optional android.bluetooth.le.LeConnectionOriginType connection_origin = 2;
+  // Contains the connection type whether it was CONNECTION_TYPE_GATT
+  // ,CONNECTION_TYPE_LE_ACL
+  // Default: CONNECTION_TYPE_LE_ACL
+  optional android.bluetooth.le.LeConnectionType connection_type = 3;
+  // Connection State which contain the last state associated with the
+  // event
+  // Default: STATE_UNSPECIFIED
+  optional android.bluetooth.le.LeConnectionState state = 4;
+  // Contains the latency of the transaction from the beginning till
+  // the end:
+  // Default: 0
+  optional int64 latency_nanos = 5;
+  // Contains the metric id associated with the remote device
+  // Default: 0
+  optional int32 metric_id = 6;
+  // Contains the UID which is associated with the app
+  // Default: 0
+  optional int32 app_uid = 7 [(is_uid) = true];
+  // Contains the latency of the ACL Connection, which if made will be
+  // greater than 0
+  // Default: 0
+  optional int64 acl_latency_nanos = 8;
+  // Contains the status of the ACL Transactions, which if made will be
+  // something other than STATUS_UNKNOWN Default: STATUS_UNKNOWN
+  optional android.bluetooth.hci.StatusEnum acl_connection_state = 9;
+  // Identifies whether the LE-ACL Connection failed due to cancellation
+  // Default: false
+  optional bool is_cancelled = 10;
 }

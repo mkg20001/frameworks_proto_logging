@@ -31,6 +31,8 @@ enum MetricType {
     METRIC_TYPE_UNKNOWN = 0;
     COUNTER = 1;
     HISTOGRAM = 2;
+    COUNTER_WITH_UID = 3;
+    HISTOGRAM_WITH_UID = 4;
 }
 
 message HistogramOptions {

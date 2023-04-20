@@ -20,10 +20,9 @@ package android.media.drm;
 
 // Please see MediaDrm.ErrorCodes for definitions.
 //
-// From
+// Extended from
 //   frameworks/base/media/java/android/media/MediaDrm.java
 enum Status {
-    ERROR_ANY = -1;
     ERROR_UNKNOWN = 0;
     ERROR_NO_KEY = 1;
     ERROR_KEY_EXPIRED = 2;
@@ -58,6 +57,12 @@ enum Status {
     ERROR_STORAGE_READ = 31;
     ERROR_STORAGE_WRITE = 32;
     ERROR_ZERO_SUBSAMPLES = 33;
+    ERROR_INVALID_STATE = 34;
+    ERROR_BAD_VALUE = 35;
+    ERROR_NOT_PROVISIONED = 36;
+    ERROR_DEVICE_REVOKED = 37;
+    ERROR_DECRYPT = 38;
+    ERROR_DEAD_OBJECT = 39;
 }
 
 // Security level represents the robustness of the DRM implementation.
