@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93a0c2c9_c651497b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-20T03:36:54Z",
+      "side": 1,
+      "message": "need to wait more for CL https://r.android.com/2523181 to be propagated into udc-d1-dev",
+      "parentUuid": "67534ba0_fd17d2fd",
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dffe25a_515a0131",
         "filename": "stats/stats_log_api_gen/java_writer.cpp",
         "patchSetId": 4
