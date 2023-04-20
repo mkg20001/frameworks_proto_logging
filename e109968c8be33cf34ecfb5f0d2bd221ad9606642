@@ -126,6 +126,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2de56e4_f2c55009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-04-20T03:39:19Z",
+      "side": 1,
+      "message": "I see there is an automerger issue blocking my commit to be propagated into udc-d1-dev. need to wait",
+      "parentUuid": "93a0c2c9_c651497b",
+      "revId": "e109968c8be33cf34ecfb5f0d2bd221ad9606642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dffe25a_515a0131",
