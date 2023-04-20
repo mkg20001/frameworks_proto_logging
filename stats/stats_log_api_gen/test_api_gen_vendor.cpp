@@ -17,7 +17,6 @@
 #include <aidl/android/frameworks/stats/VendorAtom.h>
 #include <gtest/gtest.h>
 #include <test_vendor_atoms.h>
-#include <test_vendor_atoms_with_module.h>
 
 #include <limits>
 
@@ -93,12 +92,6 @@ TEST(ApiGenVendorAtomTest, AtomEnumTest) {
     EXPECT_EQ(f2, nullptr);
     EXPECT_EQ(f3, nullptr);
     EXPECT_EQ(f4, nullptr);
-}
-
-TEST(ApiGenVendorAtomTest, AtomIdModuleTest) {
-    EXPECT_EQ(VendorAtomsModule::VENDOR_ATOM4, 105504);
-    EXPECT_EQ(VendorAtomsModule::VendorAtom4::TYPE_UNKNOWN, 0);
-    EXPECT_EQ(VendorAtomsModule::VendorAtom4::TYPE_1, 1);
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom1ApiTest) {

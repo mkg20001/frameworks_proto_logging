@@ -89,6 +89,12 @@ message BluetoothL2capCocClientConnection {
 
  // Uid of the app who calls l2cap coc connection API
  optional int32 uid = 6 [(is_uid) = true];
+
+ // Latency of BluetoothSocket constructor
+ optional int64 socket_creation_latency_millis = 7;
+
+ // Latency of BluetoothSocket.connect
+ optional int64 socket_connection_latency_millis = 8;
 }
 
 /**
@@ -123,6 +129,12 @@ message BluetoothL2capCocServerConnection {
 
  // Uid of the app who calls l2cap coc connection API
  optional int32 uid = 7 [(is_uid) = true];
+
+ // Latency of BluetoothServerSocket constructor
+ optional int64 socket_creation_latency_millis = 8;
+
+ // Latency of BluetoothServerSocket.accept
+ optional int64 socket_acceptance_latency_millis = 9;
 }
 
 /**

@@ -18,10 +18,22 @@ syntax = "proto2";
 
 package android.os.statsd.expresslog;
 
+import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 
 option java_package = "com.android.os.expresslog";
 option java_multiple_files = true;
+
+extend Atom {
+    optional ExpressEventReported express_event_reported =
+            528 [(module) = "framework", (module) = "expresslog"];
+    optional ExpressHistogramSampleReported express_histogram_sample_reported =
+            593 [(module) = "framework", (module) = "expresslog"];
+    optional ExpressUidEventReported express_uid_event_reported =
+            644 [(module) = "framework", (module) = "expresslog"];
+    optional ExpressUidHistogramSampleReported express_uid_histogram_sample_reported =
+            658 [(module) = "framework", (module) = "expresslog"];
+}
 
 /*
  * Logs by Express library.
@@ -61,4 +73,24 @@ message ExpressHistogramSampleReported {
     // dim[bins_count] - could be considered as an underflow bin
     // dim[bins_count + 1] - could be considered as an overflow bin
     optional int32 bin_index = 3;
+}
+
+/*
+ * Logs by Express library.
+ */
+ message ExpressUidHistogramSampleReported {
+    optional int64 metric_id = 1;
+
+    // will be used as a samples count increment value per bin
+    optional int64 count = 2;
+
+    // will be used as a dimension to represent the bin index
+    // dim[0] .. dim[bins_count - 1] - valid samples count bins
+    // 2 extra bins reserved to represent underflow/overflow
+    // dim[bins_count] - could be considered as an underflow bin
+    // dim[bins_count + 1] - could be considered as an overflow bin
+    optional int32 bin_index = 3;
+
+    // will be used as uid dimension.
+    optional int32 uid = 4 [(is_uid) = true];
 }
