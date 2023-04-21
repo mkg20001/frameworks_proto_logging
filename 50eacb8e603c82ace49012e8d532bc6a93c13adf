@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0addaec0_e38387cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-04-21T21:02:48Z",
+      "side": 1,
+      "message": "Build is fixed. Please do not submit this as the revert will break the build.",
+      "revId": "50eacb8e603c82ace49012e8d532bc6a93c13adf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
