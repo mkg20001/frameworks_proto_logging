@@ -22,6 +22,30 @@
       },
       "revId": "dc3c447fd70cc6850eaabe799a878c8b918fc24b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a116d86_86e4a8ba",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-04-21T21:05:25Z",
+      "side": 0,
+      "message": "@cncn@google.com Please take a look",
+      "parentUuid": "68a9a530_cf27fda6",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "dc3c447fd70cc6850eaabe799a878c8b918fc24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
