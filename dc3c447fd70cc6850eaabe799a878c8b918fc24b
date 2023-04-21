@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a9a530_cf27fda6",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-04-21T09:34:06Z",
+      "side": 0,
+      "message": "The value should be marked as `reserved` to prevent reuse for a different enum value.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "dc3c447fd70cc6850eaabe799a878c8b918fc24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
