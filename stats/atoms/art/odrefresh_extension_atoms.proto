@@ -2,7 +2,16 @@ syntax = "proto2";
 
 package android.os.statsd.art;
 
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+
 option java_package = "com.android.os.art";
+option java_multiple_files = true;
+
+extend Atom {
+    optional OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
+    optional OdsignReported odsign_reported = 548 [(module) = "art"];
+}
 
 /*
  * Logs information about on-device refresh of ART AOT artifacts for boot classpath extensions
