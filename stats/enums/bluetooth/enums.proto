@@ -387,7 +387,12 @@ enum CodePathCounterKeyEnum {
         // [121,000 - 121,010) Screen on/off count
         SCREEN_ON_EVENT = 121000;
         SCREEN_OFF_EVENT = 121001;
+
+    // [120,900 - 121,000) GATT Related Count
+        GATT_CLIENT_CONNECT_IS_DIRECT = 120900;
+        GATT_CLIENT_CONNECT_IS_AUTOCONNECT = 120901;
 }
+
 
 enum AddressTypeEnum {
     ADDRESS_TYPE_PUBLIC = 0;
