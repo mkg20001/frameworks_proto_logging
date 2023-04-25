@@ -382,6 +382,11 @@ enum CodePathCounterKeyEnum {
 
         // [120,800 - 120,900) LE advertise error count
         LE_ADV_ERROR_ON_START_COUNT = 120800;
+
+    // [121,000 - 121,100) System state related
+        // [121,000 - 121,010) Screen on/off count
+        SCREEN_ON_EVENT = 121000;
+        SCREEN_OFF_EVENT = 121001;
 }
 
 enum AddressTypeEnum {
