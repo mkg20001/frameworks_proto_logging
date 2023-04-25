@@ -39,6 +39,48 @@
       },
       "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b69f0e0_72d0a454",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-25T04:22:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc50211_2deacd54",
+      "range": {
+        "startLine": 374,
+        "startChar": 12,
+        "endLine": 374,
+        "endChar": 22
+      },
+      "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4221b01c_babfd694",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-04-25T04:22:10Z",
+      "side": 1,
+      "message": "We need the default module for C++ as we still depend on the monolithic stats_log.h/.cpp",
+      "parentUuid": "6fffffce_7be7f433",
+      "revId": "75f14ddc3aa39356a6e3338a553183e0947d789e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
