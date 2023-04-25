@@ -383,10 +383,18 @@ enum CodePathCounterKeyEnum {
         // [120,800 - 120,900) LE advertise error count
         LE_ADV_ERROR_ON_START_COUNT = 120800;
 
+<<<<<<< PATCH SET (f494f9 [BluetoothMetrics] Adding enums for Counter Metrics related )
+        // [120,900 - 121,000) GATT Related Count
+        GATT_CLIENT_CONNECT_IS_DIRECT = 120900;
+        GATT_CLIENT_CONNECT_IS_AUTOCONNECT = 120901;
+        GATT_SERVER_CONNECT_IS_DIRECT = 120902;
+        GATT_SERVER_CONNECT_IS_AUTOCONNECT = 120903;
+=======
     // [121,000 - 121,100) System state related
         // [121,000 - 121,010) Screen on/off count
         SCREEN_ON_EVENT = 121000;
         SCREEN_OFF_EVENT = 121001;
+>>>>>>> BASE      (3531af Merge "Revert "Revert "Add enum items for screen on/off even)
 }
 
 enum AddressTypeEnum {
