@@ -382,6 +382,10 @@ enum CodePathCounterKeyEnum {
 
         // [120,800 - 120,900) LE advertise error count
         LE_ADV_ERROR_ON_START_COUNT = 120800;
+
+        // [120,900 - 121,000) GATT Related Count
+        GATT_CLIENT_CONNECT_IS_DIRECT = 120900;
+        GATT_CLIENT_CONNECT_IS_AUTOCONNECT = 120901;
 }
 
 enum AddressTypeEnum {
