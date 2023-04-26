@@ -27,6 +27,7 @@ cc_binary_host {
         "Collation.cpp",
         "java_writer.cpp",
         "java_writer_q.cpp",
+        "java_writer_vendor.cpp",
         "main.cpp",
         "native_writer.cpp",
         "native_writer_vendor.cpp",

@@ -44,6 +44,9 @@ const int API_U = 34;
 const int JAVA_MODULE_REQUIRES_FLOAT = 0x01;
 const int JAVA_MODULE_REQUIRES_ATTRIBUTION = 0x02;
 
+const char ANNOTATION_CONSTANT_NAME_PREFIX[] = "ANNOTATION_ID_";
+const char ANNOTATION_CONSTANT_NAME_VENDOR_PREFIX[] = "AnnotationId.";
+
 struct AnnotationStruct {
     string name;
     int minApiLevel;
@@ -54,7 +57,7 @@ struct AnnotationStruct {
 void build_non_chained_decl_map(const Atoms& atoms,
                                 std::map<int, AtomDeclSet::const_iterator>* decl_map);
 
-const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants();
+const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const string& prefix);
 
 string get_java_build_version_code(int minApiLevel);
 
@@ -100,7 +103,8 @@ void write_java_atom_codes(FILE* out, const Atoms& atoms);
 
 void write_java_enum_values(FILE* out, const Atoms& atoms);
 
-void write_java_enum_values_vendor(FILE* out, const Atoms& atoms);
+int write_java_method_signature(FILE* out, const vector<java_type_t>& signature,
+                                const AtomDecl& attributionDecl);
 
 void write_java_usage(FILE* out, const string& method_name, const string& atom_code_name,
                       const AtomDecl& atom);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, The Android Open Source Project
+ * Copyright (C) 2023, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_H
-#define ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_H
+#ifndef ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_VENDOR_H
+#define ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_VENDOR_H
 
 #include <stdio.h>
 #include <string.h>
@@ -29,11 +29,10 @@
 namespace android {
 namespace stats_log_api_gen {
 
-int write_stats_log_java(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
-                         const string& javaClass, const string& javaPackage, const int minApiLevel,
-                         const int compileApiLevel, const bool supportWorkSource);
+int write_stats_log_java_vendor(FILE* out, const Atoms& atoms, const string& javaClass,
+                                const string& javaPackage);
 
 }  // namespace stats_log_api_gen
 }  // namespace android
 
-#endif  // ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_H
+#endif  // ANDROID_STATS_LOG_API_GEN_JAVA_WRITER_VENDOR_H
