@@ -386,6 +386,11 @@ enum CodePathCounterKeyEnum {
         // [120,900 - 121,000) GATT Related Count
         GATT_CLIENT_CONNECT_IS_DIRECT = 120900;
         GATT_CLIENT_CONNECT_IS_AUTOCONNECT = 120901;
+<<<<<<< PATCH SET (4d30ea [BluetoothMetrics] Adding enum items for GATT_SERVER_CONNECT)
+        GATT_SERVER_CONNECT_IS_DIRECT = 120902;
+        GATT_SERVER_CONNECT_IS_AUTOCONNECT = 120903;
+=======
+>>>>>>> BASE      (d730ca [BluetoothMetrics] Adding enums for Counter Metrics related )
 }
 
 enum AddressTypeEnum {
