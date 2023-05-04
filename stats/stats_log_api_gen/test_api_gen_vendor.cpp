@@ -23,7 +23,7 @@
 #include "frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.pb.h"
 
 namespace android {
-namespace stats_log_api_gen {
+namespace api_gen_vendor_tests {
 
 using namespace android::VendorAtoms;
 using namespace aidl::android::frameworks::stats;
@@ -34,6 +34,8 @@ using std::vector;
 namespace {
 
 static const int32_t kTestIntValue = 100;
+static const int32_t kTestUidValue = 1000;
+static const int32_t kTestPidValue = 3000;
 static const int64_t kTestLongValue = std::numeric_limits<int64_t>::max() - kTestIntValue;
 static const float kTestFloatValue = (float)kTestIntValue / kTestLongValue;
 static const bool kTestBoolValue = true;
@@ -118,6 +120,7 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom1ApiTest) {
     EXPECT_EQ(atom.values[5].get<VendorAtomValue::boolValue>(), kTestBoolValue);
     EXPECT_EQ(atom.values[6].get<VendorAtomValue::intValue>(), VendorAtom1::ANOTHER_TYPE_2);
     EXPECT_EQ(atom.values[7].get<VendorAtomValue::intValue>(), VendorAtom1::ANOTHER_TYPE_3);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
@@ -132,6 +135,7 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
     EXPECT_EQ(atom.values.size(), static_cast<size_t>(1));
     EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), kTestIntValue);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
@@ -170,7 +174,7 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
     EXPECT_EQ(atom.values[6].get<VendorAtomValue::repeatedFloatValue>(), repeatedFloat);
     EXPECT_EQ(atom.values[7].get<VendorAtomValue::repeatedIntValue>(), repeatedInt);
     EXPECT_EQ(atom.values[8].get<VendorAtomValue::repeatedLongValue>(), repeatedLong);
-    EXPECT_EQ(atom.values[9].get<VendorAtomValue::repeatedStringValue>().has_value(), true);
+    EXPECT_TRUE(atom.values[9].get<VendorAtomValue::repeatedStringValue>().has_value());
     EXPECT_EQ(atom.values[9].get<VendorAtomValue::repeatedStringValue>()->size(),
               repeatedString.size());
     const auto& repeatedStringValue = *atom.values[9].get<VendorAtomValue::repeatedStringValue>();
@@ -178,6 +182,7 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
         EXPECT_EQ(repeatedString[i], *repeatedStringValue[i]);
     }
     EXPECT_EQ(atom.values[10].get<VendorAtomValue::repeatedIntValue>(), repeatedEnum);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
@@ -208,6 +213,7 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
     EXPECT_EQ(atom.values[1].get<VendorAtomValue::intValue>(), kTestIntValue);
     EXPECT_EQ(atom.values[2].get<VendorAtomValue::longValue>(), kTestLongValue);
     EXPECT_EQ(atom.values[3].get<VendorAtomValue::byteArrayValue>(), nestedMessageBytes);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
 
     string nestedMessageStringResult(atom.values[3].get<VendorAtomValue::byteArrayValue>()->begin(),
                                      atom.values[3].get<VendorAtomValue::byteArrayValue>()->end());
@@ -220,5 +226,278 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
     EXPECT_EQ(nestedMessageResult.long_field(), kTestLongValue);
 }
 
-}  // namespace stats_log_api_gen
+TEST(ApiGenVendorAtomTest, buildAtomWithTruncateTimestampTest) {
+    /**
+     * Expected signature equal to VendorAtomWithTrancateTimestampCreateFunc to log
+     * 3 different atoms with truncate_timestamp
+     *      VendorAtomWithTruncateTimestamp truncateTimestampAtom1 = 105510 [
+     *          (android.os.statsd.truncate_timestamp) = true
+     *      ];
+     *      VendorAtomWithTruncateTimestamp2 truncateTimestampAtom2 = 105511 [
+     *          (android.os.statsd.truncate_timestamp) = true
+     *      ];
+     *      VendorAtomWithTruncateTimestamp3 truncateTimestampAtom3 = 105512 [
+     *          (android.os.statsd.truncate_timestamp) = true
+     *      ];
+     *
+     */
+    typedef VendorAtom (*VendorAtomWithTrancateTimestampCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t state);
+    VendorAtomWithTrancateTimestampCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom1 = func(TRUNCATE_TIMESTAMP_ATOM1, kTestStringValue,
+                            VendorAtomWithTruncateTimestamp::TEST_STATE_1);
+    EXPECT_EQ(atom1.atomId, TRUNCATE_TIMESTAMP_ATOM1);
+    EXPECT_EQ(atom1.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom1.values.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom1.values[0].get<VendorAtomValue::intValue>(),
+              VendorAtomWithTruncateTimestamp::TEST_STATE_1);
+    EXPECT_NE(atom1.atomAnnotations, std::nullopt);
+    EXPECT_EQ(atom1.atomAnnotations->size(), static_cast<size_t>(1));
+    EXPECT_NE(atom1.atomAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom1.atomAnnotations.value()[0]->annotationId, AnnotationId::TRUNCATE_TIMESTAMP);
+    EXPECT_TRUE(atom1.atomAnnotations.value()[0]->value.get<AnnotationValue::boolValue>());
+
+    VendorAtom atom2 = func(TRUNCATE_TIMESTAMP_ATOM2, kTestStringValue,
+                            VendorAtomWithTruncateTimestamp2::TEST_STATE_2);
+    EXPECT_EQ(atom2.atomId, TRUNCATE_TIMESTAMP_ATOM2);
+    EXPECT_EQ(atom2.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom2.values.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom2.values[0].get<VendorAtomValue::intValue>(),
+              VendorAtomWithTruncateTimestamp2::TEST_STATE_2);
+    EXPECT_NE(atom2.atomAnnotations, std::nullopt);
+    EXPECT_EQ(atom2.atomAnnotations->size(), static_cast<size_t>(1));
+    EXPECT_NE(atom2.atomAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom2.atomAnnotations.value()[0]->annotationId, AnnotationId::TRUNCATE_TIMESTAMP);
+    EXPECT_TRUE(atom2.atomAnnotations.value()[0]->value.get<AnnotationValue::boolValue>());
+
+    VendorAtom atom3 = func(TRUNCATE_TIMESTAMP_ATOM2, kTestStringValue, kTestIntValue);
+    EXPECT_EQ(atom3.atomId, TRUNCATE_TIMESTAMP_ATOM2);
+    EXPECT_EQ(atom3.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom3.values.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom3.values[0].get<VendorAtomValue::intValue>(), kTestIntValue);
+    EXPECT_NE(atom3.atomAnnotations, std::nullopt);
+    EXPECT_EQ(atom3.atomAnnotations->size(), static_cast<size_t>(1));
+    EXPECT_NE(atom3.atomAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom3.atomAnnotations.value()[0]->annotationId, AnnotationId::TRUNCATE_TIMESTAMP);
+    EXPECT_TRUE(atom3.atomAnnotations.value()[0]->value.get<AnnotationValue::boolValue>());
+}
+
+TEST(ApiGenVendorAtomTest, buildAtomWithExclusiveStateAnnotationTest) {
+    /* Expected signature equal to VendorAtomWithStateCreateFunc to log
+     * atoms with similar definitions:
+     *      VendorAtomWithState3 stateAtom3 = 105508
+     */
+    typedef VendorAtom (*VendorAtomWithStateCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t state);
+    VendorAtomWithStateCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom = func(STATE_ATOM3, kTestStringValue, VendorAtomWithState3::TEST_STATE_3);
+    EXPECT_EQ(atom.atomId, STATE_ATOM3);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), VendorAtomWithState3::TEST_STATE_3);
+    EXPECT_NE(atom.valuesAnnotations, std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations->size(), static_cast<size_t>(1));
+    EXPECT_NE(atom.valuesAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->valueIndex, 0);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[0].annotationId,
+              AnnotationId::EXCLUSIVE_STATE);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
+}
+
+TEST(ApiGenVendorAtomTest, buildAtomWithExclusiveStateAndPrimaryFieldAnnotationTest) {
+    /**
+     * Expected signature equal to VendorAtomWithStateCreateFunc to log atom
+     *      VendorAtomWithState stateAtom1 = 105506
+     * which has 1 primary_field & 1 exclusive_state annotations associated with 2 fields
+     */
+    typedef VendorAtom (*VendorAtomWithStateCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t uid, int32_t state);
+    VendorAtomWithStateCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom =
+            func(STATE_ATOM1, kTestStringValue, kTestUidValue, VendorAtomWithState::TEST_STATE_3);
+    EXPECT_EQ(atom.atomId, STATE_ATOM1);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(2));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), kTestUidValue);
+    EXPECT_EQ(atom.values[1].get<VendorAtomValue::intValue>(), VendorAtomWithState::TEST_STATE_3);
+    EXPECT_NE(atom.valuesAnnotations, std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations->size(), static_cast<size_t>(2));
+    EXPECT_NE(atom.valuesAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->valueIndex, 0);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[0].annotationId,
+              AnnotationId::PRIMARY_FIELD);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_NE(atom.valuesAnnotations.value()[1], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->valueIndex, 1);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations[0].annotationId,
+              AnnotationId::EXCLUSIVE_STATE);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[1]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
+}
+
+TEST(ApiGenVendorAtomTest, buildAtomWithExclusiveStateAndTwoPrimaryFieldAnnotationTest) {
+    /**
+     * Expected signature equal to VendorAtomWithStateCreateFunc to log atom
+     *      VendorAtomWithState2 stateAtom2 = 105507
+     * which has 2 primary_field & 1 exclusive_state annotations associated with 3 fields
+     */
+    typedef VendorAtom (*VendorAtomWithStateCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t uid, int32_t pid, int32_t state);
+    VendorAtomWithStateCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom = func(STATE_ATOM2, kTestStringValue, kTestUidValue, kTestPidValue,
+                           VendorAtomWithState2::TEST_STATE_2);
+    EXPECT_EQ(atom.atomId, STATE_ATOM2);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(3));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), kTestUidValue);
+    EXPECT_EQ(atom.values[1].get<VendorAtomValue::intValue>(), kTestPidValue);
+    EXPECT_EQ(atom.values[2].get<VendorAtomValue::intValue>(), VendorAtomWithState2::TEST_STATE_2);
+    EXPECT_NE(atom.valuesAnnotations, std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations->size(), static_cast<size_t>(3));
+    EXPECT_NE(atom.valuesAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->valueIndex, 0);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[0].annotationId,
+              AnnotationId::PRIMARY_FIELD);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_NE(atom.valuesAnnotations.value()[1], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->valueIndex, 1);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations[0].annotationId,
+              AnnotationId::PRIMARY_FIELD);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[1]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_NE(atom.valuesAnnotations.value()[2], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[2]->valueIndex, 2);
+    EXPECT_EQ(atom.valuesAnnotations.value()[2]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[2]->annotations[0].annotationId,
+              AnnotationId::EXCLUSIVE_STATE);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[2]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
+}
+
+TEST(ApiGenVendorAtomTest, buildAtomWithMultipleAnnotationsPerValueTest) {
+    /**
+     * Expected signature equal to VendorAtomWithStateCreateFunc to log atom
+     *      VendorAtomWithState4 stateAtom4 = 105509
+     * which has 4 state annotations associated with single value field (index 0)
+     * testing that TRIGGER_STATE_RESET not be added
+     */
+    typedef VendorAtom (*VendorAtomWithStateCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t state, bool someFlag);
+    VendorAtomWithStateCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    VendorAtom atom = func(STATE_ATOM4, kTestStringValue, VendorAtomWithState4::ON, kTestBoolValue);
+    EXPECT_EQ(atom.atomId, STATE_ATOM4);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(2));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), VendorAtomWithState4::ON);
+    EXPECT_EQ(atom.values[1].get<VendorAtomValue::boolValue>(), kTestBoolValue);
+    EXPECT_NE(atom.valuesAnnotations, std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations->size(), static_cast<size_t>(2));
+    EXPECT_NE(atom.valuesAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->valueIndex, 0);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations.size(), static_cast<size_t>(2));
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[0].annotationId,
+              AnnotationId::EXCLUSIVE_STATE);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[1].annotationId,
+              AnnotationId::STATE_NESTED);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[1]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_NE(atom.valuesAnnotations.value()[1], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->valueIndex, 1);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations[0].annotationId,
+              AnnotationId::PRIMARY_FIELD);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
+}
+
+TEST(ApiGenVendorAtomTest, buildAtomWithTriggerResetAnnotationTest) {
+    /**
+     * Expected signature equal to CreateStateAtom4ApiWrapper to log atom
+     *      VendorAtomWithState4 stateAtom4 = 105509
+     * which has 4 state annotations associated with single value field (index 0)
+     * testing that TRIGGER_STATE_RESET will be added
+     */
+    typedef VendorAtom (*VendorAtomWithStateCreateFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t state, bool someFlag);
+    VendorAtomWithStateCreateFunc func = &createVendorAtom;
+
+    EXPECT_NE(func, nullptr);
+
+    const int kDefaultStateValue = VendorAtomWithState4::OFF;
+
+    VendorAtom atom =
+            func(STATE_ATOM4, kTestStringValue, VendorAtomWithState4::RESET, kTestBoolValue);
+    EXPECT_EQ(atom.atomId, STATE_ATOM4);
+    EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
+    EXPECT_EQ(atom.values.size(), static_cast<size_t>(2));
+    EXPECT_EQ(atom.values[0].get<VendorAtomValue::intValue>(), VendorAtomWithState4::RESET);
+    EXPECT_EQ(atom.values[1].get<VendorAtomValue::boolValue>(), kTestBoolValue);
+    EXPECT_NE(atom.valuesAnnotations, std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations->size(), static_cast<size_t>(2));
+    EXPECT_NE(atom.valuesAnnotations.value()[0], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->valueIndex, 0);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations.size(), static_cast<size_t>(3));
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[0].annotationId,
+              AnnotationId::EXCLUSIVE_STATE);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[0]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[1].annotationId,
+              AnnotationId::STATE_NESTED);
+    EXPECT_TRUE(atom.valuesAnnotations.value()[0]
+                        ->annotations[1]
+                        .value.get<AnnotationValue::boolValue>());
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]->annotations[2].annotationId,
+              AnnotationId::TRIGGER_STATE_RESET);
+    EXPECT_EQ(atom.valuesAnnotations.value()[0]
+                      ->annotations[2]
+                      .value.get<AnnotationValue::intValue>(),
+              kDefaultStateValue);
+    EXPECT_NE(atom.valuesAnnotations.value()[1], std::nullopt);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->valueIndex, 1);
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations.size(), static_cast<size_t>(1));
+    EXPECT_EQ(atom.valuesAnnotations.value()[1]->annotations[0].annotationId,
+              AnnotationId::PRIMARY_FIELD);
+    EXPECT_EQ(atom.atomAnnotations, std::nullopt);
+}
+
+}  // namespace api_gen_vendor_tests
 }  // namespace android
