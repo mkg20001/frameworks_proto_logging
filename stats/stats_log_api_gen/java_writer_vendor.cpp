@@ -73,16 +73,6 @@ static bool write_value_annotations_array_init(FILE* out, const AtomDeclSet& ato
     return true;
 }
 
-static AtomDeclSet get_annotations(int argIndex,
-                                   const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
-    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
-            fieldNumberToAtomDeclSet.find(argIndex);
-    if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
-        return AtomDeclSet();
-    }
-    return fieldNumberToAtomDeclSetIt->second;
-}
-
 static bool write_annotations_vendor_for_field(FILE* out, int argIndex,
                                                const AtomDeclSet& atomDeclSet) {
     const char* indent = "        ";

@@ -46,6 +46,7 @@ const int JAVA_MODULE_REQUIRES_ATTRIBUTION = 0x02;
 
 const char ANNOTATION_CONSTANT_NAME_PREFIX[] = "ANNOTATION_ID_";
 const char ANNOTATION_CONSTANT_NAME_VENDOR_PREFIX[] = "AnnotationId.";
+const char ANNOTATION_CONSTANT_NAME_VENDOR_NATIVE_PREFIX[] = "AnnotationId::";
 
 struct AnnotationStruct {
     string name;
@@ -72,6 +73,8 @@ const char* java_type_name(java_type_t type);
 bool is_repeated_field(java_type_t type);
 
 bool is_primitive_field(java_type_t type);
+
+AtomDeclSet get_annotations(int argIndex, const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet);
 
 // Common Native helpers
 void write_namespace(FILE* out, const string& cppNamespaces);

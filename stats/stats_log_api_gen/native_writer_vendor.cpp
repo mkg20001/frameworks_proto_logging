@@ -21,9 +21,130 @@
 namespace android {
 namespace stats_log_api_gen {
 
+static void write_native_vendor_annotation_header(FILE* out, const string& annotationName,
+                                                  const char* indent) {
+    fprintf(out, "%s{\n", indent);
+    fprintf(out, "%s    Annotation annotation;\n", indent);
+    fprintf(out, "%s    annotation.annotationId = %s;\n", indent, annotationName.c_str());
+}
+
+static void write_native_vendor_annotation_footer(FILE* out, const char* indent) {
+    fprintf(out, "%s    annotations.push_back(std::move(annotation));\n", indent);
+    fprintf(out, "%s}\n", indent);
+}
+
+static void write_native_vendor_annotation_int(FILE* out, const string& annotationName, int value,
+                                               const char* indent) {
+    write_native_vendor_annotation_header(out, annotationName, indent);
+    fprintf(out, "%sannotation.value.set<AnnotationValue::intValue>(%d);\n", indent, value);
+    write_native_vendor_annotation_footer(out, indent);
+}
+
+static void write_native_vendor_annotation_int_constant(FILE* out, const string& annotationName,
+                                                        const string& constantName,
+                                                        const char* indent) {
+    write_native_vendor_annotation_header(out, annotationName, indent);
+    fprintf(out, "%sannotation.value.set<AnnotationValue::intValue>(%s);\n", indent,
+            constantName.c_str());
+    write_native_vendor_annotation_footer(out, indent);
+}
+
+static void write_native_vendor_annotation_bool(FILE* out, const string& annotationName, bool value,
+                                                const char* indent) {
+    write_native_vendor_annotation_header(out, annotationName, indent);
+    fprintf(out, "%sannotation.value.set<AnnotationValue::boolValue>(%s);\n", indent,
+            value ? "true" : "false");
+    write_native_vendor_annotation_footer(out, indent);
+}
+
+static void write_native_annotations_vendor_for_field(FILE* out, int argIndex,
+                                                      const AtomDeclSet& atomDeclSet) {
+    if (atomDeclSet.empty()) {
+        return;
+    }
+
+    const char* indent = "    ";
+    const char* indent2 = "        ";
+    const char* indent3 = "            ";
+
+    const int valueIndex = argIndex - 2;
+
+    const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
+            get_annotation_id_constants(ANNOTATION_CONSTANT_NAME_VENDOR_NATIVE_PREFIX);
+
+    for (const shared_ptr<AtomDecl>& atomDecl : atomDeclSet) {
+        const string atomConstant = make_constant_name(atomDecl->name);
+        fprintf(out, "%sif (%s == code) {\n", indent, atomConstant.c_str());
+
+        if (argIndex == ATOM_ID_FIELD_NUMBER) {
+            fprintf(out, "%sstd::vector<std::optional<Annotation>> annotations;\n", indent2);
+        } else {
+            fprintf(out, "%sstd::vector<Annotation> annotations;\n", indent2);
+        }
+
+        const AnnotationSet& annotations = atomDecl->fieldNumberToAnnotations.at(argIndex);
+        int resetState = -1;
+        int defaultState = -1;
+        for (const shared_ptr<Annotation>& annotation : annotations) {
+            const AnnotationStruct& annotationConstant =
+                    ANNOTATION_ID_CONSTANTS.at(annotation->annotationId);
+            switch (annotation->type) {
+                case ANNOTATION_TYPE_INT:
+                    if (ANNOTATION_ID_TRIGGER_STATE_RESET == annotation->annotationId) {
+                        resetState = annotation->value.intValue;
+                    } else if (ANNOTATION_ID_DEFAULT_STATE == annotation->annotationId) {
+                        defaultState = annotation->value.intValue;
+                    } else if (ANNOTATION_ID_RESTRICTION_CATEGORY == annotation->annotationId) {
+                        fprintf(out, "%s{\n", indent2);
+                        write_native_vendor_annotation_int_constant(
+                                out, annotationConstant.name,
+                                get_restriction_category_str(annotation->value.intValue), indent3);
+                        fprintf(out, "%s}\n", indent2);
+                    } else {
+                        fprintf(out, "%s{\n", indent2);
+                        write_native_vendor_annotation_int(out, annotationConstant.name,
+                                                           annotation->value.intValue, indent3);
+                        fprintf(out, "%s}\n", indent2);
+                    }
+                    break;
+                case ANNOTATION_TYPE_BOOL:
+                    fprintf(out, "%s{\n", indent2);
+                    write_native_vendor_annotation_bool(out, annotationConstant.name,
+                                                        annotation->value.boolValue, indent3);
+                    fprintf(out, "%s}\n", indent2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (defaultState != -1 && resetState != -1) {
+            const AnnotationStruct& annotationConstant =
+                    ANNOTATION_ID_CONSTANTS.at(ANNOTATION_ID_TRIGGER_STATE_RESET);
+            fprintf(out, "%sif (arg%d == %d) {\n", indent2, argIndex, resetState);
+            write_native_vendor_annotation_int(out, annotationConstant.name, defaultState, indent3);
+            fprintf(out, "%s}\n", indent2);
+        }
+
+        if (argIndex == ATOM_ID_FIELD_NUMBER) {
+            fprintf(out, "%satomAnnotations = std::move(annotations);\n", indent2);
+        } else {
+            fprintf(out, "%sif (annotations.size() > 0) {\n", indent2);
+            fprintf(out, "%sAnnotationSet field%dAnnotations;\n", indent3, valueIndex);
+            fprintf(out, "%sfield%dAnnotations.valueIndex = %d;\n", indent3, valueIndex,
+                    valueIndex);
+            fprintf(out, "%sfield%dAnnotations.annotations = std::move(annotations);\n", indent3,
+                    valueIndex);
+            fprintf(out, "%sfieldsAnnotations.push_back(std::move(field%dAnnotations));\n", indent3,
+                    valueIndex);
+            fprintf(out, "%s}\n", indent2);
+        }
+        fprintf(out, "%s}\n", indent);
+    }
+}
+
 static int write_native_create_vendor_atom_methods(FILE* out,
-                                                  const SignatureInfoMap& signatureInfoMap,
-                                                  const AtomDecl& attributionDecl) {
+                                                   const SignatureInfoMap& signatureInfoMap,
+                                                   const AtomDecl& attributionDecl) {
     fprintf(out, "\n");
     for (const auto& [signature, fieldNumberToAtomDeclSet] : signatureInfoMap) {
         // TODO (b/264922532): provide vendor implementation to skip arg1 for reverseDomainName
@@ -35,13 +156,6 @@ static int write_native_create_vendor_atom_methods(FILE* out,
         // Write method body.
         fprintf(out, "    atom.atomId = code;\n");
         fprintf(out, "    atom.reverseDomainName = arg1;\n");
-
-        FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
-                fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
-        if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()) {
-            // TODO (b/264922532): provide support to pass annotations information
-            fprintf(stderr, "Encountered field level annotation - skip\n");
-        }
 
         // Exclude first field - which is reverseDomainName
         const int vendorAtomValuesCount = signature.size() - 1;
@@ -121,15 +235,42 @@ static int write_native_create_vendor_atom_methods(FILE* out,
                     fprintf(stderr, "Encountered unsupported type.\n");
                     return 1;
             }
-            FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
-                    fieldNumberToAtomDeclSet.find(argIndex);
-            if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()) {
-                // TODO (b/264922532): provide support to pass annotations information
-                fprintf(stderr, "Encountered field level annotation - skip\n");
+        }
+        fprintf(out, "    atom.values = std::move(values);\n");  // end method body.
+
+        // check will be there an atom for this signature with atom level annotations
+        const AtomDeclSet atomAnnotations =
+                get_annotations(ATOM_ID_FIELD_NUMBER, fieldNumberToAtomDeclSet);
+        if (atomAnnotations.size()) {
+            fprintf(out, "    std::vector<std::optional<Annotation>> atomAnnotations;\n");
+            write_native_annotations_vendor_for_field(out, ATOM_ID_FIELD_NUMBER, atomAnnotations);
+            fprintf(out, "    if (atomAnnotations.size() > 0) {\n");
+            fprintf(out, "        atom.atomAnnotations = std::move(atomAnnotations);\n");
+            fprintf(out, "    }\n\n");
+        }
+
+        // Create fieldsAnnotations instance only in case if there is an atom fields with annotation
+        // for this signature
+        bool atomWithFieldsAnnotation = false;
+        for (int argIndex = 2; argIndex <= signature.size(); argIndex++) {
+            if (get_annotations(argIndex, fieldNumberToAtomDeclSet).size() > 0) {
+                atomWithFieldsAnnotation = true;
+                break;
             }
         }
 
-        fprintf(out, "    atom.values = std::move(values);\n");  // end method body.
+        if (atomWithFieldsAnnotation) {
+            fprintf(out, "    std::vector<std::optional<AnnotationSet>> fieldsAnnotations;\n");
+            for (int argIndex = 2; argIndex <= signature.size(); argIndex++) {
+                const AtomDeclSet fieldAnnotations =
+                        get_annotations(argIndex, fieldNumberToAtomDeclSet);
+                write_native_annotations_vendor_for_field(out, argIndex, fieldAnnotations);
+            }
+            fprintf(out, "    if (fieldsAnnotations.size() > 0) {\n");
+            fprintf(out, "        atom.valuesAnnotations = std::move(fieldsAnnotations);\n");
+            fprintf(out, "    }\n\n");
+        }
+
         fprintf(out, "    // elision of copy operations is permitted on return\n");
         fprintf(out, "    return atom;\n");
         fprintf(out, "}\n\n");  // end method.

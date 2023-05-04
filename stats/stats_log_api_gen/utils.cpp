@@ -656,5 +656,15 @@ int get_min_api_level(const AtomDeclSet& atomDeclSet) {
     return API_LEVEL_CURRENT;
 }
 
+AtomDeclSet get_annotations(int argIndex,
+                            const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
+    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+            fieldNumberToAtomDeclSet.find(argIndex);
+    if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
+        return AtomDeclSet();
+    }
+    return fieldNumberToAtomDeclSetIt->second;
+}
+
 }  // namespace stats_log_api_gen
 }  // namespace android
