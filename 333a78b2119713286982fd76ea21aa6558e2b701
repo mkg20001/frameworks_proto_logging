@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f75dbd_46a3cebc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-05-09T00:50:32Z",
+      "side": 1,
+      "message": "merged in line is duplicated",
+      "revId": "333a78b2119713286982fd76ea21aa6558e2b701",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
