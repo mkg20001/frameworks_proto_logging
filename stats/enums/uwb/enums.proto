@@ -92,3 +92,12 @@ enum Nlos {
     NLOS = 1;
     LOS = 2;
 }
+
+// UWB ranging measurement types
+enum RangingType {
+    TYPE_UNKNOWN = 0;
+    ONE_WAY = 1;
+    TWO_WAY = 2;
+    DL_TDOA = 3;
+    OWR_AOA = 4;
+}

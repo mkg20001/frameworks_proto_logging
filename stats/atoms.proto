@@ -20279,6 +20279,18 @@ message UwbSessionClosed {
     optional int32 start_failure_count = 14;
     // Ranging start without valid ranging result count
     optional int32 start_no_valid_report_count = 15;
+    // Total Rx data packet count
+    optional int32 rx_packet_count = 16;
+    // Total Tx data packet count
+    optional int32 tx_packet_count = 17;
+    // Count of Rx data packet with error
+    optional int32 rx_error_count = 18;
+    // Count of Tx data packet with error
+    optional int32 tx_error_count = 19;
+    // Count of Rx data packets sent to upper layer
+    optional int32 rx_to_upper_layer_count = 20;
+    // Ranging Measurement Type
+    optional android.uwb.RangingType ranging_type = 21;
 }
 
 /*
@@ -20336,6 +20348,8 @@ message UwbRangingMeasurementReceived {
     optional int32 elevation_10degree = 13;
     // The figure of merit of elevation angle measurement.
     optional int32 elevation_fom = 14;
+    // Ranging Measurement Type
+    optional android.uwb.RangingType ranging_type = 15;
 }
 
 /*
