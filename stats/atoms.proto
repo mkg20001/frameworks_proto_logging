@@ -196,7 +196,7 @@ message Atom {
         KeyguardBouncerPasswordEntered keyguard_bouncer_password_entered = 64 [(module) = "sysui"];
         AppDied app_died = 65 [(module) = "framework"];
         ResourceConfigurationChanged resource_configuration_changed = 66 [(module) = "framework"];
-        BluetoothEnabledStateChanged bluetooth_enabled_state_changed = 67 [(module) = "bluetooth"];
+        BluetoothEnabledStateChanged bluetooth_enabled_state_changed = 67 [(module) = "framework"];
         BluetoothConnectionStateChanged bluetooth_connection_state_changed =
                 68 [(module) = "bluetooth"];
         GpsSignalQualityChanged gps_signal_quality_changed = 69 [(module) = "framework"];
