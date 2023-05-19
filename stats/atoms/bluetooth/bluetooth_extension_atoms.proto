@@ -41,6 +41,7 @@ extend Atom {
           (module) = "bt_restricted",
           (restriction_category) = RESTRICTION_DIAGNOSTIC
         ];
+    optional BluetoothRfcommConnectionAttemptComplete bluetooth_rfcomm_connection_attempt_complete = 667 [(module) = "bluetooth"];
 }
 
 /**
@@ -172,7 +173,7 @@ message BluetoothLeSessionConnected {
   optional int32 metric_id = 6;
   // Contains the UID which is associated with the app
   // Default: 0
-  optional int32 app_uid = 7 [(is_uid) = true];
+optional int32 app_uid = 7 [(is_uid) = true];
   // Contains the latency of the ACL Connection, which if made will be
   // greater than 0
   // Default: 0
@@ -196,4 +197,52 @@ message RestrictedBluetoothDeviceNameReported {
   // Name of the Bluetooth device. It is created by the user.
   optional string device_name = 1
       [(field_restriction_option).peripheral_device_info = true];
+}
+
+message BluetoothLocalDevice {
+    // todo
+}
+
+message BluetoothPeerDevice {
+    // todo
+}
+
+message BluetoothRfcommConnectionMetadata {
+    enum SecurityRequirement {
+        NONE = 0;
+        SECURE = 1; // MITM not required
+    }
+    optional BluetoothLocalDevice local_device_info = 1;
+    optional BluetoothPeerDevice peer_device_info = 2;
+
+    optional SecurityRequirement security = 3;
+
+    oneof target {
+        string uuid = 4;
+        int32 port = 5;
+    }
+    optional int32 caller_uid = 6 [(is_uid) = true];
+
+    optional string connection_id = 7;
+}
+
+message BluetoothRfcommConnectionAttemptComplete {
+    enum Status {
+        SUCCESS = 0;
+        UNKNOWN_FAILED = 1;
+    }
+    optional Status status = 1;
+    optional BluetoothRfcommConnectionMetadata metadata = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+    optional int32 latency_millis = 3;
+    optional int32 retries_before_current = 4;
+}
+
+message BluetoothRfcommDisconnection {
+    enum Reason {
+        LOCAL_INITIATED = 0;
+        REMOTE_INITIATED_UNKNOWN = 1;
+    }
+    optional Reason reason = 1;
+    optional BluetoothRfcommConnectionMetadata metadata = 2 [(android.os.statsd.log_mode) = MODE_BYTES];
+    optional int32 duration_millis = 3;
 }
