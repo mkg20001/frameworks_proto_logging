@@ -41,6 +41,7 @@ extend Atom {
           (module) = "bt_restricted",
           (restriction_category) = RESTRICTION_DIAGNOSTIC
         ];
+    optional BluetoothRfcommConnectionAttemptComplete bluetooth_rfcomm_connection_attempt_complete = 667 [(module) = "bluetooth"];
 }
 
 /**
@@ -196,4 +197,32 @@ message RestrictedBluetoothDeviceNameReported {
   // Name of the Bluetooth device. It is created by the user.
   optional string device_name = 1
       [(field_restriction_option).peripheral_device_info = true];
+}
+
+message BluetoothRfcommConnectionAttemptComplete {
+    // Attempt-specific data
+    enum Status {
+        SUCCESS = 0;
+        UNKNOWN_FAILED = 1;
+    }
+    optional Status status = 1;
+    optional int32 latency_millis = 2;
+    optional int32 retries_before_current = 3;
+
+    // Socket-specific data
+    enum SecurityRequirement {
+        NONE = 0;
+        SECURE = 1; // MITM not required
+    }
+    optional SecurityRequirement security = 4;
+    oneof target {
+        string uuid = 5;
+        int32 port = 6;
+    }
+    optional int32 caller_uid = 7 [(is_uid) = true];
+
+    // Peer-specific data
+    optional int32 class_of_device = 8;
+    optional bytes manufacturer_bytes = 9 [(android.os.statsd.log_mode) = MODE_BYTES];
+    optional string hashed_name = 10;
 }
