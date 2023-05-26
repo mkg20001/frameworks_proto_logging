@@ -2,9 +2,16 @@ syntax = "proto2";
 
 package android.os.statsd.art;
 
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
 
 option java_package = "com.android.os.art";
+option java_multiple_files = true;
+
+extend Atom {
+    optional BackgroundDexoptJobEnded background_dexopt_job_ended = 467 [(module) = "art"];
+}
 
 /**
  * Logs when a background dexopt job is ended.

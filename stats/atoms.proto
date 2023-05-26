@@ -23,9 +23,6 @@ option java_package = "com.android.os";
 option java_outer_classname = "AtomsProto";
 
 import "frameworks/proto_logging/stats/attribution_node.proto";
-import "frameworks/proto_logging/stats/atoms/art/art_atoms.proto";
-import "frameworks/proto_logging/stats/atoms/art/background_dexopt_atoms.proto";
-import "frameworks/proto_logging/stats/atoms/art/odrefresh_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/corenetworking/connectivity/connectivity_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/media/media_drm_atoms.proto";
@@ -199,7 +196,7 @@ message Atom {
         KeyguardBouncerPasswordEntered keyguard_bouncer_password_entered = 64 [(module) = "sysui"];
         AppDied app_died = 65 [(module) = "framework"];
         ResourceConfigurationChanged resource_configuration_changed = 66 [(module) = "framework"];
-        BluetoothEnabledStateChanged bluetooth_enabled_state_changed = 67 [(module) = "framework"];
+        BluetoothEnabledStateChanged bluetooth_enabled_state_changed = 67 [(module) = "bluetooth"];
         BluetoothConnectionStateChanged bluetooth_connection_state_changed =
                 68 [(module) = "bluetooth"];
         GpsSignalQualityChanged gps_signal_quality_changed = 69 [(module) = "framework"];
@@ -570,7 +567,6 @@ message Atom {
         PerfettoTrigger perfetto_trigger = 329 [(module) = "perfetto"];
         TranscodingData transcoding_data = 330 [(module) = "mediaprovider"];
         ImsServiceEntitlementUpdated ims_service_entitlement_updated = 331 [(module) = "imsentitlement"];
-        art.ArtDatumReported art_datum_reported = 332 [(module) = "art"];
         DeviceRotated device_rotated = 333 [(module) = "framework"];
         SimSpecificSettingsRestored sim_specific_settings_restored = 334
             [(module) = "telephony"];
@@ -611,7 +607,6 @@ message Atom {
         FdtrackEventOccurred fdtrack_event_occurred = 364 [(module) = "framework"];
         TimeoutAutoExtendedReported timeout_auto_extended_reported = 365
             [(module) = "framework"];
-        art.OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
         AlarmBatchDelivered alarm_batch_delivered = 367 [(module) = "framework"];
         AlarmScheduled alarm_scheduled = 368 [(module) = "framework"];
         CarWatchdogIoOveruseStatsReported car_watchdog_io_overuse_stats_reported = 369 [(module) = "car"];
@@ -732,7 +727,6 @@ message Atom {
         RemoteKeyProvisioningNetworkInfo remote_key_provisioning_network_info = 464 [(module) = "rkpd"];
         RemoteKeyProvisioningTiming remote_key_provisioning_timing = 465 [(module) = "rkpd"];
         MediaOutputOpInteractionReported mediaoutput_op_interaction_report = 466 [(module) = "sysui"];
-        art.BackgroundDexoptJobEnded background_dexopt_job_ended = 467 [(module) = "art"];
         SyncExemptionOccurred sync_exemption_occurred = 468 [(module) = "framework"];
         AutofillPresentationEventReported autofill_presentation_event_reported = 469 [(module) = "framework"];
         DockStateChanged dock_state_changed = 470 [(module) = "framework"];
@@ -777,14 +771,11 @@ message Atom {
         BluetoothGattAppInfo bluetooth_gatt_app_info = 533 [(module) = "bluetooth"];
         BrightnessConfigurationUpdated brightness_configuration_updated = 534 [(module) = "framework"];
         LauncherImpressionEvent launcher_impression_event = 547 [(module) = "sysui"];
-        art.OdsignReported odsign_reported = 548 [(module) = "art"];
-        art.ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
         NetworkSliceSessionEnded network_slice_session_ended = 558 [(module) = "connectivity"];
         NetworkSliceDailyDataUsageReported network_slice_daily_data_usage_reported = 559 [(module) = "connectivity"];
         NfcTagTypeOccurred nfc_tag_type_occurred = 560 [(module) = "nfc"];
         NfcAIDConflictOccurred nfc_aid_conflict_occurred = 561 [(module) = "nfc"];
         NfcReaderConflictOccurred nfc_reader_conflict_occurred = 562 [(module) = "nfc"];
-        art.ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
         media.MediaDrmCreated media_drm_created = 568 [(module) = "media_metrics"];
         media.MediaDrmErrored media_drm_errored = 569 [(module) = "media_metrics"];
         media.MediaDrmSessionOpened media_drm_session_opened = 570
@@ -796,13 +787,17 @@ message Atom {
                 578 [(module) = "framework"];
         corenetworking.connectivity.NetworkValidationFailureStatsDailyReported
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
-        // StatsdStats tracks platform atoms with ids up to 750.
-        // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
     }
 
     // Pushed atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
+    extensions 332; // ArtDatumReported art_datum_reported
+    extensions 366; // OdrefreshReported odrefresh_reported
+    extensions 467; // BackgroundDexoptJobEnded background_dexopt_job_ended
     extensions 528; // ExpressEventReported express_event_reported
+    extensions 548; // OdsignReported odsign_reported
+    extensions 550; // ArtDeviceDatumReported art_device_datum_reported
+    extensions 565; // ArtDatumDeltaReported art_datum_delta_reported
     extensions 593; // ExpressHistogramSampleReported express_histogram_sample_reported
     extensions 600; // MediaCodecReclaimRequestCompleted media_codec_reclaim_request_completed
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
@@ -814,7 +809,10 @@ message Atom {
     extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
     extensions 664; // RkpdPoolStats rkpd_pool_stats
     extensions 665; // RkpdClientOperation rkpd_client_operation
+    extensions 666;  // RestrictedBluetoothDeviceNameReported restricted_bluetooth_device_name_reported
     extensions 9999; // Atom9999 atom_9999
+    // StatsdStats tracks platform atoms with ids up to 900.
+    // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
 
     // Pulled events will start at field 10000.
     // Next: 10175
@@ -13776,7 +13774,7 @@ message PerfettoUploaded {
     // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
     // This state exists because of legacy reasons (i.e. these values existed
     // before go/perfetto-monitoring was a thing).
-    // Next id: 53.
+    // Next id: 54.
     enum Event {
         PERFETTO_UNDEFINED = 0;
 
@@ -13803,6 +13801,7 @@ message PerfettoUploaded {
         // they log the trigger name.
         PERFETTO_TRACED_TRIGGER_START_TRACING = 41;
         PERFETTO_TRACED_TRIGGER_STOP_TRACING = 42;
+        PERFETTO_TRACED_TRIGGER_CLONE_SNAPSHOT = 53;
 
         // Guardrails inside traced.
         PERFETTO_TRACED_ENABLE_TRACING_EXISTING_TRACE_SESSION = 18;
@@ -20238,6 +20237,10 @@ message UwbSessionInitiated {
     optional int32 latency_200ms = 10;
     // The uid of the app that initiates the connection.
     optional int32 uid = 11 [(is_uid) = true];
+    // Ranging interval of the session in ms.
+    optional int32 ranging_interval_ms = 12;
+    // How many ongoing session when current session is initiated?
+    optional int32 parallel_session_count = 13;
 }
 
 /*
@@ -20276,6 +20279,18 @@ message UwbSessionClosed {
     optional int32 start_failure_count = 14;
     // Ranging start without valid ranging result count
     optional int32 start_no_valid_report_count = 15;
+    // Total Rx data packet count
+    optional int32 rx_packet_count = 16;
+    // Total Tx data packet count
+    optional int32 tx_packet_count = 17;
+    // Count of Rx data packet with error
+    optional int32 rx_error_count = 18;
+    // Count of Tx data packet with error
+    optional int32 tx_error_count = 19;
+    // Count of Rx data packets sent to upper layer
+    optional int32 rx_to_upper_layer_count = 20;
+    // Ranging Measurement Type
+    optional android.uwb.RangingType ranging_type = 21;
 }
 
 /*
@@ -20333,6 +20348,8 @@ message UwbRangingMeasurementReceived {
     optional int32 elevation_10degree = 13;
     // The figure of merit of elevation angle measurement.
     optional int32 elevation_fom = 14;
+    // Ranging Measurement Type
+    optional android.uwb.RangingType ranging_type = 15;
 }
 
 /*
