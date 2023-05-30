@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f5418b_5f3cba8a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1567049
+      },
+      "writtenOn": "2023-05-30T16:14:45Z",
+      "side": 1,
+      "message": "Your work space seems to be too old. Please do \"repo sync\" again.\n\nI am seeing this in tip of the tree.\n\n\n extensions 667; // CredentialManagerTotalCandidateReported credential_manager_total_reported\n    extensions 668; // CredentialManagerFinalNoUidReported credential_manager_finalnouid_reported\n    extensions 669; // CredentialManagerGetProviderReported credential_manager_get_reported\n    extensions 670; // CredentialManagerBrowsedAuthenticationClicked credential_manager_auth_click_reported\n    extensions 671; // CredentialManagerApiV2Called credential_manager_apiv2_called\n    extensions 672; // TestRestrictedAtomReported test_restricted_atom_reported\n    extensions 673; // AdServicesMeasurementDelayedSourceRegistration ad_services_measurement_delayed_source_registration\n    extensions 674; // AdServicesMeasurementAttribution ad_services_measurement_attribution\n    extensions 675; // AdServicesMeasurementJobs ad_services_measurement_jobs\n    extensions 676; // AdServicesMeasurementWipeout ad_services_measurement_wipeout\n    extensions 677; // MediaSessionStateChanged media_session_state_changed\n    extensions 678; // IkeSessionTerminated ike_session_terminated\n    extensions 679; // TvLowPowerStandbyPolicy tv_low_power_standby_policy\n    extensions 680; // SoftApStarted softap_started\n    extensions 681; // SoftApStopped softap_stopped\n    extensions 682; // KeyboardConfigured keyboard_configured\n    extensions 683; // KeyboardSystemsEventReported keyboard_systems_event_reported\n    extensions 684; // MediaCodecRendered media_codec_rendered\n    extensions 685; // InTaskActivityStarted in_task_activity_started\n    extensions 686; // InputDeviceUsageReported inputdevice_usage_reported",
+      "range": {
+        "startLine": 813,
+        "startChar": 0,
+        "endLine": 814,
+        "endChar": 97
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e4e588_8c83ee16",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1567049
+      },
+      "writtenOn": "2023-05-30T16:14:45Z",
+      "side": 1,
+      "message": "Do we need something like role (initiator/responder) here and also bloew? I am asking this to ensure that we don\u0027t have the case that connectionAttempted is not recorded but connectionCompleted is recorded.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 32
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69a05cac_92974a35",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1567049
+      },
+      "writtenOn": "2023-05-30T16:14:45Z",
+      "side": 1,
+      "message": "Do we need more details failure code?",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 419,
+        "endChar": 36
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
