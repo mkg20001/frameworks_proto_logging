@@ -16,6 +16,24 @@
       "message": "Is this needed to capture app id attribution? Most local device info is appended in WW already as part of basic_info",
       "revId": "015397d6d50210dff31fffbe3375d07e50229a9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86714609_f0cfb715",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1958203
+      },
+      "writtenOn": "2023-05-30T17:42:16Z",
+      "side": 1,
+      "message": "No, app_id is logged in the `caller_uid` field. But my plan is to put any Bluetooth-specific data (e.g. data about the controller version) here.",
+      "parentUuid": "b0d8afb2_6ae1b7b5",
+      "revId": "015397d6d50210dff31fffbe3375d07e50229a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
