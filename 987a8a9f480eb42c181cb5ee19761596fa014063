@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd35212f_7c6d8c9e",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1567049
+      },
+      "writtenOn": "2023-05-30T16:26:10Z",
+      "side": 1,
+      "message": "It will update BluetoothStatsLog.java",
+      "parentUuid": "6c1f12f5_54b7fec4",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20e4e588_8c83ee16",
         "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
         "patchSetId": 1
