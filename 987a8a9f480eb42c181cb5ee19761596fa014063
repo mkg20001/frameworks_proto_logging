@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c1f12f5_54b7fec4",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1959861
+      },
+      "writtenOn": "2023-05-30T16:20:20Z",
+      "side": 1,
+      "message": "Is there a reference class to use this Atom in JAVA? I\u0027m just curious how to use it.",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20e4e588_8c83ee16",
         "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
         "patchSetId": 1
@@ -59,6 +82,29 @@
         "startChar": 0,
         "endLine": 216,
         "endChar": 32
+      },
+      "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353398e8_75c6caf1",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1959861
+      },
+      "writtenOn": "2023-05-30T16:20:20Z",
+      "side": 1,
+      "message": "Consider to add a reason field to figure out a failure reason.",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 43
       },
       "revId": "987a8a9f480eb42c181cb5ee19761596fa014063",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
