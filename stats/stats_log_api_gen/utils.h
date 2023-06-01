@@ -65,6 +65,20 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
 
 void write_native_atom_enums(FILE* out, const Atoms& atoms);
 
+void write_native_method_signature(FILE* out, const string& signaturePrefix,
+                                   const vector<java_type_t>& signature,
+                                   const AtomDecl& attributionDecl, const string& closer,
+                                   bool isVendorAtomLogging = false);
+
+void write_native_method_header(FILE* out, const string& methodName,
+                                const SignatureInfoMap& signatureInfoMap,
+                                const AtomDecl& attributionDecl, bool isVendorAtomLogging = false);
+
+void write_native_header_preamble(FILE* out, const string& cppNamespace, bool includePull,
+                                  bool isVendorAtomLogging = false);
+
+void write_native_header_epilogue(FILE* out, const string& cppNamespace);
+
 // Common Java helpers.
 void write_java_atom_codes(FILE* out, const Atoms& atoms);
 

@@ -95,18 +95,17 @@ TEST(ApiGenVendorAtomTest, AtomEnumTest) {
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom1ApiTest) {
-    typedef void (*VendorAtom1BuildFunc)(
-            VendorAtom & atom, int32_t code, char const* reverse_domain_name, int32_t enumField1,
-            int32_t enumField2, int32_t int_value32, int64_t int_value64, float float_value,
-            bool bool_value, int32_t enumField3, int32_t enumField4);
-    VendorAtom1BuildFunc func = &buildVendorAtom;
+    typedef VendorAtom (*VendorAtom1BuildFunc)(
+            int32_t code, char const* reverse_domain_name, int32_t enumField1, int32_t enumField2,
+            int32_t int_value32, int64_t int_value64, float float_value, bool bool_value,
+            int32_t enumField3, int32_t enumField4);
+    VendorAtom1BuildFunc func = &createVendorAtom;
 
     EXPECT_NE(func, nullptr);
 
-    VendorAtom atom;
-    func(atom, VENDOR_ATOM1, kTestStringValue, VendorAtom1::TYPE_1, VendorAtom1::TYPE_2,
-         kTestIntValue, kTestLongValue, kTestFloatValue, kTestBoolValue,
-         VendorAtom1::ANOTHER_TYPE_2, VendorAtom1::ANOTHER_TYPE_3);
+    VendorAtom atom = func(VENDOR_ATOM1, kTestStringValue, VendorAtom1::TYPE_1, VendorAtom1::TYPE_2,
+                           kTestIntValue, kTestLongValue, kTestFloatValue, kTestBoolValue,
+                           VendorAtom1::ANOTHER_TYPE_2, VendorAtom1::ANOTHER_TYPE_3);
 
     EXPECT_EQ(atom.atomId, VENDOR_ATOM1);
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
@@ -122,14 +121,12 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom1ApiTest) {
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
-    typedef void (*VendorAtom3BuildFunc)(VendorAtom & atom, int32_t code, char const* arg1,
-                                         int32_t arg2);
-    VendorAtom3BuildFunc func = &buildVendorAtom;
+    typedef VendorAtom (*VendorAtom3BuildFunc)(int32_t code, char const* arg1, int32_t arg2);
+    VendorAtom3BuildFunc func = &createVendorAtom;
 
     EXPECT_NE(func, nullptr);
 
-    VendorAtom atom;
-    func(atom, VENDOR_ATOM3, kTestStringValue, kTestIntValue);
+    VendorAtom atom = func(VENDOR_ATOM3, kTestStringValue, kTestIntValue);
 
     EXPECT_EQ(atom.atomId, VENDOR_ATOM3);
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
@@ -138,12 +135,12 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom3ApiTest) {
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
-    typedef void (*VendorAtom4BuildFunc)(
-            VendorAtom & atom, int32_t code, char const* arg1, float arg2, int32_t arg3,
-            int64_t arg4, bool arg5, int32_t arg6, const vector<bool>& arg7,
-            const vector<float>& arg8, const vector<int32_t>& arg9, const vector<int64_t>& arg10,
+    typedef VendorAtom (*VendorAtom4BuildFunc)(
+            int32_t code, char const* arg1, float arg2, int32_t arg3, int64_t arg4, bool arg5,
+            int32_t arg6, const vector<bool>& arg7, const vector<float>& arg8,
+            const vector<int32_t>& arg9, const vector<int64_t>& arg10,
             const vector<char const*>& arg11, const vector<int32_t>& arg12);
-    VendorAtom4BuildFunc func = &buildVendorAtom;
+    VendorAtom4BuildFunc func = &createVendorAtom;
 
     EXPECT_NE(func, nullptr);
 
@@ -156,10 +153,9 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
     const vector<int32_t> repeatedEnum{VendorAtom4::TYPE_1, VendorAtom4::TYPE_UNKNOWN,
                                        VendorAtom4::TYPE_1};
 
-    VendorAtom atom;
-    func(atom, VENDOR_ATOM4, kTestStringValue, kTestFloatValue, kTestIntValue, kTestLongValue,
-         kTestBoolValue, VendorAtom4::TYPE_1, repeatedBool, repeatedFloat, repeatedInt,
-         repeatedLong, repeatedString, repeatedEnum);
+    VendorAtom atom = func(VENDOR_ATOM4, kTestStringValue, kTestFloatValue, kTestIntValue,
+                           kTestLongValue, kTestBoolValue, VendorAtom4::TYPE_1, repeatedBool,
+                           repeatedFloat, repeatedInt, repeatedLong, repeatedString, repeatedEnum);
 
     EXPECT_EQ(atom.atomId, VENDOR_ATOM4);
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);
@@ -185,10 +181,10 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom4ApiTest) {
 }
 
 TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
-    typedef void (*VendorAtom5BuildFunc)(VendorAtom & atom, int32_t code, char const* arg1,
-                                         float arg2, int32_t arg3, int64_t arg4,
-                                         const vector<uint8_t>& arg5);
-    VendorAtom5BuildFunc func = &buildVendorAtom;
+    typedef VendorAtom (*VendorAtom5BuildFunc)(int32_t code, char const* arg1, float arg2,
+                                               int32_t arg3, int64_t arg4,
+                                               const vector<uint8_t>& arg5);
+    VendorAtom5BuildFunc func = &createVendorAtom;
 
     EXPECT_NE(func, nullptr);
 
@@ -202,9 +198,8 @@ TEST(ApiGenVendorAtomTest, buildVendorAtom5ApiTest) {
 
     vector<uint8_t> nestedMessageBytes(nestedMessageString.begin(), nestedMessageString.end());
 
-    VendorAtom atom;
-    func(atom, VENDOR_ATOM5, kTestStringValue, kTestFloatValue, kTestIntValue, kTestLongValue,
-         nestedMessageBytes);
+    VendorAtom atom = func(VENDOR_ATOM5, kTestStringValue, kTestFloatValue, kTestIntValue,
+                           kTestLongValue, nestedMessageBytes);
 
     EXPECT_EQ(atom.atomId, VENDOR_ATOM5);
     EXPECT_EQ(atom.reverseDomainName, kTestStringValue);

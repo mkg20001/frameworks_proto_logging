@@ -2,7 +2,16 @@ syntax = "proto2";
 
 package android.os.statsd.art;
 
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+
 option java_package = "com.android.os.art";
+option java_multiple_files = true;
+
+extend Atom {
+    optional OdrefreshReported odrefresh_reported = 366 [(module) = "art"];
+    optional OdsignReported odsign_reported = 548 [(module) = "art"];
+}
 
 /*
  * Logs information about on-device refresh of ART AOT artifacts for boot classpath extensions
@@ -14,6 +23,7 @@ option java_package = "com.android.os.art";
  message OdrefreshReported {
     optional int64 art_apex_version = 1;
 
+    // Keep in sync with the Trigger enum defined in art/odrefresh/odr_metrics.h
     enum Trigger {
         // A placeholder for unknown values.
         TRIGGER_UNKNOWN = 0;
@@ -30,6 +40,7 @@ option java_package = "com.android.os.art";
 
     optional Trigger trigger = 2;
 
+    // Keep in sync with the Stage enum defined in art/odrefresh/odr_metrics.h
     enum Stage {
         // A placeholder for unknown values.
         STAGE_UNKNOWN = 0;
@@ -57,6 +68,7 @@ option java_package = "com.android.os.art";
 
     optional Stage stage_reached = 3;
 
+    // Keep in sync with the Status enum defined in art/odrefresh/odr_metrics.h
     enum Status {
         // A placeholder for unknown values.
         STATUS_UNKNOWN = 0;
@@ -116,6 +128,7 @@ option java_package = "com.android.os.art";
     // Compilation time of system_server classpath, in milliseconds.
     optional int32 system_server_compilation_millis = 12;
 
+    // Keep in sync with the ExecResult enum defined in art/runtime/exec_utils.h
     enum ExecResultStatus {
         // Unable to get the status.
         EXEC_RESULT_STATUS_UNKNOWN = 0;
@@ -165,6 +178,18 @@ option java_package = "com.android.os.art";
     // Signal for the compilation of the boot classpath for the
     // system_server if status is EXEC_RESULT_STATUS_SIGNALED, else 0.
     optional int32 system_server_dex2oat_result_signal = 21;
+
+    // Keep in sync with the BcpCompilationType enum defined in art/odrefresh/odr_metrics.h
+    enum BcpCompilationType {
+        BCP_COMPILATION_TYPE_UNKNOWN = 0;
+        // Compiles for both the primary boot image and the mainline extension.
+        BCP_COMPILATION_TYPE_PRIMARY_AND_MAINLINE = 1;
+        // Only compiles for the mainline extension.
+        BCP_COMPILATION_TYPE_MAINLINE = 2;
+    }
+
+    optional BcpCompilationType primary_bcp_compilation_type = 22;
+    optional BcpCompilationType secondary_bcp_compilation_type = 23;
 };
 
 /**

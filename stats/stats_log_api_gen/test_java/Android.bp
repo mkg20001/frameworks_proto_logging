@@ -14,18 +14,26 @@
 // limitations under the License.
 //
 
-java_test_host {
-    name: "VendorAtomCodeGenHostTest",
-    srcs: [
-        "src/com/android/host/statslogapigen/VendorAtomCodeGenTest.java",
-        ":test-vendor-atom-java-gen",
-    ],
-    libs: [
-        "tradefed",
-        "testng",
-    ],
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "VendorAtomCodeGenJavaTest",
     test_suites: [
         "general-tests",
+    ],
+    srcs: [
+        "src/**/*.java",
+        ":test-vendor-atom-java-gen",
+    ],
+    static_libs: [
+        "junit",
+        "android.frameworks.stats-V2-java",
+        "compatibility-device-util-axt",
+    ],
+    libs: [
+        "android.test.runner",
     ],
 }
 
@@ -34,11 +42,11 @@ genrule {
     tools: ["stats-log-api-gen"],
     cmd: "$(location stats-log-api-gen) --java $(out)" +
         " --module test" +
-        " --javaPackage com.android.host.statslogapigen" +
+        " --javaPackage com.android.test.statslogapigen" +
         " --javaClass VendorAtomsLog" +
         " --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
-        "com/android/host/statslogapigen/VendorAtomsLog.java",
+        "com/android/test/statslogapigen/VendorAtomsLog.java",
     ],
     srcs: [
         ":stats_log_api_gen_test_protos",

@@ -2,9 +2,17 @@ syntax = "proto2";
 
 package android.os.statsd.art;
 
+import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 
 option java_package = "com.android.os.art";
+option java_multiple_files = true;
+
+extend Atom {
+    optional ArtDatumReported art_datum_reported = 332 [(module) = "art"];
+    optional ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
+    optional ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
+}
 
 // Indicates which compile filter was used for the package being loaded in an ART session.
 enum ArtCompileFilter {

@@ -200,6 +200,18 @@ enum CodePathCounterKeyEnum {
         // [100,100 - 100,200) SDP
         SDP_SUCCESS = 100100;
         SDP_FAILURE = 100101;
+        SDP_SENDING_DELAYED_UUID = 100102;
+        SDP_NOT_SENDING_DELAYED_UUID = 100103;
+        SDP_SENT_UUID = 100104;
+        SDP_UUIDS_EQUAL_SKIP = 100105;
+        SDP_ADD_UUID_WITH_INTENT = 100106;
+        SDP_ADD_UUID_WITH_NO_INTENT = 100107;
+        SDP_DROP_UUID = 100108;
+        SDP_FETCH_UUID_SKIP_ALREADY_CACHED = 100109;
+        SDP_FETCH_UUID_SKIP_ALREADY_BONDED = 100110;
+        SDP_INVOKE_SDP_CYCLE = 100111;
+        SDP_FETCH_UUID_REQUEST = 100112;
+
 
         // [101,000 - 102,000) HFP
 
@@ -370,6 +382,14 @@ enum CodePathCounterKeyEnum {
 
         // [120,800 - 120,900) LE advertise error count
         LE_ADV_ERROR_ON_START_COUNT = 120800;
+
+  // [120,900 - 121,000) GATT Related Count
+        GATT_CLIENT_CONNECT_IS_DIRECT = 120900;
+        GATT_CLIENT_CONNECT_IS_AUTOCONNECT = 120901;
+
+        // [121,000 - 121,010) Screen on/off count
+        SCREEN_ON_EVENT = 121000;
+        SCREEN_OFF_EVENT = 121001;
 }
 
 enum AddressTypeEnum {
