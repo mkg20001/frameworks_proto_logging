@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46999831_e220531b",
+        "filename": "stats/express/expresscatalogvalidator/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-06T18:43:13Z",
+      "side": 1,
+      "message": "AFAIK `proto_data` is not used in Android\n\n`data` is a proper way how to combine data files with test binary\nsee for reference:\n- https://source.corp.google.com/h/googleplex-android/platform/superproject/+/master:packages/modules/StatsD/tests/Android.bp;l\u003d46\n- https://source.corp.google.com/h/googleplex-android/platform/superproject/+/master:packages/modules/StatsD/statsd/tools/localtools/Android.bp;l\u003d54\n\nAlso https://g3doc.corp.google.com/wireless/android/partner/compatibility/g3doc/dev/write-a-test/host-side-test.md?cl\u003dhead",
+      "parentUuid": "9337872d_26b590eb",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84959d68_22911d45",
         "filename": "stats/express/libexpresscatalog/catalog.cpp",
         "patchSetId": 4
