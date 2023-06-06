@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9337872d_26b590eb",
+        "filename": "stats/express/expresscatalogvalidator/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-06-06T14:32:31Z",
+      "side": 1,
+      "message": "Is there an equivalent of `proto_data` or `cc_embed_data`? It could eliminate all the parsing code.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84959d68_22911d45",
+        "filename": "stats/express/libexpresscatalog/catalog.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-06-06T14:32:31Z",
+      "side": 1,
+      "message": "Could we also print the check that failed to help the user quickly correct the id?",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
