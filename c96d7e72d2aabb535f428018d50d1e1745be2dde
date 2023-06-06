@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21dcf89f_41320c3f",
+        "filename": "stats/express/libexpresscatalog/catalog.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-06T18:48:10Z",
+      "side": 1,
+      "message": "That will require more sophisticated validation - std implementation returns true only in case if there is a full match - if no full match - no associated info is provided to extract useful info for user",
+      "parentUuid": "84959d68_22911d45",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "459f9711_46771e43",
