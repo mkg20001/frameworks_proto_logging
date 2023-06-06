@@ -45,6 +45,29 @@
       },
       "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "459f9711_46771e43",
+        "filename": "stats/express/libexpresscatalog/utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-06-06T17:55:17Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Build Warnings: parameter \u0027name\u0027 is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    parameter \u0027name\u0027 is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]\n        ExecutionMeasure(std::string name) : mName(name) {\n                                                   ^\n                                                   std::move( )\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P57836740/targets/aosp_arm64-userdebug_tidy, but may also be present on other builds.",
+      "range": {
+        "startLine": 49,
+        "startChar": 48,
+        "endLine": 49,
+        "endChar": 54
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
