@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc06a74c_02ec6e0e",
+        "filename": "stats/express/expresscatalogvalidator/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-06-06T22:06:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "46999831_e220531b",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 6
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84959d68_22911d45",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "That will require more sophisticated validation - std implementation returns true only in case if there is a full match - if no full match - no associated info is provided to extract useful info for user",
       "parentUuid": "84959d68_22911d45",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95562fa3_58575527",
+        "filename": "stats/express/libexpresscatalog/catalog.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-06-06T22:06:58Z",
+      "side": 1,
+      "message": "It was thinking that we could print the regex, so the author does not have to code search to find out why the check failed.\n\nThe regex starts with `_*`, so it will permit names like \"_cool_stuff\", right? This part of the id will become a proto field and https://protobuf.dev/reference/protobuf/proto3-spec/#identifiers requires field names to start with a letter. So let\u0027s require the id to start with a letter too.",
+      "parentUuid": "21dcf89f_41320c3f",
       "range": {
         "startLine": 53,
         "startChar": 52,
