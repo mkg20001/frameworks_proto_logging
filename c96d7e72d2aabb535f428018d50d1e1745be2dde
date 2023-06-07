@@ -167,6 +167,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af29117f_5f9f865b",
+        "filename": "stats/express/libexpresscatalog/catalog.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-07T23:40:19Z",
+      "side": 1,
+      "message": "fixed at http://ag/20159448",
+      "parentUuid": "bb0470b3_5e1b05c9",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "459f9711_46771e43",
