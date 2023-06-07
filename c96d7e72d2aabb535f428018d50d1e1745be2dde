@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb0470b3_5e1b05c9",
+        "filename": "stats/express/libexpresscatalog/catalog.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-07T01:11:44Z",
+      "side": 1,
+      "message": "I think the regex could be printed out\n\nAlso it could be added as a reference in the tex document",
+      "parentUuid": "95562fa3_58575527",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "c96d7e72d2aabb535f428018d50d1e1745be2dde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "459f9711_46771e43",
         "filename": "stats/express/libexpresscatalog/utils.h",
         "patchSetId": 4
