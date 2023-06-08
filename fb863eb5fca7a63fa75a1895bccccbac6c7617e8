@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6977c89_261b4318",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-08T22:00:27Z",
+      "side": 1,
+      "message": "This is a cherry-pick for change merged into internal branch",
+      "revId": "fb863eb5fca7a63fa75a1895bccccbac6c7617e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
