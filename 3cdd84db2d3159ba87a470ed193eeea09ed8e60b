@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc62c635_8da51595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1743321
+      },
+      "writtenOn": "2023-06-13T13:13:59Z",
+      "side": 1,
+      "message": "P.S. Merge conflicts (and breakages) should go away once ag/23673503 lands",
+      "revId": "3cdd84db2d3159ba87a470ed193eeea09ed8e60b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
