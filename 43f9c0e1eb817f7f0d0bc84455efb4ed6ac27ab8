@@ -46,6 +46,30 @@
       },
       "revId": "43f9c0e1eb817f7f0d0bc84455efb4ed6ac27ab8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd462ae_873fbbb3",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-14T19:43:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "93e1f964_90ef2b74",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "43f9c0e1eb817f7f0d0bc84455efb4ed6ac27ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

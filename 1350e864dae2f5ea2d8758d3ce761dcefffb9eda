@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68a2fd5_a8b13aa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-06-14T19:43:01Z",
+      "side": 1,
+      "message": "need to submit into internal master first to overcome merge conflicts",
+      "revId": "1350e864dae2f5ea2d8758d3ce761dcefffb9eda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
