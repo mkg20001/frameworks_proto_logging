@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34136f3b_484be4f3",
+        "filename": "stats/express/catalog/tex_test.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-06-14T09:23:58Z",
+      "side": 1,
+      "message": "Remove references to ww. We can link to go/tex-docs instead.",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "43f9c0e1eb817f7f0d0bc84455efb4ed6ac27ab8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
