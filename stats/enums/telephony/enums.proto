@@ -135,6 +135,38 @@ enum ServiceStateEnum {
     SERVICE_STATE_POWER_OFF = 3;
 }
 
+enum NetworkRegistrationState {
+    /**
+     * Not registered. The device is not currently searching a new operator to register.
+     */
+    REGISTRATION_STATE_NOT_REGISTERED_OR_SEARCHING = 0;
+
+    /**
+     * Registered on home network.
+     */
+    REGISTRATION_STATE_HOME = 1;
+
+    /**
+     * Not registered. The device is currently searching a new operator to register.
+     */
+    REGISTRATION_STATE_NOT_REGISTERED_SEARCHING = 2;
+
+    /**
+     * Registration denied.
+     */
+    REGISTRATION_STATE_DENIED = 3;
+
+    /**
+     * Registration state is unknown.
+     */
+    REGISTRATION_STATE_UNKNOWN = 4;
+
+    /**
+     * Registered on roaming network.
+     */
+    REGISTRATION_STATE_ROAMING = 5;
+}
+
 enum SimStateEnum {
     SIM_STATE_UNKNOWN = 0;
     /** SIM card state: no SIM card is available in the device */

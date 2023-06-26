@@ -49,6 +49,8 @@ extend Atom {
  *
  * Logged from:
  *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
  */
 message MediaCodecReclaimRequestCompleted {
     // Requester Information: Process that triggered codec reclaim event.
@@ -89,6 +91,8 @@ message MediaCodecReclaimRequestCompleted {
  *
  * Logged from:
  *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
  */
 message MediaCodecStarted {
     // Reporter Information: Application/Process that started the codec.
@@ -148,6 +152,8 @@ message MediaCodecStarted {
  *
  * Logged from:
  *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
  */
 message MediaCodecStopped {
     // Reporter Information: Application/Process that stopped the codec.
