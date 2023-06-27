@@ -164,7 +164,7 @@ message Atom {
         WifiSignalStrengthChanged wifi_signal_strength_changed = 38 [(module) = "wifi"];
         WifiScanStateChanged wifi_scan_state_changed = 39 [(module) = "wifi"];
         PhoneSignalStrengthChanged phone_signal_strength_changed =
-                40 [(module) = "framework", (truncate_timestamp) = true];
+                40 [(module) = "framework", (module) = "statsdtest", (truncate_timestamp) = true];
         SettingChanged setting_changed = 41 [(module) = "framework"];
         ActivityForegroundStateChanged activity_foreground_state_changed =
                 42 [(module) = "framework", (module) = "statsdtest"];
@@ -803,6 +803,10 @@ message Atom {
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
+    extensions 631; // FullScreenIntentLaunched full_screen_intent_launched
+    extensions 632; // BalAllowed bal_allowed
+    extensions 641; // MediaCodecStarted media_codec_started
+    extensions 642; // MediaCodecStopped media_codec_stopped
     extensions 644; // ExpressUidEventReported express_uid_event_reported
     extensions 650; // DailykeepaliveInfoReported daily_keepalive_info_reported
     extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
@@ -810,6 +814,10 @@ message Atom {
     extensions 664; // RkpdPoolStats rkpd_pool_stats
     extensions 665; // RkpdClientOperation rkpd_client_operation
     extensions 666;  // RestrictedBluetoothDeviceNameReported restricted_bluetooth_device_name_reported
+    extensions 696; // BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
+    extensions 703; // CronetEngineCreated cronet_engine_created
+    extensions 704; // CronetTrafficReported cronet_traffic_reported
+
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -1010,6 +1018,8 @@ message Atom {
         ConnectivityStateSample connectivity_state_sample = 10163 [(module) = "connectivity"];
         NetworkSelectionRematchReasonsInfo network_selection_rematch_reasons_info = 10164 [(module) = "connectivity"];
         NetworkSliceRequestCountSample network_slice_request_count = 10168 [(module) = "connectivity"];
+        ProcessState process_state = 10171 [(module) = "framework"];
+        ProcessAssociation process_association = 10172 [(module) = "framework"];
         ADPFSystemComponentInfo adpf_system_component_info = 10173 [(module) = "framework"];
         NotificationMemoryUse notification_memory_use = 10174 [(module) = "sysui"];
     }
@@ -1187,6 +1197,64 @@ message ProcessStateChanged {
     optional int64 version = 5;
     // The state, from frameworks/proto_logging/stats/enums/app/enums.proto.
     optional android.app.ProcessStateEnum state = 4;
+}
+
+/**
+ * Logs how long a process was in each of the states.
+ */
+message ProcessState {
+  optional int32 uid = 1 [(is_uid) = true];
+  optional string process_name = 2;
+
+  // Measurement period. Can be used as denominator.
+  // The gauge duration is not representative because we want uptime and also
+  // the measurement usually ends at a time earlier than pull time.
+  optional int32 measurement_start_uptime_seconds = 3;
+  optional int32 measurement_end_uptime_seconds = 4;
+  optional int32 measurement_duration_uptime_seconds = 5;
+
+  // Individual state breakdowns, summing up to total process runtime.
+  // Flattening (instead of a dimensions - value pair) for two reasons:
+  // 1. Makes metric filtering possible (can pull the entire process data based
+  //    on a specific value.
+  // 2. More efficient to encode (proto id serves as dimension).
+  optional int32 top_seconds = 6;
+  optional int32 fgs_seconds = 7;
+  optional int32 bound_top_seconds = 8;
+  optional int32 bound_fgs_seconds = 9;
+  optional int32 important_foreground_seconds = 10;
+  optional int32 cached_seconds = 11;
+  optional int32 frozen_seconds = 12;
+  optional int32 other_seconds = 13;
+}
+
+/**
+ * Logs association between processes.
+ */
+message ProcessAssociation {
+  optional int32 client_uid = 1 [(is_uid) = true];
+
+  // If we only care about the package name name we do not need to upload this
+  // (even though we should add it to the atom for filtering / sharding)
+  optional string client_process = 2;
+
+  optional int32 service_uid = 3 [(is_uid) = true];
+
+  optional string service_name = 4;
+
+  optional string service_process = 10;
+
+  // Measurement period. Can be used as denominator.
+  // The gauge duration is not representative because we want uptime and also
+  // the measurement usually ends at a time earlier than pull time.
+  optional int32 measurement_start_uptime_seconds = 5;
+  optional int32 measurement_end_uptime_seconds = 6;
+  optional int32 measurement_duration_uptime_seconds = 7;
+
+  optional int32 duration_seconds = 8;
+
+  // Number of times this association was established.
+  optional int32 count = 9;
 }
 
 /**
@@ -10855,6 +10923,11 @@ message MediaCodecReported {
     optional int32 hdr_static_info = 64;
     optional int32 hdr_10_plus_info = 65;
     optional int32 hdr_format = 66;
+    // Randomly generated Codec ID for:
+    // - correlating MediaCodecStarted and MediaCodecStopped for
+    // more codec configuration parameters.
+    // @since U
+    optional int64 codec_id = 67;
     // !!! WARNING
     // Keep synchronized with MediametricsCodecReported.CodecData in
     // mediametrics_message.proto.
@@ -15052,6 +15125,9 @@ message DataCallSession {
     // For each int32, the lower 16 bits represent the source RAT while the upper 16 bits indicate
     // the target RAT of the failed handover.
     repeated int32 handover_failure_rat = 21;
+
+    // Whether the call is for internet on nonDDS due to auto data switch feature
+    optional bool is_non_dds = 22;
 }
 
 /**
@@ -15095,6 +15171,26 @@ message DataStallRecoveryReported {
 
     // The data stall recovered reason. Available from Android T.
     optional android.telephony.DataStallRecoveredReason reason = 10;
+
+    // Signal strength of the other phone if DSDS when stall happened.
+    // SIGNAL_STRENGTH_NONE_OR_UNKNOWN(0) if single SIM.
+    optional android.telephony.SignalStrengthEnum other_phone_signal_strength = 11;
+
+    // PS WWAN Network Registration state of the other phone if DSDS when stall happened.
+    // REGISTRATION_STATE_NOT_REGISTERED_OR_SEARCHING(0) if single SIM.
+    optional android.telephony.NetworkRegistrationState other_phone_reg_state = 12;
+
+    // PS WWAN Network Registration state of the default phone when data stall.
+    optional android.telephony.NetworkRegistrationState phone_reg_state = 13;
+
+    // collect the first validation after recovery when data stall occurs.
+    optional bool is_first_validation_after_recovery = 14;
+
+    // The phone id when doing the recovery action.
+    optional int32 phone_id = 15;
+
+    // The elapsed time of current action.
+    optional int32 duration_millis_of_current_action = 16;
 }
 
 /**
@@ -15435,6 +15531,7 @@ message AppStandbyBucketChanged {
 *
 * Logged from:
 *   frameworks/base/core/java/com/android/internal/app/ChooserActivity.java
+*   packages/modules/IntentResolver/java/src/com/android/intentresolver/ChooserActivity.java
 */
 message SharesheetStarted {
     // The event_id (as for UiEventReported).
@@ -15473,6 +15570,10 @@ message SharesheetStarted {
     }
     // The intent being processed (only SEND and SEND_MULTIPLE are system sharesheet)
     optional ResolverActivityIntent intent_type = 9;
+    // The number of custom actions that the calling app has provided.
+    optional int32 num_provided_custom_actions = 10;
+    // True if the calling app has provided an action for share modification.
+    optional bool modify_share_action_provided = 11;
 }
 
 /**
@@ -15480,6 +15581,7 @@ message SharesheetStarted {
  *
  * Logged from:
  *   frameworks/base/core/java/com/android/internal/app/ChooserActivity.java (sharesheet)
+ *   packages/modules/IntentResolver/java/src/com/android/intentresolver/ChooserActivity.java
  */
 message RankingSelected {
     // The event_id (as for UiEventReported).
@@ -18958,8 +19060,20 @@ message FdtrackEventOccurred {
  * frameworks/base/apex/jobscheduler/service/java/com/android/server/alarm/MetricsHelper.java
  */
 message AlarmBatchDelivered {
+    // The total number of alarms delivered in the batch.
     optional int32 num_alarms = 1;
+
+    // The number of wakeup alarms delivered in the batch.
     optional int32 wakeups = 2;
+
+    // A list of uids receiving the alarm delivery.
+    repeated int32 uids = 3 [(is_uid) = true];
+
+    // The number of alarms delivered to each of the {@link uids} above.
+    repeated int32 num_alarms_per_uid = 4;
+
+    // The number of wakeup alarms delivered to each of the {@link uids} above.
+    repeated int32 num_wakeups_per_uid = 5;
 }
 
 /**
