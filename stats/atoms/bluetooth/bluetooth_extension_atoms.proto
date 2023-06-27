@@ -41,6 +41,8 @@ extend Atom {
           (module) = "bt_restricted",
           (restriction_category) = RESTRICTION_DIAGNOSTIC
         ];
+  optional BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
+    = 696 [(module) = "bluetooth"];
 }
 
 /**
@@ -196,4 +198,29 @@ message RestrictedBluetoothDeviceNameReported {
   // Name of the Bluetooth device. It is created by the user.
   optional string device_name = 1
       [(field_restriction_option).peripheral_device_info = true];
+}
+
+/**
+ * Logs profile connection known completions.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message BluetoothProfileConnectionAttempted {
+  // The profile that is connected. Eg. GATT, A2DP, HEADSET.
+  // From android.bluetooth.BluetoothAdapter.java
+  // Default: 0 when not used
+  optional int32 bt_profile = 1;
+
+  // Result of Profile connection
+  optional android.bluetooth.ProfileConnectionResult result = 2;
+
+  // Previous connection state
+  optional android.bluetooth.ConnectionStateEnum previous_state = 3;
+
+  // Terminating connection state
+  optional android.bluetooth.ConnectionStateEnum current_state = 4;
+
+  // Reason for the connection result
+  optional android.bluetooth.ProfileConnectionReason reason = 5;
 }

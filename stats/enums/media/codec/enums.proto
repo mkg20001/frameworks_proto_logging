@@ -30,3 +30,20 @@ enum ReclaimStatus {
     // Reclaim failed as client(s) failed to reclaim the resources.
     RECLAIM_FAILED_RECLAIM_RESOURCES = 3;
 }
+
+//
+// MediaCodec type.
+//
+// From
+//  frameworks/av/services/mediaresourcemanager/aidl/android/media/MediaResourceSubType.aidl
+enum CodecType {
+    // Unspecified codec type.
+    CODEC_TYPE_UNSPECIFIED = 0;
+    // Audio codec
+    CODEC_TYPE_AUDIO = 1;
+    // Video codec.
+    CODEC_TYPE_VIDEO = 2;
+    // Image codec.
+    CODEC_TYPE_IMAGE = 3;
+}
+
