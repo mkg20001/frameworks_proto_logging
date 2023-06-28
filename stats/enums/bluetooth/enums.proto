@@ -412,3 +412,15 @@ enum MajorClassEnum {
     MAJOR_CLASS_TOY = 0x0800;
     MAJOR_CLASS_HEALTH = 0x0900;
 }
+
+enum ProfileConnectionResult {
+    RESULT_UNKNOWN = 0;
+    RESULT_SUCCESS = 1;
+    RESULT_FAILURE = 2;
+}
+
+enum ProfileConnectionReason {
+    REASON_UNKNOWN = 0;
+    REASON_SUCCESS = 1;
+    REASON_UNEXPECTED_STATE = 2;
+}

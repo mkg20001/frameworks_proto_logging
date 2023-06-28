@@ -26,6 +26,12 @@ extend Atom {
   optional MediaCodecReclaimRequestCompleted
       media_codec_reclaim_request_completed = 600
         [(module) = "framework", (module) = "media_metrics"];
+
+  optional MediaCodecStarted media_codec_started = 641
+        [(module) = "framework", (module) = "media_metrics"];
+
+  optional MediaCodecStopped media_codec_stopped = 642
+        [(module) = "framework", (module) = "media_metrics"];
 }
 
 /**
@@ -43,6 +49,8 @@ extend Atom {
  *
  * Logged from:
  *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
  */
 message MediaCodecReclaimRequestCompleted {
     // Requester Information: Process that triggered codec reclaim event.
@@ -75,4 +83,114 @@ message MediaCodecReclaimRequestCompleted {
     optional int32 target_uid = 8 [(is_uid) = true];
     // The oom score of the Target.
     optional int32 target_oom_score = 9;
+}
+
+/**
+ * MediaResourceManagerService (media.resource_manager) logs this event
+ * when a client starts a codec.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
+ */
+message MediaCodecStarted {
+    // Reporter Information: Application/Process that started the codec.
+    // The uid of the Requester.
+    optional int32 requester_uid = 1 [(is_uid) = true];
+
+    // Randomly generated Codec ID for:
+    // - finding the corresponding MediaCodecStopped atom.
+    // - correlating MediaCodecReported for more codec configuration parameters.
+    optional int64 codec_id = 2;
+
+    // The name of the codec that the requester starts.
+    // eg. `OMX.google.aac.decoder`
+    optional string codec_name = 3;
+
+    // Type of codec (Audio/Video/Image).
+    optional android.media.codec.CodecType codec_type = 4;
+
+    // true if this is an encoder, false if this is a decoder.
+    optional bool is_encoder = 5;
+
+    // true if this is hardware codec, false otherwise (software or neither)
+    optional bool is_hardware = 6;
+
+    // Resolution as width x height.
+    optional int32 width = 7;
+    optional int32 height = 8;
+
+    // Total number of concurrent codecs in the system.
+    optional int32 system_concurrent_codec_count = 9;
+
+    // Total number of concurrent codecs owned by this application.
+    optional int32 app_concurrent_codec_count = 10;
+
+    // Current total pixel count for this application.
+    optional int64 total_pixel_count = 11;
+
+    // Total number of concurrent HW Video codecs owned by this application.
+    optional int32 app_concurrent_hw_video_codec_count = 12;
+
+    // Total number of concurrent SW Video codecs owned by this application.
+    optional int32 app_concurrent_sw_video_codec_count = 13;
+
+    // Total number of concurrent Video codecs owned by this application.
+    optional int32 app_concurrent_video_codec_count = 14;
+
+    // Total number of concurrent Audio codecs owned by this application.
+    optional int32 app_concurrent_audio_codec_count = 15;
+
+    // Total number of concurrent Image codecs owned by this application.
+    optional int32 app_concurrent_image_codec_count = 16;
+}
+
+/**
+ * MediaResourceManagerService (media.resource_manager) logs this event
+ * when a client stops a codec.
+ *
+ * Logged from:
+ *   frameworks/av/services/mediaresourcemanager/ResourceManagerService.cpp
+ *
+ * @since U
+ */
+message MediaCodecStopped {
+    // Reporter Information: Application/Process that stopped the codec.
+    // The uid of the Requester.
+    optional int32 requester_uid = 1 [(is_uid) = true];
+
+    // Randomly generated Codec ID for:
+    // - finding the corresponding MediaCodecStarted atom.
+    // - correlating MediaCodecReported for more codec configuration parameters.
+    optional int64 codec_id = 2;
+
+    // The name of the codec that the requester starts.
+    // eg. `OMX.google.aac.decoder`
+    optional string codec_name = 3;
+
+    // Type of codec (Audio/Video/Image).
+    optional android.media.codec.CodecType codec_type = 4;
+
+    // true if this is an encoder, false if this is a decoder.
+    optional bool is_encoder = 5;
+
+    // true if this is hardware codec, false otherwise (software or neither)
+    optional bool is_hardware = 6;
+
+    // Resolution as width x height.
+    optional int32 width = 7;
+    optional int32 height = 8;
+
+    // Total number of concurrent codecs in the system.
+    optional int32 system_concurrent_codec_count = 9;
+
+    // Total number of concurrent codecs owned by this application.
+    optional int32 app_concurrent_codec_count = 10;
+
+    // Current total pixel count for this application.
+    optional int64 total_pixel_count = 11;
+
+    // Time elapsed between codec start to stop, in microseconds
+    optional int64 codec_operation_duration_ms = 12;
 }
