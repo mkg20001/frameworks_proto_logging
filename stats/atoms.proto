@@ -803,8 +803,6 @@ message Atom {
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
     extensions 614; // BluetoothL2capCocClientConnection bluetooth_l2cap_coc_client_connection
     extensions 615; // BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
-    extensions 641; // MediaCodecStarted media_codec_started
-    extensions 642; // MediaCodecStopped media_codec_stopped
     extensions 644; // ExpressUidEventReported express_uid_event_reported
     extensions 650; // DailykeepaliveInfoReported daily_keepalive_info_reported
     extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
@@ -10858,11 +10856,6 @@ message MediaCodecReported {
     optional int32 hdr_static_info = 64;
     optional int32 hdr_10_plus_info = 65;
     optional int32 hdr_format = 66;
-    // Randomly generated Codec ID for:
-    // - correlating MediaCodecStarted and MediaCodecStopped for
-    // more codec configuration parameters.
-    // @since U
-    optional int64 codec_id = 67;
     // !!! WARNING
     // Keep synchronized with MediametricsCodecReported.CodecData in
     // mediametrics_message.proto.
