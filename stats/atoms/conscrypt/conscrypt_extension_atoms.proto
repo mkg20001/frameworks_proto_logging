@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+package android.os.statsd.conscrypt;
+
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+
+option java_package = "com.android.os.conscrypt";
+option java_multiple_files = true;
+
+extend Atom {
+  optional TlsHandshakeReportedV2 tls_handshake_reported_v_2 = 715
+      [(module) = "conscrypt"];
+}
+
+message TlsHandshakeReportedV2 {
+  repeated AttributionNode attribution_node = 1;
+
+  optional bool success = 2;
+
+  optional android.stats.tls.Protocol protocol = 3;
+
+  optional android.stats.tls.CipherSuite cipher_suite = 4;
+
+  optional int32 handshake_duration_millis = 5;
+
+  optional android.stats.tls.Source source = 6;
+}
