@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf991001_4639ff70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127992
+      },
+      "writtenOn": "2023-07-05T18:47:27Z",
+      "side": 1,
+      "message": "@ahujapalash@google.com can you please review and help provide guidance if this is best approach for getting foreground state considered along with autoconnect or direct connect?",
+      "revId": "0e3cb3209ffaffb663a773fcf110674ec06f3998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
