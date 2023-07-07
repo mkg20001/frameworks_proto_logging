@@ -34,6 +34,24 @@
       "parentUuid": "cf991001_4639ff70",
       "revId": "0e3cb3209ffaffb663a773fcf110674ec06f3998",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf42e60f_c17daa12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948078
+      },
+      "writtenOn": "2023-07-07T07:03:42Z",
+      "side": 1,
+      "message": "Thanks Palash! I linked the CL with the place where this is actually logged in by setting the same topic. You can see it in the CLs \u0027submitted together\u0027.",
+      "parentUuid": "b677ed7d_35e32bdb",
+      "revId": "0e3cb3209ffaffb663a773fcf110674ec06f3998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
