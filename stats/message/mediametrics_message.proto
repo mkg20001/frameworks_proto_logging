@@ -195,6 +195,11 @@ message CodecData {
   optional int32 hdr_static_info = 59;
   optional int32 hdr10_plus_info = 60;
   optional int32 hdr_format = 61;
+  // Randomly generated Codec ID for:
+  // - correlating MediaCodecStarted and MediaCodecStopped for
+  // more codec configuration parameters.
+  // @since U
+  optional int64 codec_id = 62;
   // !!!WARNING!!!
   // Keep synchronized with MediaCodecReported in atoms.proto
   // Also keep AStatsEvent serialization synchronized in statsd_codec.cpp

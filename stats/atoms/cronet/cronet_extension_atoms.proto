@@ -1,0 +1,271 @@
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.os.statsd.cronet;
+
+import "frameworks/proto_logging/stats/atoms.proto";
+import "frameworks/proto_logging/stats/atom_field_options.proto";
+
+option java_package = "com.android.os.cronet";
+option java_multiple_files = true;
+
+extend Atom {
+  optional CronetEngineCreated cronet_engine_created = 703
+        [(module) = "cronet"];
+  optional CronetTrafficReported cronet_traffic_reported = 704
+        [(module) = "cronet"];
+}
+
+message CronetEngineCreated {
+  // A weak-ID-like reference to the instance of the Cronet engine being
+  // created. The field can be used to join subsequent request metrics with the
+  // engine details.
+  //
+  // The reference is NOT meant to be globally (or even on-device) unique, but
+  // on device collisions should be unlikely.
+  // Defaults to max positive int64 value which is equivalent to "not set".
+  optional int64 engine_instance_ref = 1 [default = 9223372036854775807];
+
+  // Version of the Cronet being created.
+  optional int32 major_version = 2;
+  optional int32 minor_version = 3;
+  optional int32 build_version = 4;
+  optional int32 patch_version = 5;
+
+  // Source of the Cronet being created
+  optional CronetSource source = 6;
+
+  // Options that can be set on the Cronet builder. Only fields which are
+  // actively set by the Cronet user are populated. When using the protos
+  // default values should be considered as "null" - default semnantics can
+  // change based on the Cronet version.
+  //
+  // Fields that can contain free text (even if just theoretically) should be
+  // curated and/or replaced with fields that provide useful signal while not
+  // being sensitive. For instance, instead of logging values of quic hint hosts
+  // verbatim, prefer to log if a request was affected by a hint.
+  //
+  // For field names, follow the nomenclature below:
+  // - fields set directly on the builder should have no prefix
+  //   (e.g., enableBrotli() translates to enable_brotli)
+  // - fields which are set in a sub-object or sub-structure should be prefixed
+  //   with the path leading to that field. For example,
+  //   builder.setExperimentalOptions("quic: { foo: { bar: 2 } }");
+  //   translates to experimental_options_quic_foo_bar
+  //
+  //
+  // In both cases, keep the existing names that are used in Cronet if at all
+  // possible.
+
+  // --- CronetEngine.Builder controls ---
+  optional bool enable_brotli = 7;
+  optional bool enable_http2 = 8;
+  optional CronetHttpCacheMode http_cache_mode = 9;
+  optional bool enable_public_key_pinning_bypass_for_local_trust_anchors = 10;
+  optional bool enable_quic = 11;
+
+  // --- ExperimentalCronetEngine.Builder controls ---
+  optional bool enable_network_quality_estimator = 12;
+  optional int32 thread_priority = 13;
+
+  // --- JSON experimental options ---
+  // The JSON config offers a lot of options but most of the atoms will have
+  // a majority of the fields below unset. We considered lumping the boolean
+  // flags into a single int32 field bud decided not to do so because
+  //   a) having the standalone booleans makes the data set easier to understand
+  //      and use
+  //   b) we need to distinguish between three states (unset / true / false)
+  //      which makes the compaction less efficient
+  //   c) we expect the booleans to not be set in majority of the cases,
+  //      in such a case, no space is saved.
+
+  // QUIC
+  // Lexicographically sorted, comma separated, curated list of QUIC connection
+  // options.
+  // This might be converted to a repeated int32 list when repeated field
+  // logging reaches wide enough adoption.
+  optional string experimental_options_quic_connection_options = 14;
+  optional OptionalBoolean
+      experimental_options_quic_store_server_configs_in_properties = 15;
+  // Unset value is -1
+  optional int32
+      experimental_options_quic_max_server_configs_stored_in_properties = 16
+      [default = -1];
+  // Unset value is -1
+  optional int32 experimental_options_quic_idle_connection_timeout_seconds = 17
+      [default = -1];
+  optional OptionalBoolean
+      experimental_options_quic_goaway_sessions_on_ip_change = 18;
+  optional OptionalBoolean
+      experimental_options_quic_close_sessions_on_ip_change = 19;
+  optional OptionalBoolean
+      experimental_options_quic_migrate_sessions_on_network_change_v2 = 20;
+  optional OptionalBoolean experimental_options_quic_migrate_sessions_early_v2 =
+      21;
+  optional OptionalBoolean
+      experimental_options_quic_quic_disable_bidirectional_streams = 22;
+  // Unset value is -1
+  optional int32
+      experimental_options_quic_max_time_before_crypto_handshake_seconds = 23
+      [default = -1];
+  // Unset value is -1
+  optional int32
+      experimental_options_quic_max_idle_time_before_crypto_handshake_seconds =
+          24 [default = -1];
+  optional OptionalBoolean
+      experimental_options_quic_enable_socket_recv_optimization = 25;
+
+  // DNS
+  optional OptionalBoolean experimental_options_asyncdns_enable = 26;
+  optional OptionalBoolean experimental_options_staledns_enable = 27;
+  // Unset value is -1
+  optional int32 experimental_options_staledns_delay_ms = 28 [default = -1];
+  // Unset value is -1
+  optional int32 experimental_options_staledns_max_expired_time_ms = 29
+      [default = -1];
+  // Unset value is -1
+  optional int32 experimental_options_staledns_max_stale_uses = 30
+      [default = -1];
+  optional OptionalBoolean experimental_options_staledns_allow_other_network =
+      31;
+  optional OptionalBoolean experimental_options_staledns_persist_to_disk = 32;
+  // Unset value is -1
+  optional int32 experimental_options_staledns_persist_delay_ms = 33
+      [default = -1];
+  optional OptionalBoolean
+      experimental_options_staledns_use_stale_on_name_not_resolved = 34;
+  // Host resolver rules omitted
+  optional OptionalBoolean experimental_options_disable_ipv6_on_wifi = 35;
+
+  enum CronetSource {
+    // Safe default, don't use explicitly.
+    CRONET_SOURCE_UNSPECIFIED = 0;
+    // The library is bundled with the application.
+    CRONET_SOURCE_STATICALLY_LINKED = 1;
+    // The library is loaded from GMS Core
+    CRONET_SOURCE_GMSCORE_DYNAMITE = 2;
+    // The application is using the fallback implementation
+    CRONET_SOURCE_FALLBACK = 3;
+  }
+
+  // See
+  // https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/CronetEngine.Builder.html#constants
+  // for detailed semantics.
+  enum CronetHttpCacheMode {
+    // Safe default, don't use explicitly.
+    HTTP_CACHE_MODE_UNSPECIFIED = 0;
+
+    HTTP_CACHE_DISABLED = 1;
+    HTTP_CACHE_DISK = 2;
+    HTTP_CACHE_DISK_NO_HTTP = 3;
+    HTTP_CACHE_IN_MEMORY = 4;
+  }
+
+  // Distinguishes between three states (unset / true / false)
+  enum OptionalBoolean {
+    UNSET = 0;
+    TRUE = 1;
+    FALSE = 2;
+  }
+}
+
+message CronetTrafficReported {
+  // The Cronet engine that sent the trafic. See
+  // CronetEngineCreated.engine_instance_ref for more details.
+  // Defaults to max negative int64 value which is equivalent to "not set".
+  // The default value is deliberately different from
+  // CronetEngineCreated.engine_instance_ref to avoid unintentional joining.
+  optional int64 engine_instance_ref = 1 [default = -9223372036854775808];
+
+  // The number of previous samples that were dropped due to rate limiting.
+  optional int32 samples_rate_limited = 12;
+
+  // Bucketized sizes for request and response headers and body.
+  optional CronetRequestHeadersSizeBucket request_headers_size = 2;
+  optional CronetRequestBodySizeBucket request_body_size = 3;
+  optional CronetResponseHeadersSizeBucket response_headers_size = 4;
+  optional CronetResponseBodySizeBucket response_body_size = 5;
+
+  // The status code of the response.
+  optional int32 http_status_code = 6;
+  // The Fingerprint2011 hash of the protocol that was negotiated for this
+  // request (as returned by UrlResponseInfo.getNegotiatedProtocol()). The
+  // possible values for the string are limited so the hash is sufficient
+  // to identify known values while preventing accidental presence of
+  // freeform text.
+  // See go/cronet-negotiated-protocols for possible values.
+  optional int64 negotiated_protocol_hash = 7;
+
+  // The time it took from starting the request to receiving the full set of
+  // response headers, in milliseconds.
+  optional int32 headers_latency_millis = 8;
+  // The time it took from starting the request to receiving the entire
+  // response, in milliseconds.
+  optional int32 overall_latency_millis = 9;
+
+  // Whether a connection migration was attempted for this request.
+  optional bool connection_migration_attempted = 10;
+  // Whether a connection migration was attempted and successful for this
+  // request.
+  optional bool connection_migration_successful = 11;
+
+  enum CronetRequestHeadersSizeBucket {
+    REQUEST_HEADERS_SIZE_BUCKET_UNSPECIFIED = 0;
+    // It's impossible to send requests without any headers in Cronet
+    REQUEST_HEADERS_SIZE_BUCKET_UNDER_ONE_KIB = 1;
+    REQUEST_HEADERS_SIZE_BUCKET_ONE_TO_TEN_KIB = 2;
+    REQUEST_HEADERS_SIZE_BUCKET_TEN_TO_TWENTY_FIVE_KIB = 3;
+    REQUEST_HEADERS_SIZE_BUCKET_TWENTY_FIVE_TO_FIFTY_KIB = 4;
+    REQUEST_HEADERS_SIZE_BUCKET_FIFTY_TO_HUNDRED_KIB = 5;
+    REQUEST_HEADERS_SIZE_BUCKET_OVER_HUNDRED_KIB = 6;
+  }
+
+  enum CronetRequestBodySizeBucket {
+    REQUEST_BODY_SIZE_BUCKET_UNSPECIFIED = 0;
+    REQUEST_BODY_SIZE_BUCKET_ZERO = 1;
+    REQUEST_BODY_SIZE_BUCKET_UNDER_TEN_KIB = 2;
+    REQUEST_BODY_SIZE_BUCKET_TEN_TO_FIFTY_KIB = 3;
+    REQUEST_BODY_SIZE_BUCKET_FIFTY_TO_TWO_HUNDRED_KIB = 4;
+    REQUEST_BODY_SIZE_BUCKET_TWO_HUNDRED_TO_FIVE_HUNDRED_KIB = 5;
+    REQUEST_BODY_SIZE_BUCKET_FIVE_HUNDRED_KIB_TO_ONE_MIB = 6;
+    REQUEST_BODY_SIZE_BUCKET_ONE_TO_FIVE_MIB = 7;
+    REQUEST_BODY_SIZE_BUCKET_OVER_FIVE_MIB = 8;
+  }
+
+  enum CronetResponseHeadersSizeBucket {
+    RESPONSE_HEADERS_SIZE_BUCKET_UNSPECIFIED = 0;
+    RESPONSE_HEADERS_SIZE_BUCKET_UNDER_ONE_KIB = 1;
+    RESPONSE_HEADERS_SIZE_BUCKET_ONE_TO_TEN_KIB = 2;
+    RESPONSE_HEADERS_SIZE_BUCKET_TEN_TO_TWENTY_FIVE_KIB = 3;
+    RESPONSE_HEADERS_SIZE_BUCKET_TWENTY_FIVE_TO_FIFTY_KIB = 4;
+    RESPONSE_HEADERS_SIZE_BUCKET_FIFTY_TO_HUNDRED_KIB = 5;
+    RESPONSE_HEADERS_SIZE_BUCKET_OVER_HUNDRED_KIB = 6;
+  }
+
+  enum CronetResponseBodySizeBucket {
+    RESPONSE_BODY_SIZE_BUCKET_UNSPECIFIED = 0;
+    RESPONSE_BODY_SIZE_BUCKET_ZERO = 1;
+    RESPONSE_BODY_SIZE_BUCKET_UNDER_TEN_KIB = 2;
+    RESPONSE_BODY_SIZE_BUCKET_TEN_TO_FIFTY_KIB = 3;
+    RESPONSE_BODY_SIZE_BUCKET_FIFTY_TO_TWO_HUNDRED_KIB = 4;
+    RESPONSE_BODY_SIZE_BUCKET_TWO_HUNDRED_TO_FIVE_HUNDRED_KIB = 5;
+    RESPONSE_BODY_SIZE_BUCKET_FIVE_HUNDRED_KIB_TO_ONE_MIB = 6;
+    RESPONSE_BODY_SIZE_BUCKET_ONE_TO_FIVE_MIB = 7;
+    RESPONSE_BODY_SIZE_BUCKET_OVER_FIVE_MIB = 8;
+  }
+}

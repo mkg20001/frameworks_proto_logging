@@ -84,7 +84,9 @@ atom_protos = [
     "atoms/art/*.proto",
     "atoms/bluetooth/*.proto",
     "atoms/corenetworking/**/*.proto",
+    "atoms/cronet/*.proto",
     "atoms/expresslog/*.proto",
+    "atoms/framework/*.proto",
     "atoms/gps/*.proto",
     "atoms/placeholder/*.proto",
     "atoms/media/*.proto",
@@ -121,6 +123,8 @@ filegroup {
     srcs: [
         ":libstats_atoms_proto",
         "atom_field_options.proto",
+        ":libstats_atom_enum_protos",
+        ":libstats_atom_message_protos",
     ],
 }
 
