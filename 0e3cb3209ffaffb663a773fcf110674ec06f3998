@@ -69,6 +69,23 @@
       "message": "Hi Palash, may I ask for review of this CL? The place where the counter metrics will be used is in this [CL](https://android-review.git.corp.google.com/c/platform/frameworks/proto_logging/+/2648122).",
       "revId": "0e3cb3209ffaffb663a773fcf110674ec06f3998",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8727a236_1509fc31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948078
+      },
+      "writtenOn": "2023-07-25T05:01:56Z",
+      "side": 1,
+      "message": "Hi Yao, may I request owner review for this CL?",
+      "revId": "0e3cb3209ffaffb663a773fcf110674ec06f3998",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
