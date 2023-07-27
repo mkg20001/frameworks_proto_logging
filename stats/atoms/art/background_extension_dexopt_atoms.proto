@@ -86,4 +86,13 @@ extend Atom {
     // sleep. Deprecated as the job scheduler holds a wake lock, hence this
     // duration is always going to be the same as above.
     optional int64 duration_including_sleep_ms = 4 [deprecated = true];
+
+    // The number of packages successfully optimized in this run.
+    optional int32 optimized_package_count = 5;
+    // The number of packages depending on the boot classpath.
+    optional int32 packages_depending_on_boot_classpath_count = 6;
+    // The total number of packages scanned in this run. This is usually the
+    // total number of packages on device, but may vary due to
+    // OEM customizations.
+    optional int32 total_package_count = 7;
 }
