@@ -206,8 +206,8 @@ cc_library {
         "statslog.h"
     ],
     shared_libs: [
+        "libbase",
         "liblog",
-        "libcutils",
     ],
     target: {
         android: {
