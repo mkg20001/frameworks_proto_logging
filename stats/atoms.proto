@@ -9854,6 +9854,9 @@ message NetworkValidationReported {
 
     // The random number between 0 ~ 999 for sampling
     optional int32 random_number = 6;
+
+    // The event id of datastall
+    optional int32 datastall_event_id = 7;
 }
 
 /**
@@ -9910,6 +9913,10 @@ message DataStallEvent {
     optional int32 tcp_fail_rate = 7;
     // Number of packets sent since the last received packet.
     optional int32 tcp_sent_since_last_recv = 8;
+    // It is a random number to represent different event of the device.
+    // This event id will be added to the on-going network validation event, which is
+    // convenient for analyzing the datastall case by combining the information from both sides.
+    optional int32 event_id = 9;
 }
 
 /*
