@@ -9854,6 +9854,9 @@ message NetworkValidationReported {
 
     // The random number between 0 ~ 999 for sampling
     optional int32 random_number = 6;
+
+    // It is a unique identifier to represent different event of the device.
+    optional int32 event_id = 7;
 }
 
 /**
@@ -9908,8 +9911,15 @@ message DataStallEvent {
     optional com.android.server.connectivity.DnsEvent dns_event = 6 [(log_mode) = MODE_BYTES];
     // The tcp packets fail rate from the latest tcp polling.
     optional int32 tcp_fail_rate = 7;
-    // Number of packets sent since the last received packet.
+    // Number of packets sent since the last received packet on TCP.
     optional int32 tcp_sent_since_last_recv = 8;
+    // Statistical data comes from traffic stats.
+    optional com.android.server.connectivity.TrafficStats traffic_stats = 9 [(log_mode) = MODE_BYTES];
+    // Detection duration in milliseconds, for TCP signaling, the estimated start timestamp is the
+    // time at which the sent packets counter started counting because no packets were received.
+    optional int32 tcp_detection_duration_ms = 10;
+    // It is a unique identifier to represent different event of the device.
+    optional int32 event_id = 11;
 }
 
 /*

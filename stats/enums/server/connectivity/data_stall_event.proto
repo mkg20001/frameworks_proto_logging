@@ -88,4 +88,18 @@ message DnsEvent {
     repeated int32 dns_return_code = 1;
     // Indicate the timestamp of the dns event.
     repeated int64 dns_time = 2;
+    // Indicate the latency of the dns event.
+    repeated int32 dns_latency = 3;
+    // Detection duration in milliseconds, for DNS signaling, the estimated start
+    // timestamp is the first DNS query that timed out in the last 5 consecutive timeouts.
+    optional int32 dns_detection_duration_ms = 4;
+}
+
+message TrafficStats {
+    // Number of the last packet transmitted.
+    repeated int32 last_tx_packets = 1;
+    // Number of last packet received.
+    repeated int32 last_rx_packets = 2;
+    // Number of packets sent since the last received packet on all socket.
+    optional int32 sent_since_last_recv = 3;
 }
