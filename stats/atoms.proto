@@ -9854,6 +9854,9 @@ message NetworkValidationReported {
 
     // The random number between 0 ~ 999 for sampling
     optional int32 random_number = 6;
+
+    // It is a random number to represent different event of the device.
+    optional int32 event_id = 7;
 }
 
 /**
