@@ -68,6 +68,30 @@
       },
       "revId": "e0ad29a81b339927968bdbc370bada939445e127",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c6ccc66_617ef879",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 9922,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-07T02:32:16Z",
+      "side": 1,
+      "message": "DnsEvent {\n  repeated int32 dns_latency \u003d 3;\n}",
+      "parentUuid": "543cceb3_9754bca7",
+      "range": {
+        "startLine": 9922,
+        "startChar": 0,
+        "endLine": 9922,
+        "endChar": 1
+      },
+      "revId": "e0ad29a81b339927968bdbc370bada939445e127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
