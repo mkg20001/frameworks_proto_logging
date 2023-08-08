@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bee57db_e7226d7a",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 9858,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-08T05:56:03Z",
+      "side": 1,
+      "message": "unique identifier",
+      "range": {
+        "startLine": 9858,
+        "startChar": 15,
+        "endLine": 9858,
+        "endChar": 28
+      },
+      "revId": "230b50c4de42589609fbec1c9ae78b5bc01fb878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
