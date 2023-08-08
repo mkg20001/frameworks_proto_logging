@@ -16,6 +16,24 @@
       "message": "This file isn\u0027t owned by BT team and it\u0027s internal master first but you can refer to the owners\u0027 opinions on this one",
       "revId": "8b5e7bfa3d5309239bbb3a38f70765acc6e0aeb1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f099862_9df076f9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1953983
+      },
+      "writtenOn": "2023-08-08T02:50:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e1125e6_10d039e9",
+      "revId": "8b5e7bfa3d5309239bbb3a38f70765acc6e0aeb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
