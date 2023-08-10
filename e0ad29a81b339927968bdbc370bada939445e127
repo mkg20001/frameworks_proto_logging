@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdcae914_6e514d00",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 9860,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-08-10T18:25:52Z",
+      "side": 1,
+      "message": "Add it in another commit.",
+      "parentUuid": "82de08be_6b052890",
+      "range": {
+        "startLine": 9860,
+        "startChar": 19,
+        "endLine": 9860,
+        "endChar": 37
+      },
+      "revId": "e0ad29a81b339927968bdbc370bada939445e127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "543cceb3_9754bca7",
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "DnsEvent {\n  repeated int32 dns_latency \u003d 3;\n}",
       "parentUuid": "543cceb3_9754bca7",
+      "range": {
+        "startLine": 9922,
+        "startChar": 0,
+        "endLine": 9922,
+        "endChar": 1
+      },
+      "revId": "e0ad29a81b339927968bdbc370bada939445e127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c7296c_7c55a6d7",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 9922,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-08-10T18:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c6ccc66_617ef879",
       "range": {
         "startLine": 9922,
         "startChar": 0,
