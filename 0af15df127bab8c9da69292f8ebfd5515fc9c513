@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ae234d_07ddc907",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 9915,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-14T04:15:46Z",
+      "side": 1,
+      "message": "What about \noptional TrafficStats {\n  repeated int32 last_tx_packets\n  repeated int32 last_rx_packets\n  int32 sent_since_last_recv\n}",
+      "range": {
+        "startLine": 9915,
+        "startChar": 19,
+        "endLine": 9915,
+        "endChar": 58
+      },
+      "revId": "0af15df127bab8c9da69292f8ebfd5515fc9c513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b41738b_79015264",
+        "filename": "stats/enums/server/connectivity/data_stall_event.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2023-08-14T04:15:46Z",
+      "side": 1,
+      "message": "Maybe remove 5 to have more flexible options when we implmenet?",
+      "range": {
+        "startLine": 94,
+        "startChar": 67,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "0af15df127bab8c9da69292f8ebfd5515fc9c513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
