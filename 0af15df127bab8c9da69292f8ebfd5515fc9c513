@@ -45,6 +45,30 @@
       },
       "revId": "0af15df127bab8c9da69292f8ebfd5515fc9c513",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ccb25c_1b6919a4",
+        "filename": "stats/enums/server/connectivity/data_stall_event.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-08-15T04:35:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b41738b_79015264",
+      "range": {
+        "startLine": 94,
+        "startChar": 67,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "0af15df127bab8c9da69292f8ebfd5515fc9c513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
