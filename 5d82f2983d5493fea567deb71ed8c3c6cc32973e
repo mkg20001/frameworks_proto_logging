@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa4a27f_47376aed",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 9621,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2023-09-01T07:32:58Z",
+      "side": 1,
+      "message": "// The random number between 0 ~ 999 for sampling\n  optional int32 random_number \u003d 16;\n\n\nMaybe use the same field names as other core-network metrics",
+      "range": {
+        "startLine": 9620,
+        "startChar": 0,
+        "endLine": 9621,
+        "endChar": 38
+      },
+      "revId": "5d82f2983d5493fea567deb71ed8c3c6cc32973e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
