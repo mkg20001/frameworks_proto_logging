@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bc0cc63_1f1f7511",
+        "filename": "stats/atoms/art/art_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2023-09-05T17:58:49Z",
+      "side": 1,
+      "message": "```suggestion\n    // The number of milliseconds since the last time metrics were reported.\n```",
+      "revId": "c1a65b2d4f9520043ef7daa51055e89c512b43f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
