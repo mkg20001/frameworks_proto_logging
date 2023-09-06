@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccfaa801_ad148e3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2023-09-06T08:11:25Z",
+      "side": 1,
+      "message": "Failures are unrelated:\ntestFontsScaleNonLinearly: known failure as per b/299065911",
+      "revId": "7037e745af5832cd5aa0b6704dd6e6131fd17bc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
