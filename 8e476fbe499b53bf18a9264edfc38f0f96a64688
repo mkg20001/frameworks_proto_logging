@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fad27db_f8100a6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-09-06T19:28:49Z",
+      "side": 1,
+      "message": "Will that time be always the same for all measurements? If not, maybe it should be emitted together with every value.",
+      "revId": "8e476fbe499b53bf18a9264edfc38f0f96a64688",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
