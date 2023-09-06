@@ -16,6 +16,24 @@
       "message": "```suggestion\n    // The number of milliseconds since the last time metrics were reported.\n```",
       "revId": "c1a65b2d4f9520043ef7daa51055e89c512b43f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc007b2a_2160bd29",
+        "filename": "stats/atoms/art/art_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2023-09-06T10:12:40Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "2bc0cc63_1f1f7511",
+      "revId": "c1a65b2d4f9520043ef7daa51055e89c512b43f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
