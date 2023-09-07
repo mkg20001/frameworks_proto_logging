@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a66e7a_ffa9a644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-09-07T01:14:31Z",
+      "side": 1,
+      "message": "FYI frameworks/proto_logging does not have a merge path into mainline-prod, so you likely need to CP this cl there separately.",
+      "revId": "b301711b5914091df252f5333da2e4273fdc9f00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
