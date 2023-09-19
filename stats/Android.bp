@@ -92,6 +92,7 @@ atom_protos = [
     "atoms/media/*.proto",
     "atoms/rkpd/*.proto",
     "atoms/sdksandbox/*.proto",
+    "atoms/threadnetwork/*.proto",
 ]
 
 cc_library_host_shared {
