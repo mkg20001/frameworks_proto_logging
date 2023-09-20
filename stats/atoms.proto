@@ -817,6 +817,9 @@ message Atom {
     extensions 696; // BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
     extensions 703; // CronetEngineCreated cronet_engine_created
     extensions 704; // CronetTrafficReported cronet_traffic_reported
+    extensions 738; // ThreadnetworkTelemetryDataReported threadnetwork_telemetry_data_reported
+    extensions 739; // ThreadnetworkTopoEntryRepeated threadnetwork_topo_entry_repeated
+    extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
 
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
