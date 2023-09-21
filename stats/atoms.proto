@@ -794,6 +794,7 @@ message Atom {
     extensions 332; // ArtDatumReported art_datum_reported
     extensions 366; // OdrefreshReported odrefresh_reported
     extensions 467; // BackgroundDexoptJobEnded background_dexopt_job_ended
+    extensions 488; // SandboxApiCalled sandbox_api_called
     extensions 528; // ExpressEventReported express_event_reported
     extensions 548; // OdsignReported odsign_reported
     extensions 550; // ArtDeviceDatumReported art_device_datum_reported
@@ -817,7 +818,7 @@ message Atom {
     extensions 696; // BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
     extensions 703; // CronetEngineCreated cronet_engine_created
     extensions 704; // CronetTrafficReported cronet_traffic_reported
-
+    extensions 735; // SandboxActivityEventOccurred sandbox_activity_event_occurred
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -1026,6 +1027,7 @@ message Atom {
 
     // Pulled atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
+    extensions 10159; // SandboxSdkStorage sandbox_sdk_storage
     extensions 99999; // Atom99999 atom_99999
 
     // DO NOT USE field numbers above 100,000 in AOSP.
