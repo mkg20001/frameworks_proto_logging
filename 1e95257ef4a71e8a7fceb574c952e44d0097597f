@@ -16,6 +16,24 @@
       "message": "Add Merged-In tags to ensure this changes merges cleanly to all branches.",
       "revId": "1e95257ef4a71e8a7fceb574c952e44d0097597f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb64d86c_60921291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1901046
+      },
+      "writtenOn": "2023-09-22T15:02:05Z",
+      "side": 1,
+      "message": "which Change-id do I need to use with Merged-In tag ?",
+      "parentUuid": "7ea2779c_47a72b6b",
+      "revId": "1e95257ef4a71e8a7fceb574c952e44d0097597f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
