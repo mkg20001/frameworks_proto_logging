@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ff400d_ad35775d",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2023-09-29T18:00:09Z",
+      "side": 1,
+      "message": "Nit: It is better if renamed to `LE_AUDIO_CERTIFIED_GROUP_HEALTH_STATUS_BAD`",
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
