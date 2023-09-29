@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d48687_a2495395",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1121403
+      },
+      "writtenOn": "2023-09-29T22:14:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2228b019_7bba15f1",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 8
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5012eaa2_2137bb6c",
@@ -167,6 +191,30 @@
       "side": 1,
       "message": "good suggestion, currently the reason code is not propagated to java layer, and counter metric might not be able to well support this. \nwhen we comes to performance metrics, we can implement this part. it\u0027s on our plan.",
       "parentUuid": "9dffc552_be915e13",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 62
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e535fce2_d317163f",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1121403
+      },
+      "writtenOn": "2023-09-29T22:14:15Z",
+      "side": 1,
+      "message": "In this case, we can do the metrics on C++ as well. \n\nI am thinking more of\n\n```\nLE_AUDIO_ALLOWLIST_DEVICE_HEALTH_STATUS_BAD_INVALID_DB,\nLE_AUDIO_ALLOWLIST_DEVICE_HEALTH_STATUS_BAD_INVALID_CSIS,\nLE_AUDIO_ALLOWLIST_DEVICE_HEALTH_STATUS_BAD_OTHER,\n...\nLE_AUDIO_NONALLOWLIST_DEVICE_HEALTH_STATUS_BAD_INVALID_DB,\nLE_AUDIO_NONALLOWLIST_DEVICE_HEALTH_STATUS_BAD_INVALID_CSIS\nLE_AUDIO_NONALLOWLIST_DEVICE_HEALTH_STATUS_BAD_OTHER\n```\n\nand for groups, it may not make too much sense, since \n\ntrending_bad \u003d \u003e 70% failure\nbad \u003d \u003e 3 consecutive failure\n\nAre we going to have a failure count for each failure\n\nlike\n\n```\nLE_AUDIO_ALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_CIS_FAILED,\nLE_AUDIO_ALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_SIGNALING_FAILED,\nLE_AUDIO_ALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_OTHER\n\nLE_AUDIO_NONALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_CIS_FAILED,\nLE_AUDIO_ALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_SIGNALING_FAILED,\nLE_AUDIO_ALLOWLIST_GROUP_HEALTH_STATUS_BAD_ONCE_OTHER\n```",
+      "parentUuid": "93bd6e62_0ea6a1fb",
       "range": {
         "startLine": 418,
         "startChar": 0,
