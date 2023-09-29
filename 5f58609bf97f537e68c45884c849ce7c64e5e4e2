@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "238319c9_e403e42f",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T23:20:27Z",
+      "side": 1,
+      "message": "thanks for confirming this Palash, mark as resolved.",
+      "parentUuid": "a67bcb40_e027ae33",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 8
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5012eaa2_2137bb6c",
