@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a67bcb40_e027ae33",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2023-09-29T23:16:58Z",
+      "side": 1,
+      "message": "Yeah I agree with Rongxuan here, there is a group range has 1 tab and subgroup 2 tab. Let\u0027s keep this consistent with the rest of the file",
+      "parentUuid": "2228b019_7bba15f1",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 8
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5012eaa2_2137bb6c",
         "filename": "stats/enums/bluetooth/enums.proto",
         "patchSetId": 2
