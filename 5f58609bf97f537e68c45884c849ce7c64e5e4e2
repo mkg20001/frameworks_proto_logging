@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2228b019_7bba15f1",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T19:54:26Z",
+      "side": 1,
+      "message": "if i understand this correctly, my indent is aligned with the section above. group range has 1 tab, subgroup 2 tab. I saw the section above has wrong indent and it got fixed in the internal branch, I\u0027m not touching the other range to avoid merge conflict.",
+      "parentUuid": "232f65fb_8112178a",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 408,
+        "endChar": 8
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5012eaa2_2137bb6c",
         "filename": "stats/enums/bluetooth/enums.proto",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-29T18:25:23Z",
       "side": 1,
       "message": "could you elaborate on what trending bad mean?",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 59
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5ec95ee_9ca9835f",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T19:54:26Z",
+      "side": 1,
+      "message": "it means starting stream failing rate \u003e 70%, updated the description to clarify the mapping.",
+      "parentUuid": "5012eaa2_2137bb6c",
       "range": {
         "startLine": 414,
         "startChar": 8,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f93b5e8f_1815ead6",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T19:54:26Z",
+      "side": 1,
+      "message": "thank you Palash for catching this, my typo :p, fixed.",
+      "parentUuid": "d1ff400d_ad35775d",
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dffc552_be915e13",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-09-29T18:25:23Z",
       "side": 1,
       "message": "Referring to `packages/modules/Bluetooth/system/bta/le_audio/le_audio_health_status.h`\n\ndo we want to log specific reason like\n\n```\nenum class LeAudioHealthDeviceStatType {\n  /* Should be used whenever LeAudio device has invalid GATT Database structure.\n   * e.g. missing mandatory services or characteristics. */\n  INVALID_DB \u003d 0,\n  /* Should be used when LeAudio devie GATT DB contains at least mandatory\n   * services and characteristics. */\n  VALID_DB,\n  /* Should be used when device expose CSIS support but service is not valid. */\n  INVALID_CSIS,\n  /* Should be used when device expose CSIS and Group ID has been\n   * successfully assigned to device. */\n  VALID_CSIS,\n};\n\n```\n\nand\n\n```\nenum class LeAudioHealthDeviceStatType {\n  /* Should be used whenever LeAudio device has invalid GATT Database structure.\n   * e.g. missing mandatory services or characteristics. */\n  INVALID_DB \u003d 0,\n  /* Should be used when LeAudio devie GATT DB contains at least mandatory\n   * services and characteristics. */\n  VALID_DB,\n  /* Should be used when device expose CSIS support but service is not valid. */\n  INVALID_CSIS,\n  /* Should be used when device expose CSIS and Group ID has been\n   * successfully assigned to device. */\n  VALID_CSIS,\n};\n\n```",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 62
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93bd6e62_0ea6a1fb",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T19:54:26Z",
+      "side": 1,
+      "message": "good suggestion, currently the reason code is not propagated to java layer, and counter metric might not be able to well support this. \nwhen we comes to performance metrics, we can implement this part. it\u0027s on our plan.",
+      "parentUuid": "9dffc552_be915e13",
       "range": {
         "startLine": 418,
         "startChar": 0,
