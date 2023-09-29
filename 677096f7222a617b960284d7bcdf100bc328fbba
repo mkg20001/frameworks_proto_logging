@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c567dfec_8587ef44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T23:23:11Z",
+      "side": 1,
+      "message": "hi Muhammad, we\u0027re adding those Le Audio counter metrics for Bluetooth team, could you help with the owner\u0027s review? thank you.",
+      "revId": "677096f7222a617b960284d7bcdf100bc328fbba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
