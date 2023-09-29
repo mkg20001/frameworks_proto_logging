@@ -247,6 +247,30 @@
       },
       "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ece46fd_8a659130",
+        "filename": "stats/enums/bluetooth/enums.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1981586
+      },
+      "writtenOn": "2023-09-29T23:02:49Z",
+      "side": 1,
+      "message": "clarified offline, updated with a new version to resolve this.",
+      "parentUuid": "598cd9a8_f60c788f",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 62
+      },
+      "revId": "5f58609bf97f537e68c45884c849ce7c64e5e4e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
