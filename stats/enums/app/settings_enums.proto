@@ -3472,6 +3472,10 @@ enum PageId {
     // OPEN: Settings > Developer Options > Snoop Logger Filters
     // CATEGORY: SETTINGS
     SETTINGS_SNOOP_LOGGER_DASHBOARD = 2014;
+
+    // OPEN: Settings > Developer Options > Enable 16k pages
+    // CATEGORY: SETTINGS
+    DIALOG_ENABLE_16K_PAGES = 2042;
 }
 
 // Battery Saver schedule types.

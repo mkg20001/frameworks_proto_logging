@@ -157,6 +157,8 @@ enum ArtDatumDeltaId {
     // denominator from ART_DATUM_GC_FULL_HEAP_TRACING_THROUGHPUT_AVG_MB_PER_SEC
     // and ART_DATUM_GC_FULL_HEAP_COLLECTION_THROUGHPUT_AVG_MB_PER_SEC
     ART_DATUM_DELTA_GC_FULL_HEAP_COLLECTION_DURATION_MS = 36;
+    // The number of milliseconds since the last time metrics were reported.
+    ART_DATUM_DELTA_TIME_ELAPSED_MS = 37;
 
     reserved 1, 2, 4, 7, 10, 11, 12, 13, 14, 15, 18, 19, 20, 22, 23, 24, 25, 26, 27;
 }
@@ -206,6 +208,7 @@ enum ArtGcCollectorType {
     ART_GC_COLLECTOR_TYPE_SEMI_SPACE = 4;
     ART_GC_COLLECTOR_TYPE_CONCURRENT_COPYING = 5;
     ART_GC_COLLECTOR_TYPE_CONCURRENT_COPYING_BACKGROUND = 6;
+    ART_GC_COLLECTOR_TYPE_CONCURRENT_MARK_COMPACT_BACKGROUND = 7;
 }
 
 // Indicates support for userfaultfd and minor fault mode.
