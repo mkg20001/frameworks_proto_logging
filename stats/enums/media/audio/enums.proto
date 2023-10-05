@@ -388,3 +388,60 @@ enum Usage {
   AUDIO_USAGE_VEHICLE_STATUS = 1002;
   AUDIO_USAGE_ANNOUNCEMENT = 1003;
 }
+
+// The implementation of aaudio.
+enum CallerPath {
+  CALLER_PATH_UNKNOWN = 0;
+  CALLER_PATH_LEGACY = 1;
+  CALLER_PATH_MMAP = 2;
+}
+
+// The direction of the stream.
+// See aaudio_direction_t in
+// frameworks/av/media/libaaudio/include/aaudio/AAudio.h
+// The Direction values are different from aaudio_direction_t
+// to avoid having 0 at the first value
+// since first value will be used as default value.
+// See lookup<AAUDIO_DIRECTION> in
+// frameworks/av/services/mediametrics/AudioTypes.cpp
+// for conversion from aaudio_direction_t to Direction.
+enum Direction {
+  // The direction is unknown.
+  DIRECTION_UNKNOWN = 0;
+  // Audio data will travel out of the device.
+  DIRECTION_OUTPUT = 1;
+  // Audio data will travel into the device.
+  DIRECTION_INPUT = 2;
+}
+
+// The performance mode.
+// See aaudio_performance_mode_t in
+// frameworks/av/media/libaaudio/include/aaudio/AAudio.h
+enum PerformanceMode {
+  // The performance mode is unknown.
+  PERFORMANCE_MODE_UNKNOWN = 0;
+  // No particular performance mode needs. Default.
+  PERFORMANCE_MODE_NONE = 10;
+  // Extending battery life is more important than low latency.
+  PERFORMANCE_MODE_POWER_SAVING = 11;
+  // Reducing latency is more important than battery life.
+  PERFORMANCE_MODE_LOW_LATENCY = 12;
+}
+
+// The mode requested for sharing the device
+// See aaudio_sharing_mode_t in
+// frameworks/av/media/libaaudio/include/aaudio/AAudio.h
+// The SharingMode values are different from aaudio_direction_t
+// to avoid having 0 at the first
+// value since first value will be used as default value.
+// See lookup<AAUDIO_SHARING_MODE> in
+// frameworks/av/services/mediametrics/AudioTypes.cpp
+// for conversion from aaudio_sharing_mode_t to SharingMode.
+enum SharingMode {
+  // The sharing mode is unknown
+  SHARING_MODE_UNKNOWN = 0;
+  // This will be the only stream using a particular source or sink.
+  SHARING_MODE_EXCLUSIVE = 1;
+  // Multiple application will be mixed by the AAudio server.
+  SHARING_MODE_SHARED = 2;
+}

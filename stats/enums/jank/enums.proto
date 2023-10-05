@@ -91,8 +91,18 @@ enum InteractionType {
     LAUNCHER_APP_SWIPE_TO_RECENTS = 67;
     LAUNCHER_CLOSE_ALL_APPS_SWIPE = 68;
     LAUNCHER_CLOSE_ALL_APPS_TO_HOME = 69;
+    IME_INSETS_ANIMATION = 70;
     LOCKSCREEN_CLOCK_MOVE_ANIMATION = 71;
+    LAUNCHER_OPEN_SEARCH_RESULT = 72;
     reserved 2;
+}
+
+enum DisplayResolution {
+    UNKNOWN_RESOLUTION = 0;
+    SD = 1;  // x < 1280×720
+    HD = 2;  // 1280×720 <= x < 1920x1080
+    FHD = 3; // 1920x1080 <= x < 2560x1440
+    QHD = 4; // 2560x1440 <= x
 }
 
 /**
