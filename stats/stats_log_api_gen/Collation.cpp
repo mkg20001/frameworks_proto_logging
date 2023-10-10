@@ -156,6 +156,86 @@ static void addAnnotationToAtomDecl(AtomDecl* atomDecl, const int fieldNumber,
             make_shared<Annotation>(annotationId, atomDecl->code, annotationType, annotationValue));
 }
 
+static int collate_field_restricted_annotations(AtomDecl* atomDecl, const FieldDescriptor* field,
+                                                const int fieldNumber) {
+    int errorCount = 0;
+
+    if (field->options().HasExtension(os::statsd::field_restriction_option)) {
+        if (!atomDecl->restricted) {
+            print_error(field,
+                        "field_restriction_option annotations must be from an atom with "
+                        "a restriction_category annotation: '%s'\n", atomDecl->message.c_str());
+            errorCount++;
+        }
+
+        const os::statsd::FieldRestrictionOption& fieldRestrictionOption =
+                field->options().GetExtension(os::statsd::field_restriction_option);
+
+        if (fieldRestrictionOption.peripheral_device_info()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.app_usage()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE, ANNOTATION_TYPE_BOOL,
+                                    AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.app_activity()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.health_connect()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.accessibility()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.system_search()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.user_engagement()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.ambient_sensing()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+
+        if (fieldRestrictionOption.demographic_classification()) {
+            addAnnotationToAtomDecl(atomDecl, fieldNumber,
+                                    ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION,
+                                    ANNOTATION_TYPE_BOOL, AnnotationValue(true));
+        }
+    }
+
+    if (field->options().HasExtension(os::statsd::restriction_category)) {
+        print_error(field,
+                    "restriction_category must be an atom-level annotation: '%s'\n",
+                    atomDecl->message.c_str());
+        errorCount++;
+    }
+
+    return errorCount;
+}
+
 static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* field,
                                      const int fieldNumber, const java_type_t& javaType) {
     int errorCount = 0;
@@ -258,6 +338,8 @@ static int collate_field_annotations(AtomDecl* atomDecl, const FieldDescriptor* 
         }
     }
 
+    errorCount += collate_field_restricted_annotations(atomDecl, field, fieldNumber);
+
     if (field->options().GetExtension(os::statsd::is_uid) == true) {
         if (javaType != JAVA_TYPE_INT && javaType != JAVA_TYPE_INT_ARRAY) {
             print_error(field,
@@ -339,6 +421,13 @@ int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>
 
         if (isBinaryField && javaType != JAVA_TYPE_BYTE_ARRAY) {
             print_error(field, "Cannot mark field %s as bytes.\n", field->name().c_str());
+            errorCount++;
+            continue;
+        }
+
+        if (atomDecl->restricted && !is_primitive_field(javaType)) {
+            print_error(field, "Restricted atom '%s' cannot have nonprimitive field: '%s'\n",
+                        atomDecl->message.c_str(), field->name().c_str());
             errorCount++;
             continue;
         }
@@ -514,6 +603,22 @@ static int collate_from_field_descriptor(const FieldDescriptor* atomField, const
         }
     }
 
+    if (atomField->options().HasExtension(os::statsd::restriction_category)) {
+        if (atomType == ATOM_TYPE_PULLED) {
+            print_error(atomField,
+                        "Restricted atoms cannot be pulled: '%s'\n",
+                        atomField->name().c_str());
+            errorCount++;
+            return errorCount;
+        }
+        const int restrictionCategory = atomField->options()
+                                        .GetExtension(os::statsd::restriction_category);
+        atomDecl.get()->restricted = true;
+        addAnnotationToAtomDecl(atomDecl.get(), ATOM_ID_FIELD_NUMBER,
+                                ANNOTATION_ID_RESTRICTION_CATEGORY, ANNOTATION_TYPE_INT,
+                                AnnotationValue(restrictionCategory));
+    }
+
     vector<java_type_t> signature;
     errorCount += collate_atom(atom, atomDecl.get(), &signature);
     if (!atomDecl->primaryFields.empty() && atomDecl->exclusiveField == 0) {
@@ -539,6 +644,13 @@ static int collate_from_field_descriptor(const FieldDescriptor* atomField, const
         populateFieldNumberToAtomDeclSet(nonChainedAtomDecl, &nonChainedFieldNumberToAtomDeclSet);
 
         atoms->non_chained_decls.insert(nonChainedAtomDecl);
+    }
+
+    if (atomField->options().HasExtension(os::statsd::field_restriction_option)) {
+        print_error(atomField,
+                    "field_restriction_option must be a field-level annotation: '%s'\n",
+                    atomField->name().c_str());
+        errorCount++;
     }
 
     return errorCount;

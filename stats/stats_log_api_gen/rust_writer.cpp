@@ -226,9 +226,10 @@ static void write_rust_annotation_constants(FILE* out) {
     fprintf(out, "#[repr(u8)]\n");
     fprintf(out, "enum Annotations {\n");
 
-    const map<AnnotationId, string>& ANNOTATION_ID_CONSTANTS = get_annotation_id_constants();
-    for (const auto& [id, name] : ANNOTATION_ID_CONSTANTS) {
-        fprintf(out, "    %s = %hhu,\n", make_camel_case_name(name).c_str(), id);
+    const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
+            get_annotation_id_constants();
+    for (const auto& [id, annotation] : ANNOTATION_ID_CONSTANTS) {
+        fprintf(out, "    %s = %hhu,\n", make_camel_case_name(annotation.name).c_str(), id);
     }
     fprintf(out, "}\n\n");
 }
@@ -237,7 +238,8 @@ static void write_rust_annotation_constants(FILE* out) {
 // Note that argIndex is 1 for the first argument.
 static void write_annotations(FILE* out, int argIndex, const AtomDecl& atomDecl,
                               const string& methodPrefix, const string& methodSuffix) {
-    const map<AnnotationId, string>& ANNOTATION_ID_CONSTANTS = get_annotation_id_constants();
+    const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
+            get_annotation_id_constants();
     auto annotationsIt = atomDecl.fieldNumberToAnnotations.find(argIndex);
     if (annotationsIt == atomDecl.fieldNumberToAnnotations.end()) {
         return;
@@ -245,7 +247,8 @@ static void write_annotations(FILE* out, int argIndex, const AtomDecl& atomDecl,
     int resetState = -1;
     int defaultState = -1;
     for (const shared_ptr<Annotation>& annotation : annotationsIt->second) {
-        const string& annotationConstant = ANNOTATION_ID_CONSTANTS.at(annotation->annotationId);
+        const string& annotationConstant =
+                ANNOTATION_ID_CONSTANTS.at(annotation->annotationId).name;
         switch (annotation->type) {
             case ANNOTATION_TYPE_INT:
                 if (ANNOTATION_ID_TRIGGER_STATE_RESET == annotation->annotationId) {
@@ -274,7 +277,7 @@ static void write_annotations(FILE* out, int argIndex, const AtomDecl& atomDecl,
     }
     if (defaultState != -1 && resetState != -1) {
         const string& annotationConstant =
-                ANNOTATION_ID_CONSTANTS.at(ANNOTATION_ID_TRIGGER_STATE_RESET);
+                ANNOTATION_ID_CONSTANTS.at(ANNOTATION_ID_TRIGGER_STATE_RESET).name;
         const AtomField& field = atomDecl.fields[argIndex - 1];
         if (field.javaType == JAVA_TYPE_ENUM) {
             fprintf(out, "            if %s as i32 == %d {\n",
