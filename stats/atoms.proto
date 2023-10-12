@@ -1054,7 +1054,7 @@ message Atom {
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
 
     // Pulled events will start at field 10000.
-    // Next: 10191
+    // Next: 10201
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -1282,6 +1282,7 @@ message Atom {
     extensions 10189; // CachedAppsHighWaterMark cached_apps_high_watermark
     extensions 10190; // WifiAwareCapabilities wifi_aware_capabilities
     extensions 10193; // WifiModuleInfo wifi_module_info
+    extensions 10200; // ProxyBytesTransferByFgBg proxy_bytes_transfer_by_fg_bg
     extensions 99999; // Atom99999 atom_99999
 
     // DO NOT USE field numbers above 100,000 in AOSP.

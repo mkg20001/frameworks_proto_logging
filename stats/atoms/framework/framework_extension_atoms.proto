@@ -28,6 +28,7 @@ extend Atom {
     optional BalAllowed bal_allowed = 632 [(module) = "framework"];
     optional InTaskActivityStarted in_task_activity_started = 685 [(module) = "framework"];
     optional CachedAppsHighWaterMark cached_apps_high_watermark = 10189 [(module) = "framework"];
+    optional ProxyBytesTransferByFgBg proxy_bytes_transfer_by_fg_bg = 10200 [(module) = "framework"];
 }
 
 /**
@@ -133,4 +134,24 @@ message CachedAppsHighWaterMark {
 
   // The average frozen time (now - last_frozen) in current frozen apps.
   optional int32 average_frozen_time_in_seconds = 12;
+}
+
+/**
+ * Pulls bytes transferred via network with TYPE_PROXY from NetworkStats. Each pull produces atoms
+ * that record stats of all processes that used sysproxy since device boot.
+ * Network with TYPE_PROXY is used on Wear OS to enable internet access via Bluetooth when the
+ * companion phone is connected to the watch.
+ */
+message ProxyBytesTransferByFgBg {
+  optional int32 uid = 1 [(is_uid) = true];
+
+  optional bool is_foreground = 2;
+
+  optional int64 rx_bytes = 3;
+
+  optional int64 rx_packets = 4;
+
+  optional int64 tx_bytes = 5;
+
+  optional int64 tx_packets = 6;
 }
