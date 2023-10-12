@@ -30,7 +30,7 @@ extend Atom {
     optional TestRestrictedAtomReported test_restricted_atom_reported = 672
     [(module) = "cts", (restriction_category) = RESTRICTION_DIAGNOSTIC];
     optional StatsSocketLossReported stats_socket_loss_reported =
-            752 [(module) = "statsdsocket"];
+            752 [(module) = "statsdsocket", (module) = "statsd"];
 }
 
 message TestExtensionAtomNestedMessage {
