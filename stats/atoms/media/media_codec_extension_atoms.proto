@@ -32,6 +32,9 @@ extend Atom {
 
   optional MediaCodecStopped media_codec_stopped = 642
         [(module) = "framework", (module) = "media_metrics"];
+
+  optional MediaCodecRendered media_codec_rendered = 684
+        [(module) = "framework", (module) = "media_metrics"];
 }
 
 /**
@@ -193,4 +196,95 @@ message MediaCodecStopped {
 
     // Time elapsed between codec start to stop, in microseconds
     optional int64 codec_operation_duration_ms = 12;
+}
+
+/**
+ * MediaCodec logs this event when a codec that has rendered video to the display has been closed.
+ *
+ * Logged from:
+ *   frameworks/av/media/libstagefright/MediaCodec.cpp
+ */
+message MediaCodecRendered {
+    // Application/Process that owns the media codec.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    // Randomly generated Codec ID for:
+    // - finding the corresponding MediaCodecReported for more codec configuration parameters
+    optional int64 codec_id = 2;
+
+    // Framework generated random temporary id for joining related atoms from media playback.
+    optional string log_session_id = 3;
+
+    //
+    // DIMENSIONS
+    //
+    // Whether or not the codec was a hardware codec.
+    optional int32 is_hardware = 4;
+    // Whether or not a secure codec was used.
+    optional int32 is_secure = 5;
+    // Whether or not the codec is tunneled.
+    optional int32 is_tunneled = 6;
+    // The type of codec that was used.
+    optional android.media.codec.Codec codec = 7;
+    // The maximum resolution during playback.
+    optional android.media.codec.Resolution resolution = 8;
+    // The bitrate.
+    optional android.media.codec.Bitrate bitrate = 9;
+    // The framerate as computed by the presentation timestamps in the content stream.
+    optional android.media.codec.Framerate content_framerate = 10;
+    // The framerate as computed by the presentation timestamps.
+    optional android.media.codec.Framerate actual_framerate = 11;
+    // Any HDR format used during playback.
+    optional android.media.codec.HdrFormat hdr_format = 12;
+
+    //
+    // SINGULARS
+    //
+    optional int64 first_render_timestamp_ns = 13;
+    // The playback duration in seconds.
+    optional int64 playback_duration_seconds = 14;
+    // The number of total frames output by the decoder.
+    optional int64 frames_total = 15;
+    // The number of frames sent to SurfaceFlinger for rendering.
+    optional int64 frames_released = 16;
+    // The number of frames rendered sent to Composer HAL for rendering.
+    optional int64 frames_rendered = 17;
+    // The number of frames dropped.
+    optional int64 frames_dropped = 18;
+    // The number of frames skipped by the app.
+    optional int64 frames_skipped = 19;
+    // The frame drop rate.
+    optional float frame_drop_rate = 20;
+    // The frame skip rate.
+    optional float frame_skip_rate = 21;
+    // The frame skip+drop rate.
+    optional float frame_skip_drop_rate = 22;
+
+    //
+    // FREEZE
+    //
+    // The overall freeze score.
+    optional int64 freeze_score = 23;
+    // The duration of freezes divided by the total duration of playback.
+    optional float freeze_rate = 24;
+    // The histogram of freeze durations.
+    repeated int32 freeze_duration_ms_histogram = 25;
+    // The histogram bucket limits for freeze durations.
+    repeated int32 freeze_duration_ms_histogram_buckets = 26;
+    // The histogram of durations between freezes.
+    repeated int32 freeze_distance_ms_histogram = 27;
+    // The histogram bucket limits for durations between freezes.
+    repeated int32 freeze_distance_ms_histogram_buckets = 28;
+
+    //
+    // JUDDER
+    //
+    // The overall judder score.
+    optional int64 judder_score = 29;
+    // The number of frames that have judder divided by the total number of frames.
+    optional float judder_rate = 30;
+    // The histogram of judder scores for each frame.
+    repeated int32 judder_score_histogram = 31;
+    // The histogram bucket limits for judder scores.
+    repeated int32 judder_score_histogram_buckets = 32;
 }

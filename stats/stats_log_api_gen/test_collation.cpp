@@ -114,6 +114,12 @@ protected:
 
             mPushedAndPulledAtoms = PushedAndPulledAtoms::descriptor();
             mVendorAtoms = VendorAtoms::descriptor();
+            mGoodRestrictedAtoms = GoodRestrictedAtoms::descriptor();
+            mBadRestrictedAtoms1 = BadRestrictedAtoms1::descriptor();
+            mBadRestrictedAtoms2 = BadRestrictedAtoms2::descriptor();
+            mBadRestrictedAtoms3 = BadRestrictedAtoms3::descriptor();
+            mBadRestrictedAtoms4 = BadRestrictedAtoms4::descriptor();
+            mBadRestrictedAtoms5 = BadRestrictedAtoms5::descriptor();
         } else {
             mEvent = mFileDescriptor->FindMessageTypeByName("Event");
             mIntAtom = mFileDescriptor->FindMessageTypeByName("IntAtom");
@@ -135,6 +141,12 @@ protected:
             mModuleAtoms = mFileDescriptor->FindMessageTypeByName("ModuleAtoms");
             mPushedAndPulledAtoms = mFileDescriptor->FindMessageTypeByName("PushedAndPulledAtoms");
             mVendorAtoms = mFileDescriptor->FindMessageTypeByName("VendorAtoms");
+            mGoodRestrictedAtoms = mFileDescriptor->FindMessageTypeByName("GoodRestrictedAtoms");
+            mBadRestrictedAtoms1 = mFileDescriptor->FindMessageTypeByName("BadRestrictedAtoms1");
+            mBadRestrictedAtoms2 = mFileDescriptor->FindMessageTypeByName("BadRestrictedAtoms2");
+            mBadRestrictedAtoms3 = mFileDescriptor->FindMessageTypeByName("BadRestrictedAtoms3");
+            mBadRestrictedAtoms4 = mFileDescriptor->FindMessageTypeByName("BadRestrictedAtoms4");
+            mBadRestrictedAtoms5 = mFileDescriptor->FindMessageTypeByName("BadRestrictedAtoms5");
         }
     }
 
@@ -158,6 +170,12 @@ protected:
     const Descriptor* mModuleAtoms;
     const Descriptor* mPushedAndPulledAtoms;
     const Descriptor* mVendorAtoms;
+    const Descriptor* mGoodRestrictedAtoms;
+    const Descriptor* mBadRestrictedAtoms1;
+    const Descriptor* mBadRestrictedAtoms2;
+    const Descriptor* mBadRestrictedAtoms3;
+    const Descriptor* mBadRestrictedAtoms4;
+    const Descriptor* mBadRestrictedAtoms5;
 };
 
 INSTANTIATE_TEST_SUITE_P(ProtoProvider, CollationTest, testing::Values(true, false));
@@ -588,6 +606,186 @@ TEST(CollationTest, CollateExtensionAtoms) {
     atomIt++;
 
     EXPECT_EQ(atoms.decls.end(), atomIt);
+}
+
+TEST_P(CollationTest, CollateGoodRestrictedAtoms) {
+    Atoms atoms;
+    const int errorCount = collate_atoms(mGoodRestrictedAtoms, DEFAULT_MODULE_NAME, &atoms);
+
+    EXPECT_EQ(0, errorCount);
+    ASSERT_EQ(1ul, atoms.signatureInfoMap.size());
+    ASSERT_EQ(0ul, atoms.pulledAtomsSignatureInfoMap.size());
+
+    EXPECT_MAP_CONTAINS_SIGNATURE(atoms.signatureInfoMap, JAVA_TYPE_LONG,
+                                                          JAVA_TYPE_LONG,
+                                                          JAVA_TYPE_INT,
+                                                          JAVA_TYPE_BOOLEAN,
+                                                          JAVA_TYPE_STRING,
+                                                          JAVA_TYPE_INT,
+                                                          JAVA_TYPE_INT,
+                                                          JAVA_TYPE_FLOAT,
+                                                          JAVA_TYPE_INT);
+
+    // Validate signatureInfoMap
+    FieldNumberToAtomDeclSet fieldNumberToAtomDeclSet = atoms.signatureInfoMap.begin()->second;
+    ASSERT_EQ(10ul, fieldNumberToAtomDeclSet.size());
+    const AtomDeclSet* atomDeclSet = &fieldNumberToAtomDeclSet[ATOM_ID_FIELD_NUMBER];
+    ASSERT_EQ(2ul, atomDeclSet->size());
+    AtomDeclSet::const_iterator atomDeclSetIt = atomDeclSet->begin();
+
+    const AtomDecl* atomDecl = atomDeclSetIt->get();
+    EXPECT_EQ(1, atomDecl->code);
+    EXPECT_EQ("pushed_atom_1", atomDecl->name);
+    EXPECT_EQ("GoodRestrictedAtom", atomDecl->message);
+    FieldNumberToAnnotations fieldNumberToAnnotations = atomDecl->fieldNumberToAnnotations;
+    ASSERT_EQ(10ul, fieldNumberToAnnotations.size());
+
+    const AnnotationSet* annotationSet = &fieldNumberToAnnotations[ATOM_ID_FIELD_NUMBER];
+    ASSERT_EQ(1ul, annotationSet->size());
+    Annotation* annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_RESTRICTION_CATEGORY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_INT, annotation->type);
+    EXPECT_EQ(os::statsd::RESTRICTION_DIAGNOSTIC, annotation->value.intValue);
+
+    annotationSet = &fieldNumberToAnnotations[1];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[2];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[3];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[4];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[5];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[6];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[7];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[8];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+
+    annotationSet = &fieldNumberToAnnotations[9];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_BOOL, annotation->type);
+    EXPECT_TRUE(annotation->value.boolValue);
+    atomDeclSetIt++;
+
+    atomDecl = atomDeclSetIt->get();
+    EXPECT_EQ(2, atomDecl->code);
+    EXPECT_EQ("pushed_atom_2", atomDecl->name);
+    EXPECT_EQ("GoodRestrictedAtom", atomDecl->message);
+    fieldNumberToAnnotations = atomDecl->fieldNumberToAnnotations;
+    ASSERT_EQ(10ul, fieldNumberToAnnotations.size());
+    annotationSet = &fieldNumberToAnnotations[ATOM_ID_FIELD_NUMBER];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_RESTRICTION_CATEGORY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_INT, annotation->type);
+    EXPECT_EQ(os::statsd::RESTRICTION_SYSTEM_INTELLIGENCE, annotation->value.intValue);
+    atomDeclSetIt++;
+    EXPECT_EQ(atomDeclSet->end(), atomDeclSetIt);
+
+    // Validate decls
+    ASSERT_EQ(2ul, atoms.decls.size());
+    AtomDeclSet::const_iterator atomIt = atoms.decls.begin();
+
+    EXPECT_EQ(1, (*atomIt)->code);
+    EXPECT_EQ("pushed_atom_1", (*atomIt)->name);
+    EXPECT_EQ("GoodRestrictedAtom", (*atomIt)->message);
+    fieldNumberToAnnotations = (*atomIt)->fieldNumberToAnnotations;
+    ASSERT_EQ(10ul, fieldNumberToAnnotations.size());
+
+    annotationSet = &fieldNumberToAnnotations[ATOM_ID_FIELD_NUMBER];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_RESTRICTION_CATEGORY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_INT, annotation->type);
+    EXPECT_EQ(os::statsd::RESTRICTION_DIAGNOSTIC, annotation->value.intValue);
+    atomIt++;
+
+    EXPECT_EQ(2, (*atomIt)->code);
+    EXPECT_EQ("pushed_atom_2", (*atomIt)->name);
+    EXPECT_EQ("GoodRestrictedAtom", (*atomIt)->message);
+    fieldNumberToAnnotations = (*atomIt)->fieldNumberToAnnotations;
+    ASSERT_EQ(10ul, fieldNumberToAnnotations.size());
+    annotationSet = &fieldNumberToAnnotations[ATOM_ID_FIELD_NUMBER];
+    ASSERT_EQ(1ul, annotationSet->size());
+    annotation = annotationSet->begin()->get();
+    EXPECT_EQ(ANNOTATION_ID_RESTRICTION_CATEGORY, annotation->annotationId);
+    EXPECT_EQ(ANNOTATION_TYPE_INT, annotation->type);
+    EXPECT_EQ(os::statsd::RESTRICTION_SYSTEM_INTELLIGENCE, annotation->value.intValue);
+    atomIt++;
+    EXPECT_EQ(atoms.decls.end(), atomIt);
+
+    // Validate non_chained_decls
+    ASSERT_EQ(0ul, atoms.non_chained_decls.size());
+
+    // Validate nonChainedSignatureInfoMap
+    ASSERT_EQ(0ul, atoms.nonChainedSignatureInfoMap.size());
+}
+
+TEST_P(CollationTest, CollateBadRestrictedAtoms) {
+    Atoms atoms;
+    // Nonprimitive fields
+    int errorCount = collate_atoms(mBadRestrictedAtoms1, DEFAULT_MODULE_NAME, &atoms);
+    EXPECT_EQ(6, errorCount);
+
+    // Restriction category on atom field
+    errorCount = collate_atoms(mBadRestrictedAtoms2, DEFAULT_MODULE_NAME, &atoms);
+    EXPECT_EQ(1, errorCount);
+
+    // Field restriction without restriction category
+    errorCount = collate_atoms(mBadRestrictedAtoms3, DEFAULT_MODULE_NAME, &atoms);
+    EXPECT_EQ(9, errorCount);
+
+    // Field restriction option on top level atom field
+    errorCount = collate_atoms(mBadRestrictedAtoms4, DEFAULT_MODULE_NAME, &atoms);
+    EXPECT_EQ(1, errorCount);
+
+    // Pulled restricted atoms
+    errorCount = collate_atoms(mBadRestrictedAtoms5, DEFAULT_MODULE_NAME, &atoms);
+    EXPECT_EQ(2, errorCount);
 }
 
 }  // namespace stats_log_api_gen

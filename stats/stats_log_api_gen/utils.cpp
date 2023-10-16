@@ -48,19 +48,82 @@ void build_non_chained_decl_map(const Atoms& atoms,
     }
 }
 
-const map<AnnotationId, string>& get_annotation_id_constants() {
-    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS = new map<AnnotationId, string>{
-            {ANNOTATION_ID_IS_UID, "ANNOTATION_ID_IS_UID"},
-            {ANNOTATION_ID_TRUNCATE_TIMESTAMP, "ANNOTATION_ID_TRUNCATE_TIMESTAMP"},
-            {ANNOTATION_ID_PRIMARY_FIELD, "ANNOTATION_ID_PRIMARY_FIELD"},
-            {ANNOTATION_ID_EXCLUSIVE_STATE, "ANNOTATION_ID_EXCLUSIVE_STATE"},
-            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID, "ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID"},
-            {ANNOTATION_ID_DEFAULT_STATE, "ANNOTATION_ID_DEFAULT_STATE"},
-            {ANNOTATION_ID_TRIGGER_STATE_RESET, "ANNOTATION_ID_TRIGGER_STATE_RESET"},
-            {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"},
+const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants() {
+    static const map<AnnotationId, AnnotationStruct>* ANNOTATION_ID_CONSTANTS =
+            new map<AnnotationId, AnnotationStruct>{
+            {ANNOTATION_ID_IS_UID,
+             AnnotationStruct("ANNOTATION_ID_IS_UID", API_S)},
+            {ANNOTATION_ID_TRUNCATE_TIMESTAMP,
+             AnnotationStruct("ANNOTATION_ID_TRUNCATE_TIMESTAMP", API_S)},
+            {ANNOTATION_ID_PRIMARY_FIELD,
+             AnnotationStruct("ANNOTATION_ID_PRIMARY_FIELD", API_S)},
+            {ANNOTATION_ID_EXCLUSIVE_STATE,
+             AnnotationStruct("ANNOTATION_ID_EXCLUSIVE_STATE", API_S)},
+            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID,
+             AnnotationStruct("ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID", API_S)},
+            {ANNOTATION_ID_DEFAULT_STATE,
+             AnnotationStruct("ANNOTATION_ID_DEFAULT_STATE", API_S)},
+            {ANNOTATION_ID_TRIGGER_STATE_RESET,
+             AnnotationStruct("ANNOTATION_ID_TRIGGER_STATE_RESET", API_S)},
+            {ANNOTATION_ID_STATE_NESTED,
+             AnnotationStruct("ANNOTATION_ID_STATE_NESTED", API_S)},
+            {ANNOTATION_ID_RESTRICTION_CATEGORY,
+             AnnotationStruct("ANNOTATION_ID_RESTRICTION_CATEGORY", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING", API_U)},
+            {ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION,
+             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION", API_U)},
     };
 
     return *ANNOTATION_ID_CONSTANTS;
+}
+
+string get_java_build_version_code(int minApiLevel) {
+    switch (minApiLevel) {
+        case API_Q:
+            return "Build.VERSION_CODES.Q";
+        case API_R:
+            return "Build.VERSION_CODES.R";
+        case API_S:
+            return "Build.VERSION_CODES.S";
+        case API_S_V2:
+            return "Build.VERSION_CODES.S_V2";
+        case API_T:
+            return "Build.VERSION_CODES.TIRAMISU";
+        case API_U:
+            return "Build.VERSION_CODES.UPSIDE_DOWN_CAKE";
+        default:
+            return "Build.VERSION_CODES.CUR_DEVELOPMENT";
+    }
+}
+
+string get_restriction_category_str(int annotationValue) {
+    switch (annotationValue) {
+        case os::statsd::RestrictionCategory::RESTRICTION_DIAGNOSTIC:
+            return "RESTRICTION_CATEGORY_DIAGNOSTIC";
+        case os::statsd::RestrictionCategory::RESTRICTION_SYSTEM_INTELLIGENCE:
+            return "RESTRICTION_CATEGORY_SYSTEM_INTELLIGENCE";
+        case os::statsd::RestrictionCategory::RESTRICTION_AUTHENTICATION:
+            return "RESTRICTION_CATEGORY_AUTHENTICATION";
+        case os::statsd::RestrictionCategory::RESTRICTION_FRAUD_AND_ABUSE:
+            return "RESTRICTION_CATEGORY_FRAUD_AND_ABUSE";
+        default:
+            return "";
+    }
 }
 
 /**
@@ -167,6 +230,20 @@ bool is_repeated_field(java_type_t type) {
         case JAVA_TYPE_LONG_ARRAY:
         case JAVA_TYPE_STRING_ARRAY:
         case JAVA_TYPE_ENUM_ARRAY:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool is_primitive_field(java_type_t type) {
+    switch (type) {
+        case JAVA_TYPE_BOOLEAN:
+        case JAVA_TYPE_INT:
+        case JAVA_TYPE_LONG:
+        case JAVA_TYPE_FLOAT:
+        case JAVA_TYPE_STRING:
+        case JAVA_TYPE_ENUM:
             return true;
         default:
             return false;
@@ -567,6 +644,28 @@ int write_java_work_source_methods(FILE* out, const SignatureInfoMap& signatureI
         fprintf(out, "    }\n");          // close method
     }
     return 0;
+}
+
+bool contains_restricted(const AtomDeclSet& atomDeclSet) {
+    for (const auto& decl : atomDeclSet) {
+        if (decl->restricted) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool requires_api_needed(const AtomDeclSet& atomDeclSet) {
+    return contains_restricted(atomDeclSet);
+}
+
+int get_min_api_level(const AtomDeclSet& atomDeclSet) {
+    if (requires_api_needed(atomDeclSet)) {
+        if (contains_restricted(atomDeclSet)) {
+            return API_U;
+        }
+    }
+    return API_LEVEL_CURRENT;
 }
 
 }  // namespace stats_log_api_gen

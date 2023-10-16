@@ -25,6 +25,8 @@ option java_multiple_files = true;
 enum MetricUnit {
     UNIT_UNKNOWN = 0;
     UNIT_COUNT = 1;
+    UNIT_TIME_MILLIS = 2;
+    UNIT_KILOBYTE = 3;
 }
 
 enum MetricType {

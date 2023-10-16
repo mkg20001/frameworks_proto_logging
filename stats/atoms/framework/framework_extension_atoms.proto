@@ -26,6 +26,8 @@ option java_package = "com.android.os.framework";
 extend Atom {
     optional FullScreenIntentLaunched full_screen_intent_launched = 631 [(module) = "framework"];
     optional BalAllowed bal_allowed = 632 [(module) = "framework"];
+    optional InTaskActivityStarted in_task_activity_started = 685 [(module) = "framework"];
+    optional CachedAppsHighWaterMark cached_apps_high_watermark = 10189 [(module) = "framework"];
 }
 
 /**
@@ -58,4 +60,77 @@ message BalAllowed {
         BAL_ALLOW_FOREGROUND = 9;
         BAL_ALLOW_SDK_SANDBOX = 10;
     }
+}
+
+/**
+ * Logs when an activity is started in a task with existing visible activities.
+ *
+ * Logged from: com.android.server.wm.ActivityMetricsLogger
+ */
+message InTaskActivityStarted {
+    // The uid of the started activity.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    enum TransitionType {
+        UNKNOWN = 0;
+        WARM = 1;
+        HOT = 2;
+        COLD = 3;
+        RELAUNCH = 4;
+    }
+    optional TransitionType type = 2;
+
+    // Whether the activity is opaque or translucent.
+    optional bool is_opaque = 3;
+
+    // The delay to start transition.
+    optional int32 transition_delay_millis = 4;
+
+    // How long the activity took to be drawn.
+    optional int32 windows_drawn_delay_millis = 5;
+
+    // The timestamp(SystemClock#elapsedRealtime()) when starting activity.
+    optional int64 activity_start_timestamp_millis = 6;
+}
+
+/**
+ * Logs the cached apps high water mark.
+ */
+message CachedAppsHighWaterMark {
+  // The high water mark of the number of cached apps.
+  optional int32 cached_app_high_watermark = 1;
+
+  // The uptime (in seconds) at the high watermark.
+  // Note this is going to be pull metrics, so we'll need the timestamp here.
+  optional int32 uptime_in_seconds = 2;
+
+  // The number of binder proxy at that high water mark.
+  optional int32 binder_proxy_snapshot = 3;
+
+  // Free physical memory (in kb) on device.
+  optional int32 free_in_kb = 4;
+
+  // Cched physical memory (in kb) on device.
+  optional int32 cached_in_kb = 5;
+
+  // zram (in kb) on device.
+  optional int32 zram_in_kb = 6;
+
+  // Kernel memory (in kb) on device.
+  optional int32 kernel_in_kb = 7;
+
+  // The number of apps in frozen state.
+  optional int32 num_frozen_apps = 8;
+
+  // The longest frozen time (now - last_frozen) in current frozen apps.
+  optional int32 longest_frozen_time_in_seconds = 9;
+
+  // The shortest frozen time (now - last_frozen) in current frozen apps.
+  optional int32 shortest_frozen_time_in_seconds = 10;
+
+  // The mean frozen time (now - last_frozen) in current frozen apps.
+  optional int32 mean_frozen_time_in_seconds = 11;
+
+  // The average frozen time (now - last_frozen) in current frozen apps.
+  optional int32 average_frozen_time_in_seconds = 12;
 }
