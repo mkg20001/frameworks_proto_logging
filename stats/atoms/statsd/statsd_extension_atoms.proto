@@ -110,7 +110,7 @@ message StatsSocketLossReported {
     /* denotes timestamp when last socket loss event detected */
     optional int64 last_timestamp_nanos = 3;
 
-    /* represents number of times loss info container hits guarrail */
+    /* represents number of times loss info container hits guardrail */
     optional int32 overflow_count = 4;
 
     /**
