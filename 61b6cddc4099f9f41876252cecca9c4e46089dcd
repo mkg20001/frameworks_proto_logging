@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a745ae_aa492532",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886780
+      },
+      "writtenOn": "2023-10-17T13:06:32Z",
+      "side": 1,
+      "message": "@rslawik@google.com it is copied to AOSP. May I request review for AOSP?",
+      "revId": "61b6cddc4099f9f41876252cecca9c4e46089dcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
