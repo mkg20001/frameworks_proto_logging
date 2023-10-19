@@ -48,46 +48,45 @@ void build_non_chained_decl_map(const Atoms& atoms,
     }
 }
 
-const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants() {
+const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const string& prefix) {
     static const map<AnnotationId, AnnotationStruct>* ANNOTATION_ID_CONSTANTS =
             new map<AnnotationId, AnnotationStruct>{
-            {ANNOTATION_ID_IS_UID,
-             AnnotationStruct("ANNOTATION_ID_IS_UID", API_S)},
-            {ANNOTATION_ID_TRUNCATE_TIMESTAMP,
-             AnnotationStruct("ANNOTATION_ID_TRUNCATE_TIMESTAMP", API_S)},
-            {ANNOTATION_ID_PRIMARY_FIELD,
-             AnnotationStruct("ANNOTATION_ID_PRIMARY_FIELD", API_S)},
-            {ANNOTATION_ID_EXCLUSIVE_STATE,
-             AnnotationStruct("ANNOTATION_ID_EXCLUSIVE_STATE", API_S)},
-            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID,
-             AnnotationStruct("ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID", API_S)},
-            {ANNOTATION_ID_DEFAULT_STATE,
-             AnnotationStruct("ANNOTATION_ID_DEFAULT_STATE", API_S)},
-            {ANNOTATION_ID_TRIGGER_STATE_RESET,
-             AnnotationStruct("ANNOTATION_ID_TRIGGER_STATE_RESET", API_S)},
-            {ANNOTATION_ID_STATE_NESTED,
-             AnnotationStruct("ANNOTATION_ID_STATE_NESTED", API_S)},
-            {ANNOTATION_ID_RESTRICTION_CATEGORY,
-             AnnotationStruct("ANNOTATION_ID_RESTRICTION_CATEGORY", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING", API_U)},
-            {ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION,
-             AnnotationStruct("ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION", API_U)},
-    };
+                    {ANNOTATION_ID_IS_UID, AnnotationStruct(prefix + "IS_UID", API_S)},
+                    {ANNOTATION_ID_TRUNCATE_TIMESTAMP,
+                     AnnotationStruct(prefix + "TRUNCATE_TIMESTAMP", API_S)},
+                    {ANNOTATION_ID_PRIMARY_FIELD,
+                     AnnotationStruct(prefix + "PRIMARY_FIELD", API_S)},
+                    {ANNOTATION_ID_EXCLUSIVE_STATE,
+                     AnnotationStruct(prefix + "EXCLUSIVE_STATE", API_S)},
+                    {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID,
+                     AnnotationStruct(prefix + "PRIMARY_FIELD_FIRST_UID", API_S)},
+                    {ANNOTATION_ID_DEFAULT_STATE,
+                     AnnotationStruct(prefix + "DEFAULT_STATE", API_S)},
+                    {ANNOTATION_ID_TRIGGER_STATE_RESET,
+                     AnnotationStruct(prefix + "TRIGGER_STATE_RESET", API_S)},
+                    {ANNOTATION_ID_STATE_NESTED, AnnotationStruct(prefix + "STATE_NESTED", API_S)},
+                    {ANNOTATION_ID_RESTRICTION_CATEGORY,
+                     AnnotationStruct(prefix + "RESTRICTION_CATEGORY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_APP_USAGE", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_APP_ACTIVITY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_HEALTH_CONNECT", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_ACCESSIBILITY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_SYSTEM_SEARCH", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_USER_ENGAGEMENT", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_AMBIENT_SENSING", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION",
+                                      API_U)},
+            };
 
     return *ANNOTATION_ID_CONSTANTS;
 }
@@ -476,37 +475,26 @@ void write_java_enum_values(FILE* out, const Atoms& atoms) {
     }
 }
 
-void write_java_enum_values_vendor(FILE* out, const Atoms& atoms) {
-    set<string> processedEnums;
-
-    fprintf(out, "    // Constants for enum values.\n\n");
-    for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
-         atomIt++) {
-        for (vector<AtomField>::const_iterator field = (*atomIt)->fields.begin();
-             field != (*atomIt)->fields.end(); field++) {
-            if (field->javaType == JAVA_TYPE_ENUM || field->javaType == JAVA_TYPE_ENUM_ARRAY) {
-                // there might be N fields with the same enum type
-                // avoid duplication definitions
-                // enum type name == [atom_message_type_name]__[enum_type_name]
-                const string full_enum_type_name = (*atomIt)->message + "__" + field->enumTypeName;
-
-                if (processedEnums.find(full_enum_type_name) != processedEnums.end()) {
-                    continue;
-                }
-                processedEnums.insert(full_enum_type_name);
-
-                fprintf(out, "    // Values for %s.%s\n", (*atomIt)->message.c_str(),
-                        field->name.c_str());
-                for (map<int, string>::const_iterator value = field->enumValues.begin();
-                     value != field->enumValues.end(); value++) {
-                    fprintf(out, "    public static final int %s__%s = %d;\n",
-                            make_constant_name(full_enum_type_name).c_str(),
-                            make_constant_name(value->second).c_str(), value->first);
-                }
-                fprintf(out, "\n");
+int write_java_method_signature(FILE* out, const vector<java_type_t>& signature,
+                                const AtomDecl& attributionDecl) {
+    int argIndex = 1;
+    for (vector<java_type_t>::const_iterator arg = signature.begin(); arg != signature.end();
+         arg++) {
+        if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
+            if (attributionDecl.fields.empty()) {
+                fprintf(stderr, "Encountered incompatible attribution chain atom definition");
+                return 1;
             }
+            for (const auto& chainField : attributionDecl.fields) {
+                fprintf(out, ", %s[] %s", java_type_name(chainField.javaType),
+                        chainField.name.c_str());
+            }
+        } else {
+            fprintf(out, ", %s arg%d", java_type_name(*arg), argIndex);
         }
+        argIndex++;
     }
+    return 0;
 }
 
 void write_java_usage(FILE* out, const string& method_name, const string& atom_code_name,
@@ -666,6 +654,16 @@ int get_min_api_level(const AtomDeclSet& atomDeclSet) {
         }
     }
     return API_LEVEL_CURRENT;
+}
+
+AtomDeclSet get_annotations(int argIndex,
+                            const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
+    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+            fieldNumberToAtomDeclSet.find(argIndex);
+    if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
+        return AtomDeclSet();
+    }
+    return fieldNumberToAtomDeclSetIt->second;
 }
 
 }  // namespace stats_log_api_gen

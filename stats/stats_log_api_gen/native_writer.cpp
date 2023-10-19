@@ -25,7 +25,7 @@ static void write_native_annotation_constants(FILE* out) {
     fprintf(out, "// Annotation constants.\n");
 
     const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
-            get_annotation_id_constants();
+            get_annotation_id_constants(ANNOTATION_CONSTANT_NAME_PREFIX);
     for (const auto& [id, annotation] : ANNOTATION_ID_CONSTANTS) {
         fprintf(out, "const uint8_t %s = %hhu;\n", annotation.name.c_str(), id);
     }
@@ -43,7 +43,7 @@ static void write_annotations(FILE* out, int argIndex,
     }
     const AtomDeclSet& atomDeclSet = fieldNumberToAtomDeclSetIt->second;
     const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
-            get_annotation_id_constants();
+            get_annotation_id_constants(ANNOTATION_CONSTANT_NAME_PREFIX);
     const string constantPrefix = minApiLevel > API_R ? "ASTATSLOG_" : "";
     for (const shared_ptr<AtomDecl>& atomDecl : atomDeclSet) {
         const string atomConstant = make_constant_name(atomDecl->name);

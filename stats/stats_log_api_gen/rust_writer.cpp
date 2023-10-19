@@ -227,7 +227,7 @@ static void write_rust_annotation_constants(FILE* out) {
     fprintf(out, "enum Annotations {\n");
 
     const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
-            get_annotation_id_constants();
+            get_annotation_id_constants(ANNOTATION_CONSTANT_NAME_PREFIX);
     for (const auto& [id, annotation] : ANNOTATION_ID_CONSTANTS) {
         fprintf(out, "    %s = %hhu,\n", make_camel_case_name(annotation.name).c_str(), id);
     }
@@ -239,7 +239,7 @@ static void write_rust_annotation_constants(FILE* out) {
 static void write_annotations(FILE* out, int argIndex, const AtomDecl& atomDecl,
                               const string& methodPrefix, const string& methodSuffix) {
     const map<AnnotationId, AnnotationStruct>& ANNOTATION_ID_CONSTANTS =
-            get_annotation_id_constants();
+            get_annotation_id_constants(ANNOTATION_CONSTANT_NAME_PREFIX);
     auto annotationsIt = atomDecl.fieldNumberToAnnotations.find(argIndex);
     if (annotationsIt == atomDecl.fieldNumberToAnnotations.end()) {
         return;
