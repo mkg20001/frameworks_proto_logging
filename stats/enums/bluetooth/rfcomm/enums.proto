@@ -1,0 +1,123 @@
+/*
+ * Copyright 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+package android.bluetooth.rfcomm;
+
+option java_outer_classname = "BluetoothRfcommProtoEnums";
+option java_multiple_files = true;
+
+enum RfcommConnectionResult {
+  RFCOMM_CONN_RESULT_SUCCESS = 0;
+  RFCOMM_CONN_RESULT_SOCKET_CONNECTION_FAILED = 1;
+  RFCOMM_CONN_RESULT_SOCKET_CONNECTION_CLOSED = 2;
+  RFCOMM_CONN_RESULT_UNABLE_TO_SEND_RPC = 3;
+  RFCOMM_CONN_RESULT_NULL_BLUETOOTH_DEVICE = 4;
+  RFCOMM_CONN_RESULT_GET_SOCKET_MANAGER_FAILED = 5;
+  RFCOMM_CONN_RESULT_NULL_FILE_DESCRIPTOR = 6;
+  RFCOMM_CONN_RESULT_FAILURE_UNKNOWN = 7;
+}
+
+enum SocketConnectionSecurity {
+  SOCKET_SECURITY_NOT_SPECIFIED = 0;
+  SOCKET_SECURITY_SECURE = 1;
+  SOCKET_SECURITY_INSECURE = 2;
+}
+
+enum ServiceClassUUID {
+  SERVICE_CLASS_UUID_UNSPECIFIED = 0;
+  SERVICE_CLASS_UUID_SERVICE_DISCOVERY_SERVER = 1;
+  SERVICE_CLASS_UUID_BROWSE_GROUP_DESCRIPTOR = 2;
+  SERVICE_CLASS_UUID_PUBLIC_BROWSE_GROUP = 3;
+  SERVICE_CLASS_UUID_SERIAL_PORT = 4;
+  SERVICE_CLASS_UUID_LAN_ACCESS_USING_PPP = 5;
+  SERVICE_CLASS_UUID_DIALUP_NETWORKING = 6;
+  SERVICE_CLASS_UUID_IRMC_SYNC = 7;
+  SERVICE_CLASS_UUID_OBEX_OBJECT_PUSH = 8;
+  SERVICE_CLASS_UUID_OBEX_FILE_TRANSFER = 9;
+  SERVICE_CLASS_UUID_IRMC_SYNC_COMMAND = 10;
+  SERVICE_CLASS_UUID_HEADSET = 11;
+  SERVICE_CLASS_UUID_CORDLESS_TELEPHONY = 12;
+  SERVICE_CLASS_UUID_AUDIO_SOURCE = 13;
+  SERVICE_CLASS_UUID_AUDIO_SINK = 14;
+  SERVICE_CLASS_UUID_AV_REM_CTRL_TARGET = 15;     /* Audio/Video Control profile */
+  SERVICE_CLASS_UUID_ADV_AUDIO_DISTRIBUTION = 16; /* Advanced Audio Distribution profile */
+  SERVICE_CLASS_UUID_AV_REMOTE_CONTROL = 17;      /* Audio/Video Control profile */
+  SERVICE_CLASS_UUID_AV_REM_CTRL_CONTROL = 18;    /* Audio/Video Control profile */
+  SERVICE_CLASS_UUID_INTERCOM = 19;
+  SERVICE_CLASS_UUID_FAX = 20;
+  SERVICE_CLASS_UUID_HEADSET_AUDIO_GATEWAY = 21;
+  SERVICE_CLASS_UUID_WAP = 22;
+  SERVICE_CLASS_UUID_WAP_CLIENT = 23;
+  SERVICE_CLASS_UUID_PANU = 24;                       /* PAN profile */
+  SERVICE_CLASS_UUID_NAP = 25;                        /* PAN profile */
+  SERVICE_CLASS_UUID_GN = 26;                         /* PAN profile */
+  SERVICE_CLASS_UUID_DIRECT_PRINTING = 27;            /* BPP profile */
+  SERVICE_CLASS_UUID_REFERENCE_PRINTING = 28;         /* BPP profile */
+  SERVICE_CLASS_UUID_IMAGING = 29;                    /* Imaging profile */
+  SERVICE_CLASS_UUID_IMAGING_RESPONDER = 30;          /* Imaging profile */
+  SERVICE_CLASS_UUID_IMAGING_AUTO_ARCHIVE = 31;       /* Imaging profile */
+  SERVICE_CLASS_UUID_IMAGING_REF_OBJECTS = 32;        /* Imaging profile */
+  SERVICE_CLASS_UUID_HF_HANDSFREE = 33;               /* Handsfree profile */
+  SERVICE_CLASS_UUID_AG_HANDSFREE = 34;               /* Handsfree profile */
+  SERVICE_CLASS_UUID_DIR_PRT_REF_OBJ_SERVICE = 35;    /* BPP profile */
+  SERVICE_CLASS_UUID_REFLECTED_UI = 36;               /* BPP profile */
+  SERVICE_CLASS_UUID_BASIC_PRINTING = 37;             /* BPP profile */
+  SERVICE_CLASS_UUID_PRINTING_STATUS = 38;            /* BPP profile */
+  SERVICE_CLASS_UUID_HUMAN_INTERFACE = 39;            /* HID profile */
+  SERVICE_CLASS_UUID_CABLE_REPLACEMENT = 40;          /* HCRP profile */
+  SERVICE_CLASS_UUID_HCRP_PRINT = 41;			            /* HCRP profile */
+  SERVICE_CLASS_UUID_HCRP_SCAN = 42;				          /* HCRP profile */
+  SERVICE_CLASS_UUID_COMMON_ISDN_ACCESS = 43;         /* CAPI Message Transport Protocol*/
+  SERVICE_CLASS_UUID_VIDEO_CONFERENCING_GW = 44;	    /* Video Conferencing profile */
+  SERVICE_CLASS_UUID_UDI_MT = 45;           /* Unrestricted Digital Information profile */
+  SERVICE_CLASS_UUID_UDI_TA = 46;		        /* Unrestricted Digital Information profile */
+  SERVICE_CLASS_UUID_VCP = 47;	          	/* Video Conferencing profile */
+  SERVICE_CLASS_UUID_SAP = 48;			          /* SIM Access profile */
+  SERVICE_CLASS_UUID_PBAP_PCE = 49;           /* Phonebook Access - PCE */
+  SERVICE_CLASS_UUID_PBAP_PSE = 50;           /* Phonebook Access - PSE */
+  SERVICE_CLASS_UUID_PHONE_ACCESS = 51;
+  SERVICE_CLASS_UUID_HEADSET_HS = 52;       /* Headset - HS, from HSP v1.2 */
+  SERVICE_CLASS_UUID_MPS_PROFILE = 53;	    /* Multi-Profile Specification - Profile */
+  SERVICE_CLASS_UUID_MPS_SC = 54; 		      /* Multi-Profile Specification - Service Class */
+  SERVICE_CLASS_UUID_PNP_INFORMATION = 55;  /* Device Identification */
+  SERVICE_CLASS_UUID_GENERIC_NETWORKING = 56;
+  SERVICE_CLASS_UUID_GENERIC_FILETRANSFER = 57;
+  SERVICE_CLASS_UUID_GENERIC_AUDIO = 58;
+  SERVICE_CLASS_UUID_GENERIC_TELEPHONY = 59;
+  SERVICE_CLASS_UUID_UPNP_SERVICE = 60;         /* UPNP_Service [ESDP] */
+  SERVICE_CLASS_UUID_UPNP_IP_SERVICE = 61;      /* UPNP_IP_Service [ESDP] */
+  SERVICE_CLASS_UUID_ESDP_UPNP_IP_PAN = 62;     /* UPNP_IP_PAN [ESDP] */
+  SERVICE_CLASS_UUID_ESDP_UPNP_IP_LAP = 63;     /* UPNP_IP_LAP [ESDP] */
+  SERVICE_CLASS_UUID_ESDP_UPNP_IP_L2CAP = 64;   /* UPNP_L2CAP [ESDP] */
+  SERVICE_CLASS_UUID_VIDEO_SOURCE = 65;         /* Video Distribution Profile (VDP) */
+  SERVICE_CLASS_UUID_VIDEO_SINK = 66;           /* Video Distribution Profile (VDP) */
+  SERVICE_CLASS_UUID_VIDEO_DISTRIBUTION = 67;   /* Video Distribution Profile (VDP) */
+  SERVICE_CLASS_UUID_HDP_PROFILE = 68;          /* Health Device profile (HDP) */
+  SERVICE_CLASS_UUID_HDP_SOURCE = 69;           /* Health Device profile (HDP) */
+  SERVICE_CLASS_UUID_HDP_SINK = 70;             /* Health Device profile (HDP) */
+  SERVICE_CLASS_UUID_MAP_PROFILE = 71;          /* MAP profile */
+  SERVICE_CLASS_UUID_MESSAGE_ACCESS = 72;       /* Message Access Service */
+  SERVICE_CLASS_UUID_MESSAGE_NOTIFICATION = 73; /* Message Notification Service */
+  SERVICE_CLASS_UUID_GAP_SERVER = 74;
+  SERVICE_CLASS_UUID_GATT_SERVER = 75;
+  SERVICE_CLASS_UUID_DEVICE_INFO = 76;     	/* device info service */
+  SERVICE_CLASS_UUID_LE_HID = 77;          	/*  HID over LE */
+  SERVICE_CLASS_UUID_SCAN_PARAM = 78;      	/* Scan Parameter service */
+  SERVICE_CLASS_UUID_GMCS_SERVER = 79; 		  /* Generic Media Control Service */
+  SERVICE_CLASS_UUID_GTBS_SERVER = 80; 		  /* Generic Telephony Bearer Service*/
+  SERVICE_CLASS_UUID_TMAS_SERVER = 81; 		  /* Telephone and Media Audio Service */
+}

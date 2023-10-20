@@ -31,6 +31,7 @@ cc_library_static {
         "hci/enums.proto",
         "hfp/enums.proto",
         "le/enums.proto",
+        "rfcomm/enums.proto",
         "smp/enums.proto",
     ],
     apex_available: [
@@ -54,6 +55,7 @@ filegroup {
       "hci/enums.proto",
       "hfp/enums.proto",
       "le/enums.proto",
+      "rfcomm/enums.proto",
       "smp/enums.proto",
   ],
 }

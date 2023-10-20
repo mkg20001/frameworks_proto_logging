@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hfp/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/leaudio/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/contexthub/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
@@ -1050,6 +1051,7 @@ message Atom {
     extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
     extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
     extensions 764; // CronetInitialized cronet_initialized
+    extensions 776; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
