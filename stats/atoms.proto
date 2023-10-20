@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hfp/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/leaudio/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/contexthub/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
@@ -1047,6 +1048,7 @@ message Atom {
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
     extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
+    extensions 761; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
     extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
     extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
     extensions 764; // CronetInitialized cronet_initialized
