@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e3566c3_5421c719",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-10-23T19:10:40Z",
+      "side": 1,
+      "message": "created http://ag/q/topic:%22atomloss-udc-sync%22 to fix the udc build issue",
+      "revId": "421cc292de579c997309ac5c3c89091ca44d70a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
