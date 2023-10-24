@@ -27,6 +27,8 @@ option java_multiple_files = true;
 
 extend Atom {
     optional IkeSessionTerminated ike_session_terminated = 678 [(module) = "ike"];
+    optional IkeLivenessCheckSessionValidated ike_liveness_check_session_validated =
+            760 [(module) = "ike"];
 }
 
 /**
@@ -48,3 +50,26 @@ message IkeSessionTerminated {
     // no error has occurred
     optional android.stats.ike.IkeError ike_error = 4;
 }
+
+message IkeLivenessCheckSessionValidated {
+
+    // Identity of system callers.
+    optional android.stats.ike.IkeCaller ike_caller = 1;
+
+    // To determine task at which liveness check was initiated.
+    optional android.stats.ike.IkeTask ike_task = 2;
+
+    // Underlying network type that checked the Liveness.
+    optional android.stats.ike.IkeUnderlyingNetworkType ike_underlying_network_type = 3;
+
+    // Elapsed time in milliseconds from Started to end of liveness check
+    // (From Started to Success or Failure)
+    optional int32 elapsed_time_in_millis = 4;
+
+    // Number of times client invoked liveness check api during ongoing task.
+    optional int32 number_of_on_going_status = 5;
+
+    // True if the Liveness check is successful. False if the Liveness check is failed.
+    optional bool result_success = 6;
+}
+
