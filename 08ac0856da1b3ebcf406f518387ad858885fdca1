@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d54e9f9a_140e4a43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-10-24T09:03:33Z",
+      "side": 1,
+      "message": "This change should be first merged in the internal master branch to ensure the enum has the same value.\n\nIf you want to take a risk of conflicts, I will approve.",
+      "revId": "08ac0856da1b3ebcf406f518387ad858885fdca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63f1e51_a794aa3c",
+        "filename": "stats/enums/bluetooth/hfp/enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-10-24T09:03:33Z",
+      "side": 1,
+      "message": "micro-nit: Consider `3` unless there is a reason to not have consecutive values.",
+      "range": {
+        "startLine": 28,
+        "startChar": 20,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "08ac0856da1b3ebcf406f518387ad858885fdca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
