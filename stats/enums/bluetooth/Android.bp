@@ -40,6 +40,13 @@ cc_library_static {
 }
 
 filegroup {
+  name: "srcs_bluetooth_protos_nfc",
+  srcs: [
+      "enums.proto",
+  ],
+}
+
+filegroup {
   name: "srcs_bluetooth_protos",
   srcs: [
       "a2dp/enums.proto",

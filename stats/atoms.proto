@@ -1021,6 +1021,8 @@ message Atom {
     extensions 674; // AdServicesMeasurementAttribution ad_services_measurement_attribution
     extensions 675; // AdServicesMeasurementJobs ad_services_measurement_jobs
     extensions 676; // AdServicesMeasurementWipeout ad_services_measurement_wipeout
+    extensions 677; // MediaSessionStateChanged media_session_state_changed
+    extensions 678; // IkeSessionTerminated ike_session_terminated
     extensions 679; // TvLowPowerStandbyPolicy tv_low_power_standby_policy
     extensions 680; // SoftApStarted softap_started
     extensions 681; // SoftApStopped softap_stopped
@@ -1044,6 +1046,7 @@ message Atom {
     extensions 739; // ThreadnetworkTopoEntryRepeated threadnetwork_topo_entry_repeated
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
+    extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.

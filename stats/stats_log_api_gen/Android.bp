@@ -27,6 +27,7 @@ cc_binary_host {
         "Collation.cpp",
         "java_writer.cpp",
         "java_writer_q.cpp",
+        "java_writer_vendor.cpp",
         "main.cpp",
         "native_writer.cpp",
         "native_writer_vendor.cpp",
@@ -108,7 +109,6 @@ cc_test_host {
         ":libprotobuf-internal-protos",
         ":libstats_internal_protos",
         "test_external.proto",
-        "test_vendor_atoms.proto",
     ],
 }
 
@@ -126,7 +126,10 @@ filegroup {
 genrule {
     name: "test_vendor_atoms.h",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --header $(out) --module test --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --header $(out)" +
+        " --module test" +
+        " --namespace android,VendorAtoms" +
+        " --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms.h",
     ],
@@ -140,7 +143,11 @@ genrule {
 genrule {
     name: "test_vendor_atoms.cpp",
     tools: ["stats-log-api-gen"],
-    cmd: "$(location stats-log-api-gen) --cpp $(out) --module test --importHeader test_vendor_atoms.h --namespace android,VendorAtoms --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
+    cmd: "$(location stats-log-api-gen) --cpp $(out)" +
+        " --module test" +
+        " --importHeader test_vendor_atoms.h" +
+        " --namespace android,VendorAtoms" +
+        " --vendor-proto frameworks/proto_logging/stats/stats_log_api_gen/test_vendor_atoms.proto",
     out: [
         "test_vendor_atoms.cpp",
     ],
