@@ -1047,6 +1047,8 @@ message Atom {
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
     extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
+
+    extensions 762; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
