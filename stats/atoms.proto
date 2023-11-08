@@ -5622,6 +5622,7 @@ message LmkKillOccurred {
         DIRECT_RECL_AND_THRASHING = 6;
         LOW_MEM_AND_SWAP_UTIL = 7;
         LOW_FILECACHE_AFTER_THRASHING = 8;
+        LOW_MEM = 9;
     }
 
     // The uid if available. -1 means not available.
@@ -16707,6 +16708,12 @@ message BytesTransferByTagAndMetered {
     optional int64 tx_bytes = 6;
 
     optional int64 tx_packets = 7;
+
+    // Radio Access Technology (RAT) type of this record, should be one of
+    // TelephonyManager#NETWORK_TYPE_* constants, or
+    // NetworkTemplate#NETWORK_TYPE_ALL to indicate the record is for all rat
+    // types combined.
+    optional int32 rat_type = 8;
 }
 
 /**
