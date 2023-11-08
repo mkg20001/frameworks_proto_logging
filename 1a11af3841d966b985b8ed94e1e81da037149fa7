@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5006bcc4_92adfc56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1750078
+      },
+      "writtenOn": "2023-11-08T12:02:25Z",
+      "side": 1,
+      "message": "I have to submit this revert because it was reverted internally and the intermediate branches are in a inconsistent state and blocking me.",
+      "revId": "1a11af3841d966b985b8ed94e1e81da037149fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
