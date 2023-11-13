@@ -18,6 +18,7 @@
 
 #include <google/protobuf/text_format.h>
 #include <inttypes.h>
+#include <utils/hash/farmhash.h>
 
 #include <filesystem>
 #include <fstream>
@@ -130,7 +131,7 @@ bool generateMetricsIds(const map<string, ExpressMetric>& metrics,
     unordered_set<int64_t> currentHashes;
 
     for (const auto& [metricId, _] : metrics) {
-        auto hashId = std::hash<string>{}(metricId);
+        auto hashId = farmhash::Fingerprint64(metricId.c_str(), metricId.size());
 
         // check if there is a collision
         if (currentHashes.find(hashId) != currentHashes.end()) {

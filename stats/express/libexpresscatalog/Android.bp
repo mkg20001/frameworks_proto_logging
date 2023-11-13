@@ -32,9 +32,15 @@ cc_library_host_shared {
     cflags: [
         "-Wall",
         "-Werror",
+
+        "-DNAMESPACE_FOR_HASH_FUNCTIONS=farmhash",
+    ],
+    header_libs: [
+        "libtextclassifier_hash_headers",
     ],
     static_libs: [
         "libc++fs",
+        "libtextclassifier_hash_static",
     ],
     shared_libs: [
         "libbase",
