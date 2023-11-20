@@ -37,3 +37,25 @@ cc_library_static {
     min_sdk_version: "30",
     apex_available: [ "com.android.tethering" ],
 }
+
+java_library_static {
+    name: "ot-daemon-atom-java-proto-lite",
+    proto: {
+        type: "lite",
+        include_dirs: [
+            "frameworks/proto_logging/stats/atoms/threadnetwork",
+            "external/protobuf/src",
+            "frameworks/proto_logging/stats",
+        ],
+    },
+    srcs: [
+        "threadnetwork_atoms.proto",
+        ":libstats_atom_options_protos",
+        ":libprotobuf-internal-descriptor-proto",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+    sdk_version: "system_server_current",
+    min_sdk_version: "30",
+}
