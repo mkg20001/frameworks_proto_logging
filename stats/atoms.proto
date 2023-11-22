@@ -23587,6 +23587,8 @@ message IwlanSetupDataCallResultReported {
   optional string iwlan_error_wrapped_classname = 17;
   // Iwlan error wrapped exception 1st line of stack trace
   optional string iwlan_error_wrapped_stack_first_frame = 18;
+  // Error count of the same error cause
+  optional int32 error_count_of_same_cause = 19;
 }
 
 /**
