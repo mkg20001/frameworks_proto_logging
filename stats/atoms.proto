@@ -1003,7 +1003,7 @@ message Atom {
     extensions 656; // BluetoothLeSessionConnected bluetooth_le_session_connected
     extensions 657; // DNDStateChanged dnd_state_changed
     extensions 658; // ExpressUidHistogramSampleReported express_uid_histogram_sample_reported
-    extensions 659; // AuotifllFieldClassificationEventReported autofill_field_classification_event_reported
+    extensions 659; // AutofillFieldClassificationEventReported autofill_field_classification_event_reported
     extensions 660; // TestExtensionAtomReported test_extension_atom_reported
     extensions 661; // WifiSelfRecoveryTriggered wifi_self_recovery_triggered
     extensions 662; // AdServicesErrorReported ad_services_error_reported
@@ -1047,6 +1047,9 @@ message Atom {
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
     extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
+    extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
+    extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
+    extensions 764; // CronetInitialized cronet_initialized
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -5620,6 +5623,7 @@ message LmkKillOccurred {
         DIRECT_RECL_AND_THRASHING = 6;
         LOW_MEM_AND_SWAP_UTIL = 7;
         LOW_FILECACHE_AFTER_THRASHING = 8;
+        LOW_MEM = 9;
     }
 
     // The uid if available. -1 means not available.
@@ -9647,6 +9651,9 @@ message NetworkDnsEventReported {
 
     // The sample rate of DNS stats (to statsd) is 1/sampling_rate_denom.
     optional int32 sampling_rate_denom = 9;
+
+    // UID sends the DNS query.
+    optional int32 uid = 10 [(is_uid) = true];
 }
 
 /**
@@ -16705,6 +16712,12 @@ message BytesTransferByTagAndMetered {
     optional int64 tx_bytes = 6;
 
     optional int64 tx_packets = 7;
+
+    // Radio Access Technology (RAT) type of this record, should be one of
+    // TelephonyManager#NETWORK_TYPE_* constants, or
+    // NetworkTemplate#NETWORK_TYPE_ALL to indicate the record is for all rat
+    // types combined.
+    optional int32 rat_type = 8;
 }
 
 /**
