@@ -18,37 +18,28 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-cc_library_host_shared {
-    name: "libexpresscatalog",
+cc_binary_host {
+    name: "expresscatalog-codegen",
     srcs: [
-        "catalog.cpp",
-    ],
-    local_include_dirs: [
-        "include/",
-    ],
-    export_include_dirs: [
-        "include/",
+        "codegen.cpp",
+        "codegen_java.cpp",
+        "main.cpp",
     ],
     cflags: [
         "-Wall",
         "-Werror",
-
-        "-DNAMESPACE_FOR_HASH_FUNCTIONS=farmhash",
-    ],
-    header_libs: [
-        "libexpresscatalog-utils-headers",
-        "libtextclassifier_hash_headers",
     ],
     static_libs: [
-        "libc++fs",
-        "libtextclassifier_hash_static",
+        "libgmock_host",
     ],
     shared_libs: [
         "libbase",
+        "libgflags",
+        "libexpresscatalog",
         "libexpressconfig_proto_host",
         "libprotobuf-cpp-full",
     ],
-    proto: {
-        type: "full",
-    },
+    header_libs: [
+        "libexpresscatalog-utils-headers",
+    ],
 }

@@ -33,9 +33,37 @@ cc_library_host_shared {
     },
 }
 
+java_library {
+    name: "expresslog-catalog",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    apex_available: [
+        "//apex_available:anyapex",
+        "//apex_available:platform",
+    ],
+    srcs: [
+        ":expresslog-catalog-gen",
+    ],
+}
+
 filegroup {
     name: "metric_config_files",
     srcs: [
         "catalog/**/*.cfg",
+    ],
+}
+
+genrule {
+    name: "expresslog-catalog-gen",
+    tools: ["expresscatalog-codegen"],
+    cmd: "$(location expresscatalog-codegen) " +
+        " --java $(out)" +
+        " --javaPackage com.android.modules.expresslog" +
+        " --javaClass MetricIds",
+    out: [
+        "com/android/modules/expresslog/MetricIds.java",
+    ],
+    srcs: [
+        ":metric_config_files",
     ],
 }

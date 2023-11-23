@@ -44,10 +44,12 @@
 namespace android {
 namespace express {
 
+#ifdef DEBUG
+
 class ExecutionMeasure final {
 public:
-    ExecutionMeasure(std::string name) : mName(std::move(name)) {
-        mStart = std::chrono::high_resolution_clock::now();
+    ExecutionMeasure(std::string name)
+        : mName(std::move(name)), mStart(std::chrono::high_resolution_clock::now()) {
     }
 
     ~ExecutionMeasure() {
@@ -57,11 +59,13 @@ public:
     }
 
 private:
-    std::string mName;
-    std::chrono::time_point<std::chrono::high_resolution_clock> mStart;
+    const std::string mName;
+    const std::chrono::time_point<std::chrono::high_resolution_clock> mStart;
 };
 
 #define MEASURE_FUNC() ExecutionMeasure func_execution_measure(__func__);
-
+#else
+#define MEASURE_FUNC()
+#endif
 }  // namespace express
 }  // namespace android
