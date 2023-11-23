@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-#include <catalog.h>
-#include <gtest/gtest.h>
+#include "log.h"
+
+#include <string.h>
+
+#include <algorithm>
 
 namespace android {
 namespace express {
 
-TEST(ExpressMetricTest, CatalogValidationTest) {
-    std::map<std::string, ExpressMetric> metrics;
-    ASSERT_TRUE(readCatalog("./catalog/", metrics));
+ExecutionMeasure::ExecutionMeasure(std::string name) : mName(std::move(name)) {
+    mStart = std::chrono::high_resolution_clock::now();
+}
 
-    MetricInfoMap metricsIds;
-    ASSERT_TRUE(generateMetricsIds(metrics, metricsIds));
+ExecutionMeasure::~ExecutionMeasure() {
+    const auto stop = std::chrono::high_resolution_clock::now();
+    const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - mStart);
+    LOGD("%s took to complete %lld microseconds\n", mName.c_str(), duration.count());
 }
 
 }  // namespace express

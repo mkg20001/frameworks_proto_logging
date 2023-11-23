@@ -33,8 +33,6 @@
 
 using std::map;
 using std::string;
-using std::unordered_map;
-using std::unordered_set;
 
 namespace fs = std::filesystem;
 namespace pb = google::protobuf;
@@ -81,7 +79,7 @@ bool readMetrics(const fs::path& cfgFile, map<string, ExpressMetric>& metrics) {
             return false;
         }
 
-        LOGI("Metric: %s\n", metric.id().c_str());
+        LOGD("Metric: %s\n", metric.id().c_str());
 
         if (!validateMetricId(metric.id())) {
             return false;
@@ -126,20 +124,20 @@ bool readCatalog(const char* configDir, map<string, ExpressMetric>& metrics) {
 }
 
 bool generateMetricsIds(const map<string, ExpressMetric>& metrics,
-                        unordered_map<string, int64_t>& metricsIds) {
+                        MetricInfoMap& metricsIds) {
     MEASURE_FUNC();
-    unordered_set<int64_t> currentHashes;
+    std::unordered_set<int64_t> currentHashes;
 
-    for (const auto& [metricId, _] : metrics) {
-        auto hashId = farmhash::Fingerprint64(metricId.c_str(), metricId.size());
+    for (const auto& [metricId, expressMetric] : metrics) {
+        const int64_t hashId = farmhash::Fingerprint64(metricId.c_str(), metricId.size());
 
         // check if there is a collision
         if (currentHashes.find(hashId) != currentHashes.end()) {
-            LOGE("Detected hash name collision for a meric %s\n", metricId.c_str());
+            LOGE("Detected hash name collision for a metric %s\n", metricId.c_str());
             return false;
         }
         currentHashes.insert(hashId);
-        metricsIds[metricId] = hashId;
+        metricsIds[metricId] = {hashId, expressMetric.type()};
     }
 
     return true;
