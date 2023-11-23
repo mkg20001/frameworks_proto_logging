@@ -21,7 +21,6 @@
 
 #include <map>
 #include <string>
-#include <unordered_map>
 
 #include "frameworks/proto_logging/stats/express/express_config.pb.h"
 
@@ -33,8 +32,15 @@ namespace express {
  */
 bool readCatalog(const char* path, std::map<std::string, ExpressMetric>& metrics);
 
+struct MetricInfo {
+    int64_t hash;
+    MetricType type;
+};
+
+typedef std::map<std::string, MetricInfo> MetricInfoMap;
+
 bool generateMetricsIds(const std::map<std::string, ExpressMetric>& metrics,
-                        std::unordered_map<std::string, int64_t>& metricsIds);
+                        MetricInfoMap& metricsIds);
 
 }  // namespace express
 }  // namespace android
