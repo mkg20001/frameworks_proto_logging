@@ -58,7 +58,7 @@ bool validateMetricId(const string& metricId) {
     return true;
 }
 
-bool readMetrics(const fs::path& cfgFile, map<string, ExpressMetric>& metrics) {
+bool readMetrics(const fs::path& cfgFile, map<std::string, ExpressMetric>& metrics) {
     std::ifstream fileStream(cfgFile.c_str());
     std::stringstream buffer;
     buffer << fileStream.rdbuf();
@@ -81,7 +81,7 @@ bool readMetrics(const fs::path& cfgFile, map<string, ExpressMetric>& metrics) {
             return false;
         }
 
-        LOGI("Metric: %s\n", metric.id().c_str());
+        LOGD("Metric: %s\n", metric.id().c_str());
 
         if (!validateMetricId(metric.id())) {
             return false;
@@ -100,7 +100,7 @@ bool readMetrics(const fs::path& cfgFile, map<string, ExpressMetric>& metrics) {
 
 }  // namespace
 
-bool readCatalog(const char* configDir, map<string, ExpressMetric>& metrics) {
+bool readCatalog(const char* configDir, map<std::string, ExpressMetric>& metrics) {
     MEASURE_FUNC();
     auto configDirPath = configDir;
 
@@ -125,21 +125,21 @@ bool readCatalog(const char* configDir, map<string, ExpressMetric>& metrics) {
     return true;
 }
 
-bool generateMetricsIds(const map<string, ExpressMetric>& metrics,
-                        unordered_map<string, int64_t>& metricsIds) {
+bool generateMetricsIds(const map<std::string, ExpressMetric>& metrics,
+                        MetricInfoMap& metricsIds) {
     MEASURE_FUNC();
     unordered_set<int64_t> currentHashes;
 
-    for (const auto& [metricId, _] : metrics) {
-        auto hashId = farmhash::Fingerprint64(metricId.c_str(), metricId.size());
+    for (const auto& [metricId, expressMetric] : metrics) {
+        const int64_t hashId = farmhash::Fingerprint64(metricId.c_str(), metricId.size());
 
         // check if there is a collision
         if (currentHashes.find(hashId) != currentHashes.end()) {
-            LOGE("Detected hash name collision for a meric %s\n", metricId.c_str());
+            LOGE("Detected hash name collision for a metric %s\n", metricId.c_str());
             return false;
         }
         currentHashes.insert(hashId);
-        metricsIds[metricId] = hashId;
+        metricsIds[metricId] = {hashId, expressMetric.type()};
     }
 
     return true;
