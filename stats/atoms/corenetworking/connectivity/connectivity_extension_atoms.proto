@@ -23,9 +23,11 @@ option java_multiple_files = true;
 
 import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
+import "frameworks/proto_logging/stats/enums/corenetworking/connectivity/enums.proto";
 
 extend Atom {
     optional DailykeepaliveInfoReported daily_keepalive_info_reported = 650 [(module) = "connectivity"];
+    optional NetworkRequestStateChanged network_request_state_changed = 765 [(module) = "connectivity"];
 }
 
 /**
@@ -111,4 +113,33 @@ message KeepaliveLifetimeForCarrier {
 
     // The duration for which the keepalive was active (not suspended)
     optional int32 active_lifetime_msec = 5;
+}
+
+/**
+ * Logs when network request is received and removed, app uid which sent the
+ * request, request capabilities and duration since the request was received.
+ *
+ * For the moment only Wear non Listen network requests are logged.
+ *
+ * Logs from: packages/modules/Connectivity/service/src/com/android/
+ *            server/ConnectivityService.java
+ */
+message NetworkRequestStateChanged {
+    // Uid of the app that sent the request
+    optional int32 uid = 1;
+
+    // Network request capabilities transport types bitmask
+    optional int32 transport_types = 2;
+
+    // Network request NET_CAPABILITY_NOT_METERED capability
+    optional bool net_capability_not_metered = 3;
+
+    // Network request NET_CAPABILITY_INTERNET capability
+    optional bool net_capability_internet = 4;
+
+    // State of the network request at the point of time the atom was pushed
+    optional android.corenetworking.connectivity.NetworkRequestState state = 5;
+
+    // Duration in millis of the network request since it was received
+    optional int32 duration_ms = 6;
 }
