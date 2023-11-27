@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7648cb5f_5345bc6c",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2023-11-27T23:41:01Z",
+      "side": 1,
+      "message": "IIUC, this should be the number of bins. If there is one bin all the values will be slotted into one bucket\n\nIf each individual value needs to be separated, maybe set the count to 5?",
+      "revId": "dfcd2fb4a681ddc0627bdcc4b62b189b251978a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
