@@ -42,3 +42,13 @@ enum RatType {
     RT_5G = 5;
 }
 
+// Network request states
+// * Network request is in the NETWORK_REQUEST_STATE_RECEIVED state when it
+// was just registered by the Connectivity service;
+// * Network request is in the NETWORK_REQUEST_STATE_REMOVED state when it was
+// just removed by the Connectivity service;
+enum NetworkRequestState {
+  NETWORK_REQUEST_STATE_UNKNOWN = 0;
+  NETWORK_REQUEST_STATE_RECEIVED = 1;
+  NETWORK_REQUEST_STATE_REMOVED = 2;
+}
