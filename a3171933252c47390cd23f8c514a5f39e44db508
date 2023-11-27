@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b05d9364_fe55e49c",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-11-27T15:17:41Z",
+      "side": 1,
+      "message": "Atoms need to be defined in internal-main first, then cherry-picked to AOSP. It is best to abandon this commit and raise a new one for a cherry-pick once internal-main commit is submitted.",
+      "range": {
+        "startLine": 1053,
+        "startChar": 23,
+        "endLine": 1053,
+        "endChar": 49
+      },
+      "revId": "a3171933252c47390cd23f8c514a5f39e44db508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "727f6123_4e2531b3",
+        "filename": "stats/atoms/corenetworking/connectivity/connectivity_extension_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-11-27T15:17:41Z",
+      "side": 1,
+      "message": "This field needs an annotation [(is_uid) \u003d true].",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 26
+      },
+      "revId": "a3171933252c47390cd23f8c514a5f39e44db508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39e270cb_41d968d3",
+        "filename": "stats/enums/corenetworking/connectivity/enums.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-11-27T15:17:41Z",
+      "side": 1,
+      "message": "It\u0027s common to use \"UNKNOWN\" for all other states, and to put it as first element of the enum. Numbering usually starts from 0.",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 7
+      },
+      "revId": "a3171933252c47390cd23f8c514a5f39e44db508",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
