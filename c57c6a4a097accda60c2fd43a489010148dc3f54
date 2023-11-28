@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b466c7f3_4027c503",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-11-28T21:30:55Z",
+      "side": 1,
+      "message": "@wescande@google.com I would recommend not submitting this because it makes it hard to review semantics of this metric for privacy and the UX for such a metric will be negatively impacted (for example, we will compute P95 of this histogram).\n\nInstead either:\n1. Create a separate metric for each codec type.\n2. Create an atom with a enum field and follow the full process of defining a metric with dimensions.",
+      "parentUuid": "27d641ed_4056916e",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4e956b2_86c62066",
         "filename": "stats/express/catalog/bluetooth.cfg",
         "patchSetId": 5
