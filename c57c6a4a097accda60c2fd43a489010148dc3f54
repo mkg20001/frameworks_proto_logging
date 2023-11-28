@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5ddd38_ca907b1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-11-28T22:34:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "703be34a_5f5dab29",
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27d641ed_4056916e",
@@ -78,6 +96,30 @@
       "writtenOn": "2023-11-28T22:21:10Z",
       "side": 1,
       "message": "Thank you for the input Rafal\n\n@wescande@google.com I would like to suggest follow the Rafal\u0027s guidance and choose from provided options.",
+      "parentUuid": "b466c7f3_4027c503",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a21e0de9_a8a3582b",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-11-28T22:34:37Z",
+      "side": 1,
+      "message": "This is not my territory and I don\u0027t really understand the concern on privacy. For me this histogram is reporting the same data as having 4 separate counter\nHowever having 4 different counters will not come with the nice UI to compare them (even if there is some extra data being computed and not useful).\n\nBut I followed your recommandation and added 4 metrics instead of one. ( Since this is only about counting feature usage, I do not plan on adding \"a full metric with dimensions\")\nPlease let me know if that works for you",
       "parentUuid": "b466c7f3_4027c503",
       "range": {
         "startLine": 16,
