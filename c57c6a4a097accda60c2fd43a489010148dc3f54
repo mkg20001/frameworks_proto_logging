@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9054349a_4a8d08a0",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-28T22:21:10Z",
+      "side": 1,
+      "message": "Thank you for the input Rafal\n\n@wescande@google.com I would like to suggest follow the Rafal\u0027s guidance and choose from provided options.",
+      "parentUuid": "b466c7f3_4027c503",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4e956b2_86c62066",
         "filename": "stats/express/catalog/bluetooth.cfg",
         "patchSetId": 5
