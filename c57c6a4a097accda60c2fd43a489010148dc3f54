@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "703be34a_5f5dab29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-28T02:33:18Z",
+      "side": 1,
+      "message": "@rslawik@google.com Could you please take a look",
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d641ed_4056916e",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-28T02:33:18Z",
+      "side": 1,
+      "message": "@rslawik@google.com\n\nThis is an example how implicitly TeX could be used to have simple enum as an dimension for counter metric implemented with histogram\n\nsee http://b/281088119\n\nfrom tech point of view it is a legit use case\n\non the other hand there are same privacy concerns which were listed here https://b.corp.google.com/issues/281088119#comment2\n\nthe enum categories here are quite straightforward and are ok from privacy review point of view\n\nwhat do you think?",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e956b2_86c62066",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-28T02:33:18Z",
+      "side": 1,
+      "message": "note: the max is exclusive max: values \u003e\u003d max go to overflow bin\n\nas result, you can use count as 4 - since there will be automatically added 2 bins (6 in total):\n- one for underflow (values \u003c 0 go to bin #0)\n- one for overflow (values \u003e\u003d 4 will go to bin #5)\n\nsee some reference computations here:\nhttps://docs.google.com/spreadsheets/d/1wm_VnFzdm1-HwmrXwPtfbKc6b8B04OhTdun1tQjubK4/edit?resourcekey\u003d0-g563XShnoSJohM6N0SRNdQ#gid\u003d0",
+      "range": {
+        "startLine": 21,
+        "startChar": 19,
+        "endLine": 21,
+        "endChar": 20
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
