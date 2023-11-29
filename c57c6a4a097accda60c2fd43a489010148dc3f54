@@ -131,6 +131,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "838e26aa_3f31f5f9",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-11-29T14:39:50Z",
+      "side": 1,
+      "message": "\u003e concern on privacy\n\nHistogram bin index is meant to represent the range that the measurement falls into. Using it as a side channel to sometimes simulate an arbitrary dimension is not OK, so we want to avoid creating a precedent.\n\n\u003e this is only about counting feature usage, I do not plan on adding \"a full metric with dimensions\"\n\nWhy not? It would come with an even better UX than separate metrics: e.g. the codec dimensions could be aggregated away.",
+      "parentUuid": "a21e0de9_a8a3582b",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4e956b2_86c62066",
