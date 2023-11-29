@@ -155,6 +155,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e63751fe_d4358fb5",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2023-11-29T22:51:49Z",
+      "side": 1,
+      "message": "\u003e Why not? It would come with an even better UX than separate metrics: e.g. the codec dimensions could be aggregated away.\n\nThere are multiples reason, and none are really a valid one:\n* I have no idea how to do that. I made a moma search on `full metric with dimensions` that return too many noise.\n* I just want to count usage\n* I would like not to spend an unreasonable amount of time for this as this is not a high priority\n\nBut if you have a TL;DR or a link with easy instruction that you can share, I am willing to look into this !",
+      "parentUuid": "838e26aa_3f31f5f9",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4e956b2_86c62066",
