@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b94aec_6cfb8852",
+        "filename": "stats/atoms/art/background_extension_dexopt_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2023-11-30T10:06:37Z",
+      "side": 1,
+      "message": "Do I understand correctly that this comment means that in Pitot we are going to have three possible values for the \"Job Type\" dimension:\n\n* Incremental Run: Main pass with \u003c 70% of opted packages;\n* Full Run: Main pass with \u003e\u003d 70% of opted packages;\n* Supplementary Run: Supplementary pass\n\n?",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 38
+      },
+      "revId": "ed63ebaea41df969bfd25b5dc93611c954d86e0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
