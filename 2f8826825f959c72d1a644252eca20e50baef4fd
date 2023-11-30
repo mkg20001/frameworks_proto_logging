@@ -16,6 +16,23 @@
       "message": "sync to aosp",
       "revId": "2f8826825f959c72d1a644252eca20e50baef4fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64864238_b9e75633",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-30T23:52:51Z",
+      "side": 1,
+      "message": "http://ag/25521951 added to address merge conflict",
+      "revId": "2f8826825f959c72d1a644252eca20e50baef4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
