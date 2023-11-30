@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8c41a1_65924c97",
+        "filename": "stats/express/expresscatalog-code-gen/log.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-11-30T04:32:47Z",
+      "side": 1,
+      "message": "can this be moved to initializer-list?",
+      "revId": "59d590b9e75a43028ab61b8cc6261f8722c229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b5d1ec_09033d45",
+        "filename": "stats/express/expresscatalog-code-gen/log.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-11-30T04:32:47Z",
+      "side": 1,
+      "message": "Is this the same as what is in https://cs.android.com/android/platform/superproject/main/+/main:frameworks/proto_logging/stats/express/libexpresscatalog/utils.h? Can we reuse the functionality?",
+      "revId": "59d590b9e75a43028ab61b8cc6261f8722c229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8108b886_9d6cdc61",
+        "filename": "stats/express/expresscatalog-code-gen/log.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2023-11-30T04:32:47Z",
+      "side": 1,
+      "message": "nit: can be const?",
+      "revId": "59d590b9e75a43028ab61b8cc6261f8722c229f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
