@@ -33,6 +33,23 @@
       "message": "http://ag/25521951 added to address merge conflict",
       "revId": "2f8826825f959c72d1a644252eca20e50baef4fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa114659_e62d76b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-11-30T23:55:47Z",
+      "side": 1,
+      "message": "http://ag/25521952 added to address merge conflict",
+      "revId": "2f8826825f959c72d1a644252eca20e50baef4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
