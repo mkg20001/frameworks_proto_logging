@@ -179,6 +179,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e2d330_0eddca91",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-12-01T09:21:23Z",
+      "side": 1,
+      "message": "There\u0027s a handy table on go/tex-docs#comparison. It may be useful to make the decisions when more metric are added.",
+      "parentUuid": "e63751fe_d4358fb5",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 95
+      },
+      "revId": "c57c6a4a097accda60c2fd43a489010148dc3f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4e956b2_86c62066",
