@@ -33,6 +33,24 @@
       "message": "reference codegen produced for the current catalog content\n\nhttp://gpaste/5925947547582464",
       "revId": "f920aa5ed840e82957ead903f323f44de128ec37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a86dae12_360d5c34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2023-12-04T09:13:27Z",
+      "side": 1,
+      "message": "to simplify integration will merge this change as standalone via aosp and then CP into udc-mainline-prod",
+      "parentUuid": "f1186afc_ff5a22e3",
+      "revId": "f920aa5ed840e82957ead903f323f44de128ec37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
