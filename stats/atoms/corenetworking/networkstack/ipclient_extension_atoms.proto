@@ -43,15 +43,15 @@ message IpClientRaInfoReported {
     // The number of parsing error for RAs (Router Advertisements).
     optional int32 number_of_parsing_error_ras = 3;
 
-    // The lowest router lifetime in seconds.
+    // The lowest router lifetime in seconds, excluding 0.
     optional int32 lowest_router_lifetime_seconds = 4;
 
-    // The lowest valid lifetime of PIO (Prefix Information Option) in seconds.
-    optional int32 lowest_pio_valid_lifetime_seconds = 5;
+    // The lowest valid lifetime of PIO (Prefix Information Option) in seconds, excluding 0.
+    optional int64 lowest_pio_valid_lifetime_seconds = 5;
 
-    // The lowest route lifetime of RIO (Route Information Option) in seconds.
-    optional int32 lowest_rio_route_lifetime_seconds = 6;
+    // The lowest route lifetime of RIO (Route Information Option) in seconds, excluding 0.
+    optional int64 lowest_rio_route_lifetime_seconds = 6;
 
-    // The lowest lifetime of RDNSS (Recursive DNS Server Option) in seconds.
-    optional int32 lowest_rdnss_lifetime_seconds = 7;
+    // The lowest lifetime of RDNSS (Recursive DNS Server Option) in seconds, excluding 0.
+    optional int64 lowest_rdnss_lifetime_seconds = 7;
 }
