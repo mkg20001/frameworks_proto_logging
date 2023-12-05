@@ -34,6 +34,24 @@
       "parentUuid": "4f089cd0_45269bc3",
       "revId": "60fb088776d9f068d5b64b6adbcf83c324014ab0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35ede59_20dad6ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1947210
+      },
+      "writtenOn": "2023-12-05T11:38:30Z",
+      "side": 1,
+      "message": "Please add \u0027Merged-In: I56f7b1b6f32ef6504f9558852ae0fb00dd079082\u0027 to the commit message to ensure that the change doesn\u0027t go into branches that already have it.\n\nSee ag/25405673 and r.android.com/2838335 for example (they both use the same Change-Id).",
+      "parentUuid": "85e032ac_3a665140",
+      "revId": "60fb088776d9f068d5b64b6adbcf83c324014ab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
