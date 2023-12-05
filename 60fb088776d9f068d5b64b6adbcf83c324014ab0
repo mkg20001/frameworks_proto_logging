@@ -16,6 +16,24 @@
       "message": "Will this already be merged into AOSP due to ag/25480275?",
       "revId": "60fb088776d9f068d5b64b6adbcf83c324014ab0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e032ac_3a665140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1984276
+      },
+      "writtenOn": "2023-12-05T09:51:30Z",
+      "side": 1,
+      "message": "No, I guess it works only if you submit the code to AOSP (it is merged to internal automatically).",
+      "parentUuid": "4f089cd0_45269bc3",
+      "revId": "60fb088776d9f068d5b64b6adbcf83c324014ab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
