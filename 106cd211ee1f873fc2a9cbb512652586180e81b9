@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9fc141a_bb0b987f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-12-08T23:29:59Z",
+      "side": 1,
+      "message": "Are these enums referenced in atoms? if not, is frameworks/proto_logging the right place for them to live?",
+      "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
