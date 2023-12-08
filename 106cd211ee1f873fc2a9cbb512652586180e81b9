@@ -16,6 +16,24 @@
       "message": "Are these enums referenced in atoms? if not, is frameworks/proto_logging the right place for them to live?",
       "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd06cb63_e18b0136",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1290458
+      },
+      "writtenOn": "2023-12-08T23:46:58Z",
+      "side": 1,
+      "message": "I was going by what other code in BatteryManager did for its CHARGING_POLICY values: https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/BatteryManager.java;l\u003d216?q\u003dBatteryManager.java\n\nI can\u0027t tell if that\u0027s used in atoms though. It sounds like maybe I should move the hardcoding to BatteryManager.java instead?",
+      "parentUuid": "d9fc141a_bb0b987f",
+      "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
