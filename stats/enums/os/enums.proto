@@ -36,6 +36,15 @@ enum BatteryHealthEnum {
     BATTERY_HEALTH_INCONSISTENT = 12;
 }
 
+// These constants are defined in
+//    hardware/interfaces/health/aidl/android/hardware/health/BatteryPartStatus.aidl
+// They are primarily used by android/os/BatteryManager.java.
+enum BatteryPartStatus {
+    BATTERY_PART_STATUS_UNSUPPORTED = 0;
+    BATTERY_PART_STATUS_ORIGINAL = 1;
+    BATTERY_PART_STATUS_REPLACED = 2;
+}
+
 // Plug states, primarily used by android/os/BatteryManager.java.
 enum BatteryPluggedStateEnum {
     // Note that NONE is not in BatteryManager.java's constants.
