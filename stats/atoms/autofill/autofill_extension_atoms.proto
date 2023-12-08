@@ -211,12 +211,24 @@ message AutofillSessionCommitted {
 }
 
 /**
-* Logs Fieldclassification event. This event is captured after the request
+* Logs FieldClassification event. This event is captured after the request
 * for the classification service has been made.
 */
 message AutofillFieldClassificationEventReported {
-    // Latency of the request to the field classification service.
-    optional int64 latency_millis = 1;
-    // Count of fields that were classified.
-    optional int32 count_classifications = 2;
+  // Latency of the request to the field classification service.
+  optional int64 latency_millis = 1;
+  // Count of fields that were classified.
+  optional int32 count_classifications = 2;
+  // SessionId to attribute classifications within a session, and measure overall performance.
+  optional int32 session_id = 3;
+  // field_classification request id.
+  optional int32 request_id = 4;
+  // request_id of the next fill request that'll use this result.
+  optional int32 next_fill_request_id = 5;
+  // App package Uid
+  optional int32 app_package_uid = 6 [(is_uid) = true];
+  // Status of the request
+  optional FieldClassificationRequestStatus status = 7;
+  // Indicates the session that called this request was garbage collected
+  optional bool is_session_gc = 8;
 }
