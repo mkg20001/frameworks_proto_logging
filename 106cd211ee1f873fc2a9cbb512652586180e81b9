@@ -34,6 +34,24 @@
       "parentUuid": "d9fc141a_bb0b987f",
       "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb41772_27af6cca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2023-12-09T00:50:40Z",
+      "side": 1,
+      "message": "I think it is up to you. We might have done that for other enums in the past that are referenced in atoms. My soft recommendation is to not put them here unless they are used in atoms. If you end up adding an atom that references BatteryPartStatus, you can add the enum here later and make the java constants reference them at the time. But until then, I\u0027m not sure if it provides any value to you, and it adds a dependency on proto_logging.\n\nBut its up to you, if you\u0027d prefer to put them here now, I have no issues approving the cl.",
+      "parentUuid": "dd06cb63_e18b0136",
+      "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
