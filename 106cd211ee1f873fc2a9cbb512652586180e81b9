@@ -52,6 +52,24 @@
       "parentUuid": "dd06cb63_e18b0136",
       "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b8c682_9bf3bfde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1290458
+      },
+      "writtenOn": "2023-12-11T18:18:50Z",
+      "side": 1,
+      "message": "I\u0027ll abandon this for simplicity then. Thanks!",
+      "parentUuid": "0bb41772_27af6cca",
+      "revId": "106cd211ee1f873fc2a9cbb512652586180e81b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
