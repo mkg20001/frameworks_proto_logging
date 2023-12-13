@@ -49,6 +49,7 @@ enum Action {
     WALLPAPER_EFFECT_APPLIED = 27;
     SNAPSHOT = 28;
     WALLPAPER_EFFECT_PROBE = 29;
+    WALLPAPER_EFFECT_FG_DOWNLOAD = 30;
 }
 
 enum LocationPreference {
@@ -82,4 +83,5 @@ enum EffectPreference {
     EFFECT_APPLIED_ON_FAILED = 2;
     EFFECT_APPLIED_OFF = 3;
     EFFECT_APPLIED_ABORTED = 4;
+    EFFECT_APPLIED_STARTED = 5;
 }

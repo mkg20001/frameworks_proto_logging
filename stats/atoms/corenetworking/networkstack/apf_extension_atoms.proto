@@ -37,7 +37,7 @@ message ApfCounter {
     optional android.stats.connectivity.CounterName counter_name = 1;
 
     // The value of APF counter.
-    optional int32 counter_value = 2;
+    optional int64 counter_value = 2;
 }
 
 
@@ -61,8 +61,8 @@ message ApfSessionInfoReported {
     // The values of all APF counters.
     optional ApfCounterList apf_counter_list = 3 [(log_mode) = MODE_BYTES];
 
-    // The duration of ip client in milliseconds.
-    optional int32 ip_client_session_duration_ms = 4;
+    // The duration of APF session in seconds.
+    optional int32 apf_session_duration_seconds = 4;
 
     // Number of times APF program updated.
     optional int32 num_of_times_apf_program_updated = 5;
