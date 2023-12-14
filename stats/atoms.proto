@@ -1066,6 +1066,7 @@ message Atom {
     extensions 777; // ApfSessionInfoReported apf_session_info_reported
     extensions 778; // IpClientRaInfoReported ip_client_ra_info_reported
     extensions 779; // NetworkRequestStateChanged network_request_state_changed
+    extensions 781; // NetworkStatsRecorderFileOperationReported network_stats_recorder_file_operation_reported
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
