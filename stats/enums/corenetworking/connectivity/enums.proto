@@ -52,3 +52,12 @@ enum NetworkRequestState {
   NETWORK_REQUEST_STATE_RECEIVED = 1;
   NETWORK_REQUEST_STATE_REMOVED = 2;
 }
+
+// Type of NetworkStatsRecorder, as defined in android.net.netstats.NetworkStatsDataMigrationUtils#PREFIX_*.
+enum NetworkStatsRecorderType {
+  TYPE_UNKNOWN = 0;
+  TYPE_XT = 1;
+  TYPE_UID = 2;
+  TYPE_UIDTAG = 3;
+}
+
