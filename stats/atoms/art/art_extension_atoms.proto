@@ -163,14 +163,14 @@ enum ArtDatumDeltaId {
     reserved 1, 2, 4, 7, 10, 11, 12, 13, 14, 15, 18, 19, 20, 22, 23, 24, 25, 26, 27;
 }
 
-// Indicates what class of thread the reported values apply to.
+// DEPRECATED - Used to indicate what class of thread the reported values apply to.
 enum ArtThreadType {
     ART_THREAD_UNKNOWN = 0;
     ART_THREAD_MAIN = 1;
     ART_THREAD_BACKGROUND = 2;
 }
 
-// Indicates the type of dex metadata.
+// DEPRECATED - Used to indicate the type of dex metadata.
 enum ArtDexMetadataType {
   ART_DEX_METADATA_TYPE_UNKNOWN = 0;
   ART_DEX_METADATA_TYPE_PROFILE = 1;
@@ -180,7 +180,7 @@ enum ArtDexMetadataType {
   ART_DEX_METADATA_TYPE_ERROR = 5;
 }
 
-// Indicates the type of the apk.
+// DEPRECATED - Used to indicate the type of the apk.
 enum ArtApkType {
     ART_APK_TYPE_UNKNOWN = 0;
     ART_APK_TYPE_BASE = 1;
@@ -236,7 +236,7 @@ message ArtDatumReported {
     optional int64 timestamp_millis = 5;
 
     // What kind of thread (UI or background) this metric corresponds to.
-    optional ArtThreadType thread_type = 6;
+    optional ArtThreadType thread_type = 6 [deprecated = true];
 
     // Which counter this is that is being reported.
     optional ArtDatumId kind = 7;
@@ -245,10 +245,10 @@ message ArtDatumReported {
     optional int64 value = 8;
 
     // The type of dex metadata
-    optional ArtDexMetadataType dex_metadata_type = 9;
+    optional ArtDexMetadataType dex_metadata_type = 9 [deprecated = true];
 
     // The type of the APK file.
-    optional ArtApkType apk_type = 10;
+    optional ArtApkType apk_type = 10 [deprecated = true];
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
@@ -279,7 +279,7 @@ message ArtDatumDeltaReported {
     optional int64 timestamp_millis = 5;
 
     // What kind of thread (UI or background) this metric corresponds to.
-    optional ArtThreadType thread_type = 6;
+    optional ArtThreadType thread_type = 6 [deprecated = true];
 
     // Which counter this is that is being reported.
     optional ArtDatumDeltaId kind = 7;
@@ -288,10 +288,10 @@ message ArtDatumDeltaReported {
     optional int64 value = 8;
 
     // The type of dex metadata
-    optional ArtDexMetadataType dex_metadata_type = 9;
+    optional ArtDexMetadataType dex_metadata_type = 9 [deprecated = true];
 
     // The type of the APK file.
-    optional ArtApkType apk_type = 10;
+    optional ArtApkType apk_type = 10 [deprecated = true];
 
     // The ISA of the device.
     optional ArtIsa isa = 11;
