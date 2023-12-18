@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a3d63f_513197f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2023-12-18T15:41:42Z",
+      "side": 1,
+      "message": "It would be useful to document *why* it was deprecated.",
+      "revId": "26488ec1f61a6774688b22b17a053adb3f569697",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
