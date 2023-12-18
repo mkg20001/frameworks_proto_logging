@@ -22603,6 +22603,12 @@ message RemoteKeyProvisioningTiming {
     // values on a given device is determined by how many remotely provisioned
     // component HALs are on a given device. Typically, this is 2-3 HALs.
     optional string remotely_provisioned_component = 6;
+
+    // Cause of the attempt which resulted in these timings.
+    optional RemoteKeyProvisioningAttempt.Cause cause = 7;
+
+    // Indicates success or failure of the provisioning attempt.
+    optional com.android.remoteprovisioner.RemoteKeyProvisioningStatus status = 8;
 }
 
 // Deprecated in U.
