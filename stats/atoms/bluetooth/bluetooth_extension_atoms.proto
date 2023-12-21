@@ -43,6 +43,8 @@ extend Atom {
         ];
   optional BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
     = 696 [(module) = "bluetooth"];
+  optional BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
+    = 781 [(module) = "bluetooth"];
 }
 
 /**
@@ -223,4 +225,33 @@ message BluetoothProfileConnectionAttempted {
 
   // Reason for the connection result
   optional android.bluetooth.ProfileConnectionReason reason = 5;
+}
+
+/**
+ * Logs content profiles' caught exceptions or logs (ERROR, WARN)
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message BluetoothContentProfileErrorReported {
+  enum ErrorType {
+    UNKNOWN = 0;
+    EXCEPTION = 1;
+    LOG_ERROR = 2;
+    LOG_WARN = 3;
+  }
+
+  // The content profile where the error happened. (E.g. PBAP, MAP, OPP)
+  // From android.bluetooth.BluetoothProfile.java
+  // Default: 0 when not used
+  optional int32 bt_profile = 1;
+
+  // The file name where the error is reported from
+  optional android.bluetooth.ContentProfileFileName file_name = 2;
+
+  // The type of error (exception, Log.e, Log.w)
+  optional ErrorType type = 3;
+
+  // Integer tag associated with the error
+  optional int32 tag = 4;
 }
