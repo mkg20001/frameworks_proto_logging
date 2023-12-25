@@ -1067,6 +1067,7 @@ message Atom {
     extensions 778; // IpClientRaInfoReported ip_client_ra_info_reported
     extensions 779; // NetworkRequestStateChanged network_request_state_changed
     extensions 781; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
+    extensions 783; // NetworkStatsRecorderFileOperated network_stats_recorder_file_operated
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
@@ -22604,6 +22605,12 @@ message RemoteKeyProvisioningTiming {
     // values on a given device is determined by how many remotely provisioned
     // component HALs are on a given device. Typically, this is 2-3 HALs.
     optional string remotely_provisioned_component = 6;
+
+    // Cause of the attempt which resulted in these timings.
+    optional RemoteKeyProvisioningAttempt.Cause cause = 7;
+
+    // Indicates success or failure of the provisioning attempt.
+    optional com.android.remoteprovisioner.RemoteKeyProvisioningStatus status = 8;
 }
 
 // Deprecated in U.

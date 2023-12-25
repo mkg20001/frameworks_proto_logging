@@ -52,3 +52,26 @@ enum NetworkRequestState {
   NETWORK_REQUEST_STATE_RECEIVED = 1;
   NETWORK_REQUEST_STATE_REMOVED = 2;
 }
+
+// Prefix as enum of NetworkStatsRecorder, as defined in
+// android.net.netstats.NetworkStatsDataMigrationUtils#PREFIX_*.
+enum RecorderPrefix {
+  PREFIX_UNKNOWN = 0;
+  PREFIX_XT = 1;
+  PREFIX_UID = 2;
+  PREFIX_UIDTAG = 3;
+}
+
+// Type of NetworkStatsRecorder file operations.
+enum RecorderOperationType {
+  ROT_UNKNOWN = 0;
+  ROT_READ = 1;
+  ROT_WRITE = 2;
+}
+
+// State of applying FastDataInput feature.
+enum FastDataInputState {
+  FDIS_UNKNOWN = 0;
+  FDIS_ENABLED= 1;
+  FDIS_DISABLED = 2;
+}
