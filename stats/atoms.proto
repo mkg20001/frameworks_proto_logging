@@ -199,7 +199,7 @@ message Atom {
         PacketWakeupOccurred packet_wakeup_occurred = 44 [(module) = "framework"];
         WallClockTimeShifted wall_clock_time_shifted = 45 [(module) = "framework"];
         AnomalyDetected anomaly_detected = 46 [(module) = "statsd"];
-        AppBreadcrumbReported app_breadcrumb_reported = 47 [(module) = "statsd"];
+        AppBreadcrumbReported app_breadcrumb_reported = 47 [(module) = "statsd", (module) = "statsdtest"];
         AppStartOccurred app_start_occurred = 48 [(module) = "framework", (module) = "statsdtest"];
         AppStartCanceled app_start_canceled = 49 [(module) = "framework"];
         AppStartFullyDrawn app_start_fully_drawn = 50 [(module) = "framework"];
