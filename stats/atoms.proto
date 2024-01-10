@@ -199,7 +199,8 @@ message Atom {
         PacketWakeupOccurred packet_wakeup_occurred = 44 [(module) = "framework"];
         WallClockTimeShifted wall_clock_time_shifted = 45 [(module) = "framework"];
         AnomalyDetected anomaly_detected = 46 [(module) = "statsd"];
-        AppBreadcrumbReported app_breadcrumb_reported = 47 [(module) = "statsd"];
+        AppBreadcrumbReported app_breadcrumb_reported = 47
+            [(module) = "statsd", (module) = "statsdtest"];
         AppStartOccurred app_start_occurred = 48 [(module) = "framework", (module) = "statsdtest"];
         AppStartCanceled app_start_canceled = 49 [(module) = "framework"];
         AppStartFullyDrawn app_start_fully_drawn = 50 [(module) = "framework"];
@@ -10242,6 +10243,10 @@ message NfcErrorOccurred {
         CMD_TIMEOUT = 1;
         ERROR_NOTIFICATION = 2;
         AID_OVERFLOW = 3;
+        // HCE stands for Host Card Emulation
+        HCE_LATE_BINDING = 4;
+        NFC_ACCESS_CHECK_ERROR = 5;
+        SE_INCORRECT_FORMAT = 6;
     }
     optional Type type = 1;
     // If it's nci cmd timeout, log the timeout command.
@@ -10292,11 +10297,19 @@ message NfcBeamOccurred {
 message NfcCardemulationOccurred {
     enum Category {
         UNKNOWN = 0;
+        // HCE stands for Host Card Emulation
         HCE_PAYMENT = 1;
         HCE_OTHER = 2;
         OFFHOST = 3;
         OFFHOST_PAYMENT = 4;
         OFFHOST_OTHER = 5;
+        FAILED_NO_ROUTING = 6;
+        FAILED_HCE_PAYMENT_WRONG_SETTING = 7;
+        FAILED_HCE_OTHER_WRONG_SETTING = 8;
+        FAILED_HCE_PAYMENT_DISCONNECTED_BEFORE_BOUND = 9;
+        FAILED_HCE_OTHER_DISCONNECTED_BEFORE_BOUND = 10;
+        FAILED_HCE_PAYMENT_DISCONNECTED_BEFORE_RESPONSE = 11;
+        FAILED_HCE_OTHER_DISCONNECTED_BEFORE_RESPONSE = 12;
     }
     // Transaction belongs to HCE payment or HCE other category, or offhost.
     optional Category category = 1;
@@ -10318,9 +10331,18 @@ message NfcTagOccurred {
         BT_PAIRING = 2;
         PROVISION = 3;
         WIFI_CONNECT = 4;
+        // Successful App Launch
         APP_LAUNCH = 5;
+        // No suitable action found
         OTHERS = 6;
+        // Dispatch event when service is in foreground
         FOREGROUND_DISPATCH = 7;
+        // App Launch mute from android.nfc.action.NDEF_DISCOVERED
+        APP_LAUNCH_NDEF_MUTE = 8;
+        // App Launch mute from android.nfc.action.TECH_DISCOVERED
+        APP_LAUNCH_TECH_MUTE = 9;
+        // App Launch mute from android.nfc.action.TAG_DISCOVERED
+        APP_LAUNCH_TAG_MUTE = 10;
     }
     optional Type type = 1;
 
