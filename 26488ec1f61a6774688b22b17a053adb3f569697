@@ -16,6 +16,24 @@
       "message": "It would be useful to document *why* it was deprecated.",
       "revId": "26488ec1f61a6774688b22b17a053adb3f569697",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "219cd033_bfae79ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2024-01-10T13:54:55Z",
+      "side": 1,
+      "message": "Added a bit more context in the comments in art_extension_atoms.proto.",
+      "parentUuid": "92a3d63f_513197f6",
+      "revId": "26488ec1f61a6774688b22b17a053adb3f569697",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
