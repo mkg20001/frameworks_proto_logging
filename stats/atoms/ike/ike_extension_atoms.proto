@@ -56,8 +56,8 @@ message IkeLivenessCheckSessionValidated {
     // Identity of system callers.
     optional android.stats.ike.IkeCaller ike_caller = 1;
 
-    // To determine task at which liveness check was initiated.
-    optional android.stats.ike.IkeTask ike_task = 2;
+    // To determine the state at which liveness check was initiated.
+    optional android.stats.ike.IkeState ike_state = 2;
 
     // Underlying network type that checked the Liveness.
     optional android.stats.ike.IkeUnderlyingNetworkType ike_underlying_network_type = 3;
