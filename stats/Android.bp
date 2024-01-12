@@ -144,6 +144,7 @@ atom_protos = [
     "atoms/uwb/*.proto",
     "atoms/sdksandbox/*.proto",
     "atoms/threadnetwork/*.proto",
+    "atoms/movement/*.proto",
 ]
 
 cc_library_host_shared {
