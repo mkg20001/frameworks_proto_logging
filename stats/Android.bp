@@ -121,6 +121,7 @@ atom_protos = [
     "atoms/permissioncontroller/*.proto",
     "atoms/placeholder/*.proto",
     "atoms/rkpd/*.proto",
+    "atoms/sensor/*.proto",
     "atoms/settings/*.proto",
     "atoms/sysui/*.proto",
     "atoms/tv/*.proto",

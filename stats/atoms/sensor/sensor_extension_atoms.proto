@@ -1,0 +1,41 @@
+/*
+ * Copyright (C) 2024 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto2";
+
+package android.os.statsd.sensor;
+
+option java_package = "com.android.os.sensor";
+option java_multiple_files = true;
+
+extend Atom {
+    optional SignificantMotionStateChanged significant_motion_state_changed =
+        784 [(module) = "sensor"];
+
+
+/*
+ * Logs when the significant motion state changed. Motion is detected in the CHRE nanoapp.
+ */
+message SignificantMotionStateChanged {
+    // New significant motion state
+    enum State {
+        OFF = 0;
+        ON = 1;
+    }
+    optional State state = 2;[
+        (state_field_option).exclusive_state = true,
+        (state_field_option).nested = false];
+}
