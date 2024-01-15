@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9dea3d_43f12c03",
+        "filename": "stats/atoms/art/art_extension_atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-01-15T11:05:30Z",
+      "side": 1,
+      "message": "```suggestion\n// Deprecated in Jan 2024 as the corresponding filter is no longer needed.\n```",
+      "range": {
+        "startLine": 167,
+        "startChar": 73,
+        "endLine": 167,
+        "endChar": 82
+      },
+      "revId": "26e1cbacdd56f98d7ad254c7228988176c2c2a8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76dea35_04cbf577",
+        "filename": "stats/atoms/art/art_extension_atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-01-15T11:05:30Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 175,
+        "startChar": 77,
+        "endLine": 175,
+        "endChar": 82
+      },
+      "revId": "26e1cbacdd56f98d7ad254c7228988176c2c2a8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2cbae81_fe56d394",
+        "filename": "stats/atoms/art/art_extension_atoms.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-01-15T11:05:30Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 186,
+        "startChar": 77,
+        "endLine": 186,
+        "endChar": 82
+      },
+      "revId": "26e1cbacdd56f98d7ad254c7228988176c2c2a8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
