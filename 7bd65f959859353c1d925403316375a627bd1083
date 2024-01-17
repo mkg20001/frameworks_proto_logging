@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb76f49_fddaa741",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1969299
+      },
+      "writtenOn": "2024-01-17T22:25:45Z",
+      "side": 1,
+      "message": "This CL contains all the changes from the 3 rfcomm atom CLs in internal.",
+      "revId": "7bd65f959859353c1d925403316375a627bd1083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
