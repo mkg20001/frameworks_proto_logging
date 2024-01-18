@@ -291,7 +291,7 @@ message Atom {
         DocsUISearchModeReported docs_ui_search_mode_reported = 119 [(module) = "docsui"];
         DocsUISearchTypeReported docs_ui_search_type_reported = 120 [(module) = "docsui"];
         DataStallEvent data_stall_event = 121 [(module) = "network_stack"];
-        RescuePartyResetReported rescue_party_reset_reported = 122 [(module) = "framework"];
+        RescuePartyResetReported rescue_party_reset_reported = 122 [(module) = "crashrecovery", (module) = "framework"];
         SignedConfigReported signed_config_reported = 123 [(module) = "framework"];
         GnssNiEventReported gnss_ni_event_reported = 124 [(module) = "framework"];
         BluetoothLinkLayerConnectionEvent bluetooth_link_layer_connection_event =
@@ -322,7 +322,7 @@ message Atom {
         SpeechDspStatReported speech_dsp_stat_reported = 145;
         UsbContaminantReported usb_contaminant_reported = 146 [(module) = "framework"];
         WatchdogRollbackOccurred watchdog_rollback_occurred =
-                147 [(module) = "framework", (module) = "statsd"];
+                147 [(module) = "framework", (module) = "crashrecovery", (module) = "statsd"];
         BiometricSystemHealthIssueDetected biometric_system_health_issue_detected =
                 148 [(module) = "framework"];
         BubbleUIChanged bubble_ui_changed = 149 [(module) = "framework"];
