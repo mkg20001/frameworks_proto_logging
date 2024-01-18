@@ -23,6 +23,7 @@ import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/le/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
 
 option java_package = "com.android.os.bluetooth";
 option java_multiple_files = true;
@@ -41,10 +42,12 @@ extend Atom {
           (module) = "bt_restricted",
           (restriction_category) = RESTRICTION_DIAGNOSTIC
         ];
-  optional BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
-    = 696 [(module) = "bluetooth"];
-  optional BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
-    = 781 [(module) = "bluetooth"];
+    optional BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
+        = 696 [(module) = "bluetooth"];
+    optional BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
+        = 781 [(module) = "bluetooth"];
+    optional BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
+        = 782 [(module) = "bluetooth"];
 }
 
 /**
@@ -254,4 +257,30 @@ message BluetoothContentProfileErrorReported {
 
   // Integer tag associated with the error
   optional int32 tag = 4;
+}
+
+/**
+* Logs RFCOMM connection attempts
+*
+* Logged from:
+*     packages/modules/Bluetooth
+*/
+message BluetoothRfcommConnectionAttempted {
+  // Locally generated id for event matching
+  optional int32 metric_id = 1;
+
+  // Latency of the connection
+  optional int64 latency_nanos = 2;
+
+  // Whether or not the connection is secured
+  optional android.bluetooth.rfcomm.SocketConnectionSecurity security = 3;
+
+  // Result of Rfcomm connection
+  optional android.bluetooth.rfcomm.RfcommConnectionResult status = 4;
+
+  // is_serial_port is true if the service class UUID is 0x1101
+  optional bool is_serial_port = 5;
+
+  // Uid of the app that calls RFCOMM connection API
+  optional int32 uid = 6 [(is_uid) = true]; // [(datapol.semantic_type) = ST_SOFTWARE_ID]
 }

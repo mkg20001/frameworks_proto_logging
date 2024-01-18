@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hfp/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/leaudio/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/contexthub/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
@@ -1068,6 +1069,7 @@ message Atom {
     extensions 778; // IpClientRaInfoReported ip_client_ra_info_reported
     extensions 779; // NetworkRequestStateChanged network_request_state_changed
     extensions 781; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
+    extensions 782; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
     extensions 783; // NetworkStatsRecorderFileOperated network_stats_recorder_file_operated
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
