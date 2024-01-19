@@ -23734,6 +23734,8 @@ message IwlanSetupDataCallResultReported {
   optional string iwlan_error_wrapped_stack_first_frame = 18;
   // Error count of the same error cause
   optional int32 error_count_of_same_cause = 19;
+  // If the data call is setup with N1_MODE_CAPABILITY
+  optional bool n1_mode_capability = 20;
 }
 
 /**
@@ -23755,6 +23757,10 @@ message IwlanPdnDisconnectedReasonReported {
   optional int32 transport_type = 3;
   // Wifi signal level
   optional int32 wifi_signal_level = 4;
+  // ePDG tunnel bringdown reason
+  // See
+  // packages/services/Iwlan/src/com/google/android/iwlan/epdg/EpdgTunnelManager.java
+  optional int32 tunnel_bringdown_reason = 5;
 }
 
 /**
