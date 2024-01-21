@@ -15,11 +15,14 @@
 #include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "java_writer.h"
 #include "java_writer_q.h"
-#include "java_writer_vendor.h"
 #include "native_writer.h"
-#include "native_writer_vendor.h"
 #include "rust_writer.h"
 #include "utils.h"
+
+#ifdef WITH_VENDOR
+#include "java_writer_vendor.h"
+#include "native_writer_vendor.h"
+#endif
 
 namespace android {
 namespace stats_log_api_gen {
@@ -67,9 +70,11 @@ static void print_usage() {
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
+#ifdef WITH_VENDOR
     fprintf(stderr,
             "  --vendor-proto       Path to the proto file for vendor atoms logging\n"
             "code generation.\n");
+#endif
 }
 
 /**
@@ -199,6 +204,7 @@ static int run(int argc, char const* const* argv) {
             }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
+#ifdef WITH_VENDOR
         } else if (0 == strcmp("--vendor-proto", argv[index])) {
             index++;
             if (index >= argc) {
@@ -207,6 +213,7 @@ static int run(int argc, char const* const* argv) {
             }
 
             vendorProto = argv[index];
+#endif
         }
 
         index++;
@@ -333,8 +340,10 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel,
                     bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport);
+#endif
         }
         fclose(out);
     }
@@ -355,8 +364,10 @@ static int run(int argc, char const* const* argv) {
             errorCount = android::stats_log_api_gen::write_stats_log_header(
                     out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_header_vendor(
                     out, atoms, attributionDecl, cppNamespace);
+#endif
         }
         fclose(out);
     }
@@ -394,8 +405,10 @@ static int run(int argc, char const* const* argv) {
                 return 1;
             }
 
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_java_vendor(out, atoms,
                     javaClass, javaPackage);
+#endif
         }
 
         fclose(out);

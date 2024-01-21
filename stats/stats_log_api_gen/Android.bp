@@ -38,6 +38,7 @@ cc_binary_host {
         "-Wall",
         "-Werror",
         "-Wno-deprecated-declarations",
+        "-DWITH_VENDOR",
     ],
 
     shared_libs: [
