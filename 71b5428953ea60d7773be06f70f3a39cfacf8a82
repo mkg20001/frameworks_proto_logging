@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb3b8372_28168f4f",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-01-22T21:51:22Z",
+      "side": 1,
+      "message": "this comes from \"java_writer.h\" - why do we need to add this explicitly here?",
+      "revId": "71b5428953ea60d7773be06f70f3a39cfacf8a82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
