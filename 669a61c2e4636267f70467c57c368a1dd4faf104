@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85632978_c0d3afa0",
+        "filename": "stats/stats_log_api_gen/main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-01-22T06:41:08Z",
+      "side": 1,
+      "message": "move to line #403",
+      "revId": "669a61c2e4636267f70467c57c368a1dd4faf104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
