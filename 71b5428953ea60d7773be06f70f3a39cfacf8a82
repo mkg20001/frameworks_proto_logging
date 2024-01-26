@@ -16,6 +16,24 @@
       "message": "this comes from \"java_writer.h\" - why do we need to add this explicitly here?",
       "revId": "71b5428953ea60d7773be06f70f3a39cfacf8a82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ef2597_92d118cf",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-01-26T00:01:27Z",
+      "side": 1,
+      "message": "ClangTidy complains that no header providing some symbols like \"android::stats_log_api_gen::AnnotationId\" are directly included.",
+      "parentUuid": "eb3b8372_28168f4f",
+      "revId": "71b5428953ea60d7773be06f70f3a39cfacf8a82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
