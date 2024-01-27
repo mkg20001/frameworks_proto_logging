@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23325e1b_64df4edd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1799191
+      },
+      "writtenOn": "2024-01-27T01:50:42Z",
+      "side": 1,
+      "message": "This CL is the fix/complementary to the changes done in aosp/2929890. Please let me know if I\u0027m missing anything else.\n\n// I just added two suggested OWNERS. Apologies in advance if there\u0027s another process I should follow.",
+      "revId": "d1ec377d849a28e70c91dc995b4535f9d19fc1a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
