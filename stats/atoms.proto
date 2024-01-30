@@ -10034,6 +10034,7 @@ message DataStallEvent {
 message RescuePartyResetReported {
     // The rescue level of this reset. A value of 0 indicates missing or unknown level information.
     optional int32 rescue_level = 1;
+    optional string rescue_level_string = 2;
 }
 
 /**
