@@ -226,8 +226,8 @@ struct Atoms {
 /**
  * Gather the information about the atoms.  Returns the number of errors.
  */
-int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms* atoms);
-int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>* signature);
+int collate_atoms(const Descriptor& descriptor, const string& moduleName, Atoms& atoms);
+int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>& signature);
 
 }  // namespace stats_log_api_gen
 }  // namespace android

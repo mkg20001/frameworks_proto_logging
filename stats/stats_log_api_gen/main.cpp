@@ -15,11 +15,14 @@
 #include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "java_writer.h"
 #include "java_writer_q.h"
-#include "java_writer_vendor.h"
 #include "native_writer.h"
-#include "native_writer_vendor.h"
 #include "rust_writer.h"
 #include "utils.h"
+
+#ifdef WITH_VENDOR
+#include "java_writer_vendor.h"
+#include "native_writer_vendor.h"
+#endif
 
 namespace android {
 namespace stats_log_api_gen {
@@ -67,9 +70,11 @@ static void print_usage() {
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
+#ifdef WITH_VENDOR
     fprintf(stderr,
             "  --vendor-proto       Path to the proto file for vendor atoms logging\n"
             "code generation.\n");
+#endif
 }
 
 /**
@@ -199,6 +204,7 @@ static int run(int argc, char const* const* argv) {
             }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
+#ifdef WITH_VENDOR
         } else if (0 == strcmp("--vendor-proto", argv[index])) {
             index++;
             if (index >= argc) {
@@ -207,6 +213,7 @@ static int run(int argc, char const* const* argv) {
             }
 
             vendorProto = argv[index];
+#endif
         }
 
         index++;
@@ -281,7 +288,7 @@ static int run(int argc, char const* const* argv) {
     google::protobuf::compiler::Importer importer(&sourceTree, &errorCollector);
 
     if (vendorProto.empty()) {
-        errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+        errorCount = collate_atoms(*Atom::descriptor(), moduleName, atoms);
     } else {
         const google::protobuf::FileDescriptor* fileDescriptor;
         sourceTree.MapPath("", fs::current_path().c_str());
@@ -298,7 +305,7 @@ static int run(int argc, char const* const* argv) {
 
         fileDescriptor = importer.Import(vendorProto);
         errorCount =
-                collate_atoms(fileDescriptor->FindMessageTypeByName("Atom"), moduleName, &atoms);
+                collate_atoms(*fileDescriptor->FindMessageTypeByName("Atom"), moduleName, atoms);
     }
 
     if (errorCount != 0) {
@@ -307,8 +314,8 @@ static int run(int argc, char const* const* argv) {
 
     AtomDecl attributionDecl;
     vector<java_type_t> attributionSignature;
-    collate_atom(android::os::statsd::AttributionNode::descriptor(), &attributionDecl,
-                 &attributionSignature);
+    collate_atom(*android::os::statsd::AttributionNode::descriptor(), attributionDecl,
+                 attributionSignature);
 
     // Write the .cpp file
     if (!cppFilename.empty()) {
@@ -333,8 +340,10 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel,
                     bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport);
+#endif
         }
         fclose(out);
     }
@@ -355,8 +364,10 @@ static int run(int argc, char const* const* argv) {
             errorCount = android::stats_log_api_gen::write_stats_log_header(
                     out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_header_vendor(
                     out, atoms, attributionDecl, cppNamespace);
+#endif
         }
         fclose(out);
     }
@@ -389,6 +400,7 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
                     compileApiLevel, supportWorkSource);
         } else {
+#ifdef WITH_VENDOR
             if (supportWorkSource) {
                 fprintf(stderr, "The attribution chain is not supported for vendor atoms");
                 return 1;
@@ -396,6 +408,7 @@ static int run(int argc, char const* const* argv) {
 
             errorCount = android::stats_log_api_gen::write_stats_log_java_vendor(out, atoms,
                     javaClass, javaPackage);
+#endif
         }
 
         fclose(out);

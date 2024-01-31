@@ -16,6 +16,7 @@
 
 #include "native_writer.h"
 
+#include "Collation.h"
 #include "utils.h"
 
 namespace android {

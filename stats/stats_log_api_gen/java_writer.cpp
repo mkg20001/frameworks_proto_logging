@@ -16,6 +16,7 @@
 
 #include "java_writer.h"
 
+#include "Collation.h"
 #include "java_writer_q.h"
 #include "utils.h"
 
