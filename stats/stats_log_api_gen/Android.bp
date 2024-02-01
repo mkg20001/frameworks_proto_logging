@@ -18,6 +18,7 @@
 // Build the host executable: stats-log-api-gen
 // ==========================================================
 package {
+    default_team: "trendy_team_android_telemetry_infra",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
