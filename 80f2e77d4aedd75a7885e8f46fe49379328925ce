@@ -16,6 +16,24 @@
       "message": "I prefer if we don\u0027t revert this change and instead fix/revert the write function that is actually causing the breakage. Deleting a proto field can cause some serious issues: https://engdoc.corp.google.com/eng/doc/devguide/proto/programming-guides/proto3.md?cl\u003dhead#deleting",
       "revId": "80f2e77d4aedd75a7885e8f46fe49379328925ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8611501_abc6f2be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1099348
+      },
+      "writtenOn": "2024-02-02T19:27:38Z",
+      "side": 1,
+      "message": "go/revert-it applies here - the entire tree is broken.",
+      "parentUuid": "399fe02f_026dcd5a",
+      "revId": "80f2e77d4aedd75a7885e8f46fe49379328925ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
