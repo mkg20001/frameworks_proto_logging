@@ -95,4 +95,22 @@ extend Atom {
     // total number of packages on device, but may vary due to
     // OEM customizations.
     optional int32 total_package_count = 7;
+
+    // Background dexopt runs in multiple passes, each of which reports a
+    // separate atom. This enum indicates which pass this atom is about.
+    enum Pass {
+        PASS_UNKNOWN = 0;
+
+        // The downgrade pass, run before the main pass.
+        PASS_DOWNGRADE = 1;
+
+        // The main pass. This is converted to JOB_TYPE_INCREMENTAL_RUN or
+        // JOB_TYPE_FULL_RUN on Pitot.
+        PASS_MAIN = 2;
+
+        // The supplementary pass, run after the main pass.
+        PASS_SUPPLEMENTARY = 3;
+    }
+
+    optional Pass pass = 8;
 }

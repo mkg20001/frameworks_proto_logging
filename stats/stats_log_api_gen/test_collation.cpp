@@ -185,7 +185,7 @@ INSTANTIATE_TEST_SUITE_P(ProtoProvider, CollationTest, testing::Values(true, fal
  */
 TEST_P(CollationTest, CollateStats) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mEvent, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mEvent, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(4ul, atoms.signatureInfoMap.size());
@@ -263,7 +263,7 @@ TEST_P(CollationTest, CollateStats) {
  */
 TEST_P(CollationTest, NonMessageTypeFails) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mIntAtom, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mIntAtom, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(1, errorCount);
 }
@@ -273,7 +273,7 @@ TEST_P(CollationTest, NonMessageTypeFails) {
  */
 TEST_P(CollationTest, FailOnBadTypes) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadTypesEvent, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadTypesEvent, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(20, errorCount);
 }
@@ -283,7 +283,7 @@ TEST_P(CollationTest, FailOnBadTypes) {
  */
 TEST_P(CollationTest, FailOnSkippedFieldsSingle) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadSkippedFieldSingle, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadSkippedFieldSingle, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(1, errorCount);
 }
@@ -294,7 +294,7 @@ TEST_P(CollationTest, FailOnSkippedFieldsSingle) {
  */
 TEST_P(CollationTest, FailOnSkippedFieldsMultiple) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadSkippedFieldMultiple, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadSkippedFieldMultiple, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(2, errorCount);
 }
@@ -305,60 +305,60 @@ TEST_P(CollationTest, FailOnSkippedFieldsMultiple) {
  */
 TEST_P(CollationTest, FailBadAttributionNodePosition) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadAttributionNodePosition, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadAttributionNodePosition, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(1, errorCount);
 }
 
 TEST_P(CollationTest, FailOnBadStateAtomOptions) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadStateAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadStateAtoms, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(4, errorCount);
 }
 
 TEST_P(CollationTest, PassOnGoodStateAtomOptions) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mGoodStateAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mGoodStateAtoms, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(0, errorCount);
 }
 
 TEST_P(CollationTest, FailOnBadUidAtomOptions) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadUidAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadUidAtoms, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(2, errorCount);
 }
 
 TEST_P(CollationTest, PassOnGoodUidAtomOptions) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mGoodUidAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mGoodUidAtoms, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(0, errorCount);
 }
 
 TEST_P(CollationTest, PassOnGoodBinaryFieldAtom) {
     Atoms atoms;
     const int errorCount =
-            collate_atoms(mGoodEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
+            collate_atoms(*mGoodEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(0, errorCount);
 }
 
 TEST_P(CollationTest, FailOnBadBinaryFieldAtom) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mBadEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mBadEventWithBinaryFieldAtom, DEFAULT_MODULE_NAME, atoms);
     EXPECT_GT(errorCount, 0);
 }
 
 TEST_P(CollationTest, PassOnLogFromModuleAtom) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mModuleAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mModuleAtoms, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 4ul);
 }
 
 TEST_P(CollationTest, RecognizeModuleAtom) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mModuleAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mModuleAtoms, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 4ul);
     EXPECT_EQ(atoms.signatureInfoMap.size(), 2u);
@@ -429,7 +429,7 @@ TEST_P(CollationTest, RecognizeModuleAtom) {
 TEST_P(CollationTest, RecognizeModule1Atom) {
     Atoms atoms;
     const string moduleName = "module1";
-    const int errorCount = collate_atoms(mModuleAtoms, moduleName, &atoms);
+    const int errorCount = collate_atoms(*mModuleAtoms, moduleName, atoms);
     EXPECT_EQ(errorCount, 0);
     EXPECT_EQ(atoms.decls.size(), 2ul);
     EXPECT_EQ(atoms.signatureInfoMap.size(), 1u);
@@ -494,7 +494,7 @@ TEST_P(CollationTest, RecognizeModule1Atom) {
  */
 TEST_P(CollationTest, CollatePushedAndPulledAtoms) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mPushedAndPulledAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mPushedAndPulledAtoms, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
@@ -535,7 +535,7 @@ TEST_P(CollationTest, CollatePushedAndPulledAtoms) {
 
 TEST_P(CollationTest, CollateVendorAtoms) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mVendorAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mVendorAtoms, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
@@ -567,7 +567,7 @@ TEST_P(CollationTest, CollateVendorAtoms) {
 
 TEST(CollationTest, CollateExtensionAtoms) {
     Atoms atoms;
-    const int errorCount = collate_atoms(ExtensionAtoms::descriptor(), "test_feature", &atoms);
+    const int errorCount = collate_atoms(*ExtensionAtoms::descriptor(), "test_feature", atoms);
 
     EXPECT_EQ(0, errorCount);
     EXPECT_EQ(1ul, atoms.signatureInfoMap.size());
@@ -610,7 +610,7 @@ TEST(CollationTest, CollateExtensionAtoms) {
 
 TEST_P(CollationTest, CollateGoodRestrictedAtoms) {
     Atoms atoms;
-    const int errorCount = collate_atoms(mGoodRestrictedAtoms, DEFAULT_MODULE_NAME, &atoms);
+    const int errorCount = collate_atoms(*mGoodRestrictedAtoms, DEFAULT_MODULE_NAME, atoms);
 
     EXPECT_EQ(0, errorCount);
     ASSERT_EQ(1ul, atoms.signatureInfoMap.size());
@@ -768,23 +768,23 @@ TEST_P(CollationTest, CollateGoodRestrictedAtoms) {
 TEST_P(CollationTest, CollateBadRestrictedAtoms) {
     Atoms atoms;
     // Nonprimitive fields
-    int errorCount = collate_atoms(mBadRestrictedAtoms1, DEFAULT_MODULE_NAME, &atoms);
+    int errorCount = collate_atoms(*mBadRestrictedAtoms1, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(6, errorCount);
 
     // Restriction category on atom field
-    errorCount = collate_atoms(mBadRestrictedAtoms2, DEFAULT_MODULE_NAME, &atoms);
+    errorCount = collate_atoms(*mBadRestrictedAtoms2, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(1, errorCount);
 
     // Field restriction without restriction category
-    errorCount = collate_atoms(mBadRestrictedAtoms3, DEFAULT_MODULE_NAME, &atoms);
+    errorCount = collate_atoms(*mBadRestrictedAtoms3, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(9, errorCount);
 
     // Field restriction option on top level atom field
-    errorCount = collate_atoms(mBadRestrictedAtoms4, DEFAULT_MODULE_NAME, &atoms);
+    errorCount = collate_atoms(*mBadRestrictedAtoms4, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(1, errorCount);
 
     // Pulled restricted atoms
-    errorCount = collate_atoms(mBadRestrictedAtoms5, DEFAULT_MODULE_NAME, &atoms);
+    errorCount = collate_atoms(*mBadRestrictedAtoms5, DEFAULT_MODULE_NAME, atoms);
     EXPECT_EQ(2, errorCount);
 }
 

@@ -14,19 +14,30 @@
  * limitations under the License.
  */
 
-#include <catalog.h>
-#include <gtest/gtest.h>
+#pragma once
+
+#include <stdio.h>
+
+#include "codegen.h"
 
 namespace android {
 namespace express {
 
-TEST(ExpressMetricTest, CatalogValidationTest) {
-    std::map<std::string, ExpressMetric> metrics;
-    ASSERT_TRUE(readCatalog("./catalog/", metrics));
+class CodeGeneratorJava : public CodeGenerator {
+public:
+    CodeGeneratorJava(std::string filePath, std::string packageName, std::string className)
+        : CodeGenerator(std::move(filePath)),
+          mPackageName(std::move(packageName)),
+          mClassName(std::move(className)) {
+    }
 
-    MetricInfoMap metricsIds;
-    ASSERT_TRUE(generateMetricsIds(metrics, metricsIds));
-}
+protected:
+    bool generateCodeImpl(FILE* fd, const MetricInfoMap& metricsIds) const override;
+
+private:
+    const std::string mPackageName;
+    const std::string mClassName;
+};
 
 }  // namespace express
 }  // namespace android

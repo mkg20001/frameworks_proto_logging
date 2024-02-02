@@ -28,6 +28,9 @@ extend Atom {
     optional BalAllowed bal_allowed = 632 [(module) = "framework"];
     optional InTaskActivityStarted in_task_activity_started = 685 [(module) = "framework"];
     optional CachedAppsHighWaterMark cached_apps_high_watermark = 10189 [(module) = "framework"];
+    optional StylusPredictionMetricsReported stylus_prediction_metrics_reported = 718 [(module) = "libinput"];
+    optional MediaProjectionStateChanged media_projection_state_changed = 729 [(module) = "framework"];
+    optional MediaProjectionTargetChanged media_projection_target_changed = 730 [(module) = "framework"];
 }
 
 /**
@@ -133,4 +136,177 @@ message CachedAppsHighWaterMark {
 
   // The average frozen time (now - last_frozen) in current frozen apps.
   optional int32 average_frozen_time_in_seconds = 12;
+}
+
+/**
+ * [Pushed] Log stylus prediction error metrics (go/stylus-prediction-metrics).
+ * Logged once for each time bucket per touch event.
+ *
+ * Logged from: frameworks/native/libs/input/MotionPredictorMetricsManager.cpp.
+ */
+message StylusPredictionMetricsReported {
+    // Allow data to be sliced by stylus hardware information.
+    optional int32 stylus_vendor_id = 1;
+    optional int32 stylus_product_id = 2;
+
+    // Allow data to be sliced by time bucket.
+    optional int32 delta_time_bucket_milliseconds = 3;
+
+    // General errors.
+    optional int32 along_trajectory_error_mean_millipixels = 4;
+
+    // Standard deviation of the along-trajectory error.
+    optional int32 along_trajectory_error_std_millipixels = 5;
+
+    optional int32 off_trajectory_rmse_millipixels = 6;
+
+    optional int32 pressure_rmse_milliunits = 7;
+
+    // High-velocity errors.
+    optional int32 high_velocity_along_trajectory_rmse_millipixels = 8;
+
+    optional int32 high_velocity_off_trajectory_rmse_millipixels = 9;
+
+    // Scale-invariant errors.
+    optional int32 scale_invariant_along_trajectory_rmse_millipixels = 10;
+
+    optional int32 scale_invariant_off_trajectory_rmse_millipixels = 11;
+}
+
+/**
+ * Logs when MediaProjection goes through state changes.
+ *
+ * MediaProjection API allows apps to capture the contents of a display
+ * or a single app.
+ *
+ * Logged from:
+ * frameworks/base/services/core/java/com/android/server/media/projection/MediaProjectionMetricsLogger.java
+ */
+message MediaProjectionStateChanged {
+  // Unique session identifier, to identify which events belong to which session.
+  // An incrementing integer that persists across device reboots.
+  optional int32 session_id = 1 [(state_field_option).primary_field = true];
+
+  // The current state that is entered.
+  optional MediaProjectionState state = 2 [
+    (state_field_option).exclusive_state = true,
+    (state_field_option).nested = false
+  ];
+
+  // Previous state.
+  optional MediaProjectionState previous_state = 3;
+
+  // UID of the package that initiates MediaProjection.
+  // -2 - if can't report (e.g. side loaded app)
+  optional int32 host_uid = 4 [(is_uid) = true];
+
+  // UID of the package that is captured if selected.
+  // -1 - full screen sharing (app is not selected)
+  // -2 - can't report (e.g. side loaded app)
+  optional int32 target_uid = 5 [(is_uid) = true];
+
+  // Time since last active session ended in seconds. May not be set if there
+  // was no known last session. Only set when in state MEDIA_PROJECTION_STATE_INITIATED.
+  optional int32 time_since_last_active_session_seconds = 6;
+
+  // Where this session started.
+  // Only present when in state MEDIA_PROJECTION_STATE_INITIATED.
+  optional SessionCreationSource creation_source = 7;
+
+  // Possible states for a MediaProjection session.
+  enum MediaProjectionState {
+    MEDIA_PROJECTION_STATE_UNKNOWN = 0;
+    // Media projection session first initiated by the app requesting the
+    // user's consent to capture.
+    // Should be sent even if the permission dialog is not shown.
+    MEDIA_PROJECTION_STATE_INITIATED = 1;
+    // The user entered the setup flow and permission dialog is displayed.
+    // This state is not sent when the permission is already granted and
+    // we skipped showing the permission dialog.
+    MEDIA_PROJECTION_STATE_PERMISSION_REQUEST_DISPLAYED = 2;
+    // The app selector dialog is shown for the user.
+    MEDIA_PROJECTION_STATE_APP_SELECTOR_DISPLAYED = 3;
+    // The VirtualDisplay is created and capturing the selected region begins.
+    MEDIA_PROJECTION_STATE_CAPTURING_IN_PROGRESS = 4;
+    // The capturing is paused.
+    MEDIA_PROJECTION_STATE_CAPTURING_PAUSED = 5;
+    // The capturing has resumed after being in paused state.
+    MEDIA_PROJECTION_STATE_CAPTURING_IN_PROGRESS_RESUMED = 6;
+    // Capturing stopped, either normally or because of error.
+    MEDIA_PROJECTION_STATE_STOPPED = 7;
+    // Media projection setup cancelled, user dismissed the dialog
+    MEDIA_PROJECTION_STATE_CANCELLED = 8;
+  }
+
+  // The possible entry points for the session.
+  enum SessionCreationSource {
+    CREATION_SOURCE_UNKNOWN = 0;
+    // Created through public MediaProjection API, used by 1P/3P apps.
+    CREATION_SOURCE_APP = 1;
+    // Created using a SystemUI screen recorder, accessible from screen
+    // recorder quick settings tile.
+    CREATION_SOURCE_SYSTEM_UI_SCREEN_RECORDER = 2;
+    // Created through Cast SDK, e.g. screencast quick settings tile.
+    CREATION_SOURCE_CAST = 3;
+  }
+}
+
+/**
+ * Logs when the region captured in the MediaProjection session changes.
+ *
+ * This may be due to a the user changing the region, or the captured app changing
+ * windowing mode.
+ *
+ * It should be reported only after a MediaProjection session enters
+ * MEDIA_PROJECTION_STATE_CAPTURING_IN_PROGRESS state.
+ *
+ * Logged from:
+ * frameworks/base/services/core/java/com/android/server/media/projection/MediaProjectionMetricsLogger.java
+ */
+message MediaProjectionTargetChanged {
+  // Unique session identifier, to identify which events belong to which session.
+  // An incrementing integer that persists across device reboots.
+  optional int32 session_id = 1 [(state_field_option).primary_field = true];
+
+  // The area that is being captured.
+  optional TargetType target_type = 2;
+
+  // UID of the package that initiates MediaProjection.
+  // -2 - can't report (e.g. side loaded app)
+  optional int32 host_uid = 3 [(is_uid) = true];
+
+  // UID of the package that is captured by MediaProjection.
+  // Not filled if not known, for example if the user chose
+  // display capture.
+  // -2 - can't report (e.g. side loaded app)
+  optional int32 target_uid = 4 [(is_uid) = true];
+
+  // The current windowing mode of the target app.
+  optional WindowingMode target_windowing_mode = 5 [
+    (state_field_option).exclusive_state = true,
+    (state_field_option).nested = false
+  ];
+
+  // Enum that represents the type of area that is being captured.
+  enum TargetType {
+    TARGET_TYPE_UNKNOWN = 0;
+    // Capturing a single display.
+    TARGET_TYPE_DISPLAY = 1;
+    // Capturing one task of an app.
+    TARGET_TYPE_APP_TASK = 2;
+  }
+
+  // Windowing mode of the captured task, if the user chose to capture
+  // a single app instance.
+  enum WindowingMode {
+    WINDOWING_MODE_UNKNOWN = 0;
+    // The app is not visible (e.g. another app is in full-screen foreground)
+    WINDOWING_MODE_HIDDEN = 1;
+    // The app is in fullscreen mode.
+    WINDOWING_MODE_FULLSCREEN = 2;
+    // The app is in a split screen.
+    WINDOWING_MODE_SPLIT_SCREEN = 3;
+    // The app is in freeform mode
+    WINDOWING_MODE_FREEFORM = 4;
+  }
 }

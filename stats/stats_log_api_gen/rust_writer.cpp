@@ -16,6 +16,7 @@
 
 #include "rust_writer.h"
 
+#include "Collation.h"
 #include "utils.h"
 
 // Note that we prepend _ to variable names to avoid using Rust language keyword.

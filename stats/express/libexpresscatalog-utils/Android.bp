@@ -18,37 +18,14 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-cc_library_host_shared {
-    name: "libexpresscatalog",
-    srcs: [
-        "catalog.cpp",
-    ],
-    local_include_dirs: [
-        "include/",
-    ],
+cc_library_headers {
+    name: "libexpresscatalog-utils-headers",
     export_include_dirs: [
         "include/",
     ],
-    cflags: [
-        "-Wall",
-        "-Werror",
-
-        "-DNAMESPACE_FOR_HASH_FUNCTIONS=farmhash",
+    apex_available: [
+        "//apex_available:anyapex",
+        "//apex_available:platform",
     ],
-    header_libs: [
-        "libexpresscatalog-utils-headers",
-        "libtextclassifier_hash_headers",
-    ],
-    static_libs: [
-        "libc++fs",
-        "libtextclassifier_hash_static",
-    ],
-    shared_libs: [
-        "libbase",
-        "libexpressconfig_proto_host",
-        "libprotobuf-cpp-full",
-    ],
-    proto: {
-        type: "full",
-    },
+    host_supported: true,
 }

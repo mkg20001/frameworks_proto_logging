@@ -51,10 +51,11 @@ message HistogramOptions {
 
     message ScaledBinningOptions  {
         optional int32 count = 1;
-        optional float min = 2 [deprecated = true];
         optional float first_bin_width = 3;
         optional float scale = 4;
         optional int32 min_value = 5;
+
+        reserved 2;
     }
 
     oneof options {

@@ -38,6 +38,7 @@ cc_binary_host {
         "-Wall",
         "-Werror",
         "-Wno-deprecated-declarations",
+        "-DWITH_VENDOR",
     ],
 
     shared_libs: [
@@ -172,7 +173,7 @@ cc_library_static {
     ],
     shared_libs: [
         "android.frameworks.stats-V2-ndk",
-    ]
+    ],
 }
 
 // ==========================================================
@@ -203,42 +204,32 @@ cc_library {
         "statslog.cpp",
     ],
     generated_headers: [
-        "statslog.h"
+        "statslog.h",
     ],
     cflags: [
         "-Wall",
         "-Werror",
     ],
     export_generated_headers: [
-        "statslog.h"
+        "statslog.h",
     ],
     shared_libs: [
         "liblog",
         "libcutils",
+        "libstatssocket",
+        "libstatspull",
+    ],
+    export_shared_lib_headers: [
+        "libstatssocket",
+        "libstatspull",
     ],
     target: {
-        android: {
-            shared_libs: [
-                "libstatssocket",
-                "libstatspull",
-            ],
-            export_shared_lib_headers: [
-                 "libstatssocket",
-                 "libstatspull",
-            ],
-        },
         host: {
             static_libs: [
                 "libbase",
-                "libstatssocket",
-                "libstatspull",
                 "statsd-aidl-ndk",
             ],
             shared_libs: ["libbinder_ndk"],
-            export_static_lib_headers: [
-                "libstatssocket",
-                "libstatspull",
-            ],
         },
         darwin: {
             enabled: false,

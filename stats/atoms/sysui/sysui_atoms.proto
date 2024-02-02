@@ -125,6 +125,14 @@ message BackGesture {
     optional float ml_model_score = 10;
     optional string package_name = 11;  // The name of the top 100 most used package by all users.
 
+    // Specifies the input type of the event.
+    enum InputType {
+        UNKNOWN = 0;
+        TOUCH = 1;
+        TRACKPAD = 2;
+    }
+    optional InputType input_type = 12;
+
     enum WindowHorizontalLocation {
         DEFAULT_LOCATION = 0;
         LEFT = 1;
@@ -589,6 +597,12 @@ message MediaOutputOpSwitchReported {
 
     // The amount of applied devices within a remote dynamic group after a switching is done.
     optional int32 applied_device_count_within_remote_group = 9;
+
+    // Indicate target device is suggested route
+    optional bool target_is_suggested = 10;
+
+    // Indicate target device has ongoing session or not
+    optional bool target_has_ongoing_session = 11;
 }
 
 /*
@@ -603,6 +617,8 @@ message MediaOutputOpInteractionReported {
         EXPANSION = 0;
         ADJUST_VOLUME = 1;
         STOP_CASTING = 2;
+        MUTE = 3;
+        UNMUTE = 4;
     }
 
     // Type of interaction.
@@ -613,6 +629,9 @@ message MediaOutputOpInteractionReported {
 
     // The package name of an application whose media session is being switched.
     optional string media_session_package_name= 3;
+
+    // Indicate target device is suggested route
+    optional bool target_is_suggested = 4;
 }
 
 /**

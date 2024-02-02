@@ -128,3 +128,12 @@ enum DetectionPreference {
   DETECTION_PREFER_AUTOFILL_PROVIDER = 1;
   DETECTION_PREFER_PCC = 2;
 }
+
+// Enum for specifying which detection provider gets the preference when choosing
+// final datasets.
+enum FieldClassificationRequestStatus {
+  STATUS_UNKNOWN = 0;
+  STATUS_SUCCESS = 1;
+  STATUS_FAIL = 2;
+  STATUS_CANCELLED = 3;
+}

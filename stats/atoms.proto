@@ -59,6 +59,7 @@ import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hfp/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/leaudio/enums.proto";
+import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/smp/enums.proto";
 import "frameworks/proto_logging/stats/enums/contexthub/enums.proto";
 import "frameworks/proto_logging/stats/enums/debug/enums.proto";
@@ -199,7 +200,8 @@ message Atom {
         PacketWakeupOccurred packet_wakeup_occurred = 44 [(module) = "framework"];
         WallClockTimeShifted wall_clock_time_shifted = 45 [(module) = "framework"];
         AnomalyDetected anomaly_detected = 46 [(module) = "statsd"];
-        AppBreadcrumbReported app_breadcrumb_reported = 47 [(module) = "statsd"];
+        AppBreadcrumbReported app_breadcrumb_reported = 47
+            [(module) = "statsd", (module) = "statsdtest"];
         AppStartOccurred app_start_occurred = 48 [(module) = "framework", (module) = "statsdtest"];
         AppStartCanceled app_start_canceled = 49 [(module) = "framework"];
         AppStartFullyDrawn app_start_fully_drawn = 50 [(module) = "framework"];
@@ -289,7 +291,7 @@ message Atom {
         DocsUISearchModeReported docs_ui_search_mode_reported = 119 [(module) = "docsui"];
         DocsUISearchTypeReported docs_ui_search_type_reported = 120 [(module) = "docsui"];
         DataStallEvent data_stall_event = 121 [(module) = "network_stack"];
-        RescuePartyResetReported rescue_party_reset_reported = 122 [(module) = "framework"];
+        RescuePartyResetReported rescue_party_reset_reported = 122 [(module) = "crashrecovery", (module) = "framework"];
         SignedConfigReported signed_config_reported = 123 [(module) = "framework"];
         GnssNiEventReported gnss_ni_event_reported = 124 [(module) = "framework"];
         BluetoothLinkLayerConnectionEvent bluetooth_link_layer_connection_event =
@@ -320,7 +322,7 @@ message Atom {
         SpeechDspStatReported speech_dsp_stat_reported = 145;
         UsbContaminantReported usb_contaminant_reported = 146 [(module) = "framework"];
         WatchdogRollbackOccurred watchdog_rollback_occurred =
-                147 [(module) = "framework", (module) = "statsd"];
+                147 [(module) = "framework", (module) = "crashrecovery", (module) = "statsd"];
         BiometricSystemHealthIssueDetected biometric_system_health_issue_detected =
                 148 [(module) = "framework"];
         BubbleUIChanged bubble_ui_changed = 149 [(module) = "framework"];
@@ -1026,8 +1028,11 @@ message Atom {
     extensions 679; // TvLowPowerStandbyPolicy tv_low_power_standby_policy
     extensions 680; // SoftApStarted softap_started
     extensions 681; // SoftApStopped softap_stopped
+    extensions 682; // KeyboardConfigured keyboard_configured
+    extensions 683; // KeyboardSystemsEventReported keyboard_systems_event_reported
     extensions 684; // MediaCodecRendered media_codec_rendered
     extensions 685; // InTaskActivityStarted in_task_activity_started
+    extensions 686; // InputDeviceUsageReported inputdevice_usage_reported
     extensions 687; // WifiLockReleased wifi_lock_released
     extensions 688; // WifiLockDeactivated wifi_lock_deactivated
     extensions 689; // WifiConfigSaved wifi_config_saved
@@ -1041,6 +1046,16 @@ message Atom {
     extensions 702; // AdServicesConsentMigrated ad_services_consent_migrated
     extensions 703; // CronetEngineCreated cronet_engine_created
     extensions 704; // CronetTrafficReported cronet_traffic_reported
+    extensions 705; // DreamSettingChanged dream_setting_changed
+    extensions 706; // AiWallpapersButtonPressed ai_wallpapers_button_pressed
+    extensions 707; // AiWallpapersTemplateSelected ai_wallpapers_template_selected
+    extensions 708; // AiWallpapersTermSelected ai_wallpapers_term_selected
+    extensions 709; // AiWallpapersWallpaperSet ai_wallpapers_wallpaper_set
+    extensions 710; // AiWallpapersSessionSummary ai_wallpapers_session_summary
+    extensions 716; // LauncherImpressionEventV2 launcher_impression_event_v2
+    extensions 718; // StylusPredictionMetricsReported stylus_prediction_metrics_reported
+    extensions 729; // MediaProjectionStateChanged media_projection_state_changed
+    extensions 730; // MediaProjectionTargetChanged media_projection_target_changed
     extensions 735; // SandboxActivityEventOccurred sandbox_activity_event_occurred
     extensions 738; // ThreadnetworkTelemetryDataReported threadnetwork_telemetry_data_reported
     extensions 739; // ThreadnetworkTopoEntryRepeated threadnetwork_topo_entry_repeated
@@ -1050,12 +1065,18 @@ message Atom {
     extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
     extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
     extensions 764; // CronetInitialized cronet_initialized
+    extensions 777; // ApfSessionInfoReported apf_session_info_reported
+    extensions 778; // IpClientRaInfoReported ip_client_ra_info_reported
+    extensions 779; // NetworkRequestStateChanged network_request_state_changed
+    extensions 781; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
+    extensions 782; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
+    extensions 783; // NetworkStatsRecorderFileOperated network_stats_recorder_file_operated
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
 
     // Pulled events will start at field 10000.
-    // Next: 10191
+    // Next: 10192
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -1282,6 +1303,8 @@ message Atom {
     extensions 10188; // UwbActivityInfo uwb_activity_info
     extensions 10189; // CachedAppsHighWaterMark cached_apps_high_watermark
     extensions 10190; // WifiAwareCapabilities wifi_aware_capabilities
+    extensions 10191; // TouchpadUsage touchpad_usage
+    extensions 10192; // DreamSettingSnapshot dream_setting_snapshot
     extensions 10193; // WifiModuleInfo wifi_module_info
     extensions 99999; // Atom99999 atom_99999
 
@@ -1436,6 +1459,7 @@ message ActivityActionBlocked {
     optional int32 version = 11;
     optional bool multi_window = 12;
     optional int32 bal_code = 13;
+    optional string task_debug_info = 14;
 }
 
 /**
@@ -2059,7 +2083,7 @@ message ProcessLifeCycleStateChanged {
  * Logs when the ble scan state changes.
  *
  * Logged from:
- *   packages/apps/Bluetooth/src/com/android/bluetooth/gatt/AppScanStats.java
+ *   packages/apps/Bluetooth/src/com/android/bluetooth/le_scan/AppScanStats.java
  */
 message BleScanStateChanged {
     repeated AttributionNode attribution_node = 1
@@ -2090,7 +2114,7 @@ message BleScanStateChanged {
  * Logs reporting of a ble scan finding results.
  *
  * Logged from:
- *   packages/apps/Bluetooth/src/com/android/bluetooth/gatt/AppScanStats.java
+ *   packages/apps/Bluetooth/src/com/android/bluetooth/le_scan/AppScanStats.java
  */
 // TODO: Consider also tracking per-scanner-id.
 message BleScanResultReceived {
@@ -2993,6 +3017,11 @@ message BluetoothEnabledStateChanged {
     optional android.bluetooth.EnableDisableReasonEnum reason = 3;
     // If the reason is an application request, this will be the package name.
     optional string pkg_name = 4;
+    // Previous state. Default: UNKNOWN if there is no previous state.
+    optional State previous_state = 5;
+    // Timedelta in milliseconds since the last state changed.
+    // Default: 0 if there is no previous state.
+    optional int64 time_since_last_changed_millis = 6;
 }
 
 /**
@@ -5471,6 +5500,31 @@ message ForegroundServiceStateChanged {
 
     optional android.app.ProcessStateEnum calling_uid_state = 26 [default = PROCESS_STATE_UNKNOWN];
     optional ProcessCapability calling_uid_capabilities = 27;
+
+    optional int32 while_in_use_reason_code_no_binding = 30;
+    optional int32 while_in_use_reason_code_in_bind_service = 31;
+    optional int32 while_in_use_reason_code_by_bindings = 32;
+    optional int32 fgs_start_reason_code_no_binding = 33;
+    optional int32 fgs_start_reason_code_in_bind_service = 34;
+    optional int32 fgs_start_reason_code_by_bindings = 35;
+
+    enum FgsStartApi {
+        // Not available -- used in atoms that are unrelated to this selection.
+        FGSSTARTAPI_NA = 0;
+        // The FGS was not started. (likely it's bound.)
+        FGSSTARTAPI_NONE = 1;
+        // The FGS was started with Context.startService().
+        FGSSTARTAPI_START_SERVICE = 2;
+        // The FGS was started with Context.startForegroundService().
+        FGSSTARTAPI_START_FOREGROUND_SERVICE = 3;
+        // It's a delegate FGS.
+        FGSSTARTAPI_DELEGATE = 4;
+
+    }
+    optional FgsStartApi fgs_start_api = 36;
+
+    // Whether setFgsRestrictionLocked() was called in Service.startForeground().
+    optional bool fgs_restriction_recalculated = 37;
 }
 
 /**
@@ -5805,6 +5859,23 @@ message NotificationReported {
     // Time elapsed between the notify() API call and the NLSes being told about the notification.
     // Will be 0 for NotificationReported protos that do not correspond to a notify() call.
     optional int64 post_duration_millis = 26;
+
+    // State of the full screen intent posted with this notification.
+    enum FsiState {
+        // This notification was not posted with a full screen intent.
+        NO_FSI = 0;
+        // This notification was posted with a full screen intent and the FSI permission is granted.
+        FSI_ALLOWED = 1;
+        // This notification was posted with a full screen intent but the FSI permission is denied.
+        FSI_DENIED = 2;
+    }
+    optional FsiState fsi_state = 27;
+
+    // True if the device was locked or showing unlocked AOD.
+    optional bool is_locked = 28;
+
+    // Age of the notification in minutes.
+    optional int32 age_in_minutes = 29;
 }
 
 /**
@@ -6755,6 +6826,9 @@ message RoleRequestResultReported {
         USER_DENIED_GRANTED_ANOTHER = 7;
         // role was denied and set to be always denied by the user
         USER_DENIED_WITH_ALWAYS = 8;
+        // role request was ignored because the user is blocked from changing
+        // roles via DISALLOW_CONFIG_DEFAULT_APPS user restriction
+        IGNORED_USER_RESTRICTION = 9;
     }
     // The result of the role request
     optional Result result = 9;
@@ -8730,6 +8804,19 @@ message PackageNotificationPreferences {
     optional int32 user_locked_fields = 4;
     // Indicates if the package importance was set by the user (rather than system default).
     optional bool user_set_importance = 5;
+    // State of the full screen intent permission for this package.
+    enum FsiState {
+        // This package did not declare the full screen intent permission in its manifest.
+        NOT_REQUESTED = 0;
+        // This package has the full screen intent permission.
+        GRANTED = 1;
+        // This package does not have the full screen intent permission.
+        DENIED = 2;
+    }
+    optional FsiState fsi_state = 6;
+    // True if the current full screen intent permission state for this package was set by the user.
+    // This is only set when the FSI permission is requested by the app.
+    optional bool is_fsi_permission_user_set = 7;
 }
 
 /**
@@ -10163,6 +10250,10 @@ message NfcErrorOccurred {
         CMD_TIMEOUT = 1;
         ERROR_NOTIFICATION = 2;
         AID_OVERFLOW = 3;
+        // HCE stands for Host Card Emulation
+        HCE_LATE_BINDING = 4;
+        NFC_ACCESS_CHECK_ERROR = 5;
+        SE_INCORRECT_FORMAT = 6;
     }
     optional Type type = 1;
     // If it's nci cmd timeout, log the timeout command.
@@ -10213,11 +10304,19 @@ message NfcBeamOccurred {
 message NfcCardemulationOccurred {
     enum Category {
         UNKNOWN = 0;
+        // HCE stands for Host Card Emulation
         HCE_PAYMENT = 1;
         HCE_OTHER = 2;
         OFFHOST = 3;
         OFFHOST_PAYMENT = 4;
         OFFHOST_OTHER = 5;
+        FAILED_NO_ROUTING = 6;
+        FAILED_HCE_PAYMENT_WRONG_SETTING = 7;
+        FAILED_HCE_OTHER_WRONG_SETTING = 8;
+        FAILED_HCE_PAYMENT_DISCONNECTED_BEFORE_BOUND = 9;
+        FAILED_HCE_OTHER_DISCONNECTED_BEFORE_BOUND = 10;
+        FAILED_HCE_PAYMENT_DISCONNECTED_BEFORE_RESPONSE = 11;
+        FAILED_HCE_OTHER_DISCONNECTED_BEFORE_RESPONSE = 12;
     }
     // Transaction belongs to HCE payment or HCE other category, or offhost.
     optional Category category = 1;
@@ -10239,9 +10338,18 @@ message NfcTagOccurred {
         BT_PAIRING = 2;
         PROVISION = 3;
         WIFI_CONNECT = 4;
+        // Successful App Launch
         APP_LAUNCH = 5;
+        // No suitable action found
         OTHERS = 6;
+        // Dispatch event when service is in foreground
         FOREGROUND_DISPATCH = 7;
+        // App Launch mute from android.nfc.action.NDEF_DISCOVERED
+        APP_LAUNCH_NDEF_MUTE = 8;
+        // App Launch mute from android.nfc.action.TECH_DISCOVERED
+        APP_LAUNCH_TECH_MUTE = 9;
+        // App Launch mute from android.nfc.action.TAG_DISCOVERED
+        APP_LAUNCH_TAG_MUTE = 10;
     }
     optional Type type = 1;
 
@@ -10853,6 +10961,8 @@ message MediametricsCodecReported {
  * Logged from:
  *   frameworks/av/media/libstagefright/MediaCodec.cpp
  *   frameworks/av/services/mediaanalytics/statsd_codec.cpp
+ *
+ * Next Tag: 80
  */
 message MediaCodecReported {
     optional int64 timestamp_nanos = 1;
@@ -10984,6 +11094,10 @@ message MediaCodecReported {
     optional int32 set_surface_count = 75;
     optional int32 resolution_change_count = 76;
     optional int32 component_color_format = 77;
+    // caller_uid replaces packagename
+    // @Since U-QPR2
+    optional int32 caller_uid = 78 [(is_uid) = true];
+    optional int64 pixel_format = 79;
     // !!! WARNING
     // Keep synchronized with MediametricsCodecReported.CodecData in
     // mediametrics_message.proto.
@@ -15134,6 +15248,12 @@ message VoiceCallSession {
 
     // Fold state of the device
     optional android.telephony.FoldState fold_state = 35;
+
+    // Number of times RAT changed after call connection
+    optional int64 rat_switch_count_after_connected = 36;
+
+    // Handover state of the device
+    optional bool handover_in_progress = 37;
 }
 
 /**
@@ -15212,8 +15332,14 @@ message CellularServiceState {
     // Whether internet pdn is up.
     optional bool is_internet_pdn_up = 11;
 
-    // Fold state of the device
+    // Fold state of the device.
     optional android.telephony.FoldState fold_state = 12;
+
+    // Whether the voice service state is overridden by voice calling capability.
+    optional bool override_voice_service = 13;
+
+    // Whether mobile data is enable.
+    optional bool isDataEnabled = 14;
 }
 
 /**
@@ -15719,6 +15845,15 @@ message DataStallRecoveryReported {
 
     // The elapsed time of current action.
     optional int32 duration_millis_of_current_action = 16;
+
+    // Link status of the data network.
+    optional int32 link_status = 17;
+
+    // The link up bandwidth of the data network.
+    optional int32 link_up_bandwidth = 18;
+
+    // The link down bandwidth of the data network.
+    optional int32 link_down_bandwidth = 19;
 }
 
 /**
@@ -22261,6 +22396,12 @@ message AutofillPresentationEventReported {
 
   // Which detection was preferred
   optional autofill.DetectionPreference detection_preference = 28;
+
+  // field_classification request id that was used for this event.
+  optional int32 field_classification_request_id = 29;
+
+  // App package Uid
+  optional int32 app_package_uid = 30 [(is_uid) = true];
 }
 
 // Tells how Autofill dataset was/will-be displayed.
@@ -22493,6 +22634,12 @@ message RemoteKeyProvisioningTiming {
     // values on a given device is determined by how many remotely provisioned
     // component HALs are on a given device. Typically, this is 2-3 HALs.
     optional string remotely_provisioned_component = 6;
+
+    // Cause of the attempt which resulted in these timings.
+    optional RemoteKeyProvisioningAttempt.Cause cause = 7;
+
+    // Indicates success or failure of the provisioning attempt.
+    optional com.android.remoteprovisioner.RemoteKeyProvisioningStatus status = 8;
 }
 
 // Deprecated in U.
@@ -23590,6 +23737,8 @@ message IwlanSetupDataCallResultReported {
   optional string iwlan_error_wrapped_classname = 17;
   // Iwlan error wrapped exception 1st line of stack trace
   optional string iwlan_error_wrapped_stack_first_frame = 18;
+  // Error count of the same error cause
+  optional int32 error_count_of_same_cause = 19;
 }
 
 /**
