@@ -9879,6 +9879,29 @@ message DhcpSession {
 }
 
 /**
+ * The DHCPv6 Prefix Delegation session info
+ * Logged from:
+ * packages/modules/NetworkStack/src/android/net/dhcp6/Dhcp6Client.java
+ */
+message Dhcp6PrefixDelegationSession {
+    // The solicit packet (re)transmit count
+    optional int32 solicit_count = 1;
+
+    // The request packet (re)transmit count
+    optional int32 request_count = 2;
+
+    // The received advertise count
+    optional int32 advertise_count = 5;
+
+    // The received reply count
+    optional int32 reply_count = 6;
+
+    // DHCPv6 Prefix Delegation first handshake result(solicit/reply with rapid
+    // commit or solicit/advertise/request/reply)
+    optional android.stats.connectivity.PrefixDelegationResult result = 7;
+}
+
+/**
  * Logs Network IP provisioning event
  * Logged from:
  * packages/modules/NetworkStack/src/com/android/networkstack/metrics/NetworkIpProvisioningMetrics.java
@@ -9904,6 +9927,9 @@ message NetworkIpProvisioningReported {
 
     // The random number between 0 ~ 999 for sampling
     optional int32 random_number = 7;
+
+    // Log DHCPv6 Prefix Delegation session info (Only valid for IPv6)
+    optional Dhcp6PrefixDelegationSession dhcp6_prefix_delegation_session = 8 [(log_mode) = MODE_BYTES];
 }
 
 /**
