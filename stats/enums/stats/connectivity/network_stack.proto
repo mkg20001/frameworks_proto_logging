@@ -28,6 +28,28 @@ enum DhcpRenewResult {
     RR_ERROR_IP_EXPIRE = 4;
 }
 
+enum PrefixDelegationResult {
+    PD_UNKNOWN = 0;
+    /* failure, reason unspecified */
+    PD_STATUS_UNSPEC_FAIL = 1;
+    /* client record (binding) unavailable */
+    PD_STATUS_NO_BINDING = 2;
+    /* server has no prefixes available to assign to the IA_PD(s) */
+    PD_STATUS_NO_PREFIX_AVAIL = 3;
+    /* delegated prefix(es) success */
+    PD_SUCCESS = 4;
+    /* delegated prefix(es) expired */
+    PD_EXPIRED = 5;
+    /* DHCPv6 message exchange failure during handshake */
+    PD_MESSAGE_EXCHANGE_FAILURE = 6;
+    /* delegated prefix(es) with preferred/valid lifetime of 0 */
+    PD_PREFIX_ZERO_LIFETIME = 7;
+    /* delegated prefix(es) with identical t1/t2/lifetime */
+    PD_PREFIX_IDENTICAL_T1_T2_LIFETIME = 8;
+    /* delegated prefix(es) don't match requested one, e.g. for network renumbering */
+    PD_PREFIX_RENUMBERING = 9;
+}
+
 enum DisconnectCode {
     DC_NONE = 0;
     DC_NORMAL_TERMINATION = 1;
