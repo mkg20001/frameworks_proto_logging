@@ -46,6 +46,30 @@
       },
       "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7d54fa1_f4d903ff",
+        "filename": "stats/enums/stats/dnsresolver/dns_resolver.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2024-02-07T05:59:27Z",
+      "side": 1,
+      "message": "Btw, do you able to test the atom manually?\nhttps://screenshot.googleplex.com/B9H3dEwiArsosqo\n\nm statsd_testdrive\nstatsd_testdrive 116\n\n--  browsing the internet to trigger the dns query.-- and wait for 1 mins , the app will dump the atom show the network_type is TRANSPORT_SATELLITE\n\n{\n  event_type: EVENT_RES_NSEND,\n  return_code: RC_RESOLV_TIMEOUT,\n  latency_micros: 4097127,\n  hints_ai_flags: -1,\n  res_nsend_flags: 0,\n  network_type: TRANSPORT_SATELLITE,  \u003c\u003d the network type is same as you expected\n  private_dns_modes: PDM_OPPORTUNISTIC,\n  dns_query_events: {\n    dns_query_event:   [{\n      rcode: NS_R_SERVFAIL,\n      type: NS_T_AAAA,\n      cache_hit: CS_NOTFOUND,\n      ip_version: IV_IPV4,\n      protocol: PROTO_UDP,\n      retry_times: 0,\n      dns_server_index: 0,\n      latency_micros: 2047302,\n      linux_errno: SYS_ETIME\n    },{\n      rcode: NS_R_SERVFAIL,\n      type: NS_T_AAAA,\n      cache_hit: CS_NOTFOUND,\n      ip_version: IV_IPV4,\n      protocol: PROTO_UDP,\n      retry_times: 1,\n      dns_server_index: 0,\n      latency_micros: 2049697,\n      linux_errno: SYS_ETIME\n    }]\n  },\n  sampling_rate_denom: 6,\n  uid: 1000,\n  package_info: [{\n    package_name: \"com.android.inputdevices\",\n    version: 34\n  },{\n    package_name: \"com.android.DeviceAsWebcam\",\n    version: 34\n  },{\n    package_name: \"com.google.android.iwlan\",\n    version: 34\n  },{\n    package_name: \"com.samsung.slsi.telephony.silentlogging\",\n    version: 34\n  },{\n    package_name: \"com.samsung.slsi.telephony.testmode\",\n    version: 1\n  },{\n    package_name: \"com.google.android.repairmode\",\n    version: 34\n  },{\n    package_name: \"com.android.qns\",\n    version: 34\n  },{\n    package_name: \"com.android.localtransport\",\n    version: 34\n  },{\n    package_name: \"com.android.wallpaperbackup\",\n    version: 34\n  },{\n    package_name: \"com.google.android.apps.internal.gyotaku\",\n    version: 10500\n  },{\n    package_name: \"com.android.server.telecom\",\n    version: 34\n  },{\n    package_name: \"com.samsung.slsi.telephony.uartswitch\",\n    version: 34\n  },{\n    package_name: \"com.android.settings\",\n    version: 34\n  },{\n    package_name: \"com.android.location.fused\",\n    version: 34\n  },{\n    package_name: \"com.samsung.slsi.sysdebugmode\",\n    version: 1\n  },{\n    package_name: \"android\",\n    version: 34\n  }]\n}\n```suggestion\n    // Indicates this network uses an Satellite transport.\n    NT_SATELLITE \u003d 13;\n```",
+      "parentUuid": "f858170d_17f0b847",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 22
+      },
+      "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
