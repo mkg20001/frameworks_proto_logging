@@ -22,6 +22,30 @@
       },
       "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f858170d_17f0b847",
+        "filename": "stats/enums/stats/dnsresolver/dns_resolver.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-02-07T05:51:17Z",
+      "side": 1,
+      "message": "As per planned implementaion: VPNs should presumably never be established over satellite since that would allow all apps using the VPN to use satellite bandwidth. Third-party VPN apps can’t use restricted networks so they will never use satellite as an underlying network. Built-in VPNs using VpnManager use the system default network which will never be satellite.",
+      "parentUuid": "fd0006c8_0f02665d",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 22
+      },
+      "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
