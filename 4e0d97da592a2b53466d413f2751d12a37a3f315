@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0006c8_0f02665d",
+        "filename": "stats/enums/stats/dnsresolver/dns_resolver.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2024-02-07T05:46:04Z",
+      "side": 1,
+      "message": "Is there any possible user using VPN over Satellite(Satellite+VPN)?\n\n```suggestion\n    // Indicates this network uses an Satellite transport.\n    NT_SATELLITE \u003d 13;\n    // Indicates this network uses an Satellite+VPN transport.\n    NT_SATELLITE_VPN \u003d 14;\n```",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 22
+      },
+      "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
