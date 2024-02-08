@@ -26,6 +26,7 @@ enum Profile {
     FIRA = 1;
     CCC = 2;
     CUSTOMIZED = 3;
+    ALIRO = 4;
 }
 // UWB scrambled timestamp sequence (STS) type
 enum Sts {
