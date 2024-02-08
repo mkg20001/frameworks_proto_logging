@@ -3284,6 +3284,7 @@ message WatchdogRollbackOccurred {
         REASON_APP_NOT_RESPONDING = 4;
         REASON_NATIVE_CRASH_DURING_BOOT = 5;
         REASON_NETWORK_RELATED_CRASH = 6;
+        REASON_BOOT_LOOPING = 7;
     }
     optional RollbackReasonType rollback_reason = 4;
 
