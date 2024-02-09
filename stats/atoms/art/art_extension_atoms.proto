@@ -9,14 +9,9 @@ option java_package = "com.android.os.art";
 option java_multiple_files = true;
 
 extend Atom {
-    // Pushed atomes
     optional ArtDatumReported art_datum_reported = 332 [(module) = "art"];
-    // Deprecated in favour of the ArtDeviceStatus pulled atom
-    optional ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art", deprecated = true];
+    optional ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art"];
     optional ArtDatumDeltaReported art_datum_delta_reported = 565 [(module) = "art"];
-
-    // Pulled atoms
-    optional ArtDeviceStatus art_device_status = 10205 [(module) = "art"];
 }
 
 // Indicates which compile filter was used for the package being loaded in an ART session.
@@ -332,22 +327,3 @@ message ArtDatumDeltaReported {
 
     optional BootImageStatus boot_image_status = 1;
 }
-
-/**
- * Reports ART metrics that are device-specific (as opposed to app-specific ones logged by
- * ArtDatumReported).
- */
-message ArtDeviceStatus {
-    enum BootImageStatus {
-        // Unknown value.
-        STATUS_UNSPECIFIED = 0;
-        // Boot image(s) are fully usable.
-        STATUS_FULL = 1;
-        // Only the minimal boot image is usable.
-        STATUS_MINIMAL = 2;
-        // No boot image is usable.
-        STATUS_NONE = 3;
-    }
-    optional BootImageStatus boot_image_status = 1;
-}
-
