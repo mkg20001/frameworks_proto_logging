@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4d2003b_d34b2f1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-02-09T13:00:52Z",
+      "side": 1,
+      "message": "Typically, changes should be merged into the internal main branch first to ensure no conflicts on field tags.",
+      "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd0006c8_0f02665d",
         "filename": "stats/enums/stats/dnsresolver/dns_resolver.proto",
         "patchSetId": 3
