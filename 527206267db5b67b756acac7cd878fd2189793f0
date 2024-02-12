@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab7ece3_22d763b7",
+        "filename": "stats/stats_log_api_gen/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-02-12T18:25:03Z",
+      "side": 1,
+      "message": "I am curious does the auto-generated code has some clang-tidy issues?\n\nWe can also add some checks to the auto-generated code as well \"stats-log-api-gen-test\" to see what are those, WDYT?",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "527206267db5b67b756acac7cd878fd2189793f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dcbbf90_719da703",
+        "filename": "stats/stats_log_api_gen/native_writer_vendor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-02-12T18:25:03Z",
+      "side": 1,
+      "message": "nit: This one comes from the Collation for AtomDeclSet - we do not explicitly depend on set\n\nLater one we can come up with another container to be used for AtomDeclSet and the #include \u003cset\u003e will become obsolete",
+      "revId": "527206267db5b67b756acac7cd878fd2189793f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ddc3ce_40aaf354",
+        "filename": "stats/stats_log_api_gen/rust_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-02-12T18:25:03Z",
+      "side": 1,
+      "message": "Nit: in this file we do not have `included \"set\"`, while we still have `AtomDeclSet` referenced\n\nFor consistency I propose to remove `include \"\u003cset\u003e\"` in writer files",
+      "revId": "527206267db5b67b756acac7cd878fd2189793f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
