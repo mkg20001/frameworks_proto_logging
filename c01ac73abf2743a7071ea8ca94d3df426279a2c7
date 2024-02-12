@@ -16,6 +16,24 @@
       "message": "I don\u0027t think this change is influencing the riscv64 build issues, so I\u0027d prefer not to revert it - if we manage to sort out the build issues and we want to report again this pulled atom we need this declaration in place, and if we revert it now, we risk that some other atom is going to take the same ID (with confusion and/or strange errors for both atoms involved).",
       "revId": "c01ac73abf2743a7071ea8ca94d3df426279a2c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ada9eb7_7c93695f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2024-02-12T12:28:00Z",
+      "side": 1,
+      "message": "The new pulled atom makes `stats-log-api-gen` generate code that requires `libstatspull`, so it does indeed cause the riscv64 build issue.\n\nHowever, turns out a fix forward is easy, so let\u0027s go with that instead: https://r.android.com/2957835",
+      "parentUuid": "e2422949_965bf501",
+      "revId": "c01ac73abf2743a7071ea8ca94d3df426279a2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
