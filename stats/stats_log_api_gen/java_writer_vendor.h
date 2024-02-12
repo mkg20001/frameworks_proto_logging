@@ -20,10 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <map>
-#include <set>
-#include <vector>
-
 #include "Collation.h"
 
 namespace android {
