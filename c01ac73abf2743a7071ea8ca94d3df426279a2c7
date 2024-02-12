@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2422949_965bf501",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2024-02-12T09:37:46Z",
+      "side": 1,
+      "message": "I don\u0027t think this change is influencing the riscv64 build issues, so I\u0027d prefer not to revert it - if we manage to sort out the build issues and we want to report again this pulled atom we need this declaration in place, and if we revert it now, we risk that some other atom is going to take the same ID (with confusion and/or strange errors for both atoms involved).",
+      "revId": "c01ac73abf2743a7071ea8ca94d3df426279a2c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
