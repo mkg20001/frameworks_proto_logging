@@ -16,10 +16,13 @@
 
 #include "Collation.h"
 
+#include <google/protobuf/descriptor.h>
+#include <stdarg.h>
 #include <stdio.h>
 
 #include <map>
 
+#include "frameworks/proto_logging/stats/atom_field_options.pb.h"
 #include "frameworks/proto_logging/stats/atoms.pb.h"
 #include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "utils.h"
@@ -30,7 +33,6 @@ namespace stats_log_api_gen {
 using google::protobuf::EnumDescriptor;
 using google::protobuf::FieldDescriptor;
 using google::protobuf::FileDescriptor;
-using google::protobuf::OneofDescriptor;
 using google::protobuf::SourceLocation;
 using std::make_shared;
 using std::map;
@@ -74,6 +76,7 @@ AtomDecl::~AtomDecl() {
  * Print an error message for a FieldDescriptor, including the file name and
  * line number.
  */
+// NOLINTNEXTLINE(cert-dcl50-cpp)
 static void print_error(const FieldDescriptor& field, const char* format, ...) {
     const Descriptor* message = field.containing_type();
     const FileDescriptor* file = message->file();
@@ -96,8 +99,8 @@ static void print_error(const FieldDescriptor& field, const char* format, ...) {
  * Convert a protobuf type into a java type.
  */
 static java_type_t java_type(const FieldDescriptor& field) {
-    int protoType = field.type();
-    bool isRepeatedField = field.is_repeated();
+    const int protoType = field.type();
+    const bool isRepeatedField = field.is_repeated();
 
     switch (protoType) {
         case FieldDescriptor::TYPE_FLOAT:
@@ -391,10 +394,10 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
         const FieldDescriptor& field = *it->second;
-        bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
-                             os::statsd::LogMode::MODE_BYTES;
+        const bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
+                                   os::statsd::LogMode::MODE_BYTES;
 
-        java_type_t javaType = java_type(field);
+        const java_type_t javaType = java_type(field);
 
         if (javaType == JAVA_TYPE_UNKNOWN_OR_INVALID) {
             if (field.is_repeated()) {
@@ -435,10 +438,10 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
     // Check that if there's an attribution chain, it's at position 1.
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
-        int number = it->first;
+        const int number = it->first;
         if (number != 1) {
             const FieldDescriptor& field = *it->second;
-            java_type_t javaType = java_type(field);
+            const java_type_t javaType = java_type(field);
             if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
                 print_error(field,
                             "AttributionChain fields must have field id 1, in message: '%s'\n",
@@ -452,9 +455,9 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
         const FieldDescriptor& field = *it->second;
-        java_type_t javaType = java_type(field);
-        bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
-                             os::statsd::LogMode::MODE_BYTES;
+        const java_type_t javaType = java_type(field);
+        const bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
+                                   os::statsd::LogMode::MODE_BYTES;
 
         AtomField atField(field.name(), javaType);
 
@@ -506,7 +509,7 @@ bool get_non_chained_node(const Descriptor& atom, AtomDecl& atomDecl,
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
         const FieldDescriptor& field = *it->second;
-        java_type_t javaType = java_type(field);
+        const java_type_t javaType = java_type(field);
         if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
             atomDecl.fields.insert(atomDecl.fields.end(), attributionDecl.fields.begin(),
                                    attributionDecl.fields.end());
@@ -590,7 +593,7 @@ static int collate_from_field_descriptor(const FieldDescriptor& atomField, const
     const AtomType atomType = getAtomType(atomField);
 
     const Descriptor& atom = *atomField.message_type();
-    shared_ptr<AtomDecl> atomDecl =
+    const shared_ptr<AtomDecl> atomDecl =
             make_shared<AtomDecl>(atomField.number(), atomField.name(), atom.name(), atomType);
 
     if (atomField.options().GetExtension(os::statsd::truncate_timestamp)) {
@@ -631,7 +634,7 @@ static int collate_from_field_descriptor(const FieldDescriptor& atomField, const
 
     atoms.decls.insert(atomDecl);
 
-    shared_ptr<AtomDecl> nonChainedAtomDecl =
+    const shared_ptr<AtomDecl> nonChainedAtomDecl =
             make_shared<AtomDecl>(atomField.number(), atomField.name(), atom.name(), atomType);
     vector<java_type_t> nonChainedSignature;
     if (get_non_chained_node(atom, *nonChainedAtomDecl, nonChainedSignature)) {

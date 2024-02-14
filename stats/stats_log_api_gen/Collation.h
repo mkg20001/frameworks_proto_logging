@@ -31,7 +31,6 @@ namespace stats_log_api_gen {
 
 using google::protobuf::Descriptor;
 using google::protobuf::FieldDescriptor;
-using google::protobuf::OneofDescriptor;
 using std::map;
 using std::set;
 using std::shared_ptr;

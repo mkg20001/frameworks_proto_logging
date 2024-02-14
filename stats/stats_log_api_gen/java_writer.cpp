@@ -16,6 +16,8 @@
 
 #include "java_writer.h"
 
+#include <stdio.h>
+
 #include "Collation.h"
 #include "java_writer_q.h"
 #include "utils.h"
@@ -69,7 +71,7 @@ static void write_java_annotation_constants(FILE* out, const int minApiLevel,
 
 static void write_annotations(FILE* out, int argIndex,
                               const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
-    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+    const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
             fieldNumberToAtomDeclSet.find(argIndex);
     if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
         return;
@@ -226,8 +228,8 @@ static int write_java_pushed_methods(FILE* out, const SignatureInfoMap& signatur
     for (auto signatureInfoMapIt = signatureInfoMap.begin();
          signatureInfoMapIt != signatureInfoMap.end(); signatureInfoMapIt++) {
         const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = signatureInfoMapIt->second;
-        FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
-            fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
+        const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+                fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
         if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()
             && requires_api_needed(fieldNumberToAtomDeclSetIt->second)) {
             fprintf(out, "    @RequiresApi(%s)\n",
@@ -248,8 +250,8 @@ static int write_java_pushed_methods(FILE* out, const SignatureInfoMap& signatur
             indent = "    ";
         }
 
-        int ret = write_method_body(out, signature, fieldNumberToAtomDeclSet, attributionDecl,
-                                    indent, minApiLevel);
+        const int ret = write_method_body(out, signature, fieldNumberToAtomDeclSet, attributionDecl,
+                                          indent, minApiLevel);
         if (ret != 0) {
             return ret;
         }
@@ -303,7 +305,7 @@ static int write_java_pulled_methods(FILE* out, const SignatureInfoMap& signatur
         fprintf(out, ") {\n");
 
         // Print method body.
-        string indent("");
+        const string indent("");
         ret = write_method_body(out, signature, fieldNumberToAtomDeclSet, attributionDecl,
                                     indent, minApiLevel);
         if (ret != 0) {

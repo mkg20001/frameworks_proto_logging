@@ -16,6 +16,8 @@
 
 #include "native_writer.h"
 
+#include <stdio.h>
+
 #include "Collation.h"
 #include "utils.h"
 
@@ -37,7 +39,7 @@ static void write_annotations(FILE* out, int argIndex,
                               const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet,
                               const string& methodPrefix, const string& methodSuffix,
                               const int minApiLevel) {
-    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+    const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
             fieldNumberToAtomDeclSet.find(argIndex);
     if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
         return;
@@ -222,7 +224,7 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
         if (bootstrap) {
             fprintf(out, "    ::android::os::StatsBootstrapAtom atom;\n");
             fprintf(out, "    atom.atomId = code;\n");
-            FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+            const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
                     fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
             if (fieldNumberToAtomDeclSet.end() != fieldNumberToAtomDeclSetIt) {
                 fprintf(stderr, "Bootstrap atoms do not support annotations\n");
@@ -273,7 +275,7 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
                         fprintf(stderr, "Encountered unsupported type.\n");
                         return 1;
                 }
-                FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+                const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
                         fieldNumberToAtomDeclSet.find(argIndex);
                 if (fieldNumberToAtomDeclSet.end() != fieldNumberToAtomDeclSetIt) {
                     fprintf(stderr, "Bootstrap atoms do not support annotations\n");
@@ -335,8 +337,8 @@ static int write_native_stats_write_methods(FILE* out, const SignatureInfoMap& s
             fprintf(out, "    return event.writeToSocket();\n");  // end method body.
         } else {
             fprintf(out, "    AStatsEvent* event = AStatsEvent_obtain();\n");
-            int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
-                                               attributionDecl, minApiLevel);
+            const int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
+                                                     attributionDecl, minApiLevel);
             if (ret != 0) {
                 return ret;
             }
@@ -390,8 +392,8 @@ static int write_native_build_stats_event_methods(FILE* out,
                                       signature, attributionDecl, " {");
 
         fprintf(out, "    AStatsEvent* event = AStatsEventList_addStatsEvent(pulled_data);\n");
-        int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
-                                           attributionDecl, minApiLevel);
+        const int ret = write_native_method_body(out, signature, fieldNumberToAtomDeclSet,
+                                                 attributionDecl, minApiLevel);
         if (ret != 0) {
             return ret;
         }

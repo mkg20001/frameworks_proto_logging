@@ -16,6 +16,16 @@
 
 #include "java_writer_vendor.h"
 
+#include <stdio.h>
+
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
+
+#include "Collation.h"
 #include "utils.h"
 
 namespace android {
@@ -128,15 +138,12 @@ static bool write_annotations_vendor_for_field(FILE* out, int argIndex,
                     annotationIdConstants.at(annotation->annotationId);
             switch (annotation->type) {
                 case ANNOTATION_TYPE_INT:
-                    if (ANNOTATION_ID_TRIGGER_STATE_RESET == annotation->annotationId) {
-                        break;
-                    } else if (ANNOTATION_ID_DEFAULT_STATE == annotation->annotationId) {
-                        break;
-                    } else if (ANNOTATION_ID_RESTRICTION_CATEGORY == annotation->annotationId) {
+                    if (ANNOTATION_ID_RESTRICTION_CATEGORY == annotation->annotationId) {
                         write_vendor_annotation_int_constant(
                                 out, annotationConstant.name,
                                 get_restriction_category_str(annotation->value.intValue), indent2);
-                    } else {
+                    } else if (ANNOTATION_ID_TRIGGER_STATE_RESET != annotation->annotationId &&
+                               ANNOTATION_ID_DEFAULT_STATE != annotation->annotationId) {
                         write_vendor_annotation_int(out, annotationConstant.name,
                                                     annotation->value.intValue, indent2);
                     }
@@ -388,7 +395,7 @@ int write_stats_log_java_vendor(FILE* out, const Atoms& atoms, const string& jav
 
     // Print write methods.
     fprintf(out, "    // Write methods\n");
-    int errors = write_java_pushed_methods_vendor(out, atoms.signatureInfoMap);
+    const int errors = write_java_pushed_methods_vendor(out, atoms.signatureInfoMap);
 
     fprintf(out, "}\n");
 
