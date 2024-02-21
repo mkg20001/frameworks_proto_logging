@@ -234,8 +234,8 @@ static int run(int argc, char const* const* argv) {
         return 1;
     }
 
-    if (compileApiLevel < API_R) {
-        // Cannot compile against pre-R.
+    if (compileApiLevel < API_U) {
+        // Cannot compile against pre-U.
         fprintf(stderr, "compileApiLevel must be %d or higher.\n", API_R);
         return 1;
     }
@@ -396,7 +396,7 @@ static int run(int argc, char const* const* argv) {
         if (vendorProto.empty()) {
             errorCount = android::stats_log_api_gen::write_stats_log_java(
                     out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
-                    compileApiLevel, supportWorkSource);
+                    supportWorkSource);
         } else {
 #ifdef WITH_VENDOR
             if (supportWorkSource) {
