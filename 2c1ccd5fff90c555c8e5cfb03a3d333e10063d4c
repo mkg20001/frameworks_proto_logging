@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d87d3bc8_fafb7064",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-02-22T03:01:36Z",
+      "side": 1,
+      "message": "I would like to fully deprecate this so people do not accidentally try and use it.",
+      "revId": "2c1ccd5fff90c555c8e5cfb03a3d333e10063d4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
