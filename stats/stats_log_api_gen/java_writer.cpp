@@ -230,11 +230,14 @@ static int write_java_pushed_methods(FILE* out, const SignatureInfoMap& signatur
         const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet = signatureInfoMapIt->second;
         const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
                 fieldNumberToAtomDeclSet.find(ATOM_ID_FIELD_NUMBER);
-        if (fieldNumberToAtomDeclSetIt != fieldNumberToAtomDeclSet.end()
-            && requires_api_needed(fieldNumberToAtomDeclSetIt->second)) {
+        const AtomDeclSet* atomDeclSet =
+                fieldNumberToAtomDeclSetIt == fieldNumberToAtomDeclSet.end()
+                        ? nullptr
+                        : &fieldNumberToAtomDeclSetIt->second;
+        const int requiresApiLevel = get_requires_api_level(minApiLevel, atomDeclSet);
+        if (requiresApiLevel != API_LEVEL_CURRENT) {
             fprintf(out, "    @RequiresApi(%s)\n",
-                    get_java_build_version_code(
-                        get_min_api_level(fieldNumberToAtomDeclSetIt->second)).c_str());
+                    get_java_build_version_code(requiresApiLevel).c_str());
         }
         // Print method signature.
         fprintf(out, "    public static void write(int code");
@@ -337,7 +340,7 @@ int write_stats_log_java(FILE* out, const Atoms& atoms, const AtomDecl& attribut
 
     fprintf(out, "import android.util.StatsEvent;\n");
     fprintf(out, "import android.util.StatsLog;\n");
-    if (requires_api_needed(atoms.decls)) {
+    if (get_requires_api_level(minApiLevel, &atoms.decls) != API_LEVEL_CURRENT) {
         fprintf(out, "import androidx.annotation.RequiresApi;\n");
     }
 

@@ -103,8 +103,8 @@ const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const str
     return *ANNOTATION_ID_CONSTANTS;
 }
 
-string get_java_build_version_code(int minApiLevel) {
-    switch (minApiLevel) {
+string get_java_build_version_code(int apiLevel) {
+    switch (apiLevel) {
         case API_Q:
             return "Build.VERSION_CODES.Q";
         case API_R:
@@ -646,7 +646,7 @@ int write_java_work_source_methods(FILE* out, const SignatureInfoMap& signatureI
     return 0;
 }
 
-bool contains_restricted(const AtomDeclSet& atomDeclSet) {
+static bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     for (const auto& decl : atomDeclSet) {
         if (decl->restricted) {
             return true;
@@ -655,15 +655,12 @@ bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     return false;
 }
 
-bool requires_api_needed(const AtomDeclSet& atomDeclSet) {
-    return contains_restricted(atomDeclSet);
-}
-
-int get_min_api_level(const AtomDeclSet& atomDeclSet) {
-    if (requires_api_needed(atomDeclSet)) {
-        if (contains_restricted(atomDeclSet)) {
-            return API_U;
-        }
+int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet) {
+    if (atomDeclSet != nullptr && contains_restricted(*atomDeclSet)) {
+        return API_U;
+    }
+    if (minApiLevel <= API_Q) {
+        return API_Q;  // for StatsLog.writeRaw()
     }
     return API_LEVEL_CURRENT;
 }
