@@ -16,6 +16,24 @@
       "message": "I would like to fully deprecate this so people do not accidentally try and use it.",
       "revId": "2c1ccd5fff90c555c8e5cfb03a3d333e10063d4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37c4dfb_7de55d8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-02-22T20:36:49Z",
+      "side": 1,
+      "message": "I\u0027ve kept the parameter around in case we add a new SystemApi that is used by someone like NetworkStack who compile against older sdks. If someone uses compileApiLevel right now, it will be a no-op. If you think it\u0027s better to just remove it altogether and re-add it back if needed, we can do that.",
+      "parentUuid": "d87d3bc8_fafb7064",
+      "revId": "2c1ccd5fff90c555c8e5cfb03a3d333e10063d4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
