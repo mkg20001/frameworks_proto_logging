@@ -4161,6 +4161,11 @@ enum PageId {
     // OPEN: Settings > Developer Options > Enable 16k pages
     // CATEGORY: SETTINGS
     DIALOG_ENABLE_16K_PAGES = 2042;
+
+    // OPEN: Settings > Accessibility -> Color Contrast
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACCESSIBILITY_COLOR_CONTRAST = 2043;
 }
 
 // Battery Saver schedule types.
