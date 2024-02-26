@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "475454a5_b6c5fc3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1989257
+      },
+      "writtenOn": "2024-02-26T11:29:42Z",
+      "side": 1,
+      "message": "You would also have to cherry-pick the [CL](https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/25492553) for logging the fields.",
+      "revId": "28459c1acde9a33a68e682bf20903fa8c1cfacbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
