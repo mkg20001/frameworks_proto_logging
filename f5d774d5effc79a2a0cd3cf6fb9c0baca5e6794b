@@ -16,6 +16,23 @@
       "message": "PTAL?",
       "revId": "f5d774d5effc79a2a0cd3cf6fb9c0baca5e6794b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320a962f_2d2a245c",
+        "filename": "stats/enums/view/inputmethod/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-02-27T17:59:37Z",
+      "side": 1,
+      "message": "nit: good to remove extra lines to prevent potential merge conflicts in future",
+      "revId": "f5d774d5effc79a2a0cd3cf6fb9c0baca5e6794b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
