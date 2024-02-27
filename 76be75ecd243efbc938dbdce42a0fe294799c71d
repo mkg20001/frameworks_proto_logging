@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ddb8396_c428042a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060922
+      },
+      "writtenOn": "2024-02-27T18:05:04Z",
+      "side": 1,
+      "message": "Hi Magdi, I tried to add Mridul too, but the OWNERS file auto checks tell me his email can\u0027t be resolved, so I\u0027m adding the two of you for now.",
+      "revId": "76be75ecd243efbc938dbdce42a0fe294799c71d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
