@@ -29,6 +29,8 @@ extend Atom {
     optional IkeSessionTerminated ike_session_terminated = 678 [(module) = "ike"];
     optional IkeLivenessCheckSessionValidated ike_liveness_check_session_validated =
             760 [(module) = "ike"];
+    optional NegotiatedSecurityAssociation negotiated_security_association =
+            821 [(module) = "ike"];
 }
 
 /**
@@ -75,5 +77,37 @@ message IkeLivenessCheckSessionValidated {
 
     // To determine the state at which liveness check was initiated.
     optional android.stats.ike.IkeState ike_state = 7;
+}
+
+/**
+ * Log that the IKE or Child session SA negotiated or failed
+ */
+message NegotiatedSecurityAssociation {
+    /** Calling module IWLAN or VPN or VCN */
+    optional android.stats.ike.IkeCaller ike_caller = 1;
+
+    /** IKE session or Child session */
+    optional android.stats.ike.SessionType session_type = 2;
+
+    /** Initial session setup or Rekey session */
+    optional android.stats.ike.SessionState session_state = 3;
+
+    /** negotiated DH-Groups */
+    optional android.stats.ike.DhGroups dh_group = 4;
+
+    /** negotiated encryption algorithms */
+    optional android.stats.ike.EncryptionAlgorithms encryption_algorithm = 5;
+
+    /** negotiated encryption algorithms key length */
+    optional android.stats.ike.KeyLengths key_length = 6;
+
+    /** negotiated integrity algorithms */
+    optional android.stats.ike.IntegrityAlgorithms integrity_algorithm = 7;
+
+    /** negotiated Prf algorithms */
+    optional android.stats.ike.PrfAlgorithms prf_algorithms = 8;
+
+    /** negotiation failures */
+    optional android.stats.ike.IkeError ike_error = 9;
 }
 
