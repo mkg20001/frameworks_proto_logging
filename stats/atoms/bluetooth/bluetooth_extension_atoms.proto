@@ -23,7 +23,10 @@ import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/hci/enums.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/le/enums.proto";
+<<<<<<< Updated upstream
 import "frameworks/proto_logging/stats/enums/bluetooth/rfcomm/enums.proto";
+=======
+>>>>>>> Stashed changes
 
 option java_package = "com.android.os.bluetooth";
 option java_multiple_files = true;
@@ -35,6 +38,7 @@ extend Atom {
         = 614 [(module) = "bluetooth"];
     optional BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
         = 615 [(module) = "bluetooth"];
+<<<<<<< Updated upstream
     optional BluetoothLeSessionConnected bluetooth_le_session_connected
         = 656 [(module) = "bluetooth"];
     optional RestrictedBluetoothDeviceNameReported
@@ -48,6 +52,10 @@ extend Atom {
         = 781 [(module) = "bluetooth"];
     optional BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
         = 782 [(module) = "bluetooth"];
+=======
+    optional BluetoothLeConnectedSession bluetooth_le_connection_session
+        = 650[(module) = "bluetooth"];
+>>>>>>> Stashed changes
 }
 
 /**
@@ -284,3 +292,53 @@ message BluetoothRfcommConnectionAttempted {
   // Uid of the app that calls RFCOMM connection API
   optional int32 uid = 6 [(is_uid) = true]; // [(datapol.semantic_type) = ST_SOFTWARE_ID]
 }
+
+/**
+ * Logs when Bluetooth LE Connection Session is made
+ *
+ * Logged from: system/bt
+ */
+message BluetoothLeConnectedSession {
+  // Contains the state of the LE Connection Session
+  // Default: LE_ACL_ABSENT
+  optional android.bluetooth.le.LeAclConnectionState acl_state = 1;
+  // Origin type of the connection whether it was from the ORIGIN_JAVA
+  // or the ORIGIN_NATIVE layer
+  // Default: ORIGIN_NATIVE
+  optional android.bluetooth.le.LeConnectionOriginType connection_origin = 2;
+  // Contains the connection type whether it was CONNECTION_TYPE_GATT
+  // ,CONNECTION_TYPE_LE_ACL
+  // Default: CONNECTION_TYPE_LE_ACL
+  optional android.bluetooth.le.LeConnectionType connection_type = 3;
+  // Connection State which contain the last state associated with the
+  // event
+  // Default: STATE_UNSPECIFIED
+  optional android.bluetooth.le.LeConnectionState state = 4;
+  // Contains the latency of the transaction from the beginning till
+  // the end:
+  // Default: 0
+  optional int64 latency = 5;
+  // Contains the metric id associated with the remote device
+  // Default: 0
+  optional int32 metric_id = 6;
+  // Contains the UID which is associated with the app
+  // Default: 0
+  optional int32 app_uid = 7 [(is_uid) = true];
+  // Contains the latency of the ACL Connection, which if made will be
+  // greater than 0
+  // Default: 0
+  optional int64 acl_latency = 8;
+  // Contains the status of the ACL Transactions, which if made will be
+  // something other than STATUS_UNKNOWN Default: STATUS_UNKNOWN
+  optional android.bluetooth.hci.StatusEnum acl_connection_state = 9;
+  // Contains the version of the LeConnectionSession. Needs to be incremented
+  // every time we make a logical change and we need to track the new sessions
+  // that are coming in
+  // Default: 1
+  optional int32 version_number = 10;
+  // Identifies whether the LE-ACL Connection failed due to cancellation
+  // Default: false
+  optional bool is_cancelled = 11;
+}
+
+
