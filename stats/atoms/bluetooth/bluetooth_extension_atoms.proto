@@ -35,6 +35,8 @@ extend Atom {
         = 614 [(module) = "bluetooth"];
     optional BluetoothL2capCocServerConnection bluetooth_l2cap_coc_server_connection
         = 615 [(module) = "bluetooth"];
+    optional BluetoothLeConnectedSession bluetooth_le_connection_session
+        = 650[(module) = "bluetooth"];
     optional BluetoothLeSessionConnected bluetooth_le_session_connected
         = 656 [(module) = "bluetooth"];
     optional RestrictedBluetoothDeviceNameReported
@@ -259,6 +261,19 @@ message BluetoothContentProfileErrorReported {
   optional int32 tag = 4;
 }
 
+message RemoteDeviceInformation {
+ // SHA256 hashed Bluetooth device name.
+ optional string device_name_hash = 1;
+ // Class of Device
+ optional int32 class_of_device = 2;
+ // The first byte of MAC address
+  optional int32 byte1 = 10;
+  // The second byte of MAC address
+  optional int32 byte2 = 11;
+  // The third byte of MAC address
+  optional int32 byte3 = 12;
+}
+
 /**
 * Logs RFCOMM connection attempts
 *
@@ -283,4 +298,9 @@ message BluetoothRfcommConnectionAttempted {
 
   // Uid of the app that calls RFCOMM connection API
   optional int32 uid = 6 [(is_uid) = true]; // [(datapol.semantic_type) = ST_SOFTWARE_ID]
+
+  // Remote Device Information
+  optional RemoteDeviceInformation remote_device_information = 7;
 }
+
+
