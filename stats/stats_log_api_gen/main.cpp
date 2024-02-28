@@ -1,20 +1,18 @@
 
-#include <getopt.h>
+#include <google/protobuf/compiler/importer.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/stubs/common.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <cstdlib>
 #include <filesystem>
-#include <map>
-#include <set>
-#include <vector>
 
 #include "Collation.h"
 #include "frameworks/proto_logging/stats/atoms.pb.h"
 #include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "java_writer.h"
-#include "java_writer_q.h"
 #include "native_writer.h"
 #include "rust_writer.h"
 #include "utils.h"
@@ -330,7 +328,7 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Must supply --headerImport if supplying a specific module\n");
             return 1;
         }
-        FILE* out = fopen(cppFilename.c_str(), "w");
+        FILE* out = fopen(cppFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
             return 1;
@@ -354,7 +352,7 @@ static int run(int argc, char const* const* argv) {
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
         }
-        FILE* out = fopen(headerFilename.c_str(), "w");
+        FILE* out = fopen(headerFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", headerFilename.c_str());
             return 1;
@@ -389,7 +387,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        FILE* out = fopen(javaFilename.c_str(), "w");
+        FILE* out = fopen(javaFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", javaFilename.c_str());
             return 1;
@@ -421,7 +419,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        FILE* out = fopen(rustFilename.c_str(), "w");
+        FILE* out = fopen(rustFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", rustFilename.c_str());
             return 1;
@@ -440,7 +438,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        FILE* out = fopen(rustHeaderFilename.c_str(), "w");
+        FILE* out = fopen(rustHeaderFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", rustHeaderFilename.c_str());
             return 1;

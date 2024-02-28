@@ -16,10 +16,19 @@
 
 #include "native_writer_vendor.h"
 
+#include <stdio.h>
+
+#include <set>
+#include <string>
+#include <vector>
+
+#include "Collation.h"
 #include "utils.h"
 
 namespace android {
 namespace stats_log_api_gen {
+
+using std::string;
 
 static void write_native_vendor_annotation_header(FILE* out, const string& annotationName,
                                                   const char* indent) {
@@ -296,7 +305,8 @@ int write_stats_log_cpp_vendor(FILE* out, const Atoms& atoms, const AtomDecl& at
     fprintf(out, "using std::vector;\n");
     fprintf(out, "using std::string;\n");
 
-    int ret = write_native_create_vendor_atom_methods(out, atoms.signatureInfoMap, attributionDecl);
+    const int ret =
+            write_native_create_vendor_atom_methods(out, atoms.signatureInfoMap, attributionDecl);
     if (ret != 0) {
         return ret;
     }

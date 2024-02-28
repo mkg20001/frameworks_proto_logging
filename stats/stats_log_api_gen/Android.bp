@@ -18,6 +18,7 @@
 // Build the host executable: stats-log-api-gen
 // ==========================================================
 package {
+    default_team: "trendy_team_android_telemetry_infra",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
@@ -54,6 +55,32 @@ cc_binary_host {
     proto: {
         type: "full",
     },
+
+    tidy: true,
+
+    tidy_checks: [
+        "android-*",
+        "bugprone-*",
+        "cert-*",
+        "clang-analyzer-security*",
+        "google-*",
+        "misc-*",
+        "performance-*",
+        "-bugprone-narrowing-conversions", // lots of unsigned -> int conversions
+        "-cert-err34-c",
+        "-cert-msc30-c", // warning: rand() has limited randomness; use C++11 random library
+        "-cert-msc50-cpp", // warning: rand() has limited randomness; use C++11 random library
+    ],
+
+    tidy_checks_as_errors: [
+        "android-*",
+        "bugprone-*",
+        "cert-*",
+        "clang-analyzer-security*",
+        "google-*",
+        "misc-*",
+        "performance-*",
+    ],
 }
 
 // ==========================================================

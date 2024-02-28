@@ -60,7 +60,7 @@ void build_non_chained_decl_map(const Atoms& atoms,
 
 const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const string& prefix);
 
-string get_java_build_version_code(int minApiLevel);
+string get_java_build_version_code(int apiLevel);
 
 string get_restriction_category_str(int annotationValue);
 
@@ -124,11 +124,7 @@ public:
     }
 };
 
-bool contains_restricted(const AtomDeclSet& atomDeclSet);
-
-bool requires_api_needed(const AtomDeclSet& atomDeclSet);
-
-int get_min_api_level(const AtomDeclSet& atomDeclSet);
+int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet);
 
 }  // namespace stats_log_api_gen
 }  // namespace android

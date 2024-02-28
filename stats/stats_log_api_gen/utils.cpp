@@ -16,16 +16,28 @@
 
 #include "utils.h"
 
+#include <stdio.h>
+
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "Collation.h"
+#include "frameworks/proto_logging/stats/atom_field_options.pb.h"
+
 namespace android {
 namespace stats_log_api_gen {
+
+using std::map;
+using std::string;
+using std::vector;
 
 /**
  * Inlining this method because "android-base/strings.h" is not available on
  * google3.
  */
 static vector<string> Split(const string& s, const string& delimiters) {
-    GOOGLE_CHECK_NE(delimiters.size(), 0U);
-
     vector<string> result;
 
     size_t base = 0;
@@ -91,8 +103,8 @@ const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const str
     return *ANNOTATION_ID_CONSTANTS;
 }
 
-string get_java_build_version_code(int minApiLevel) {
-    switch (minApiLevel) {
+string get_java_build_version_code(int apiLevel) {
+    switch (apiLevel) {
         case API_Q:
             return "Build.VERSION_CODES.Q";
         case API_R:
@@ -252,7 +264,7 @@ bool is_primitive_field(java_type_t type) {
 // Native
 // Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
-    vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
+    const vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {
         fprintf(out, "namespace %s {\n", cppNamespace.c_str());
     }
@@ -267,13 +279,13 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces) {
 }
 
 static void write_cpp_usage(FILE* out, const string& method_name, const string& atom_code_name,
-                            const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl,
+                            const AtomDecl& atom, const AtomDecl& attributionDecl,
                             bool isVendorAtomLogging = false) {
     const char* delimiterStr = method_name.find('(') == string::npos ? "(" : " ";
     fprintf(out, "     * Usage: %s%s%s", method_name.c_str(), delimiterStr, atom_code_name.c_str());
 
-    for (vector<AtomField>::const_iterator field = atom->fields.begin();
-         field != atom->fields.end(); field++) {
+    for (vector<AtomField>::const_iterator field = atom.fields.begin(); field != atom.fields.end();
+         field++) {
         if (field->javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
             for (const auto& chainField : attributionDecl.fields) {
                 if (chainField.javaType == JAVA_TYPE_STRING) {
@@ -307,15 +319,15 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
     // Print atom constants
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-        string constant = make_constant_name((*atomIt)->name);
+        const string constant = make_constant_name((*atomIt)->name);
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
-        write_cpp_usage(out, methodName, constant, *atomIt, attributionDecl, isVendorAtomLogging);
+        write_cpp_usage(out, methodName, constant, **atomIt, attributionDecl, isVendorAtomLogging);
 
         auto non_chained_decl = atom_code_to_non_chained_decl_map.find((*atomIt)->code);
         if (non_chained_decl != atom_code_to_non_chained_decl_map.end()) {
-            write_cpp_usage(out, methodName + "_non_chained", constant, *non_chained_decl->second,
+            write_cpp_usage(out, methodName + "_non_chained", constant, **non_chained_decl->second,
                             attributionDecl, isVendorAtomLogging);
         }
         fprintf(out, "     */\n");
@@ -438,7 +450,7 @@ void write_java_atom_codes(FILE* out, const Atoms& atoms) {
     // Print constants for the atom codes.
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-        string constant = make_constant_name((*atomIt)->name);
+        const string constant = make_constant_name((*atomIt)->name);
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s<br>\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
@@ -634,7 +646,7 @@ int write_java_work_source_methods(FILE* out, const SignatureInfoMap& signatureI
     return 0;
 }
 
-bool contains_restricted(const AtomDeclSet& atomDeclSet) {
+static bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     for (const auto& decl : atomDeclSet) {
         if (decl->restricted) {
             return true;
@@ -643,22 +655,19 @@ bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     return false;
 }
 
-bool requires_api_needed(const AtomDeclSet& atomDeclSet) {
-    return contains_restricted(atomDeclSet);
-}
-
-int get_min_api_level(const AtomDeclSet& atomDeclSet) {
-    if (requires_api_needed(atomDeclSet)) {
-        if (contains_restricted(atomDeclSet)) {
-            return API_U;
-        }
+int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet) {
+    if (atomDeclSet != nullptr && contains_restricted(*atomDeclSet)) {
+        return API_U;
+    }
+    if (minApiLevel <= API_Q) {
+        return API_Q;  // for StatsLog.writeRaw()
     }
     return API_LEVEL_CURRENT;
 }
 
 AtomDeclSet get_annotations(int argIndex,
                             const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
-    FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+    const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
             fieldNumberToAtomDeclSet.find(argIndex);
     if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
         return AtomDeclSet();

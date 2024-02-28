@@ -57,7 +57,8 @@ message IkeLivenessCheckSessionValidated {
     optional android.stats.ike.IkeCaller ike_caller = 1;
 
     // To determine task at which liveness check was initiated.
-    optional android.stats.ike.IkeTask ike_task = 2;
+    // Deprecated: use IkeState instead to use more precise IKE state
+    optional android.stats.ike.IkeTask ike_task = 2 [deprecated = true];
 
     // Underlying network type that checked the Liveness.
     optional android.stats.ike.IkeUnderlyingNetworkType ike_underlying_network_type = 3;
@@ -71,5 +72,8 @@ message IkeLivenessCheckSessionValidated {
 
     // True if the Liveness check is successful. False if the Liveness check is failed.
     optional bool result_success = 6;
+
+    // To determine the state at which liveness check was initiated.
+    optional android.stats.ike.IkeState ike_state = 7;
 }
 
