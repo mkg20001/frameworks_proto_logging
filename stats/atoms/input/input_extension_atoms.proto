@@ -74,6 +74,8 @@ message KeyboardConfigured {
     optional int32 product_id = 3;
     // Keyboard configuration details
     optional RepeatedKeyboardLayoutConfig repeated_keyboard_layout_config = 4 [(log_mode) = MODE_BYTES];
+    // The Input Device Bus ID
+    optional android.input.InputDeviceBus device_bus = 5;
 }
 
 /**
@@ -94,8 +96,10 @@ message KeyboardSystemsEventReported {
     optional android.input.KeyboardSystemEvent keyboard_system_event = 3;
     // Key pressed to trigger the keyboard event
     repeated int32 key_code = 4;
-    // Flag based modifier state when keyboard event was triggered
+    // This field represents the decimal version of the flag in binary
     optional int32 modifier_state = 5;
+    // The Input Device Bus ID
+    optional android.input.InputDeviceBus device_bus = 6;
 }
 
 /**
