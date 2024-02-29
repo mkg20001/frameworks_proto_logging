@@ -18574,7 +18574,7 @@ message MediametricsPlaybackReported {
     optional string player_version = 10;
     // Player related experiment IDs
     optional Experiments experiment_ids = 11 [(log_mode) = MODE_BYTES];
-    // Number of frames played. Dropped frames included. -1 means unknown.
+    // Number of frames played. Dropped frames are not included.  -1 means unknown.
     optional int32 video_frames_played = 12;
     // Number of frames dropped. -1 means unknown.
     optional int32 video_frames_dropped = 13;
