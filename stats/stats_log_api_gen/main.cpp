@@ -61,9 +61,6 @@ static void print_usage() {
     fprintf(stderr,
             "  --worksource         Include support for logging WorkSource "
             "objects.\n");
-    fprintf(stderr,
-            "  --compileApiLevel API_LEVEL           specify which API level generated code is "
-            "compiled against. (Java only).\n");
     fprintf(stderr, "                                        Default is \"current\".\n");
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
@@ -93,7 +90,6 @@ static int run(int argc, char const* const* argv) {
     string vendorProto;
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
-    int compileApiLevel = API_LEVEL_CURRENT;
     bool bootstrap = false;
 
     int index = 1;
@@ -191,15 +187,6 @@ static int run(int argc, char const* const* argv) {
             if (0 != strcmp("current", argv[index])) {
                 minApiLevel = atoi(argv[index]);
             }
-        } else if (0 == strcmp("--compileApiLevel", argv[index])) {
-            index++;
-            if (index >= argc) {
-                print_usage();
-                return 1;
-            }
-            if (0 != strcmp("current", argv[index])) {
-                compileApiLevel = atoi(argv[index]);
-            }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
 #ifdef WITH_VENDOR
@@ -227,16 +214,9 @@ static int run(int argc, char const* const* argv) {
         print_usage();
         return 1;
     }
-    if (DEFAULT_MODULE_NAME == moduleName &&
-        (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
+    if (DEFAULT_MODULE_NAME == moduleName && minApiLevel != API_LEVEL_CURRENT) {
         // Default module only supports current API level.
         fprintf(stderr, "%s cannot support older API levels\n", moduleName.c_str());
-        return 1;
-    }
-
-    if (compileApiLevel < API_R) {
-        // Cannot compile against pre-R.
-        fprintf(stderr, "compileApiLevel must be %d or higher.\n", API_R);
         return 1;
     }
 
@@ -246,21 +226,6 @@ static int run(int argc, char const* const* argv) {
         return 1;
     }
 
-    if (minApiLevel == API_LEVEL_CURRENT) {
-        if (minApiLevel > compileApiLevel) {
-            // If minApiLevel is not specified, assume it is not higher than compileApiLevel.
-            minApiLevel = compileApiLevel;
-        }
-    } else {
-        if (minApiLevel > compileApiLevel) {
-            // If specified, minApiLevel should always be lower than compileApiLevel.
-            fprintf(stderr,
-                    "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
-                    " compileApiLevel are specified, minApiLevel should not be higher"
-                    " than compileApiLevel.\n");
-            return 1;
-        }
-    }
     if (bootstrap) {
         if (cppFilename.empty() && headerFilename.empty()) {
             fprintf(stderr, "Bootstrap flag can only be used for cpp/header files.\n");
@@ -270,7 +235,7 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Bootstrap flag does not support worksources");
             return 1;
         }
-        if ((minApiLevel != API_LEVEL_CURRENT) || (compileApiLevel != API_LEVEL_CURRENT)) {
+        if (minApiLevel != API_LEVEL_CURRENT) {
             fprintf(stderr, "Bootstrap flag does not support older API levels");
             return 1;
         }
@@ -396,7 +361,7 @@ static int run(int argc, char const* const* argv) {
         if (vendorProto.empty()) {
             errorCount = android::stats_log_api_gen::write_stats_log_java(
                     out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
-                    compileApiLevel, supportWorkSource);
+                    supportWorkSource);
         } else {
 #ifdef WITH_VENDOR
             if (supportWorkSource) {
