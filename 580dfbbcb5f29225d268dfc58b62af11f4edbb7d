@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06a869bd_9eec6f20",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2024-03-04T20:27:58Z",
+      "side": 1,
+      "message": "Implemented the changes as per this https://b.corp.google.com/issues/325537659#comment1. We can expand with additional fields if necessary.",
+      "parentUuid": "9f1ee200_607b56a8",
+      "revId": "580dfbbcb5f29225d268dfc58b62af11f4edbb7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed3fc94d_69b47dad",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-03-04T19:43:19Z",
       "side": 1,
       "message": "Shouldn\u0027t we encapsulate this into a specific structure or concatenate them? I think it would be clearer if it was called `oui`.",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 27
+      },
+      "revId": "580dfbbcb5f29225d268dfc58b62af11f4edbb7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5baa8847_f0ac14ab",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2024-03-04T20:27:58Z",
+      "side": 1,
+      "message": "I\u0027ve aligned this with the definition in https://source.corp.google.com/h/googleplex-android/platform/superproject/main/+/main:frameworks/proto_logging/stats/atoms.proto;drc\u003d71441bfec7dc38c2ca2647221e171854d1ebb74d;l\u003d3956. I propose using a single int32 field named `oui` for consistency. Thoughts?",
+      "parentUuid": "ed3fc94d_69b47dad",
       "range": {
         "startLine": 269,
         "startChar": 0,
