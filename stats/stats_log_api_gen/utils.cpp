@@ -655,14 +655,29 @@ static bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     return false;
 }
 
-int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet) {
+static bool contains_repeated_field(const vector<java_type_t>& signature) {
+    for (const java_type_t& javaType : signature) {
+        if (javaType == JAVA_TYPE_BOOLEAN_ARRAY || javaType == JAVA_TYPE_INT_ARRAY ||
+            javaType == JAVA_TYPE_FLOAT_ARRAY || javaType == JAVA_TYPE_LONG_ARRAY ||
+            javaType == JAVA_TYPE_STRING_ARRAY) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet,
+                           const vector<java_type_t>* signature) {
     if (atomDeclSet != nullptr && contains_restricted(*atomDeclSet)) {
         return API_U;
+    }
+    if (signature != nullptr && contains_repeated_field(*signature)) {
+        return API_T;
     }
     if (minApiLevel <= API_Q) {
         return API_Q;  // for StatsLog.writeRaw()
     }
-    return API_LEVEL_CURRENT;
+    return 0;
 }
 
 AtomDeclSet get_annotations(int argIndex,
