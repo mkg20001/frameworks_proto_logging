@@ -1,5 +1,4 @@
 
-#include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/stubs/common.h>
 #include <stdio.h>
