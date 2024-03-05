@@ -98,6 +98,30 @@
       },
       "revId": "580dfbbcb5f29225d268dfc58b62af11f4edbb7d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e27b546_b68f9957",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1904823
+      },
+      "writtenOn": "2024-03-05T00:26:52Z",
+      "side": 1,
+      "message": "`uint32` might be event better considering that OUI is always positive",
+      "parentUuid": "5baa8847_f0ac14ab",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 27
+      },
+      "revId": "580dfbbcb5f29225d268dfc58b62af11f4edbb7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
