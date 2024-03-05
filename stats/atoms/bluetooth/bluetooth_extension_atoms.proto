@@ -18,6 +18,7 @@ syntax = "proto2";
 
 package android.os.statsd.bluetooth;
 
+import "frameworks/proto_logging/stats/attribution_node.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/enums/bluetooth/enums.proto";
@@ -48,6 +49,18 @@ extend Atom {
         = 781 [(module) = "bluetooth"];
     optional BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
         = 782 [(module) = "bluetooth"];
+    optional LeAppScanStateChanged le_app_scan_state_changed
+        = 835 [(module) = "bluetooth"];
+    optional LeRadioScanStopped le_radio_scan_stopped
+        = 836 [(module) = "bluetooth"];
+    optional LeScanResultReceived le_scan_result_received
+        = 837 [(module) = "bluetooth"];
+    optional LeScanAbused le_scan_abused
+        = 838 [(module) = "bluetooth"];
+    optional LeAdvStateChanged le_adv_state_changed
+        = 839 [(module) = "bluetooth"];
+    optional LeAdvErrorReported le_adv_error_reported
+        = 840 [(module) = "bluetooth"];
 }
 
 /**
@@ -299,4 +312,139 @@ message BluetoothRfcommConnectionAttempted {
   optional BluetoothRemoteDeviceInformation remote_device_information = 7 [(log_mode) = MODE_BYTES];
 }
 
+/**
+ * Logs LE app scan information when the scan starts and stops.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+*/
+message LeAppScanStateChanged {
+  repeated AttributionNode attribution_node = 1;
+  // True for scan start, false for scan stop.
+  optional bool enabled = 2;
+  // Does the scan have a filter.
+  optional bool is_filtered = 3;
+  // Whether the scan has callback function or pending intent.
+  optional bool is_callback_scan = 4;
+  optional android.bluetooth.le.LeScanCallbackType le_scan_callback_type = 5;
+  optional android.bluetooth.le.LeScanType le_scan_type = 6;
+  // For app scan modes, it is logged before being modified based on screen state.
+  optional android.bluetooth.le.LeScanMode le_scan_mode = 7;
+  // Time of delay for reporting the scan result in milliseconds.
+  optional int64 report_delay_ms = 8;
+  // Duration from scan start to stop in milliseconds. Use 0 for scan start.
+  optional int64 app_scan_duration_ms = 9;
+  // Number of scans on going when the scan started or stopped.
+  optional int32 num_ongoing_scan = 10;
+  // Screen state when the scan started or stopped. True for STATE_ON, false
+  // for any other state as defined in android.view.Display.
+  optional bool is_screen_on = 11;
+  // Whether the app is dead when the scan started or stopped.
+  optional bool is_app_dead = 12;
+}
 
+/**
+ * Logs the LE scan information when the radio scan is stopped or screen state
+ * changes which reconfigures the scan parameters.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message LeRadioScanStopped {
+  // Attribution of the app with most aggressive scanning parameters, which
+  // will be used by the LE radio for the scanning.
+  repeated AttributionNode attribution_node_most_aggressive_app = 1;
+  optional android.bluetooth.le.LeScanType le_scan_type_most_aggressive_app = 2;
+  optional android.bluetooth.le.LeScanMode le_scan_mode_most_aggressive_app = 3;
+  // Radio scan interval in milliseconds.
+  optional int64 le_scan_radio_settings_interval_ms = 4;
+  // Radio Scan window in milliseconds.
+  optional int64 le_scan_radio_settings_window_ms = 5;
+  // True for STATE_ON, false for any other state as defined in
+  // android.view.Display.
+  optional bool is_screen_on = 6;
+  // Delta time of radio scan start and stop in milliseconds.
+  optional int64 scan_duration_ms = 7;
+}
+
+/**
+ * Logs the LE scan results information when regular and batched scan results
+ * are received.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message LeScanResultReceived {
+  repeated AttributionNode attribution_node = 1;
+  // Number of ble scan results returned. 1 for regular scan, and use numRecords for batched scan
+  optional int32 num_results = 2;
+  optional android.bluetooth.le.LeScanType le_scan_type = 3;
+  // True for STATE_ON, false for any other state as defined in
+  // android.view.Display.
+  optional bool is_screen_on = 4;
+}
+
+
+/**
+ * Logs LE scan abuse count and details for scan request errors.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message LeScanAbused{
+  repeated AttributionNode attribution_node = 1;
+  optional android.bluetooth.le.LeScanType le_scan_type = 2;
+  // LE scan abuse reason.
+  optional android.bluetooth.le.LeScanAbuseReason le_scan_abuse_reason = 3;
+  // Logs the system configuration as details of the abuse reason.
+  // getScanTimeoutMillis() in AdapterService.java for REASON_SCAN_TIMEOUT.
+  // getNumOfOffloadedScanFilterSupported() in in AdapterService.java for
+  // REASON_HW_FILTER_NOT_AVAILABLE.
+  // getTotalNumOfTrackableAdvertisements() in AdapterService.java for
+  // REASON_TRACKING_HW_FILTER_NOT_AVAILABLE.
+  optional int64 le_scan_abuse_reason_details = 4;
+}
+
+/**
+ * Logs LE advertisement information when LE adv starts and stops.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message LeAdvStateChanged {
+  repeated AttributionNode attribution_node = 1;
+  // LE advertisement state, true for adv start, false for adv stop.
+  optional bool enabled = 2;
+  // LE adv interval configuration.
+  optional android.bluetooth.le.LeAdvInterval adv_interval = 3;
+  // LE adv tx power configuration.
+  optional android.bluetooth.le.LeAdvTxPower adv_tx_power = 4;
+  // Whether the adv is connectable.
+  optional bool is_connectable = 5;
+  // Whether the adv is periodic.
+  optional bool is_periodic = 6;
+  // Whether the adv has scan response.
+  optional bool has_scan_response = 7;
+  // Whether the adv is extended adv.
+  optional bool is_extended_adv = 8;
+  // Number of total active advertisements when the current advertisement
+  // starts or stops.
+  optional int32 num_adv_instances_in_use = 9;
+  // Adv duration when adv stops (adv stop timestamp - adv start timestamp),
+  // in milliseconds. Use 0 for adv start.
+  optional int64 adv_duration_ms = 10;
+}
+
+/**
+ * Logs errors when LE advertising set starts.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message LeAdvErrorReported {
+  repeated AttributionNode attribution_node = 1;
+  // Operation code for the adv error.
+  optional android.bluetooth.le.LeAdvOpCode le_adv_op_code = 2;
+  // The status code of internal state.
+  optional android.bluetooth.le.LeAdvStatusCode status_code = 3;
+}
