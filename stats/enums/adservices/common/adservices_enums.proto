@@ -75,6 +75,11 @@ enum AttributionType {
  * - Measurement errors: 2001-3000
  * - Fledge errors: 3001-4000
  * - UX errors: 4001-5000
+ * - FederatedCompute errors: 5001-6000
+ * - AdExtDataServiceErrors: 6001-7000
+ * - IAPC errors: 7001 - 8000
+ *
+ * NOTE: AdId / AdSetId don't have a range yet (because they're just using common codes)
  */
 enum ErrorCode {
   // Common Errors: 1-1000
@@ -97,6 +102,15 @@ enum ErrorCode {
 
   // Shared pref reset failure.
   SHARED_PREF_RESET_FAILURE = 8;
+
+  // Remote exception when calling the Cobalt upload API.
+  COBALT_UPLOAD_API_REMOTE_EXCEPTION = 9;
+
+  // Exception occurred when parsing the Adservices Config XML provided by an app.
+  APP_MANIFEST_CONFIG_PARSING_ERROR = 10;
+
+  // Generic exception when dealing with shared prefs.
+  SHARED_PREF_EXCEPTION = 11;
 
   // Topics errors: 1001-2000
   // Remote exception when calling get topics.
@@ -219,9 +233,63 @@ enum ErrorCode {
   // Error occurred when unable to fetch job scheduler.
   TOPICS_FETCH_JOB_SCHEDULER_FAILURE = 1039;
 
+  // Error occurred while deleting a table for Topics.
+  TOPICS_DELETE_TABLE_FAILURE = 1040;
+
+  // Cobalt initialisation failure for Topics.
+  TOPICS_COBALT_LOGGER_INITIALIZATION_FAILURE = 1041;
+
+  // Failure to convert plaintext topic object to encrypted topic.
+  TOPICS_ENCRYPTION_FAILURE = 1042;
+
+  // Topics encryption key with invalid length.
+  TOPICS_ENCRYPTION_INVALID_KEY_LENGTH = 1043;
+
+  // Topics encryption with invalid response length.
+  TOPICS_ENCRYPTION_INVALID_RESPONSE_LENGTH = 1044;
+
+  // Topics encryption key failed to decode with Base64 decoder.
+  TOPICS_ENCRYPTION_KEY_DECODE_FAILURE = 1045;
+
+  // Topics encryption received null params in request for the encrypter.
+  TOPICS_ENCRYPTION_NULL_REQUEST = 1046;
+
+  // Topics encryption received null response from the encrypter.
+  TOPICS_ENCRYPTION_NULL_RESPONSE = 1047;
+
+  // Topics encryption received error while serialization to JSON.
+  TOPICS_ENCRYPTION_SERIALIZATION_ERROR = 1048;
+
+  // Topics encryption public key is missing.
+  TOPICS_ENCRYPTION_KEY_MISSING = 1049;
+
   // Measurement errors: 2001-3000
-  // Error eccurred when inserting enrollment data to DB.
+  // Error occurred when inserting enrollment data to DB.
   ENROLLMENT_DATA_INSERT_ERROR = 2001;
+
+  // Error occurred when deleting enrollment data to DB.
+  ENROLLMENT_DATA_DELETE_ERROR = 2002;
+
+  // Measurement foreground unknown failure.
+  MEASUREMENT_FOREGROUND_UNKNOWN_FAILURE = 2003;
+
+  // Measurement datastore failure.
+  MEASUREMENT_DATASTORE_FAILURE = 2004;
+
+  // Measurement datastore unknown failure.
+  MEASUREMENT_DATASTORE_UNKNOWN_FAILURE = 2005;
+
+  // Measurement invalid parameter fetching public keys.
+  MEASUREMENT_PUBLIC_KEY_FETCHER_INVALID_PARAMETER = 2006;
+
+  // Measurement IO exception while fetching public keys.
+  MEASUREMENT_PUBLIC_KEY_FETCHER_IO_ERROR = 2007;
+
+  // Measurement error while parsing public keys.
+  MEASUREMENT_PUBLIC_KEY_FETCHER_PARSING_ERROR = 2008;
+
+  // Failure to save seed in SharedPreferences
+  ENROLLMENT_SHARED_PREFERENCES_SEED_SAVE_FAILURE = 2009;
 
   // UX errors: 4001-5000
   CONSENT_REVOKED_ERROR = 4001;
@@ -262,8 +330,46 @@ enum ErrorCode {
   // App search consent data migration failure.
   APP_SEARCH_DATA_MIGRATION_FAILURE = 4013;
 
-  // Ad services entry point failure.
+  // Adservices entry point failure.
   AD_SERVICES_ENTRY_POINT_FAILURE = 4014;
+
+  // Used to be MEASUREMENT_FOREGROUND_UNKNOWN_FAILURE but renamed in
+  // commit 94af8756d2f03ff17924721ee1b7c4a4520377ff
+  RESERVED_ERROR_CODE_4015 = 4015;
+
+  // FederatedCompute errors: 5001-6000
+  // Datastore exception while deleting a federated task.
+  DELETE_TASK_FAILURE = 5001;
+
+  // Exception while trying to close file descriptor.
+  FILE_DESCRIPTOR_CLOSE_ERROR = 5002;
+
+  // Error message indicating invalid federated job plan type.
+  CLIENT_PLAN_SPEC_ERROR = 5003;
+
+  // Exception when trying to parse protobuf message.
+  INVALID_PROTOBUF_ERROR = 5004;
+
+  // Exception occurred when isolated training process runs.
+  ISOLATED_TRAINING_PROCESS_ERROR = 5005;
+
+  // Exception while trying to iterate data.
+  ITERATOR_NEXT_FAILURE = 5006;
+
+  // Timeout exception while trying to iterate data.
+  ITERATOR__NEXT_TIMEOUT = 5007;
+
+  // AdExtDataService get failed
+  GET_ADEXT_DATA_SERVICE_ERROR = 6001;
+
+  // AdExtDataService put failed
+  PUT_ADEXT_DATA_SERVICE_ERROR = 6002;
+
+  // IAPC errors: 7001-8000
+  // AdIdProviderService is not available.
+  IAPC_AD_ID_PROVIDER_NOT_AVAILABLE = 7001;
+  // Exception when calling UpdateAdId API in service side.
+  IAPC_UPDATE_AD_ID_API_ERROR = 7002;
 }
 
 /**
@@ -277,6 +383,11 @@ enum PpapiName {
   AD_ID = 4;
   APP_SET_ID = 5;
   UX = 6;
+  // Use COMMON enum when the error happens in the common code path.
+  COMMON = 7;
+  // Represents federatedcompute APK in OnDevicePersonalization module.
+  FEDERATED_COMPUTE = 8;
+  ADEXT_DATA_SERVICE = 9;
 }
 
 /**
@@ -326,4 +437,3 @@ enum AdServiceSettingRegion {
   // Non-European Union user (based on isoCountryInfo).
   ROW = 2;
 }
-

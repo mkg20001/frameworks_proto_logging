@@ -28,3 +28,11 @@ enum ScriptType {
   JAVASCRIPT = 1;
   WASM = 2;
 }
+
+// Logs the type of beacon reporting destination.
+enum BeaconReportingDestinationType {
+  UNSET_DESTINATION = 0;
+  SELLER_DESTINATION = 1;
+  BUYER_DESTINATION = 2;
+  SELLER_AND_BUYER_DESTINATION = 3;
+}

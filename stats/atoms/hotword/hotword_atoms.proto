@@ -87,8 +87,8 @@ message HotwordDetectionServiceRestarted {
         // Indicates that the service was restarted regularly.
         SCHEDULE = 2;
 
-        // Indicates that the service was restarted due to service crashed.
-        CRASH = 3;
+        // Deprecated. Indicates that the service was restarted due to service crashed.
+        CRASH = 3 [deprecated = true];
     }
     optional Reason reason = 2;
 
@@ -108,8 +108,8 @@ message HotwordDetectorKeyphraseTriggered {
         // Indicates that the system got the keyphrase from DSP.
         KEYPHRASE_TRIGGER = 0;
 
-        // Indicates that the system can not inform the service to verify the keyphrase.
-        FAILED_TO_INFORM_SERVICE = 1;
+        // Deprecated. Indicates that the system can not inform the service to verify the keyphrase.
+        FAILED_TO_INFORM_SERVICE = 1 [deprecated = true];
 
         // Indicates that the callback was not invoked within timeout after informing
         // the service.
@@ -139,6 +139,18 @@ message HotwordDetectorKeyphraseTriggered {
         // Indicates that the system called rejected callback when the trusted process was
         // restarted.
         REJECTED_FROM_RESTART = 10;
+
+        // Indicates keyphrase was classified as training data.
+        TRAINING_DATA = 11;
+
+        // Indicates training data egress limit was reached.
+        TRAINING_DATA_EGRESS_LIMIT_REACHED = 12;
+
+        // Indicates that system got security exception when handling training data callback.
+        TRAINING_DATA_SECURITY_EXCEPTION = 13;
+
+        // Indicates that system got remote exception when handling training data callback.
+        TRAINING_DATA_REMOTE_EXCEPTION = 14;
     }
     // What result after detecting.
     optional Result result = 2;
@@ -218,44 +230,56 @@ message HotwordDetectorEvents {
         // Indicates that the updateState was not invoked successfully.
         CALL_UPDATE_STATE_EXCEPTION = 19;
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress starts.
-        AUDIO_EGRESS_START = 20;
+        AUDIO_EGRESS_START = 20 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress ends.
-        AUDIO_EGRESS_END = 21;
+        AUDIO_EGRESS_END = 21 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress got interrupted exception.
-        AUDIO_EGRESS_INTERRUPTED_EXCEPTION = 22;
+        AUDIO_EGRESS_INTERRUPTED_EXCEPTION = 22 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the client is not granted permission to access audio egress.
-        AUDIO_EGRESS_NO_PERMISSION = 23;
+        AUDIO_EGRESS_NO_PERMISSION = 23 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the client is inactive over a period of time.
-        AUDIO_EGRESS_INACTIVE_CLIENT = 24;
+        AUDIO_EGRESS_INACTIVE_CLIENT = 24 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the HotwordDetectionService is inactive over a period
         // of time.
-        AUDIO_EGRESS_INACTIVE_HOTWORD_DETECTION_SERVICE = 25;
+        AUDIO_EGRESS_INACTIVE_HOTWORD_DETECTION_SERVICE = 25 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the list of audio stream is empty.
-        AUDIO_EGRESS_EMPTY_AUDIO_STREAM_LIST = 26;
+        AUDIO_EGRESS_EMPTY_AUDIO_STREAM_LIST = 26 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that there is no data from the system audio stream.
-        AUDIO_EGRESS_SOURCE_IS_EMPTY = 27;
+        AUDIO_EGRESS_SOURCE_IS_EMPTY = 27 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the copy buffer size the client sets is illegal.
-        AUDIO_EGRESS_ILLEGAL_COPY_BUFFER_SIZE = 28;
+        AUDIO_EGRESS_ILLEGAL_COPY_BUFFER_SIZE = 28 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress is closed with error from the system.
-        AUDIO_EGRESS_CLOSE_ERROR_FROM_SYSTEM = 29;
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_SYSTEM = 29 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress is closed with error from the client
         // side.
-        AUDIO_EGRESS_CLOSE_ERROR_FROM_CLIENT = 30;
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_CLIENT = 30 [deprecated = true];
 
+        // Deprecated. Use HotwordAudioEgressEventReported instead.
         // Indicates that the audio egress is closed with error from the
         // HotwordDetectionService.
-        AUDIO_EGRESS_CLOSE_ERROR_FROM_HOTWORD_DETECTION_SERVICE = 31;
+        AUDIO_EGRESS_CLOSE_ERROR_FROM_HOTWORD_DETECTION_SERVICE = 31 [deprecated = true];
     }
     optional Event event = 2;
 

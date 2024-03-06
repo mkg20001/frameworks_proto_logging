@@ -26,21 +26,28 @@ option java_package = "com.android.os.wearservices";
 option java_multiple_files = true;
 
 extend Atom {
+  // Pushed Atom
+  optional WsWearTimeSession ws_wear_time_session = 610
+      [(module) = "wearservices"];
 
   optional WsIncomingCallActionReported ws_incoming_call_action_reported = 626
-      [(module) = "wearservices_metrics"];
+      [(module) = "wearservices"];
 
   optional WsCallDisconnectionReported ws_call_disconnection_reported = 627
-      [(module) = "wearservices_metrics"];
+      [(module) = "wearservices"];
 
   optional WsCallDurationReported ws_call_duration_reported = 628
-      [(module) = "wearservices_metrics"];
+      [(module) = "wearservices"];
 
   optional WsCallUserExperienceLatencyReported ws_call_user_experience_latency_reported = 629
-      [(module) = "wearservices_metrics"];
+      [(module) = "wearservices"];
 
   optional WsCallInteractionReported ws_call_interaction_reported = 630
-      [(module) = "wearservices_metrics"];
+      [(module) = "wearservices"];
+
+  // Pulled Atom
+  optional WsStandaloneModeSnapshot ws_standalone_mode_snapshot = 10197
+      [(module) = "wearservices"];
 }
 
 /**
@@ -149,4 +156,26 @@ message WsCallInteractionReported {
   // Values: (CALL_SOURCE_WATCH, CALL_SOURCE_PHONE_HFP,
   // CALL_SOURCE_PHONE_COMPANION)
   optional android.app.wearservices.CallSource call_source = 2;
+}
+
+/**
+ * Atom used to log the wear time for Wearables.
+ *
+ * Logged from package :
+ * vendor/google_clockwork_partners/packages/WearServices
+ */
+message WsWearTimeSession {
+    optional int64 session_duration_millis = 1;
+}
+
+/**
+* A snapshot of the tether status on certain watches.
+* (go/wear-tether-mode-telemetry)
+*
+* Logged from package :
+* vendor/google_clockwork_partners/packages/WearServices
+*/
+message WsStandaloneModeSnapshot {
+  // Depicts the standalone/tether status of the watch.
+  optional android.app.wearservices.TetherConfigurationStatus tether_configuration_status = 1;
 }

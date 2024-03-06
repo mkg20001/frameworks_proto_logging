@@ -30,6 +30,14 @@ enum MediaAction {
   RESUME = 5;
   VOLUME_INCREASE = 6;
   VOLUME_DECREASE = 7;
+  SEEK_IN_CURRENT_MEDIA_ITEM = 8;
+  SEEK_BACK = 9;
+  SEEK_FORWARD = 10;
+  // CustomActions can be used to extend the capabilities of the standard transport controls
+  // by exposing app specific actions to Controllers. This is for app defined custom actions
+  // insteractions captured by wear media controls. For more information, see
+  // https://developer.android.com/reference/android/media/session/PlaybackState.CustomAction
+  CUSTOM_ACTION = 11;
 }
 
 // Indicates the type of launch source

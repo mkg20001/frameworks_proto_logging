@@ -1184,19 +1184,16 @@ enum Action {
 
     // ACTION: Settings > System > Languages > Regional preferences > First day of week > Set the
     // preferred first day of week.
-    // VALUE: first day of week.
     // OS: U
     ACTION_SET_FIRST_DAY_OF_WEEK = 1827;
 
     // ACTION: Settings > System > Languages > Regional preferences > Numbers preference >
     // Choose the language
-    // VALUE: language.
     // OS: U
     ACTION_CHOOSE_LANGUAGE_FOR_NUMBERS_PREFERENCES = 1828;
 
     // ACTION: Settings > System > Languages > Regional preferences > Numbers preference >
     // Choose the language > Set the preferred numbers preferences.
-    // VALUE: numbers preferences.
     // OS: U
     ACTION_SET_NUMBERS_PREFERENCES = 1829;
 
@@ -1205,17 +1202,14 @@ enum Action {
     ACTION_LANGUAGES_LEARN_MORE = 1830;
 
     // ACTION: Settings > System > Languages > System Languages > Add a language
-    // VALUE: language.
     // OS: U
     ACTION_ADD_LANGUAGE = 1831;
 
     // ACTION: Settings > System > Languages > System Languages > Remove a language
-    // VALUE: language.
     // OS: U
     ACTION_REMOVE_LANGUAGE = 1832;
 
     // ACTION: Settings > System > Languages > System Languages > Re-order a language
-    // VALUE: language.
     // OS: U
     ACTION_REORDER_LANGUAGE = 1833;
 
@@ -1230,7 +1224,6 @@ enum Action {
 
     // ACTION: Settings > System > Languages > System Languages > Select a not available language
     // as system language
-    // VALUE: language
     // OS: U
     ACTION_NOT_SUPPORTED_SYSTEM_LANGUAGE = 1836;
 
@@ -1327,6 +1320,22 @@ enum Action {
     // OS: U
     ACTION_LEARN_TOUCHPAD_GESTURE_CLICK = 1855;
 
+    // ACTION: Settings > System > Languages > System Languages > Terms of address > Not specified
+    // OS: V
+    ACTION_TERMS_OF_ADDRESS_NOT_SPECIFIED = 1856;
+
+    // ACTION: Settings > System > Languages > System Languages > Terms of address > Feminine
+    // OS: V
+    ACTION_TERMS_OF_ADDRESS_FEMININE = 1857;
+
+    // ACTION: Settings > System > Languages > System Languages > Terms of address > Masculine
+    // OS: V
+    ACTION_TERMS_OF_ADDRESS_MASCULINE = 1858;
+
+    // ACTION: Settings > System > Languages > System Languages > Terms of address > Neutral
+    // OS: V
+    ACTION_TERMS_OF_ADDRESS_NEUTRAL = 1859;
+
     // ACTION: Settings > Battery > Battery usage
     // CATEGORY: SETTINGS
     // OS: UQPR1
@@ -1341,6 +1350,164 @@ enum Action {
     // CATEGORY: SETTINGS
     // OS: UQPR1
     ACTION_BATTERY_TIPS_CARD_DISMISS = 1862;
+
+    // ACTION: Settings > Connected devices > Previously used with account -> Pair device
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_SETTINGS_PREVIOUSLY_USED_WITH_ACCOUNT_BLUETOOTH_PAIR = 1863;
+    // ACTION: Settings > Connected devices > Previously used with account -> Pair device error
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_SETTINGS_PREVIOUSLY_USED_WITH_ACCOUNT_BLUETOOTH_PAIR_ERROR = 1864;
+    // ACTION: Settings > Connected devices > Previously used with account -> Pair device not found
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_SETTINGS_PREVIOUSLY_USED_WITH_ACCOUNT_BLUETOOTH_PAIR_NOT_FOUND = 1865;
+    // ACTION: Logged when user tries to pair a Fast pair Bluetooth device from Settings app
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_SETTINGS_BLUETOOTH_PAIR_FAST_PAIR_DEVICE = 1866;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > App default selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_APP_DEFAULT_SELECTED = 1867;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > App default unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_APP_DEFAULT_UNSELECTED = 1868;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Full screen selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_FULL_SCREEN_SELECTED = 1869;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Full screen unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_FULL_SCREEN_UNSELECTED = 1870;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Half screen selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_HALF_SCREEN_SELECTED = 1871;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Half screen unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_HALF_SCREEN_UNSELECTED = 1872;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 4:3 selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_4_3_SELECTED = 1873;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 4:3 unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_4_3_UNSELECTED = 1874;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 16:9 selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_16_9_SELECTED = 1875;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 16:9 unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_16_9_UNSELECTED = 1876;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 3:2 selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_3_2_SELECTED = 1877;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > 3:2 unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_3_2_UNSELECTED = 1878;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Display size selected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_DISPLAY_SIZE_SELECTED = 1879;
+
+    // ACTION: Settings > Apps > App Info > Aspect Ratio > Display size unselected
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    ACTION_USER_ASPECT_RATIO_DISPLAY_SIZE_UNSELECTED = 1880;
+
+    // Action: Settings > Apps > AppInfo > Battery > allow background usage
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_APP_BATTERY_USAGE_ALLOW_BACKGROUND = 1881;
+
+    // Action: Settings > Apps > AppInfo > Battery > disable background usage
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_APP_BATTERY_USAGE_DISABLE_BACKGROUND = 1882;
+
+    // Action: Settings > Battery settings > Battery tip > Battery health
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    ACTION_BATTERY_HEALTH_TIP = 1883;
+
+    // Private space setup flow
+    // OPEN: Settings > Security&Privacy > Private Space > Set up
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_START = 1884;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Cancel
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_CANCEL = 1885;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Set up > Wait 15 sec
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_SPACE_CREATED = 1886;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Set up > Error > Try again
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_TRY_CREATE_SPACE_AGAIN = 1887;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Set up > Error > Cancel
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_CANCEL_CREATE_SPACE = 1888;
+
+    // OPEN: Settings > Security&Privacy > Private Space >
+    // Set up > Wait 15 sec > Google account setup
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_ACCOUNT_LOGIN_SUCCESS = 1889;
+
+    // OPEN: Settings > Security&Privacy > Private Space >
+    // Set up > Wait 15 sec > Google account setup error > Try again
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_TRY_CREATE_ACCOUNT_AGAIN = 1890;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Set up > Wait 15 sec >
+    // Google account setup  > Choose new lock
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_NEW_LOCK = 1891;
+
+    // OPEN: Settings > Security&Privacy > Private Space > Set up > Wait 15 sec >
+    // Google account setup  > Use screen lock
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_USE_SCREEN_LOCK = 1892;
+
+    // OPEN: Settings > Security&Privacy > Private Space >
+    // Set up > Google account setup > Screen lock setup > Done
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_DONE = 1893;
 }
 
 /**
@@ -4143,6 +4310,16 @@ enum PageId {
     // OS: U
     VPN_APP_MANAGEMENT = 2033;
 
+    // OPEN: Settings > System > Languages > System Languages > Terms of address
+    // CATEGORY: SETTINGS
+    // OS: V
+    TERMS_OF_ADDRESS = 2034;
+
+    // OPEN: Settings > Notifications > Polite notifications
+    // CATEGORY: SETTINGS
+    // OS: U
+    SETTINGS_POLITE_NOTIFICATIONS = 2035;
+
     // OPEN: Settings > Display > Screen saver > When to start
     // CATEGORY: SETTINGS
     // OS: U
@@ -4158,9 +4335,135 @@ enum PageId {
     // OS: U
     FOLD_LOCK_BEHAVIOR = 2038;
 
+    // OPEN: Settings > Connected devices > Previously used with account
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    FAST_PAIR_DEVICES = 2039;
+
+    // OPEN: Settings > Security & Privacy > Private Space
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETTINGS = 2040;
+
+    // OPEN: Settings > System > Developer options > Quarantined Apps
+    // CATEGORY: SETTINGS
+    // OS: V
+    QUARANTINED_APPS_DEV_CONTROL = 2041;
+
     // OPEN: Settings > Developer Options > Enable 16k pages
     // CATEGORY: SETTINGS
     DIALOG_ENABLE_16K_PAGES = 2042;
+
+    // OPEN: Settings > Storage > Private profile tab
+    // CATEGORY: SETTINGS
+    // OS: V
+    SETTINGS_STORAGE_CATEGORY_PRIVATE = 2043;
+
+    // OPEN: Settings > Account > Private profile tab
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACCOUNT_PRIVATE = 2044;
+
+    // OPEN: Settings > Privacy & Security > More security & privacy > Scanning for deceptive apps
+    // CATEGORY: SETTINGS
+    // OS: U
+    CONTENT_PROTECTION_PREFERENCE = 2045;
+
+    // ACTION: Allow Voice activation of an assistant app
+    // CATEGORY: SETTINGS
+    // OS: V
+    APP_SPECIAL_PERMISSION_RECEIVE_SANDBOX_TRIGGER_AUDIO_ALLOW = 2046;
+
+    // ACTION: Deny Voice activation of an assistant app
+    // CATEGORY: SETTINGS
+    // OS: V
+    APP_SPECIAL_PERMISSION_RECEIVE_SANDBOX_TRIGGER_AUDIO_DENY = 2047;
+
+    // OPEN: Settings > Connected devices > Connection preferences > Audio sharing
+    // CATEGORY: SETTINGS
+    // OS: V
+    AUDIO_SHARING_SETTINGS = 2048;
+
+    // Open: Audio sharing start dialog
+    // CATEGORY: SETTINGS
+    // OS: V
+    DIALOG_START_AUDIO_SHARING = 2049;
+
+    // Open: Audio sharing stop dialog
+    // CATEGORY: SETTINGS
+    // OS: V
+    DIALOG_STOP_AUDIO_SHARING = 2050;
+
+    // Open: Audio sharing switch device dialog
+    // CATEGORY: SETTINGS
+    // OS: V
+    DIALOG_AUDIO_SHARING_SWITCH_DEVICE = 2051;
+
+    // Open: Audio sharing switch active dialog
+    // CATEGORY: SETTINGS
+    // OS: V
+    DIALOG_AUDIO_SHARING_SWITCH_ACTIVE = 2052;
+
+    // OPEN: Settings > System > Developer options > Widevine settings
+    // CATEGORY: SETTINGS
+    // OS: V
+    WIDEVINE_SETTINGS = 2053;
+
+    // OPEN: Settings > Apps > App Info > Aspect Ratio
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    USER_ASPECT_RATIO_APP_INFO_SETTINGS = 2054;
+
+    // OPEN: Settings > Battery > [App Use details] > Manage background usage
+    // CATEGORY: SETTINGS
+    // OS: UQPR2
+    FUELGAUGE_POWER_USAGE_MANAGE_BACKGROUND = 2055;
+
+    // OPEN: Settings > Apps > Aspect Ratio
+    // CATEGORY: SETTINGS
+    // OS: UQPR1
+    USER_ASPECT_RATIO_APP_LIST_SETTINGS = 2056;
+
+    // OPEN: Settings > System > Developer options > Develop App picker
+    // CATEGORY: SETTINGS
+    // OS: V
+    DEVELOPMENT_APP_PICKER = 2057;
+
+    // OPEN: Settings > Security & Privacy > Private Space , when the feature is not set up
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_EDUCATION = 2058;
+
+    // OPEN: Settings > Security & Privacy > Private Space > Set up
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_SPACE_CREATION = 2059;
+
+    // OPEN: Settings > Security & Privacy > Private Space > Set up > Wait, Error
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_SPACE_CREATION_ERROR = 2060;
+
+    // OPEN: Settings > Security & Privacy > Private Space > Set up > Wait, Success
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_LOCK = 2061;
+
+    // OPEN: Settings > Security & Privacy > Private Space > Set up > Wait > Use screen lock > Error
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_ACCOUNT_LOGIN_ERROR = 2062;
+
+    // OPEN: Settings > Security & Privacy > Private Space > Set up > Wait >
+    // > Use screen lock > Set account
+    // CATEGORY: SETTINGS
+    // OS: V
+    PRIVATE_SPACE_SETUP_FINISH = 2063;
+
+    // OPEN: Settings > Apps > Special App Access > Change Media Output
+    // CATEGORY: SETTINGS
+    // OS: V
+    MEDIA_ROUTING_CONTROL = 2064;
 }
 
 // Battery Saver schedule types.
@@ -4176,13 +4479,13 @@ enum SessionType {
     // The client app doesn't set session source.
     SESSION_UNKNOWN = 0;
     // The session start from opening the Settings app.
-    BROWSE = 1;
+    SESSION_BROWSE = 1;
     // The session start from Settings Search result.
-    SEARCH = 2;
+    SESSION_SEARCH = 2;
     // The session start from other app via Intent.
-    EXTERNAL = 3;
+    SESSION_EXTERNAL = 3;
     // The session start from the Slice invoking.
-    SLICE_TYPE = 4;
+    SESSION_SLICE_TYPE = 4;
 }
 
 // Physical keyboard settings entrypoint type of the from source.

@@ -115,3 +115,10 @@ enum DataType {
   WEIGHT = 33;
   WHEELCHAIR_PUSHES = 34;
 }
+
+enum ForegroundState {
+  UNSPECIFIED = 0;
+  FOREGROUND = 1;
+  BACKGROUND = 2;
+}
+
