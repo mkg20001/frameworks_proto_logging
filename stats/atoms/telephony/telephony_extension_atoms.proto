@@ -26,7 +26,13 @@ option java_package = "com.android.os.telephony";
 option java_multiple_files = true;
 
 extend Atom {
+    optional CellularRadioPowerStateChanged cellular_radio_power_state_changed = 713 [(module) = "telephony"];
     optional EmergencyNumbersInfo emergency_numbers_info = 10180 [(module) = "telephony"];
+}
+
+message CellularRadioPowerStateChanged {
+    optional android.telephony.CellularRadioPowerStateEnum state = 1
+            [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
 
 /**

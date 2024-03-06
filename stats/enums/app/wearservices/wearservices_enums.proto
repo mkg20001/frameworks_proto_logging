@@ -136,6 +136,19 @@ enum NotificationUpdateAction {
   NOTIFICATION_ACTION_REMOVE = 3;
 }
 
+// Describes which transport channel is this notification coming from.
+// Next ID: 3
+enum NotificationTransportChannel {
+  // Unknown notification transport channel
+  NOTIFICATION_TRANSPORT_UNKNOWN = 0;
+
+  // Notification comes from wearable API
+  NOTIFICATION_TRANSPORT_WEARABLE = 1;
+
+  // Notification comes from MCU (only exists on device supported offloading)
+  NOTIFICATION_TRANSPORT_MCU = 2;
+}
+
 // Importance of the notification after this update.
 // Next ID: 8
 enum NotificationImportance {
@@ -164,6 +177,222 @@ enum NotificationImportance {
   NOTIFICATION_IMPORTANCE_MAX = 7;
 }
 
+// The alerting effect of the notification.
+// Next ID: 5
+enum NotificationAlertingEffect {
+  // Unknown value.
+  NOTIFICATION_ALERTING_EFFECT_UNKNOWN = 0;
+
+  // No alerting effect.
+  NOTIFICATION_ALERTING_EFFECT_NONE = 1;
+
+  // Alerting effect is HAPTICS.
+  NOTIFICATION_ALERTING_EFFECT_HAPTICS = 2;
+
+  // Alerting effect is SOUND.
+  NOTIFICATION_ALERTING_EFFECT_SOUND = 3;
+
+  // Alerting effect is HAPTICS together with SOUND.
+  NOTIFICATION_ALERTING_EFFECT_HAPTICS_AND_SOUND = 4;
+}
+
+// The group alert behavior of the notification.
+//
+// Note: In the Wear SysUI. Alerts will always happen on the child, for example,
+// 1). If summary is set to alert, but the first child is muted, the alert will
+// happen on the child item.
+// 2). If summary and first child both set to alert, there will be only 1 alerts
+// happening on the first child.
+// Therefore, we will overcount if we count alerting summary items, and we will
+// undercount if we skip alerting summary items. And unfortunately we can not
+// avoid this inaccuracy in the metrics.
+// Next ID: 4
+enum NotificationGroupAlertBehavior {
+  // Unknown value.
+  NOTIFICATION_GROUP_ALERT_BEHAVIOR_UNKNOWN = 0;
+
+  // The alert behavior set to ALL, or notification is not grouped, or the group
+  // type matches the alert behavior (e.g. group child, while the alert behavior
+  // is also set to child.)
+  // We collapsed these non-critical cases to reduce cardinality.
+  NOTIFICATION_GROUP_ALERT_BEHAVIOR_ALERT_ALLOWED = 1;
+
+  // The alert behavior is set to ALERT_SUMMARY, but the current notification is
+  // a child.
+  NOTIFICATION_GROUP_ALERT_BEHAVIOR_DELEGATED_TO_SUMMARY = 2;
+
+  // The alert behavior is set to ALERT_CHILD, but the current notification is a
+  // summary.
+  NOTIFICATION_GROUP_ALERT_BEHAVIOR_DELEGATED_TO_CHILD = 3;
+}
+
+// The alert behavior controlled by the ALERT_ONLY_ONCE flag.
+// Next ID: 4
+enum NotificationAlertOnlyOnce {
+  // Unknown value.
+  NOTIFICATION_ALERT_ONLY_ONCE_UNKNOWN = 0;
+
+  // The flag not set.
+  NOTIFICATION_ALERT_ONLY_ONCE_NOT_SET = 1;
+
+  // The flag set, and current item is the first update.
+  NOTIFICATION_ALERT_ONLY_ONCE_ALERT_ON_FIRST = 2;
+
+  // The flag set, and current item is not the first update.
+  NOTIFICATION_ALERT_ONLY_ONCE_MUTE_ON_UPDATES = 3;
+}
+
+// The group type of the notification.
+// Next ID: 4
+enum NotificationGroupType {
+  // Unknown value.
+  NOTIFICATION_GROUP_TYPE_UNKNOWN = 0;
+
+  // No group assigneed
+  NOTIFICATION_GROUP_TYPE_NO_GROUP = 1;
+
+  // This notification is a group summary
+  NOTIFICATION_GROUP_TYPE_GROUP_SUMMARY = 2;
+
+  // This notification is a group child
+  NOTIFICATION_GROUP_TYPE_GROUP_CHILD = 3;
+}
+
+// The style of the notification.
+// Next ID: 7
+enum NotificationStyle {
+  // Unknown value.
+  NOTIFICATION_STYLE_UNKNOWN = 0;
+
+  // The notification has not specific any style.
+  NOTIFICATION_STYLE_UNSPECIFIED = 1;
+
+  // The notification is InboxStyle.
+  NOTIFICATION_STYLE_INBOX = 2;
+
+  // The notification is BigTextStyle.
+  NOTIFICATION_STYLE_BIG_TEXT = 3;
+
+  // The notification is BigPictureStyle.
+  NOTIFICATION_STYLE_BIG_PICTURE = 4;
+
+  // The notification is MessagingStyle.
+  NOTIFICATION_STYLE_MESSAGING = 5;
+
+  // The notification is MediaStyle.
+  NOTIFICATION_STYLE_MEDIA = 6;
+}
+
+// The categories for the notification.
+// Next ID: 7
+enum NotificationCategory {
+  // Unknown value.
+  NOTIFICATION_CATEGORY_UNKNOWN = 0;
+
+  // No category set for the notificatioin.
+  NOTIFICATION_CATEGORY_NONE = 1;
+
+  // Notification set with other categories
+  NOTIFICATION_CATEGORY_OTHERS = 2;
+
+  // Notification set with CATEGORY_CALL.
+  NOTIFICATION_CATEGORY_CALL = 3;
+
+  // Notification set with CATEGORY_ALARM.
+  NOTIFICATION_CATEGORY_ALARM = 4;
+
+  // Notification set with CATEGORY_REMINDER.
+  NOTIFICATION_CATEGORY_REMINDER = 5;
+
+  // Notification set with CATEGORY_EVENT.
+  NOTIFICATION_CATEGORY_EVENT = 6;
+}
+
+// The ongoing type for the notification.
+// Next ID: 7
+enum NotificationHiddenReason {
+  // Unknown value.
+  NOTIFICATION_HIDDEN_REASON_UNKNOWN = 0;
+
+  // The notification is not hidden.
+  NOTIFICATION_HIDDEN_REASON_NONE = 1;
+
+  // The notification hidden with other reasons.
+  NOTIFICATION_HIDDEN_REASON_OTHERS = 2;
+
+  // The notification has set with ongoing activity. Which means it is hidden.
+  NOTIFICATION_HIDDEN_REASON_ONGOING_ACTIVITY = 3;
+
+  // The notification is media style.
+  NOTIFICATION_HIDDEN_REASON_MEDIA_STYLE = 4;
+
+  // The notification is bound with foreground service.
+  NOTIFICATION_HIDDEN_REASON_FOREGROUND_SERVICE = 5;
+
+  // The notification is hidden by dismissal id flow.
+  NOTIFICATION_HIDDEN_REASON_MANAGED_DISMISSAL = 6;
+}
+
+// The content intent button settings for the notification.
+// Next ID: 5
+enum NotificationContentIntent {
+  // Unknown value.
+  NOTIFICATION_CONTENT_INTENT_UNKNOWN = 0;
+
+  // No content intent set.
+  NOTIFICATION_CONTENT_INTENT_NONE = 1;
+
+  // Content intent set with OPEN_ON_WATCH.
+  NOTIFICATION_CONTENT_INTENT_OPEN_ON_WATCH = 2;
+
+  // Content intent set with OPEN_ON_PHONE.
+  NOTIFICATION_CONTENT_INTENT_OPEN_ON_PHONE = 3;
+
+  // Content intent set with BOTH actions.
+  NOTIFICATION_CONTENT_INTENT_BOTH = 4;
+}
+
+// Defines on which device the notification blocked state is changed for an application.
+// Next ID: 4
+enum DeviceLocation {
+  // Unknown value.
+  DEVICE_LOCATION_UNKNOWN = 0;
+
+  // The notification is blocked on the watch.
+  DEVICE_LOCATION_WATCH = 1;
+
+  // The notification is blocked on the phone.
+  DEVICE_LOCATION_PHONE = 2;
+
+  // The notification is blocked both on the watch and the phone.
+  DEVICE_LOCATION_WATCH_AND_PHONE = 3;
+}
+
+// Defines in which profile the application is installed.
+// Next ID: 3
+enum Profile {
+  // Unknown value.
+  PROFILE_UNKNOWN = 0;
+
+  // The application is installed in the personal profile.
+  PROFILE_PERSONAL = 1;
+
+  // The application is installed in the work profile.
+  PROFILE_WORK = 2;
+}
+
+// Defines the blocking status of the application for notifications.
+// Next ID: 3
+enum NotificationBlockingStatus {
+  // Unknown value.
+  NOTIFICATION_BLOCKING_STATUS_UNKNOWN = 0;
+
+  // The notifications for the applications are blocked on the device.
+  NOTIFICATION_BLOCKING_STATUS_BLOCKED = 1;
+
+  // The notifications for the applications are unblocked on the device.
+  NOTIFICATION_BLOCKING_STATUS_UNBLOCKED = 2;
+}
 
 // This enum depicts an action taken on a call
 // Next ID: 4
@@ -333,4 +562,21 @@ enum DisconnectionErrorCode {
 
   // Depicts an error where creating an outgoing call failed
   DISCONNECTION_ERROR_CODE_OUTGOING_CALL_FAILURE = 5;
+}
+
+// This enum depicts the tether mode of certain watches, they are corresponding
+// to vendor/google_clockwork/sdk/lib/src/com/google/wear/tether/TetherConfigurationClient.java
+// Next ID: 4
+enum TetherConfigurationStatus {
+  // Depicts an unknown tether status
+  TETHER_CONFIGURATION_UNKNOWN = 0;
+
+  // Depicts the watch is in standalone mode
+  TETHER_CONFIGURATION_STANDALONE = 1;
+
+  // Depicts the watch is in tethered mode
+  TETHER_CONFIGURATION_TETHERED = 2;
+
+  // Depicts the watch is in restricted connection mode
+  TETHER_CONFIGURATION_RESTRICTED = 3;
 }

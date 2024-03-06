@@ -70,3 +70,10 @@ enum NTRadioTechnology {
   /* Proprietary technology like Iridium or Bullitt */
   NT_RADIO_TECHNOLOGY_PROPRIETARY = 4;
 }
+
+// Handover type from emergency call to satellite messaging
+enum RecommendingHandoverType {
+  RECOMMENDING_HANDOVER_TYPE_UNKNOWN = 0;
+  RECOMMENDING_HANDOVER_TYPE_SOS = 1;
+  RECOMMENDING_HANDOVER_TYPE_T911 = 2;
+}
