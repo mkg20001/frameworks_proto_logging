@@ -57,6 +57,9 @@ message HealthConnectApiCalled {
 
   // Type of rate limiting being used (If any)
   optional android.healthfitness.api.RateLimit rate_limit = 6;
+
+  // The API caller's foreground status
+  optional android.healthfitness.api.ForegroundState caller_foreground_state = 7;
 }
 
 // Track if users are connecting apps with Health Connect
@@ -68,6 +71,8 @@ message HealthConnectUsageStats {
   // Number of apps on device that can be connected to Health Connect.
   optional int32 available_apps_count = 2;
 
+  // Set true is the user has one app reading or writing in past 30 days
+  optional bool isMonthlyActiveUser = 3;
 }
 
 // Monitor Health Connect database

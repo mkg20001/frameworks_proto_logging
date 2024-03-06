@@ -29,8 +29,10 @@ extend Atom {
     optional InTaskActivityStarted in_task_activity_started = 685 [(module) = "framework"];
     optional CachedAppsHighWaterMark cached_apps_high_watermark = 10189 [(module) = "framework"];
     optional StylusPredictionMetricsReported stylus_prediction_metrics_reported = 718 [(module) = "libinput"];
+    optional UserRiskEventReported user_risk_event_reported = 725 [(module) = "framework"];
     optional MediaProjectionStateChanged media_projection_state_changed = 729 [(module) = "framework"];
     optional MediaProjectionTargetChanged media_projection_target_changed = 730 [(module) = "framework"];
+    optional ProxyBytesTransferByFgBg proxy_bytes_transfer_by_fg_bg = 10200 [(module) = "framework"];
 }
 
 /**
@@ -174,6 +176,70 @@ message StylusPredictionMetricsReported {
 }
 
 /**
+ * Logs user risk events sent to UserRiskManager
+ */
+message UserRiskEventReported {
+  optional EventType event_type = 1;
+
+  // Call Details
+
+  // time that an active call was connected (picked up), -1 if a call is not active
+  optional int64 call_connected_timestamp_millis = 2;
+  optional CallDirection call_direction = 3;
+  optional NumberVerificationStatus call_number_verification_status = 4;
+  // time of the last update to the contact associated with the call, -1 if there is no contact
+  optional int64 call_contact_last_updated_timestamp_millis = 5;
+  optional int32 call_log_previous_incoming_count = 6;
+  optional int32 call_log_previous_outgoing_count = 7;
+
+  // Media Projection Details
+
+  // time of MP start, -1 if MP is not active
+  optional int64 mp_start_timestamp_millis = 8;
+  optional int32 mp_app_uid = 9 [(is_uid) = true];
+  optional int32 mp_installing_app_uid = 10 [(is_uid) = true];
+  // time that the MP app was installed
+  optional int64 mp_app_first_install_timestamp_millis = 11;
+
+  // A11y details
+
+  // time of A11y grant, -1 if not granted
+  optional int64 a11y_capability_granted_timestamp_millis = 12;
+  optional int32 a11y_app_uid = 13 [(is_uid) = true];
+  optional int32 a11y_installing_app_uid = 14 [(is_uid) = true];
+  // time that the A11y app was installed
+  optional int64 a11y_app_first_install_timestamp_mills = 15;
+
+  enum EventType {
+    UNKNOWN = 0;
+    A11Y_CONSENT_DIALOG_SHOWN = 1;
+    A11Y_GRANTED = 2;
+    A11Y_DENIED = 3;
+    A11Y_APP_UNINSTALLED = 4;
+    MEDIA_PROJECTION_CONSENT_DIALOG_SHOWN = 5;
+    MEDIA_PROJECTION_GRANTED = 6;
+    MEDIA_PROJECTION_DENIED = 7;
+    MEDIA_PROJECTION_STARTED = 8;
+    ACTIVE_CALL_STARTED = 9;
+    ACTIVE_CALL_CHANGED = 10;
+    ACTIVE_CALL_ENDED = 11;
+  }
+
+  enum CallDirection {
+    UNKNOWN_DIRECTION = 0;
+    INCOMING = 1;
+    OUTGOING = 2;
+  }
+
+  enum NumberVerificationStatus {
+    UNKNOWN_STATUS = 0;
+    NOT_VERIFIED = 1;
+    PASSED = 2;
+    FAILED = 3;
+  }
+}
+
+/**
  * Logs when MediaProjection goes through state changes.
  *
  * MediaProjection API allows apps to capture the contents of a display
@@ -309,4 +375,24 @@ message MediaProjectionTargetChanged {
     // The app is in freeform mode
     WINDOWING_MODE_FREEFORM = 4;
   }
+}
+
+/**
+ * Pulls bytes transferred via network with TYPE_PROXY from NetworkStats. Each pull produces atoms
+ * that record stats of all processes that used sysproxy since device boot.
+ * Network with TYPE_PROXY is used on Wear OS to enable internet access via Bluetooth when the
+ * companion phone is connected to the watch.
+ */
+message ProxyBytesTransferByFgBg {
+  optional int32 uid = 1 [(is_uid) = true];
+
+  optional bool is_foreground = 2;
+
+  optional int64 rx_bytes = 3;
+
+  optional int64 rx_packets = 4;
+
+  optional int64 tx_bytes = 5;
+
+  optional int64 tx_packets = 6;
 }

@@ -105,6 +105,16 @@ enum TemperatureTypeEnum {
 
     // Neural Processing Unit.
     TEMPERATURE_TYPE_NPU = 9;
+    TEMPERATURE_TYPE_TPU = 10;
+    TEMPERATURE_TYPE_DISPLAY = 11;
+    TEMPERATURE_TYPE_MODEM = 12;
+    TEMPERATURE_TYPE_SOC = 13;
+    TEMPERATURE_TYPE_WIFI = 14;
+    TEMPERATURE_TYPE_CAMERA = 15;
+    TEMPERATURE_TYPE_FLASHLIGHT = 16;
+    TEMPERATURE_TYPE_SPEAKER = 17;
+    TEMPERATURE_TYPE_AMBIENT = 18;
+    TEMPERATURE_TYPE_POGO = 19;
 }
 
 // Device throttling severity
@@ -140,6 +150,14 @@ enum CoolingTypeEnum {
     MODEM = 4;
     NPU = 5;
     COMPONENT = 6;
+    TPU = 7;
+    POWER_AMPLIFIER = 8;
+    DISPLAY = 9;
+    SPEAKER = 10;
+    WIFI = 11;
+    CAMERA = 12;
+    FLASHLIGHT = 13;
+    USB_PORT = 14;
 };
 
 // Wakelock types, primarily used by android/os/PowerManager.java.

@@ -33,7 +33,7 @@ enum ElementId {
     DATA_AND_ACCESS_BUTTON = 2;
     SEE_ALL_RECENT_ACCESS_BUTTON = 3;
     RECENT_ACCESS_ENTRY = 4;
-    BACKUP_DATA_BUTTON = 5;
+    MANAGE_DATA_BUTTON = 153;
 
     // Onboarding page
     ONBOARDING_COMPLETED_BUTTON = 6;
@@ -246,7 +246,24 @@ enum ElementId {
     ERROR_PAGE_STATE = 151;
     WITH_DATA_PAGE_STATE = 152;
 
-    // Next available: 153;
+    // Manage data page
+    BACKUP_DATA_BUTTON = 5;
+    DATA_SOURCES_AND_PRIORITY_BUTTON = 154;
+    SET_UNITS_BUTTON = 155;
+
+    // Data sources page
+    DATA_TYPE_SPINNER_BUTTON = 156;
+    DATA_TOTALS_CARD = 157;
+    APP_SOURCE_BUTTON = 158;
+    ADD_AN_APP_BUTTON = 159;
+    EDIT_SOURCE_LIST_BUTTON = 160;
+    REORDER_APP_SOURCE_BUTTON = 162;
+    REMOVE_APP_SOURCE_BUTTON = 163;
+
+    // Add an app page
+    POTENTIAL_PRIORITY_APP_BUTTON = 161;
+
+    // Next available: 162;
 
 }
 
@@ -282,6 +299,10 @@ enum PageId {
     MIGRATION_MODULE_UPDATE_NEEDED_PAGE = 23;
     MIGRATION_MORE_SPACE_NEEDED_PAGE = 24;
     MIGRATION_PAUSED_PAGE = 25;
+    // New IA and Source controls
+    MANAGE_DATA_PAGE = 26;
+    DATA_SOURCES_PAGE = 27;
+    ADD_AN_APP_PAGE = 28;
 }
 
 enum Action {

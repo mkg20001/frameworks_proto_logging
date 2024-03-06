@@ -95,11 +95,18 @@ enum InteractionType {
     LOCKSCREEN_CLOCK_MOVE_ANIMATION = 71;
     LAUNCHER_OPEN_SEARCH_RESULT = 72;
     LAUNCHER_APP_CLOSE_TO_HOME_FALLBACK = 79;
-    SHADE_EXPAND_FROM_STATUS_BAR = 80;
     IME_INSETS_SHOW_ANIMATION = 81;
     IME_INSETS_HIDE_ANIMATION = 82;
     SPLIT_SCREEN_DOUBLE_TAP_DIVIDER = 83;
+    LAUNCHER_UNFOLD_ANIM = 84;
+    PREDICTIVE_BACK_CROSS_ACTIVITY = 85;
+    PREDICTIVE_BACK_CROSS_TASK = 86;
+    PREDICTIVE_BACK_HOME = 87;
+    LAUNCHER_SEARCH_QSB_OPEN = 88;
+
     reserved 2;
+    reserved 73 to 78; // For b/281564325.
+    reserved 80;
 }
 
 enum DisplayResolution {
@@ -108,6 +115,16 @@ enum DisplayResolution {
     HD = 2;  // 1280×720 <= x < 1920x1080
     FHD = 3; // 1920x1080 <= x < 2560x1440
     QHD = 4; // 2560x1440 <= x
+}
+
+enum DisplayRefreshRate {
+  UNKNOWN_REFRESH_RATE = 0;
+  VARIABLE_REFRESH_RATE = 1; // RR changed during the CUJ.
+  RR_30_HZ = 2;  //        x < 50
+  RR_60_HZ = 3;  //  50 <= x < 80
+  RR_90_HZ = 4;  //  80 <= x < 110
+  RR_120_HZ = 5; // 110 <= x < 180
+  RR_240_HZ = 6; // 180 <= x
 }
 
 /**
@@ -138,5 +155,8 @@ enum ActionType {
     ACTION_REQUEST_IME_SHOWN = 21;
     ACTION_REQUEST_IME_HIDDEN = 22;
     ACTION_SMARTSPACE_DOORBELL = 23;
+    reserved 24 to 26; // For b/281564325.
+    ACTION_NOTIFICATION_BIG_PICTURE_LOADED = 27;
+    ACTION_KEYGUARD_FPS_UNLOCK_TO_HOME = 28;
+    ACTION_BACK_SYSTEM_ANIMATION = 29;
 }
-

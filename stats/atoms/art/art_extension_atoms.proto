@@ -9,7 +9,7 @@ option java_package = "com.android.os.art";
 option java_multiple_files = true;
 
 extend Atom {
-    // Pushed atomes
+    // Pushed atoms
     optional ArtDatumReported art_datum_reported = 332 [(module) = "art"];
     // Deprecated in favour of the ArtDeviceStatus pulled atom
     optional ArtDeviceDatumReported art_device_datum_reported = 550 [(module) = "art", deprecated = true];
@@ -350,4 +350,3 @@ message ArtDeviceStatus {
     }
     optional BootImageStatus boot_image_status = 1;
 }
-
