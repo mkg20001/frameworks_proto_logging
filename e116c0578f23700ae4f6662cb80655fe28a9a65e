@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e1c874f_a6f0ad6e",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2024-03-07T21:34:05Z",
+      "side": 1,
+      "message": "We are selectively logging Bluetooth device names based on a pre-defined list stored in a Bloom filter. This technique, previously established as part of logging https://cs.android.com/android/platform/superproject/main/+/main:frameworks/proto_logging/stats/atoms/bluetooth/bluetooth_extension_atoms.proto;drc\u003d004c22e53c156c202deac0b0a7a749353ebfbae1;l\u003d59, allows us to focus on popular device model names",
+      "parentUuid": "19e77a80_55059dfb",
+      "range": {
+        "startLine": 264,
+        "startChar": 11,
+        "endLine": 264,
+        "endChar": 17
+      },
+      "revId": "e116c0578f23700ae4f6662cb80655fe28a9a65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "143cc87e_0b7b0514",
         "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
         "patchSetId": 10
