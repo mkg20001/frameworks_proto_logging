@@ -1061,6 +1061,7 @@ message Atom {
     extensions 739; // ThreadnetworkTopoEntryRepeated threadnetwork_topo_entry_repeated
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
+    extensions 754; // KernelOomKillOccurred kernel_oom_kill_occurred
     extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
     extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
     extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
