@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc1bade_7440f0df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2024-03-07T18:42:35Z",
+      "side": 1,
+      "message": "Can you attach your MDR and/or review bug that shows PWG approval for the new string field?",
+      "revId": "e116c0578f23700ae4f6662cb80655fe28a9a65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143cc87e_0b7b0514",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 10
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1510760
+      },
+      "writtenOn": "2024-03-07T18:42:35Z",
+      "side": 1,
+      "message": "uints aren\u0027t allowed",
+      "range": {
+        "startLine": 270,
+        "startChar": 11,
+        "endLine": 270,
+        "endChar": 17
+      },
+      "revId": "e116c0578f23700ae4f6662cb80655fe28a9a65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
