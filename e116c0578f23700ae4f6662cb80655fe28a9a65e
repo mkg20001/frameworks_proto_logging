@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd37e672_33d5b8d8",
+        "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1932310
+      },
+      "writtenOn": "2024-03-08T00:40:30Z",
+      "side": 1,
+      "message": "LGTM from privacy considering this is a pre-defined list.",
+      "parentUuid": "b8a32f4d_457dd0c0",
+      "range": {
+        "startLine": 264,
+        "startChar": 11,
+        "endLine": 264,
+        "endChar": 17
+      },
+      "revId": "e116c0578f23700ae4f6662cb80655fe28a9a65e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "143cc87e_0b7b0514",
         "filename": "stats/atoms/bluetooth/bluetooth_extension_atoms.proto",
         "patchSetId": 10
