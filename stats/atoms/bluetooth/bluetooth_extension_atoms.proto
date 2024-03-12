@@ -259,6 +259,17 @@ message BluetoothContentProfileErrorReported {
   optional int32 tag = 4;
 }
 
+message BluetoothRemoteDeviceInformation {
+  // SHA256 hashed Bluetooth device name.
+  optional string allowlisted_device_name_hash = 1;
+
+  // Class of Device
+  optional int32 class_of_device = 2;
+
+  // The first three bytes of MAC address
+  optional int32 oui = 3;
+}
+
 /**
 * Logs RFCOMM connection attempts
 *
@@ -283,4 +294,9 @@ message BluetoothRfcommConnectionAttempted {
 
   // Uid of the app that calls RFCOMM connection API
   optional int32 uid = 6 [(is_uid) = true]; // [(datapol.semantic_type) = ST_SOFTWARE_ID]
+
+  // Remote Device Information
+  optional BluetoothRemoteDeviceInformation remote_device_information = 7 [(log_mode) = MODE_BYTES];
 }
+
+

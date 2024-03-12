@@ -114,8 +114,11 @@ enum KeyboardSystemEvent {
 
 /**
  * Criteria for keyboard layout selection
+ * DEPRECATED: Since Enums should include a default UNSPECIFIED value
+ * as the first value in the declaration
  */
 enum KeyboardLayoutSelectionCriteria {
+    option deprecated = true;
     // Manual selection by user
     USER = 0;
     // Auto-detection based on device provided language tag and layout type
@@ -124,6 +127,40 @@ enum KeyboardLayoutSelectionCriteria {
     VIRTUAL_KEYBOARD = 2;
     // Default selection
     DEFAULT = 3;
+}
+
+/**
+ * Criteria for keyboard layout selection
+ */
+enum LayoutSelectionCriteriaKeyboard {
+    // Unspecified
+    LAYOUT_SELECTION_CRITERIA_UNSPECIFIED = 0;
+    // Manual selection by user
+    LAYOUT_SELECTION_CRITERIA_USER = 1;
+    // Auto-detection based on device provided language tag and layout type
+    LAYOUT_SELECTION_CRITERIA_DEVICE = 2;
+    // Auto-detection based on IME provided language tag and layout type
+    LAYOUT_SELECTION_CRITERIA_VIRTUAL_KEYBOARD = 3;
+    // Default selection
+    LAYOUT_SELECTION_CRITERIA_DEFAULT = 4;
+}
+
+/**
+ * Keyboard Layout Type
+ * This enum is for layout types provided both by the physical keyboard
+ * and the  IME
+ */
+enum KeyboardLayoutType {
+    LAYOUT_TYPE_UNDEFINED = 0;
+    LAYOUT_TYPE_QWERTY = 1;
+    LAYOUT_TYPE_QWERTZ = 2;
+    LAYOUT_TYPE_AZERTY = 3;
+    LAYOUT_TYPE_DVORAK = 4;
+    LAYOUT_TYPE_COLEMAK = 5;
+    LAYOUT_TYPE_WORKMAN = 6;
+    LAYOUT_TYPE_TURKISH_F = 7;
+    LAYOUT_TYPE_TURKISH_Q = 8;
+    LAYOUT_TYPE_EXTENDED = 9;
 }
 
 /**

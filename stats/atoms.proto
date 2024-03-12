@@ -44,8 +44,8 @@ import "frameworks/proto_logging/stats/atoms/usb/usb_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/view/inputmethod/inputmethod_atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 import "frameworks/proto_logging/stats/enums/adservices/fledge/enums.proto";
-import "frameworks/proto_logging/stats/enums/anr/enums.proto";
 import "frameworks/proto_logging/stats/enums/adservices/measurement/enums.proto";
+import "frameworks/proto_logging/stats/enums/anr/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/job/enums.proto";
 import "frameworks/proto_logging/stats/enums/app/remoteprovisioner_enums.proto";
@@ -109,6 +109,7 @@ import "frameworks/proto_logging/stats/enums/stats/wm/enums.proto";
 import "frameworks/proto_logging/stats/enums/system/security/keystore2/enums.proto";
 import "frameworks/proto_logging/stats/enums/telecomm/enums.proto";
 import "frameworks/proto_logging/stats/enums/telephony/enums.proto";
+import "frameworks/proto_logging/stats/enums/transparency/enums.proto";
 import "frameworks/proto_logging/stats/enums/uwb/enums.proto";
 import "frameworks/proto_logging/stats/enums/view/enums.proto";
 import "frameworks/proto_logging/stats/enums/wifi/enums.proto";
@@ -160,8 +161,9 @@ message Atom {
                 14 [(module) = "framework"];
         MemoryFactorStateChanged memory_factor_state_changed = 15 [(module) = "framework"];
         ExcessiveCpuUsageReported excessive_cpu_usage_reported = 16 [(module) = "framework"];
-        CachedKillReported cached_kill_reported = 17 [(module) = "framework"];
-        ProcessMemoryStatReported process_memory_stat_reported = 18 [(module) = "framework"];
+        CachedKillReported cached_kill_reported = 17 [(module) = "framework", deprecated = true];
+        ProcessMemoryStatReported process_memory_stat_reported =
+                18 [(module) = "framework", deprecated = true];
         sysui.LauncherUIChanged launcher_event = 19 [(module) = "sysui"];
         BatterySaverModeStateChanged battery_saver_mode_state_changed =
                 20 [(module) = "framework", (module) = "statsdtest"];
@@ -212,7 +214,6 @@ message Atom {
         AppStartMemoryStateCaptured app_start_memory_state_captured = 55 [(module) = "framework"];
         ShutdownSequenceReported shutdown_sequence_reported = 56 [(module) = "framework"];
         BootSequenceReported boot_sequence_reported = 57;
-        DaveyOccurred davey_occurred = 58 [deprecated = true];
         OverlayStateChanged overlay_state_changed =
                 59 [(module) = "framework", (module) = "statsdtest"];
         ForegroundServiceStateChanged foreground_service_state_changed
@@ -658,7 +659,6 @@ message Atom {
         PrivacyToggleDialogInteraction privacy_toggle_dialog_interaction = 382 [(module) = "framework"];
         AppSearchOptimizeStatsReported app_search_optimize_stats_reported = 383 [(module) = "appsearch"];
         NonA11yToolServiceWarningReported non_a11y_tool_service_warning_report = 384 [(module) = "framework"];
-        AppSearchSetSchemaStatsReported app_search_set_schema_stats_reported = 385 [(module) = "appsearch"];
         AppCompatStateChanged app_compat_state_changed = 386 [(module) = "framework"];
         SizeCompatRestartButtonEventReported size_compat_restart_button_event_reported = 387 [(module) = "framework"];
         SplitscreenUIChanged splitscreen_ui_changed = 388 [(module) = "framework"];
@@ -906,8 +906,6 @@ message Atom {
         hardware.biometrics.BiometricTouchReported biometric_touch_reported = 577 [(module) = "sysui"];
         hotword.HotwordAudioEgressEventReported hotword_audio_egress_event_reported = 578
             [(module) = "framework"];
-        AppSearchSchemaMigrationStatsReported
-          app_search_schema_migration_stats_reported = 579 [(module) = "appsearch"];
         location.LocationEnabledStateChanged location_enabled_state_changed = 580 [(module) = "framework"];
         view.inputmethod.ImeRequestFinished ime_request_finished = 581 [(module) = "framework"];
         usb.UsbComplianceWarningsReported usb_compliance_warnings_reported = 582 [(module) = "framework"];
@@ -932,19 +930,21 @@ message Atom {
         corenetworking.connectivity.NetworkValidationFailureStatsDailyReported
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         wearservices.WsComplicationTapped ws_complication_tapped = 602 [(module) = "wearservices"];
-        wearservices.WsWearTimeSession ws_wear_time_session = 610 [(module) = "wearservices"];
+        wearservices.WsNotificationBlocking ws_notification_blocking = 780 [(module) = "wearservices"];
     }
 
     // Pushed atom extensions.
     // The atom definitions are under atoms/<feature>/<feature>_extension_atoms.proto
     extensions 332; // ArtDatumReported art_datum_reported
     extensions 366; // OdrefreshReported odrefresh_reported
+    extensions 385; // AppSearchSetSchemaStatsReported app_search_set_schema_stats_reported
     extensions 467; // BackgroundDexoptJobEnded background_dexopt_job_ended
     extensions 488; // SandboxApiCalled sandbox_api_called
     extensions 528; // ExpressEventReported express_event_reported
     extensions 548; // OdsignReported odsign_reported
     extensions 550; // ArtDeviceDatumReported art_device_datum_reported
     extensions 565; // ArtDatumDeltaReported art_datum_delta_reported
+    extensions 579; // AppSearchSchemaMigrationStatsReported app_search_schema_migration_stats_reported
     extensions 585; // CredentialManagerApiCalled credential_manager_api_called
     extensions 593; // ExpressHistogramSampleReported express_histogram_sample_reported
     extensions 598; // AdServicesBackCompatGetTopicsReported ad_services_back_compat_get_topics_reported
@@ -957,6 +957,7 @@ message Atom {
     extensions 607; // AutofillSessionCommitted autofill_session_committed
     extensions 608; // MediaActionReported media_action_reported
     extensions 609; // MediaControlsLaunched media_controls_launched
+    extensions 610; // WsWearTimeSession ws_wear_time_session
     extensions 611; // LockscreenShortcutSelected lockscreen_shortcut_selected
     extensions 612; // LockscreenShortcutTriggered lockscreen_shortcut_triggered
     extensions 613; // BluetoothHashedDeviceNameReported bluetooth_hashed_device_name_reported
@@ -1041,8 +1042,13 @@ message Atom {
     extensions 692; // WifiLocalOnlyRequestReceived wifi_local_only_request_received
     extensions 693; // WifiLocalOnlyRequestScanTriggered wifi_local_only_request_scan_triggered
     extensions 694; // WifiThreadTaskExecuted wifi_thread_task_executed
+    extensions 695; // AdServicesMeasurementAdIdMatchForDebugKeys ad_services_ad_id_match_for_debug_keys
     extensions 696; // BluetoothProfileConnectionAttempted bluetooth_profile_connection_attempted
+    extensions 697; // AdServicesEnrollmentDataStored ad_services_enrollment_data_stored
+    extensions 698; // AdServicesEnrollmentFileDownloaded ad_services_enrollment_file_downloaded
+    extensions 699; // AdServicesEnrollmentMatched ad_services_enrollment_matched
     extensions 700; // WifiStateChanged wifi_state_changed
+    extensions 701; // HdmiEarcStatusReported hdmi_earc_status_reported
     extensions 702; // AdServicesConsentMigrated ad_services_consent_migrated
     extensions 703; // CronetEngineCreated cronet_engine_created
     extensions 704; // CronetTrafficReported cronet_traffic_reported
@@ -1052,20 +1058,72 @@ message Atom {
     extensions 708; // AiWallpapersTermSelected ai_wallpapers_term_selected
     extensions 709; // AiWallpapersWallpaperSet ai_wallpapers_wallpaper_set
     extensions 710; // AiWallpapersSessionSummary ai_wallpapers_session_summary
+    extensions 711; // OnDevicePersonalizationApiCalled ondevicepersonalization_api_called
+    extensions 712; // FederatedComputeApiCalled federated_compute_api_called
+    extensions 713; // CellularRadioPowerStateChanged cellular_radio_power_state_changed
+    extensions 714; // AdServicesEnrollmentFailed ad_services_enrollment_failed
+    extensions 715; // WearModeStateChanged wear_mode_state_changed
     extensions 716; // LauncherImpressionEventV2 launcher_impression_event_v2
+    extensions 717; // ExternalTvInputEvent external_tv_input_event
     extensions 718; // StylusPredictionMetricsReported stylus_prediction_metrics_reported
+    extensions 719; // PnoScanStarted pno_scan_started
+    extensions 720; // PnoScanStopped pno_scan_stopped
+    extensions 721; // MediatorUpdated mediator_updated
+    extensions 722; // WifiIsUnusableReported wifi_is_unusable_reported
+    extensions 723; // WifiApCapabilitiesReported wifi_ap_capabilities_reported
+    extensions 724; // HdmiSoundbarModeStatusReported hdmi_soundbar_mode_status_reported
+    extensions 725; // UserRiskEventReported user_risk_event_reported
+    extensions 726; // DeviceLockCheckInRequestReported device_lock_check_in_request_reported
+    extensions 727; // DeviceLockProvisioningCompleteReported device_lock_provisioning_complete_reported
+    extensions 728; // DeviceLockKioskAppRequestReported device_lock_kiosk_app_request_reported
     extensions 729; // MediaProjectionStateChanged media_projection_state_changed
     extensions 730; // MediaProjectionTargetChanged media_projection_target_changed
+    extensions 731; // WearPowerMenuOpened wear_power_menu_opened
+    extensions 732; // ApexInstallationRequested apex_installation_requested
+    extensions 733; // ApexInstallationStaged apex_installation_staged
+    extensions 734; // ApexInstallationEnded apex_installation_ended
     extensions 735; // SandboxActivityEventOccurred sandbox_activity_event_occurred
+    extensions 736; // RendererInitialized renderer_initialized
+    extensions 737; // SchemaVersionReceived schema_version_received
     extensions 738; // ThreadnetworkTelemetryDataReported threadnetwork_telemetry_data_reported
     extensions 739; // ThreadnetworkTopoEntryRepeated threadnetwork_topo_entry_repeated
     extensions 740; // ThreadnetworkDeviceInfoReported threadnetwork_device_info_reported
+    extensions 741; // LayoutInspected layout_inspected
+    extensions 742; // LayoutExpressionsInspected layout_expression_inspected
+    extensions 743; // LayoutAnimationsInspected layout_animations_inspected
+    extensions 744; // MaterialComponentsInspected material_components_inspected
+    extensions 745; // TileRequested tile_requested
+    extensions 746; // StateResponseReceived state_response_received
+    extensions 747; // TileResponseReceived tile_response_received
+    extensions 748; // InflationFinished inflation_finished
+    extensions 749; // InflationFailed inflation_failed
+    extensions 750; // IgnoredInflationFailuresReported ignored_inflation_failures_reported
+    extensions 751; // DrawableRendered drawable_rendered
     extensions 752; // StatsSocketLossReported stats_socket_loss_reported
+    extensions 753; // DisplaySwitchLatencyTracked display_switch_latency_tracked
     extensions 754; // KernelOomKillOccurred kernel_oom_kill_occurred
+    extensions 755; // WearAssistantOpened wear_assistant_opened
+    extensions 756; // AdServicesMeasurementClickVerification ad_services_measurement_click_verification
+    extensions 757; // WearMediaOutputSwitcherDeviceScanApiLatency wear_media_output_switcher_device_scan_api_latency
+    extensions 758; // WearMediaOutputSwitcherSassDeviceUnavailable wear_media_output_switcher_sass_device_unavailable
+    extensions 759; // WearMediaOutputSwitcherFastPairApiTimeout wear_media_output_switcher_fastpair_api_timeout
     extensions 760; // IkeLivenessCheckSessionValidated ike_liveness_check_session_validated
+    extensions 761; // HotwordEventEgressSize hotword_egress_size_atom_reported
     extensions 762; // CronetEngineBuilderInitialized cronet_engine_builder_initialized
     extensions 763; // CronetHttpFlagsInitialized cronet_http_flags_initialized
     extensions 764; // CronetInitialized cronet_initialized
+    extensions 765; // AdServicesEncryptionKeyFetched ad_services_encryption_key_fetched
+    extensions 766; // AdServicesEncryptionKeyDbTransactionEnded ad_services_encryption_key_db_transaction_ended
+    extensions 767; // DestinationRegisteredBeacons destination_registered_beacons
+    extensions 768; // ReportInteractionApiCalled report_interaction_api_called
+    extensions 769; // InteractionReportingTableCleared interaction_reporting_table_cleared
+    extensions 770; // CarRecentsEventReported car_recents_event_reported
+    extensions 771; // FederatedComputeTrainingEventReported federated_compute_training_event_reported
+    extensions 772; // ThermalStatusCalled thermal_status_called
+    extensions 773; // ThermalHeadroomCalled thermal_headroom_called
+    extensions 774; // ThermalHeadroomThresholdsCalled thermal_headroom_thresholds_called
+    extensions 775; // BootIntegrityInfoReported boot_integrity_info_reported
+    extensions 776; // ScreenOffReported screen_off_reported
     extensions 777; // ApfSessionInfoReported apf_session_info_reported
     extensions 778; // IpClientRaInfoReported ip_client_ra_info_reported
     extensions 779; // NetworkRequestStateChanged network_request_state_changed
@@ -1307,13 +1365,24 @@ message Atom {
     extensions 10191; // TouchpadUsage touchpad_usage
     extensions 10192; // DreamSettingSnapshot dream_setting_snapshot
     extensions 10193; // WifiModuleInfo wifi_module_info
+    extensions 10194; // WifiSettingInfo wifi_setting_info
+    extensions 10195; // WifiComplexSettingInfo wifi_complex_setting_info
+    extensions 10196; // SysproxyBluetoothBytesTransfer sysproxy_bluetooth_bytes_transfer
+    extensions 10197; // WsStandaloneModeSnapshot ws_standalone_mode_snapshot
+    extensions 10198; // WifiConfiguredNetworkInfo wifi_configured_network_info;
+    extensions 10199; // CpuPolicy cpu_policy
+    extensions 10200; // ProxyBytesTransferByFgBg proxy_bytes_transfer_by_fg_bg
+    extensions 10201; // ThermalHeadroomThresholds thermal_headroom_thresholds
+    extensions 10202; // Reserved for b/308823939.
+    extensions 10203; // Reserved for b/308823939.
+    extensions 10204; // Reserved for b/309512867.
     extensions 10205; // ArtDeviceStatus art_device_status
     extensions 99999; // Atom99999 atom_99999
 
     // DO NOT USE field numbers above 100,000 in AOSP.
     // Field numbers 100,000 - 199,999 are reserved for non-AOSP (e.g. OEMs) to use.
     // Field numbers 200,000 and above are reserved for future use; do not use them at all.
-    reserved 83, 360 to 363, 492, 597, 10008, 10036, 10040, 10041, 21004, 21005;
+    reserved 58, 83, 360 to 363, 492, 597, 10008, 10036, 10040, 10041, 21004, 21005;
 }
 
 /*
@@ -1332,9 +1401,8 @@ message Atom {
  *     underscore_separated name as defined in Atom.
  *   - If an atom represents work that can be attributed to an app, there can
  *     be exactly one AttributionChain field. It must be field number 1.
- *   - A field that is a uid should be a string field, tagged with the [xxx]
- *     annotation. The generated code on android will be represented by UIDs,
- *     and those UIDs will be translated in xxx to those strings.
+ *   - A field that is a uid should be an int32 field, tagged with the
+ *     [(is_uid) = true] annotation.
  *
  * CONVENTIONS:
  *   - Events are past tense. e.g. ScreenStateChanged, not ScreenStateChange.
@@ -1518,7 +1586,7 @@ message ProcessState {
   optional int32 fgs_seconds = 7;
   optional int32 bound_top_seconds = 8;
   optional int32 bound_fgs_seconds = 9;
-  optional int32 important_foreground_seconds = 10;
+  optional int32 important_fg_bg_seconds = 10;
   optional int32 cached_seconds = 11;
   optional int32 frozen_seconds = 12;
   optional int32 other_seconds = 13;
@@ -1657,6 +1725,14 @@ message WifiHealthStatReported {
     optional int32 tx_kbps = 6 [default = -1];
     // estimated rx throughput in kbps
     optional int32 rx_kbps = 7 [default = -1];
+   // External scorer UID if external scorer is enabled. Otherwise WIFI_UID for
+   // AOSP scorer.
+   optional int32 scorer_uid = 8;
+   // Whether or not Wi-Fi is predicted as usable by the scorer
+   // Note: 'is_wifi_predicted_as_usable' is deprectaed by 'wifi_predicted_usability_state'.
+   optional bool is_wifi_predicted_as_usable = 9;
+   // Wi-Fi usability state as predicted by the scorer
+   optional android.net.wifi.WifiPredictedUsabilityState wifi_predicted_usability_state = 10;
 }
 
 /**
@@ -1750,6 +1826,21 @@ message WifiConnectionResultReported {
     optional bool is_oob_pseudonym_enabled = 11;
     // The client mode role for the connection, can use to determine the connection type.
     optional android.net.wifi.ClientModeRole role = 12;
+    // The status code specific to each failure code.
+    // - For FAILURE_ASSOCIATION_REJECTION, the value should be one of
+    //   SupplicantStaIfaceHal.StaIfaceStatusCode.
+    // - For FAILURE_NETWORK_DISCONNECTION, the value should be
+    //   one of SupplicantStaIfaceHal.StaIfaceReasonCode.
+    // - For FAILURE_AUTHENTICATION_EAP, the value should be a EAP failure code.
+    // For all other failure codes, this should be 0.
+    optional int32 failure_specific_status_code = 13;
+    // Information only applicable for EAP networks.
+    optional android.net.wifi.EapType eap_type = 14;
+    optional android.net.wifi.EapInnerMethod eap_inner_method = 15;
+    optional android.net.wifi.RoamingType passpoint_roaming_type = 16;
+    // carrier ID of the network
+    optional int32 carrier_id = 17;
+    optional android.net.wifi.TofuConfiguration tofu_configuration = 18;
 }
 
 /**
@@ -1833,6 +1924,40 @@ message WifiDisconnectReported {
         SUPPLICANT_DISCONNECTED = 10002;
         CONNECTING_WATCHDOG_TIMER = 10003;
         ROAM_WATCHDOG_TIMER = 10004;
+
+        // New reasons tracking disconnections initiated by wifi framework
+        DISCONNECT_GENERAL = 10005; // Framework disconnect, generic reason
+        // Disconnecting due to unspecified IP reachability lost.
+        DISCONNECT_NUD_FAILURE_GENERIC = 10006;
+        // Disconnecting due to IP reachability lost from roaming
+        DISCONNECT_NUD_FAILURE_ROAM = 10007;
+        // Disconnecting due to IP reachability lost from the CONFIRM command
+        DISCONNECT_NUD_FAILURE_CONFIRM = 10008;
+        // Disconnecting due to IP reachability lost from kernel check
+        DISCONNECT_NUD_FAILURE_ORGANIC = 10009;
+        // Connectivity no longer wants this network
+        DISCONNECT_UNWANTED_BY_CONNECTIVITY = 10010;
+        // Timeout creating the IP client
+        DISCONNECT_CREATE_IP_CLIENT_TIMEOUT = 10011;
+        DISCONNECT_IP_PROVISIONING_FAILURE = 10012; // IP provisioning failure
+        DISCONNECT_P2P_REQUESTED_DISCONNECT = 10013; // Disconnect by P2P
+        // Network is removed from the WifiConfigManager
+        DISCONNECT_NETWORK_REMOVED = 10014;
+        DISCONNECT_NETWORK_UNTRUSTED = 10015; // Network is marked as untrusted
+        DISCONNECT_NETWORK_METERED = 10016; // Network is marked as metered
+        DISCONNECT_TEMP_DISABLED = 10017; // Network is temporarily disabled
+        DISCONNECT_PERM_DISABLED = 10018; // Network is permanently disabled
+        DISCONNECT_CARRIER_OFFLOAD_DISABLED = 10019;
+        // Disconnecting due to Passpoint terms and conditions page
+        DISCONNECT_PASSPOINT_TAC = 10020;
+        // Disconnecting due to issues with terms and conditions URL
+        DISCONNECT_VNC_REQUEST = 10021;
+        // Connected to a network that is already removed
+        DISCONNECT_UNKNOWN_NETWORK = 10022;
+        // User initiated a new connection
+        DISCONNECT_NEW_CONNECTION_USER = 10023;
+        // New connection triggered by non-user
+        DISCONNECT_NEW_CONNECTION_OTHERS = 10024;
     }
 
     // How long the session lasted from successful connection to disconnect.
@@ -1852,6 +1977,26 @@ message WifiDisconnectReported {
 
     // Last seen link speed before the disconnect.
     optional int32 last_link_speed = 6;
+
+    // Time since the last RSSI and link speed update.
+    // Useful for filtering out very old data
+    optional int32 time_since_last_rssi_poll_seconds = 7;
+
+    // Time from the last NETWORK_CONNECTION_EVENT to the disconnect
+    optional int32 connected_time_since_last_roam_seconds = 8;
+
+    // The purpose the of the connection
+    optional android.net.wifi.ClientModeRole role = 9;
+
+    // The type of EAP authentication. Only applicable for EAP networks.
+    optional android.net.wifi.EapType eap_type = 10;
+
+    optional android.net.wifi.EapInnerMethod eap_inner_method = 11;
+
+    optional android.net.wifi.RoamingType passpoint_roaming_type = 12;
+
+    // Carrier id of the network.
+    optional int32 carrier_id = 13;
 }
 
 /**
@@ -2334,6 +2479,26 @@ message ScheduledJobStateChanged {
 
     // Hash of the namespace set via JobScheduler.forNamespace(String).
     optional string namespace_hash = 40;
+
+    // System estimated/measured bytes that the job
+    // downloaded over its runtime. Only valid for FINISHED
+    // state. We measure here for the SOURCE UID
+    optional int64 system_measured_source_download_bytes = 41;
+
+    // System estimated/measured uploaded bytes that the job
+    // uploaded over its runtime. Only valid for FINISHED
+    // state. We measure here for the SOURCE UID
+    optional int64 system_measured_source_upload_bytes = 42;
+
+    // System estimated/measured bytes that the job
+    // downloaded over its runtime. Only valid for FINISHED
+    // state. We measure here for the CALLING UID
+    optional int64 system_measured_calling_download_bytes = 43;
+
+    // System estimated/measured uploaded bytes that the job
+    // uploaded over its runtime. Only valid for FINISHED
+    // state. We measure here for the CALLING UID
+    optional int64 system_measured_calling_upload_bytes = 44;
 }
 
 /**
@@ -4429,20 +4594,6 @@ message ThermalThrottlingSeverityStateChanged {
 }
 
 /**
- * Logs the duration of a davey (jank of >=700ms) when it occurs
- *
- * Logged from:
- *   frameworks/base/libs/hwui/JankTracker.cpp
- */
-message DaveyOccurred {
-    // The UID that logged this atom.
-    optional int32 uid = 1 [(is_uid) = true];
-
-    // Amount of time it took to render the frame. Should be >=700ms.
-    optional int64 jank_duration_millis = 2;
-}
-
-/**
  * Logs phone signal strength changes.
  *
  * Logged from:
@@ -4526,6 +4677,15 @@ message StyleUIChanged {
     optional int32 color_variant = 20;
     optional int64 time_elapsed_millis = 21;
     optional int32 effect_status_code = 22;
+    optional int32 app_session_id = 23;
+    optional android.stats.style.SetWallpaperEntryPoint set_wallpaper_entry_point = 24;
+    optional android.stats.style.WallpaperDestination wallpaper_destination = 25;
+    optional android.stats.style.ColorSource color_source = 26;
+    optional int32 seed_color = 27;
+    optional android.stats.style.ClockSize clock_size = 28;
+    optional bool toggle_on = 29;
+    optional string shortcut = 30;
+    optional string shortcut_slot_id = 31;
 }
 
 /**
@@ -5132,6 +5292,9 @@ message AppStartOccurred {
 
     // The stopped state (if any) the package was in before the launch
     optional PackageStoppedState package_stopped_state = 25;
+
+    // Reserved for b/281564325.
+    reserved 26;
 }
 
 message AppStartCanceled {
@@ -7432,12 +7595,14 @@ message BlobOpened{
  * Logged from:
  *  frameworks/base/core/java/com/android/internal/jank/FrameTracker.java
  *
- * Next Tag: 9
+ * Next Tag: 10
  */
 message UIInteractionFrameInfoReported {
     optional android.jank.InteractionType interaction_type = 1;
 
     optional android.jank.DisplayResolution display_resolution = 8;
+
+    optional android.jank.DisplayRefreshRate display_refresh_rate = 9;
 
     // Number of frames rendered during the interaction.
     optional int64 total_frames = 2;
@@ -9263,8 +9428,24 @@ message BatteryUsageStatsAtomsProto {
     message UidBatteryConsumer {
         optional int32 uid = 1 [(is_uid) = true];
         optional BatteryConsumerData battery_consumer_data = 2;
-        optional int64 time_in_foreground_millis = 3;
-        optional int64 time_in_background_millis = 4;
+        // DEPRECATED Use time_in_state instead.
+        optional int64 time_in_foreground_millis = 3 [deprecated = true];
+        // DEPRECATED Use time_in_state instead.
+        optional int64 time_in_background_millis = 4 [deprecated = true];
+
+        message TimeInState {
+            enum ProcessState {
+                UNSPECIFIED = 0;
+                FOREGROUND = 1;
+                BACKGROUND = 2;
+                FOREGROUND_SERVICE = 3;
+            }
+
+            optional ProcessState process_state = 1;
+            optional int64 time_in_state_millis = 2;
+        }
+
+        repeated TimeInState time_in_state = 5;
     }
     repeated UidBatteryConsumer uid_battery_consumers = 5;
 
@@ -10683,6 +10864,7 @@ message SplitscreenUIChanged {
         CHILD_TASK_ENTER_PIP = 9;
         RECREATE_SPLIT = 10;
         FULLSCREEN_SHORTCUT = 11;
+        ENTER_DESKTOP = 12;
     }
 
     // The event action
@@ -10967,7 +11149,7 @@ message MediametricsCodecReported {
  *   frameworks/av/media/libstagefright/MediaCodec.cpp
  *   frameworks/av/services/mediaanalytics/statsd_codec.cpp
  *
- * Next Tag: 80
+ * Next Tag: 79
  */
 message MediaCodecReported {
     optional int64 timestamp_nanos = 1;
@@ -13361,157 +13543,6 @@ message AppSearchOptimizeStatsReported {
     optional int64 native_time_since_last_optimize_millis = 13;
 }
 
-/**
- * Logs detailed stats for setting schema in AppSearch.
- *
- * stats pushed from:
- *   frameworks/base/apex/appsearch/service/java/com/android/server/appsearch/AppSearchManagerService.java
- *
- * Next tag: 26
- */
-message AppSearchSetSchemaStatsReported {
-    // The sampling interval for this specific type of stats
-    // For example, sampling_interval=10 means that one out of every 10 stats was logged.
-    optional int32 sampling_interval = 1;
-
-    // # of previous skipped sample for this specific type of stats
-    // We can't push atoms too closely, so some samples might be skipped
-    // In order to extrapolate the counts, we need to save the number of skipped stats and add it back
-    // For example, the true count of an event could be estimated as:
-    //   SUM(sampling_interval * (num_skipped_sample + 1)) as est_count
-    optional int32 num_skipped_sample = 2;
-
-    // Package UID of the application.
-    optional int32 uid = 3 [(is_uid) = true];
-
-    // Hash of the database name within AppSearch
-    optional int32 database = 4;
-
-    // Needs to be sync with AppSearchResult#ResultCode in
-    // frameworks/base/apex/appsearch/framework/java/android/app/appsearch/AppSearchResult.java
-    optional int32 status_code = 5;
-
-    // Overall time used for setting schema including the binder latency
-    optional int32 total_latency_millis = 6;
-
-    // Number of newly added schema types
-    optional int32 new_type_count = 7;
-
-    // Number of deleted schema types
-    optional int32 deleted_type_count = 8;
-
-    // Number of compatible schema type changes
-    optional int32 compatible_type_change_count = 9;
-
-    // Number of index-incompatible schema type changes
-    optional int32 index_incompatible_type_change_count = 10;
-
-    // Number of backwards-incompatible schema type changes
-    optional int32 backwards_incompatible_type_change_count = 11;
-
-    // Time used for verifying the incoming call.
-    optional int32  verify_incoming_call_latency_millis = 12;
-
-    // Time used for creating or waiting the user executor.
-    optional int32  executor_acquisition_latency_millis = 13;
-
-    // Time used for rebuilding objects from bundles.
-    optional int32  rebuild_from_bundle_latency_millis = 14;
-
-    // Time passed while waiting to acquire the lock during Java function calls.
-    optional int32  java_lock_acquisition_latency_millis = 15;
-
-    // Time used for the rewrite schema to proto.
-    optional int32  rewrite_schema_latency_millis = 16;
-
-    // Overall time used for the native function call.
-    optional int32  total_native_latency_millis = 17;
-
-    // Time used for the apply visibility settings function call.
-    optional int32  visibility_setting_latency_millis = 18;
-
-    // Time used for the dispatch change notification function call.
-    optional int32  dispatch_change_notifications_latency_millis = 19;
-
-    // Time used for the optimization function call.
-    optional int32  mOptimize_latency_millis = 20;
-
-    /** Whether this package is observed. */
-    optional bool is_package_observed = 21;
-
-    /** Time used for the get old schema. */
-    optional int32  get_old_schema_latency_millis = 22;
-
-    /** Time used for the get registered observer function call. */
-    optional int32  get_observer_latency_millis = 23;
-
-    /** Time used for the preparing change notification action. */
-    optional int32  preparing_change_notification_latency_millis = 24;
-
-    // Type of the SetSchema call relative to SchemaMigration case.
-    // This is in sync with
-    // packages/modules/AppSearch/service/java/com/android/server/appsearch/external/localstorage/stats/SetSchemaStats.java
-    optional int32 schema_migration_call_type = 25;
-}
-
-/**
- * Logs detailed stats for schema migration in AppSearch.
- *
- * stats pushed from:
- *   packages/modules/AppSearch/service/java/com/android/server/appsearch/AppSearchManagerService.java
- *
- * Next tag: 15
- */
-message AppSearchSchemaMigrationStatsReported {
-    // The sampling interval for this specific type of stats
-    // For example, sampling_interval=10 means that one out of every 10 stats was logged.
-    optional int32 sampling_interval = 1;
-
-    // # of previous skipped sample for this specific type of stats
-    // We can't push atoms too closely, so some samples might be skipped
-    // In order to extrapolate the counts, we need to save the number of skipped stats and add it back
-    // For example, the true count of an event could be estimated as:
-    //   SUM(sampling_interval * (num_skipped_sample + 1)) as est_count
-    optional int32 num_skipped_sample = 2;
-
-    // Package UID of the application.
-    optional int32 uid = 3 [(is_uid) = true];
-
-    // Hash of the database name within AppSearch
-    optional int32 database = 4;
-
-    // Needs to be sync with AppSearchResult#ResultCode in
-    // packages/modules/AppSearch/framework/java/external/android/app/appsearch/AppSearchResult.java
-    optional int32 status_code = 5;
-
-    // Overall time used for setting schema including the binder latency
-    optional int32 total_latency_millis = 6;
-
-    // Overall time used for getting schema during schema migration
-    optional int32 schema_migration_get_schema_latency_millis = 7;
-
-    // Overall time used for querying and transforming documents during schema migration
-    optional int32 schema_migration_query_and_transform_latency_millis = 8;
-
-    // Overall time used for first setSchema during schema migration
-    optional int32 schema_migration_first_set_schema_latency_millis = 9;
-
-    // Overall time used for second setSchema during schema migration
-    optional int32 schema_migration_second_set_schema_latency_millis = 10;
-
-    // Overall time used for saving documents during schema migration
-    optional int32 schema_migration_save_document_latency_millis = 11;
-
-    // Number of document that need to be migrated to another version
-    optional int32 total_need_migrated_document_count = 12;
-
-    // Number of successfully migrated and saved in Icing
-    optional int32 total_success_migrated_document_count = 13;
-
-    // Number of migration failure during schema migration
-    optional int32 schema_migration_failure_count = 14;
-}
-
 // Reports information in external/icing/proto/icing/proto/storage.proto#DocumentStorageInfoProto
 // Next tag: 15
 message AppSearchDocumentStorageInfo {
@@ -13658,7 +13689,7 @@ message AppSearchStorageInfo {
  * Reported from:
  *   packages/modules/AppSearch/service/java/com/android/server/appsearch/contactsindexer/ContactsIndexerManagerService.java
  *
- * Next tag: 11
+ * Next tag: 18
  */
 message ContactsIndexerUpdateStatsReported {
     enum UpdateType {
@@ -13702,6 +13733,30 @@ message ContactsIndexerUpdateStatsReported {
 
     // Number of old contacts failed to be deleted
     optional int32 number_of_contacts_delete_failed = 10;
+
+    // Number of old contacts to be deleted that were not found
+    optional int32 number_of_contacts_delete_not_found = 11;
+
+    // Start timestamp of the update in millis
+    optional int64 update_start_timestamp_millis = 12;
+
+    // Timestamp of the last full update in millis (not including this update)
+    optional int64 last_full_update_timestamp_millis = 13;
+
+    // Timestamp of the last delta update in millis (not including this update)
+    optional int64 last_delta_update_timestamp_millis = 14;
+
+    // Timestamp of the last contact to be updated from CP2 in millis
+    optional int64 last_contact_updated_timestamp_millis = 15;
+
+    // Timestamp of the last contact to be deleted from CP2 in millis
+    optional int64 last_contact_deleted_timestamp_millis = 16;
+
+    // The previous update's last_contact_updated_timestamp_millis
+    // This field is only set for a full update and expected to match
+    // last_contacted_update_timestamp_millis. If the fields do not match, then we
+    // were unexpectedly not synced up with CP2 at the time of the update.
+    optional int64 previous_last_contact_updated_timestamp_millis = 17;
 }
 
 /**
@@ -14208,6 +14263,10 @@ message CameraActionEvent {
     // Whether advanced extensions session is being used
     optional bool ext_is_advanced = 25;
     // End: Extension Metrics
+
+    optional bool used_ultrawide = 26;
+
+    optional bool used_zoom_override = 27;
 }
 
 /**
@@ -15259,6 +15318,18 @@ message VoiceCallSession {
 
     // Handover state of the device
     optional bool handover_in_progress = 37;
+
+    // When the RAT is IWLAN, if it used cross-SIM calling when call started.
+    optional bool is_iwlan_cross_sim_at_start = 38;
+
+    // When the RAT is IWLAN, if it used cross-SIM calling when call ended.
+    optional bool is_iwlan_cross_sim_at_end = 39;
+
+    // When the RAT is IWLAN, if it used cross-SIM calling when call connected.
+    optional bool is_iwlan_cross_sim_at_connected = 40;
+
+    // Whether Vonr is enabled
+    optional bool vonr_enabled = 41;
 }
 
 /**
@@ -15345,6 +15416,10 @@ message CellularServiceState {
 
     // Whether mobile data is enable.
     optional bool isDataEnabled = 14;
+
+    // When the voice RAT is NETWORK_TYPE_IWLAN, determines whether it is over
+    // cross-SIM calling (WiFi calling over other SIM's cellular data).
+    optional bool is_iwlan_cross_sim = 15;
 }
 
 /**
@@ -15396,6 +15471,12 @@ message SimSlotState {
     // Number of active eSIM profiles.
     // This number is always equal to or less than the number of SIMs.
     optional int32 esim_count = 3;
+
+    // Number of active eSIM slots in the device.
+    optional int32 active_esim_slot_count = 4;
+
+    // Number of active slots using Multiple Enabled Profiles in the device.
+    optional int32 active_mep_slot_count = 5;
 }
 
 /**
@@ -15428,6 +15509,8 @@ message DeviceTelephonyProperties {
     optional int32 auto_data_switch_toggle_count = 3;
     // True if work profile is enabled on the device
     optional bool has_managed_profile_dedicated_sub = 4;
+    // Number of SIM slots with support for Multiple Enabled Profiles on the device
+    optional int32 mep_supported_slot_count = 5;
 }
 
 /**
@@ -15787,6 +15870,10 @@ message DataCallSession {
 
     // Whether the call is for internet on nonDDS due to auto data switch feature
     optional bool is_non_dds = 22;
+
+    // When the 'rat_at_end' field is IWLAN, determines if the data call setup was
+    // over cross-SIM calling (Wifi calling over cellular data).
+    optional bool is_iwlan_cross_sim = 23;
 }
 
 /**
@@ -15897,6 +15984,10 @@ message ImsRegistrationTermination {
 
     // Total number of instances of registration termination that matches the above conditions.
     optional int32 count = 8;
+
+    // When the 'rat_at_end' field is IWLAN, indicates whether the ImsRegistrationTech is
+    // REGISTRATION_TECH_CROSS_SIM.
+    optional bool is_iwlan_cross_sim = 9;
 }
 
 /**
@@ -15936,6 +16027,15 @@ message ImsRegistrationStats {
     optional int32 video_available_seconds = 10;
     optional int32 ut_capable_seconds = 11;
     optional int32 ut_available_seconds = 12;
+
+    // Total time IMS was registering (connecting time), rounded to 5 minutes
+    optional int32 registering_seconds = 13;
+    // Total time IMS was unregistered (unconnected time), rounded to 5 minutes
+    optional int32 unregistered_seconds = 14;
+
+    // When the 'rat' field is IWLAN, indicates whether the ImsRegistrationTech is
+    // REGISTRATION_TECH_CROSS_SIM.
+    optional bool is_iwlan_cross_sim = 15;
 }
 
 /*
@@ -16384,6 +16484,7 @@ message UserLifecycleJourneyReported {
         PROFILE_MANAGED = 6;
         SYSTEM_HEADLESS = 7;
         PROFILE_CLONE = 8;
+        PROFILE_PRIVATE = 9;
     }
     optional UserType user_type = 5;
     // What are the flags attached to the target user
@@ -17942,6 +18043,8 @@ message TlsHandshakeReported {
     optional int32 handshake_duration_millis = 4;
 
     optional android.stats.tls.Source source = 5;
+
+    repeated int32 uid = 6 [(is_uid) = true];
 }
 
 /**
@@ -19157,6 +19260,10 @@ message MediametricsAAudioStreamReported {
     // Android U
     // The UID of the client.
     optional int32 uid = 22 [(is_uid) = true];
+
+    // Android U
+    // The sample rate used by the client.
+    optional int32 sample_rate_client = 23;
 }
 
 /**
@@ -21201,6 +21308,10 @@ message PerSimStatus {
 
     // Indicates whether VoNR is enabled
     optional bool vonr_enabled = 18;
+
+    // Indicates whether cross-SIM calling (WiFi calling over cellular data) is
+    // enabled.
+    optional bool cross_sim_calling_enabled = 19;
 }
 
 /*
@@ -21426,16 +21537,8 @@ message ApexInfoGathered {
     // we are deprecating the use of this going forward
     optional string content_digest = 3;
 
-    enum DigestAlgorithmType {
-        UNKNOWN = 0;
-        CHUNKED_SHA256 = 1;
-        CHUNKED_SHA512 = 2;
-        VERITY_CHUNKED_SHA256 = 3;
-        SHA256 = 4;
-    }
-
     // the algorithm that the content digest is computed
-    optional DigestAlgorithmType algo_type = 4;
+    optional com.android.os.transparency.DigestAlgorithmType algo_type = 4;
 
     // the SHA256 digest(s) of the APEX's signer certificate(s)
     repeated string signer_sha256_digest = 5;
@@ -21460,17 +21563,10 @@ message MobileBundledAppInfoGathered {
     // the split name (empty if it's the base)
     optional string split_name = 11;
 
-    enum DigestAlgorithmType {
-        UNKNOWN = 0;
-        CHUNKED_SHA256 = 1;
-        CHUNKED_SHA512 = 2;
-        VERITY_CHUNKED_SHA256 = 3;
-        SHA256 = 4;
-    }
     // the hex encoded value of digest of the content of the MBA
     optional string content_digest = 3;
     // the algorithm that the content_digest is computed
-    optional DigestAlgorithmType algo_type = 4;
+    optional com.android.os.transparency.DigestAlgorithmType algo_type = 4;
     // the SHA256 digest(s) of the APEX's signer certificate(s)
     repeated string signer_sha256_digest = 5;
 
@@ -21823,7 +21919,7 @@ message AdServicesEpochComputationClassifierReported {
  */
 message AdServicesApiCalled {
     // The name of the api that was called.
-    // Can be classified as one of the three:
+    // Can be classified as one of the following:
     //
     // Targeting
     //  * GetTopics()
@@ -21842,6 +21938,7 @@ message AdServicesApiCalled {
     //  * setAppInstallAdvertisers()
     //  * reportInteraction()
     //  * updateAdCounterHistogram()
+    //  * fetchAndJoinCustomAudience()
     //
     // Measurement - client side
     //   * register() : SOURCE
@@ -21850,12 +21947,17 @@ message AdServicesApiCalled {
     //   * registerWebSource()
     //   * registerWebTrigger()
     //   * getMeasurementApiStatus()
+    //   * registerSource() : accepts a list of source registration URIs
     //
     // AdId
     //   * GetAdId()
     //
     // AppsetId
     //   * GetAppsetId()
+    //
+    // AdExtDataService
+    //   * onGetAdServicesExtData()
+    //   * onPutAdServicesExtData()
 
 
     enum AdServicesApiClassType {
@@ -21865,6 +21967,7 @@ message AdServicesApiCalled {
         MEASUREMENT = 3;
         ADID = 4;
         APPSETID = 5;
+        ADEXT_DATA_SERVICE = 6;
     }
 
     enum AdServicesApiName {
@@ -21893,6 +21996,10 @@ message AdServicesApiCalled {
         SET_APP_INSTALL_ADVERTISERS = 22;
         REPORT_INTERACTION = 23;
         UPDATE_AD_COUNTER_HISTOGRAM = 24;
+        FETCH_AND_JOIN_CUSTOM_AUDIENCE = 25;
+        REGISTER_SOURCES = 26;
+        GET_AD_SERVICES_EXT_DATA = 27;
+        PUT_AD_SERVICES_EXT_DATA = 28;
     }
 
     optional AdServicesApiClassType api_class = 1 [deprecated = true];
@@ -21900,7 +22007,7 @@ message AdServicesApiCalled {
     // The actual name of the api within the 3 classes described above.
     optional AdServicesApiName  api_name = 2;
 
-    optional string app_package_name = 3;
+    optional string app_package_name = 3; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
     optional string sdk_package_name = 4;
 
     optional int32 latency_millis = 5;
@@ -21917,6 +22024,33 @@ message AdServicesMeasurementReportsUploaded {
         UNKNOWN_REPORT = 0;
         EVENT = 1;
         AGGREGATE = 2;
+        DEBUG_EVENT = 3;
+        DEBUG_AGGREGATE = 4;
+        VERBOSE_DEBUG_SOURCE_DESTINATION_LIMIT = 5;
+        VERBOSE_DEBUG_SOURCE_NOISED = 6;
+        VERBOSE_DEBUG_SOURCE_STORAGE_LIMIT = 7;
+        VERBOSE_DEBUG_SOURCE_SUCCESS = 8;
+        VERBOSE_DEBUG_SOURCE_UNKNOWN_ERROR = 9;
+        VERBOSE_DEBUG_SOURCE_FLEXIBLE_EVENT_REPORT_VALUE_ERROR = 10;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_DEDUPLICATED = 11;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_INSUFFICIENT_BUDGET = 12;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_NO_CONTRIBUTIONS = 13;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_REPORT_WINDOW_PASSED = 14;
+        VERBOSE_DEBUG_TRIGGER_ATTRIBUTIONS_PER_SOURCE_DESTINATION_LIMIT = 15;
+        VERBOSE_DEBUG_TRIGGER_EVENT_DEDUPLICATED = 16;
+        VERBOSE_DEBUG_TRIGGER_EVENT_EXCESSIVE_REPORTS = 17;
+        VERBOSE_DEBUG_TRIGGER_EVENT_LOW_PRIORITY = 18;
+        VERBOSE_DEBUG_TRIGGER_EVENT_NO_MATCHING_CONFIGURATIONS = 19;
+        VERBOSE_DEBUG_TRIGGER_EVENT_NOISE = 20;
+        VERBOSE_DEBUG_TRIGGER_EVENT_REPORT_WINDOW_PASSED = 21;
+        VERBOSE_DEBUG_TRIGGER_NO_MATCHING_FILTER_DATA = 22;
+        VERBOSE_DEBUG_TRIGGER_NO_MATCHING_SOURCE = 23;
+        VERBOSE_DEBUG_TRIGGER_REPORTING_ORIGIN_LIMIT = 24;
+        VERBOSE_DEBUG_TRIGGER_EVENT_STORAGE_LIMIT = 25;
+        VERBOSE_DEBUG_TRIGGER_UNKNOWN_ERROR = 26;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_STORAGE_LIMIT = 27;
+        VERBOSE_DEBUG_TRIGGER_AGGREGATE_EXCESSIVE_REPORTS = 28;
+        VERBOSE_DEBUG_UNKNOWN = 29;
     }
 
     optional ReportType type = 1;
@@ -21932,6 +22066,10 @@ message AdServicesMeasurementReportsUploaded {
     optional android.adservices.service.measurement.ReportUploadMethod upload_method = 4;
     // delay (in milliseconds) between scheduled delivery time and actual delivery time.
     optional int64 reporting_delay_millis = 5;
+    optional string app_package_name = 6; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
+    optional int32 retry_count = 7;
+    optional int32 http_response_code = 8;
+    optional bool is_marked_for_deletion = 9;
 }
 
 /**
@@ -21953,6 +22091,10 @@ message AdServicesMeasurementRegistrations {
     optional android.adservices.service.measurement.RegistrationFailureType failure_type = 7;
     // delay (in milliseconds) between registration queue request and the time it gets processed
     optional int64 registration_delay_millis = 8;
+    optional string app_package_name = 9; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
+    optional int32 retry_count = 10;
+    optional int32 http_response_code = 11;
+    optional bool is_redirect = 12;
 }
 
 /**
@@ -23472,6 +23614,10 @@ message AdServicesSettingsUsageReported {
         GA_UX_LANDING_PAGE_OPT_OUT = 65;
         // user clicked opt out on the landing page.
         LANDING_PAGE_OPT_OUT = 66;
+        // (enrolled) user clicked on the privacy sandbox entry point.
+        PRIVACY_SANDBOX_ENTRY_POINT_CLICKED = 67;
+        // daily maintenance job was run.
+        DAILY_MAINTENANCE_JOB_FINISHED = 68;
     }
     // UI action performed by user.
     optional AdServiceSettingsName action = 2;
@@ -23512,7 +23658,7 @@ message AdServicesSettingsUsageReported {
     // Default ad id state when consent notification was first sent.
     optional AdServicesSettingsDefaultAdIdState default_ad_id_state = 4;
 
-    // Type of AdService feature running on device.
+    // (Deprecated) Type of AdService feature running on device.
     enum PrivacySandboxFeatureType {
         // fallback when getFeature failed.
         FEATURE_UNSPECIFIED = 0;
@@ -23530,8 +23676,48 @@ message AdServicesSettingsUsageReported {
         PRIVACY_SANDBOX_RECONSENT_FF = 6;
     }
 
-    // Privacy sandbox feature currently running on the device.
-    optional PrivacySandboxFeatureType feature_type = 5;
+    // (Deprecated) Privacy sandbox feature currently running on the device.
+    optional PrivacySandboxFeatureType feature_type = 5 [deprecated = true];
+
+    // Type of privacy sandbox UX.
+    enum PrivacySandboxUx {
+        // fallback when no UX can be selected.
+        UNSUPPORTED_UX = 0;
+        // all UXs that are not unspecified.
+        UNSPECIFIED_UX = 1;
+        // GA UX.
+        GA_UX = 2;
+        // Beta UX.
+        BETA_UX = 3;
+        // UX for Android RVC.
+        RVC_UX = 4;
+    }
+
+    // Type of privacy sandbox UX.
+    optional PrivacySandboxUx ux = 6;
+
+    // Type of privacy sandbox enrollment channel.
+    enum PrivacySandboxUxEnrollmentChannel {
+        // fallback when no enrollment channel can be selected.
+        UNSUPPORTED_CHANNEL = 0;
+        // all enrollment channels that are unspecified.
+        UNSPECIFIED_CHANNEL = 1;
+        // already enrolled channel.
+        ALREADY_ENROLLED_CHANNEL = 2;
+        // consent notification debug channel.
+        CONSENT_NOTIFICATION_DEBUG_CHANNEL = 3;
+        // first consent notification.
+        FIRST_CONSENT_NOTIFICATION_CHANNEL = 4;
+        // reconsent notification.
+        RECONSENT_NOTIFICATION_CHANNEL = 5;
+        // consent notification reset channel.
+        CONSENT_NOTIFICATION_RESET_CHANNEL = 6;
+        // 2nd GA notification post R OTA.
+        RVC_POST_OTA_NOTIFICATION_CHANNEL = 7;
+    }
+
+    // Type of privacy sandbox enrollment channel.
+    optional PrivacySandboxUxEnrollmentChannel enrollment_channel = 7;
 }
 
 // Logs daily ambient brightness stats.
@@ -24456,6 +24642,10 @@ message WsActiveWatchFaceComplicationSetSnapshot {
 
   // Active watch face package uid.
   optional int32 watch_face_package_uid = 3 [(is_uid) = true];
+
+  /* Active watch face class name. This will be
+  null for Declarative WF packages, as these packages have only one WF. */
+  optional string watch_face_class_name = 5;
 }
 
 message UnsafeIntentEventReported {

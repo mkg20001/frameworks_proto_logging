@@ -62,6 +62,8 @@ enum SoftInputShowHideReasonEnum {
     REASON_REMOVE_IME_SCREENSHOT_FROM_IMMS = 35;
     REASON_UPDATE_IME_PARENT_FROM_IMMS = 36;
     REASON_HIDE_WHEN_INPUT_TARGET_INVISIBLE = 37;
+    REASON_HIDE_CLOSE_CURRENT_SESSION = 38;
+    REASON_HIDE_SOFT_INPUT_FROM_VIEW = 39;
 }
 
 // The type of the IME request, used by android/view/inputmethod/ImeTracker.java.
@@ -174,7 +176,7 @@ enum ImeRequestPhaseEnum {
     // Started the IME window insets show animation.
     PHASE_CLIENT_CONTROL_ANIMATION = 33;
     // Checked that the IME is controllable.
-    PHASE_CLIENT_DISABLED_USER_ANIMATION = 34;
+    PHASE_CLIENT_DISABLED_USER_ANIMATION = 34 [deprecated = true];
     // Collecting insets source controls.
     PHASE_CLIENT_COLLECT_SOURCE_CONTROLS = 35;
     // Reached the insets source consumer's show request method.

@@ -1218,6 +1218,10 @@ enum ItemId {
     // TvSettings > Connected Devices (Slice) > [A connected device] > Forget
     CONNECTED_SLICE_DEVICE_ENTRY_FORGET = 0x18230000;
 
+    // TvSettings > Connected Devices (Slice) > [A connected audio device] >
+    // Listen to TV audio on this device
+    CONNECTED_SLICE_DEVICE_ENTRY_TOGGLE_ACTIVE_AUDIO_OUTPUT = 0x18240000;
+
     // TvSettings > Connected Devices (Slice) > HDMI-CEC
     CONNECTED_SLICE_HDMICEC = 0x18300000;
 

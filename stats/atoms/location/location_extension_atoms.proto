@@ -36,6 +36,8 @@ extend Atom {
  *   frameworks/base/services/core/java/com/android/server/location/LocationManagerService.java
  */
 message EmergencyStateChanged {
-  optional bool is_in_emergency = 1
-      [(state_field_option).exclusive_state = true];
+  optional bool is_in_emergency = 1 [
+     (state_field_option).exclusive_state = true,
+     (state_field_option).nested = false
+  ];
 }

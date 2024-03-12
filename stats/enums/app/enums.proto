@@ -272,6 +272,13 @@ enum AppOpEnum {
     APP_OP_USE_FULL_SCREEN_INTENT = 133;
     APP_OP_CAMERA_SANDBOXED = 134;
     APP_OP_RECORD_AUDIO_SANDBOXED = 135;
+    APP_OP_RECEIVE_SANDBOX_TRIGGER_AUDIO = 136;
+    APP_OP_RECEIVE_SANDBOXED_DETECTION_TRAINING_DATA = 137;
+    APP_OP_CREATE_ACCESSIBILITY_OVERLAY = 138;
+    APP_OP_MEDIA_ROUTING_CONTROL = 139;
+    APP_OP_ENABLE_MOBILE_DATA_BY_USER = 140;
+    APP_OP_RESERVED_FOR_TESTING = 141;
+    APP_OP_RAPID_CLEAR_NOTIFICATIONS_BY_LISTENER = 142;
 }
 
 /**
@@ -567,6 +574,23 @@ enum AppExitSubReasonCode {
      * was no longer being used; this would be set only when the reason is {@link #REASON_OTHER}.
      */
      SUBREASON_SDK_SANDBOX_NOT_NEEDED = 28;
+
+    /**
+     * The process was killed because the binder proxy limit for system server was exceeded.
+     */
+     SUBREASON_EXCESSIVE_BINDER_OBJECTS = 29;
+
+    /**
+     * The process was killed by the [kernel] Out-of-memory (OOM) killer; this
+     * would be set only when the reason is {@link #REASON_LOW_MEMORY}.
+     */
+    SUBREASON_OOM_KILL = 30;
+
+    /**
+     * The process was killed because its async kernel binder buffer is running out
+     * while being frozen.
+     */
+    SUBREASON_FREEZER_BINDER_ASYNC_FULL = 31;
 }
 
 /**
@@ -673,4 +697,51 @@ enum BroadcastDeliveryGroupPolicy {
     BROADCAST_DELIVERY_GROUP_POLICY_ALL = 0;
     BROADCAST_DELIVERY_GROUP_POLICY_MOST_RECENT = 1;
     BROADCAST_DELIVERY_GROUP_POLICY_MERGED = 2;
+}
+
+/**
+ * Most recent state of startup.
+ */
+enum AppStartStartupState {
+    STARTUP_STATE_STARTED = 0;
+    STARTUP_STATE_ERROR = 1;
+    STARTUP_STATE_FIRST_FRAME_DRAWN = 2;
+}
+
+/**
+ * The reason code of what triggered the process's start.
+ */
+enum AppStartReasonCode {
+    START_REASON_ALARM = 0;
+    START_REASON_BACKUP = 1;
+    START_REASON_BOOT_COMPLETE = 2;
+    START_REASON_BROADCAST = 3;
+    START_REASON_CONTENT_PROVIDER = 4;
+    START_REASON_JOB = 5;
+    START_REASON_LAUNCHER = 6;
+    START_REASON_OTHER = 7;
+    START_REASON_PUSH = 8;
+    START_REASON_RESUMED_ACTIVITY = 9;
+    START_REASON_SERVICE = 10;
+    START_REASON_START_ACTIVITY = 11;
+}
+
+/**
+ * Type of process start.
+ */
+enum AppStartStartType {
+    START_TYPE_COLD = 0;
+    START_TYPE_WARM = 1;
+    START_TYPE_HOT = 2;
+}
+
+/**
+ * An instruction on how the activity should be launched.
+ */
+enum AppStartLaunchMode {
+    LAUNCH_MODE_STANDARD = 0;
+    LAUNCH_MODE_SINGLE_TOP = 1;
+    LAUNCH_MODE_SINGLE_INSTANCE = 2;
+    LAUNCH_MODE_SINGLE_TASK = 3;
+    LAUNCH_MODE_SINGLE_INSTANCE_PER_TASK = 4;
 }
