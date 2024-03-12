@@ -2006,16 +2006,18 @@ message WifiDisconnectReported {
  *   frameworks/opt/net/wifi/service/java/com/android/server/wifi/WifiMetrics.java
  */
 message WifiConnectionStateChanged {
-    optional bool is_connected = 1 [
-            (state_field_option).exclusive_state = true];
+  optional bool is_connected = 1 [
+    (state_field_option).exclusive_state = true,
+    (state_field_option).nested = true
+  ];
 
-    // Band bucket the connected network was on.
-    // Filled for both connected and disconnected cases.
-    optional android.net.wifi.WifiBandBucket band = 2;
+  // Band bucket the connected network was on.
+  // Filled for both connected and disconnected cases.
+  optional android.net.wifi.WifiBandBucket band = 2;
 
-    // Authentication type.
-    // Filled for both connected and disconnected cases.
-    optional android.net.wifi.WifiAuthType auth_type = 3;
+  // Authentication type.
+  // Filled for both connected and disconnected cases.
+  optional android.net.wifi.WifiAuthType auth_type = 3;
 }
 
 /**
@@ -5907,7 +5909,7 @@ message LmkKillOccurred {
  */
 message AppDied {
     // timestamp(elapsedRealtime) of record creation
-    optional uint64 timestamp_millis = 1 [(state_field_option).exclusive_state = true];
+    optional uint64 timestamp_millis = 1;
 }
 
 /**
