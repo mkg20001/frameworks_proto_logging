@@ -16,6 +16,24 @@
       "message": "I think we probably should add this to be explicit, but since statsd updates out of band, do you think we should make nested default true whenever there is an exclusive state field within statsd?\n\n`nested \u003d isStateField? (hasNestedInAtom? nestedFromAtom : true) : false`",
       "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a5de0ba_946b6667",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-12T22:01:17Z",
+      "side": 1,
+      "message": "Nested is apparently only supposed to be used with [binary states](https://cs.android.com/android/platform/superproject/main/+/main:packages/modules/StatsD/statsd/src/state/StateTracker.cpp?q\u003d%22Nested%20counting%20is%20only%20allowed%20for%20binary%20state%20events%22) so we probably also need to check if the state is binary. I don\u0027t think there\u0027s a way to check if a state enum has only 2 values inside LogEvent/FieldValue. Although we already have state atoms with more than 2 states that also use nested\u003dtrue. We should have stronger enforcement on this probably.\n\nWith this change and the statsd change to not set nested\u003dtrue by default, we\u0027d get wrong nested value from devices that don\u0027t have the updated logging but have the updated statsd module. That intersection of devices should presumably be very low given this atom is logged from Wifi module which is updatable since R.",
+      "parentUuid": "0676b722_fd75096d",
+      "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
