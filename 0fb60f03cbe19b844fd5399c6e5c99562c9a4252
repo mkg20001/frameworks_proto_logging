@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1e29352_eb3e425f",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 5910,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-12T20:16:53Z",
+      "side": 0,
+      "message": "was there a use case for this? why was it added?",
+      "revId": "0fb60f03cbe19b844fd5399c6e5c99562c9a4252",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

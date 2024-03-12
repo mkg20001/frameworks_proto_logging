@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0676b722_fd75096d",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-12T20:16:53Z",
+      "side": 1,
+      "message": "I think we probably should add this to be explicit, but since statsd updates out of band, do you think we should make nested default true whenever there is an exclusive state field within statsd?\n\n`nested \u003d isStateField? (hasNestedInAtom? nestedFromAtom : true) : false`",
+      "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
