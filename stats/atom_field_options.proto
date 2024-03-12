@@ -88,7 +88,7 @@ message StateAtomFieldOption {
     optional int32 trigger_state_reset_value = 5;
 
     // If the state change needs to count nesting.
-    optional bool nested = 6 [default = true];
+    optional bool nested = 6 [default = false];
 }
 
 // Used to generate StatsLog.write APIs.
