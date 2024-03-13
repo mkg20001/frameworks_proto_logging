@@ -52,6 +52,24 @@
       "parentUuid": "5a5de0ba_946b6667",
       "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98c2645_aa6b2958",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-13T19:44:13Z",
+      "side": 1,
+      "message": "I found 3 atoms that don\u0027t specify nested and also don\u0027t have binary states. None of our metrics currently use them in slice_by_state.",
+      "parentUuid": "393321e8_4ebf41d9",
+      "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
