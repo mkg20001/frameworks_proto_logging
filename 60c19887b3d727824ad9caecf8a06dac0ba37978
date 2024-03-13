@@ -34,6 +34,24 @@
       "parentUuid": "0676b722_fd75096d",
       "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393321e8_4ebf41d9",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-13T07:31:51Z",
+      "side": 1,
+      "message": "I just worry a bit about silently changing behavior behind the scenes. You\u0027re right that statsd can\u0027t know if it is a binary state beforehand. This would also change behavior for all states that dont explicitly specify nested that aren\u0027t binary, right? This should be an improvement for them, but do you know how many atoms fall into that case?\n\nShared a link offline, but I don\u0027t think we can assume that the intersection you\u0027re describing will be very low.\n\nNot totally sure what the decision should be, since I do agree that a default value of false always likely best - lets sync over chat/in the office brielfy?",
+      "parentUuid": "5a5de0ba_946b6667",
+      "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
