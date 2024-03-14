@@ -70,6 +70,24 @@
       "parentUuid": "393321e8_4ebf41d9",
       "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53151f9e_2043fdec",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-14T00:41:42Z",
+      "side": 1,
+      "message": "Decision reached to add nested\u003dfalse for those 3 atoms. For WifiConnectionStateChanged, the original intention was to use nested\u003dfalse, so added that annotation.",
+      "parentUuid": "c98c2645_aa6b2958",
+      "revId": "60c19887b3d727824ad9caecf8a06dac0ba37978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
