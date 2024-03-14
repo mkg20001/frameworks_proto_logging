@@ -146,6 +146,30 @@
       },
       "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45534ad5_c46abf58",
+        "filename": "stats/enums/stats/dnsresolver/dns_resolver.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1886547
+      },
+      "writtenOn": "2024-03-14T06:14:43Z",
+      "side": 1,
+      "message": "Thanks for guiding on test setup and procedure to test the atom .\nChanges is now being tested @ b/329185507#comment2 and WAI",
+      "parentUuid": "48b9def4_e6fc4b9f",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 22
+      },
+      "revId": "4e0d97da592a2b53466d413f2751d12a37a3f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
