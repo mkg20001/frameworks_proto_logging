@@ -76,6 +76,31 @@ const int ATOM_ID_FIELD_NUMBER = -1;
 
 const char DEFAULT_MODULE_NAME[] = "DEFAULT";
 
+const std::string UINT_ATOM_ALLOWLIST[22] = {
+        "AppDied",
+        "DevicePolicyEvent",
+        "NfcErrorOccurred",
+        "NfcHceTransactionOccurred",
+        "ScreenTimeoutExtensionReported",
+        "ThreadnetworkTelemetryDataReported",
+        "ThreadnetworkTopoEntryRepeated",
+        "SubsystemSleepState",
+        "BluetoothActivityInfo",
+        "CpuTimePerFreq",
+        "CpuTimePerUid",
+        "CpuTimePerUidFreq",
+        "WifiActivityInfo",
+        "ModemActivityInfo",
+        "SystemElapsedRealtime",
+        "SystemUptime",
+        "CpuActiveTime",
+        "CpuClusterTime",
+        "DiskSpace",
+        "OnDevicePowerMeasurement",
+        "GeneralExternalStorageAccessStats",
+        "CpuTimePerClusterFreq",
+};
+
 /**
  * The types for atom parameters.
  */
