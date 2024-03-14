@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69708a8e_fecbda95",
+        "filename": "stats/atom_field_options.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-14T05:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90c70dde_591ca75e",
+      "revId": "629856617ba2e1593dd7e238d23b2b09672cbd96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afac84ed_aa5a378e",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-14T00:50:30Z",
       "side": 1,
       "message": "don\u0027t we have 4 space tabs in atoms.proto?",
+      "revId": "629856617ba2e1593dd7e238d23b2b09672cbd96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a97ece94_aa9a6a80",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-14T05:13:07Z",
+      "side": 1,
+      "message": "Yeah, clang-format formatted the diff with 2. Should update its config here.",
+      "parentUuid": "afac84ed_aa5a378e",
       "revId": "629856617ba2e1593dd7e238d23b2b09672cbd96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
