@@ -50,6 +50,7 @@ extend Atom {
     optional PnoScanStopped pno_scan_stopped = 720 [(module) = "wifi"];
     optional WifiIsUnusableReported wifi_is_unusable_reported = 722 [(module) = "wifi"];
     optional WifiApCapabilitiesReported wifi_ap_capabilities_reported= 723 [(module) = "wifi"];
+    optional WifiMacAddressOui wifi_mac_address_oui = 784 [(module) = "wifi"];
 
     // Pull metrics
     optional WifiAwareCapabilities wifi_aware_capabilities = 10190 [(module) = "wifi"];
@@ -593,6 +594,13 @@ message WifiApCapabilitiesReported {
     optional ApType6GHz ap_type_6ghz = 25;
     // Whether AP supports ECPS priority access
     optional bool is_ecps_priority_access_supported = 26;
+}
+
+/*
+ * Organizationally Unique Identifier (OUI) taken from the first 3-bytes of the MAC address.
+ */ 
+message WifiMacAddressOui {
+    optional uint32 oui = 1; 
 }
 
 /*
