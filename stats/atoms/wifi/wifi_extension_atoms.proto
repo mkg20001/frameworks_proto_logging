@@ -593,6 +593,8 @@ message WifiApCapabilitiesReported {
     optional ApType6GHz ap_type_6ghz = 25;
     // Whether AP supports ECPS priority access
     optional bool is_ecps_priority_access_supported = 26;
+    // Organizationally Unique Identifier (OUI) from the first 3-bytes of the MAC address
+    optional uint32 mac_address_oui = 27;
 }
 
 /*
