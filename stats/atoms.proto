@@ -1130,6 +1130,7 @@ message Atom {
     extensions 781; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
     extensions 782; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
     extensions 783; // NetworkStatsRecorderFileOperated network_stats_recorder_file_operated
+    extensions 784; // WifiMacAddressOui wifi_mac_address_oui
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
