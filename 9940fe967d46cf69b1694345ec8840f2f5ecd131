@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6f79600_17509f51",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-03-21T17:51:49Z",
+      "side": 1,
+      "message": "we also can get info are repeated fields present from the AtomDeclSet* looping through  AtomDecl::fields and check javaType",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
