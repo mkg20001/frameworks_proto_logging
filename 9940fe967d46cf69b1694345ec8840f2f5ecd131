@@ -16,6 +16,24 @@
       "message": "we also can get info are repeated fields present from the AtomDeclSet* looping through  AtomDecl::fields and check javaType",
       "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37ec63c_8cadea5e",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-21T23:46:47Z",
+      "side": 1,
+      "message": "You need more information like atom code to be able to filter the right AtomDecl from the AtomDeclSet. It\u0027s simpler to just pass the method signature. WDYT?",
+      "parentUuid": "c6f79600_17509f51",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
