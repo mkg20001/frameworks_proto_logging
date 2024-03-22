@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbd087f_c07c75a9",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T19:28:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fea36896_04ac2a05",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7865c890_eb477f93",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Yeah there\u0027s no way to know what the min_sdk_version specified in the build rule is here unfortunately.",
       "parentUuid": "7865c890_eb477f93",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "303bd789_90d174aa",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T19:28:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d3b561b_6c31e3a6",
       "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -284,6 +320,30 @@
       "side": 1,
       "message": "only using pointers because you can use nullptr to mark arguments as optional.",
       "parentUuid": "63a9c0b9_5e8f25ae",
+      "range": {
+        "startLine": 128,
+        "startChar": 52,
+        "endLine": 128,
+        "endChar": 53
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c0228e_ac9cd628",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T19:28:14Z",
+      "side": 1,
+      "message": "Is this param optional..?",
+      "parentUuid": "d91b60c4_f9678a74",
       "range": {
         "startLine": 128,
         "startChar": 52,
