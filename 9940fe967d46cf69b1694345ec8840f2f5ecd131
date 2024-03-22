@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcfcbedb_f1506e32",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "mostly for my understanding, why is this needed?",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7865c890_eb477f93",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "It\u0027s not possible to leverage the minsdk here, right?",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a69d54f1_10c3bf03",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "nit: get_max_requires_api_level? \n\noptional: if this is only used to determine if anything in the map needs @requiresapi, could return that bool directly and name the function requires_requires_api :P .... but on second thought maybe that is too confusing",
+      "range": {
+        "startLine": 331,
+        "startChar": 11,
+        "endLine": 331,
+        "endChar": 33
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c4a581_bf05bdef",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "nit: auto is appropriate here (and for iterators generally)",
+      "range": {
+        "startLine": 334,
+        "startChar": 14,
+        "endLine": 334,
+        "endChar": 55
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6f79600_17509f51",
         "filename": "stats/stats_log_api_gen/utils.cpp",
         "patchSetId": 9
@@ -32,6 +112,52 @@
       "side": 1,
       "message": "You need more information like atom code to be able to filter the right AtomDecl from the AtomDeclSet. It\u0027s simpler to just pass the method signature. WDYT?",
       "parentUuid": "c6f79600_17509f51",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb5018f2_d76fec05",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "we had discussed a minApiLevel of R if minApiLevel Q was not specified. I\u0027m guessing you want to do this later?",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 685,
+        "endChar": 13
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a9c0b9_5e8f25ae",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-03-22T02:44:33Z",
+      "side": 1,
+      "message": "nit: can we use references?",
+      "range": {
+        "startLine": 128,
+        "startChar": 52,
+        "endLine": 128,
+        "endChar": 53
+      },
       "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
