@@ -260,6 +260,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "851453db_07ab9798",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-03-22T23:47:38Z",
+      "side": 1,
+      "message": "sg to me - maybe eventually we can refactor related source code to eliminate some redundancy\n\nthank you",
+      "parentUuid": "a37ec63c_8cadea5e",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb5018f2_d76fec05",
