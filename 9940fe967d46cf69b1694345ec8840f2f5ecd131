@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fea36896_04ac2a05",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "Some clients can have the InlinedApi lint check enabled which is triggered when assigning an API constant to a local constant. To get around it, clients have to add this check to a global exclusion list or disable the lint check for the entire soong module. The proper fix is to not have generated annotation constants that are assigned the API constants in StatsLog. I\u0027ve left it as a future exercise out of scope of this CL when we support RequiresApi versioning for S- annotations. Captured the work in b/330817229",
+      "parentUuid": "dcfcbedb_f1506e32",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7865c890_eb477f93",
         "filename": "stats/stats_log_api_gen/java_writer.cpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-22T02:44:33Z",
       "side": 1,
       "message": "It\u0027s not possible to leverage the minsdk here, right?",
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d3b561b_6c31e3a6",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "Yeah there\u0027s no way to know what the min_sdk_version specified in the build rule is here unfortunately.",
+      "parentUuid": "7865c890_eb477f93",
       "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "635044b6_cf6cd6ff",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "It\u0027s used to determine the actual max requiresApiLevel that should be put in the @RequiresApi annotation. It can also be used to determine if RequiresApi annotation is needed at all by checking if the returned value is 0.",
+      "parentUuid": "a69d54f1_10c3bf03",
+      "range": {
+        "startLine": 331,
+        "startChar": 11,
+        "endLine": 331,
+        "endChar": 33
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77c4a581_bf05bdef",
         "filename": "stats/stats_log_api_gen/java_writer.cpp",
         "patchSetId": 9
@@ -71,6 +131,30 @@
       "writtenOn": "2024-03-22T02:44:33Z",
       "side": 1,
       "message": "nit: auto is appropriate here (and for iterators generally)",
+      "range": {
+        "startLine": 334,
+        "startChar": 14,
+        "endLine": 334,
+        "endChar": 55
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f143ea48_317f8f8b",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77c4a581_bf05bdef",
       "range": {
         "startLine": 334,
         "startChar": 14,
@@ -139,6 +223,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e4c226f_c964badb",
+        "filename": "stats/stats_log_api_gen/utils.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m leaving RequiresApi for S- for later. This CL only covers T, ie. repeated fields.",
+      "parentUuid": "eb5018f2_d76fec05",
+      "range": {
+        "startLine": 682,
+        "startChar": 0,
+        "endLine": 685,
+        "endChar": 13
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63a9c0b9_5e8f25ae",
@@ -152,6 +260,30 @@
       "writtenOn": "2024-03-22T02:44:33Z",
       "side": 1,
       "message": "nit: can we use references?",
+      "range": {
+        "startLine": 128,
+        "startChar": 52,
+        "endLine": 128,
+        "endChar": 53
+      },
+      "revId": "9940fe967d46cf69b1694345ec8840f2f5ecd131",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d91b60c4_f9678a74",
+        "filename": "stats/stats_log_api_gen/utils.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-22T05:25:21Z",
+      "side": 1,
+      "message": "only using pointers because you can use nullptr to mark arguments as optional.",
+      "parentUuid": "63a9c0b9_5e8f25ae",
       "range": {
         "startLine": 128,
         "startChar": 52,
