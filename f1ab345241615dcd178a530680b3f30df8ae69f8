@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7cd6559_014986ca",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1783147
+      },
+      "writtenOn": "2024-03-24T17:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fa2174e_08f39453",
+      "range": {
+        "startLine": 1133,
+        "startChar": 4,
+        "endLine": 1133,
+        "endChar": 61
+      },
+      "revId": "f1ab345241615dcd178a530680b3f30df8ae69f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fba95e6f_ef072270",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-18T21:33:51Z",
       "side": 1,
       "message": "Instead of making it a separate atom, it makes more sense to add the oui as a new int32 field into this existing atom. This way it will become easy to update the existing metric to be able to slice by the oui.",
+      "range": {
+        "startLine": 515,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 34
+      },
+      "revId": "f1ab345241615dcd178a530680b3f30df8ae69f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c251ea6_cfdb6e2e",
+        "filename": "stats/atoms/wifi/wifi_extension_atoms.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1783147
+      },
+      "writtenOn": "2024-03-24T17:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba95e6f_ef072270",
       "range": {
         "startLine": 515,
         "startChar": 8,
