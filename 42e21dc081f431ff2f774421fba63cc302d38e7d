@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eae3f2c1_5d60cde5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-03-26T10:11:08Z",
+      "side": 1,
+      "message": "The atom/enum change should be submitted in the internal main branch first to avoid conflicts. Given that we only add one entry, I\u0027ll approve, but **make sure** it is merged to all downstream branches.",
+      "revId": "42e21dc081f431ff2f774421fba63cc302d38e7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
