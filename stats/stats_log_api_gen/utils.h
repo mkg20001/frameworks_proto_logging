@@ -124,8 +124,7 @@ public:
     }
 };
 
-int get_max_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet,
-                               const vector<java_type_t>& signature);
+int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet);
 
 }  // namespace stats_log_api_gen
 }  // namespace android
