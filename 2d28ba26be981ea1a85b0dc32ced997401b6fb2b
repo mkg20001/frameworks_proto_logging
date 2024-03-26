@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e1a05a_601a9739",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1053528
+      },
+      "writtenOn": "2024-03-26T02:28:44Z",
+      "side": 1,
+      "message": "Build cop override. The build already passed ABTD: https://android-build.corp.google.com/abtd/run/L93300030002754010/",
+      "revId": "2d28ba26be981ea1a85b0dc32ced997401b6fb2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
