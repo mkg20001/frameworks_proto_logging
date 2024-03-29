@@ -22,6 +22,30 @@
       },
       "revId": "e7fd909af3cdf8a4eeedfefb95ac8e139b7821c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d493b605_3f853ce1",
+        "filename": "stats/stats_log_api_gen/java_writer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1431413
+      },
+      "writtenOn": "2024-03-29T18:45:09Z",
+      "side": 1,
+      "message": "The extra argument is unneeded: aosp/3019307",
+      "parentUuid": "839d27cf_7f42f565",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "e7fd909af3cdf8a4eeedfefb95ac8e139b7821c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
