@@ -228,6 +228,9 @@ message BluetoothProfileConnectionAttempted {
 
   // Reason for the connection result
   optional android.bluetooth.ProfileConnectionReason reason = 5;
+
+  // Remote Device Information
+  optional BluetoothRemoteDeviceInformation remote_device_information = 6 [(log_mode) = MODE_BYTES];
 }
 
 /**

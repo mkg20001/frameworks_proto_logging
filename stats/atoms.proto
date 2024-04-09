@@ -1133,6 +1133,7 @@ message Atom {
     extensions 821; // NegotiatedSecurityAssociation negotiated_security_association
     extensions 850; // VpnConnectionStateChanged vpn_connection_state_changed
     extensions 851; // VpnConnectionReported vpn_connection_reported
+    extensions 853; // ExcessiveBinderProxyCountReported excessive_binder_proxy_count_reported
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.

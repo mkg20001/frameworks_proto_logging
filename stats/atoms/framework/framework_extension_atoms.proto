@@ -32,6 +32,8 @@ extend Atom {
     optional UserRiskEventReported user_risk_event_reported = 725 [(module) = "framework"];
     optional MediaProjectionStateChanged media_projection_state_changed = 729 [(module) = "framework"];
     optional MediaProjectionTargetChanged media_projection_target_changed = 730 [(module) = "framework"];
+    optional ExcessiveBinderProxyCountReported excessive_binder_proxy_count_reported = 853
+            [(module) = "framework"];
     optional ProxyBytesTransferByFgBg proxy_bytes_transfer_by_fg_bg = 10200 [(module) = "framework"];
 }
 
@@ -395,4 +397,15 @@ message ProxyBytesTransferByFgBg {
   optional int64 tx_bytes = 5;
 
   optional int64 tx_packets = 6;
+}
+
+/**
+ * Logs when there are too many binder proxies sent from certain UID to the system.
+ *
+ * Logged from:
+ *   frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java
+ *
+ */
+message ExcessiveBinderProxyCountReported {
+    optional int32 offending_uid = 1 [(is_uid) = true];
 }
