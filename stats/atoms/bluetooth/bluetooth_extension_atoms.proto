@@ -48,6 +48,7 @@ extend Atom {
         = 781 [(module) = "bluetooth"];
     optional BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
         = 782 [(module) = "bluetooth"];
+    optional RemoteDeviceInformationWithMetricId remote_device_information_with_metric_id = 859 [(module) = "bluetooth"];
 }
 
 /**
@@ -299,4 +300,17 @@ message BluetoothRfcommConnectionAttempted {
   optional BluetoothRemoteDeviceInformation remote_device_information = 7 [(log_mode) = MODE_BYTES];
 }
 
+/**
+* Logs remote device information with metric ID
+*
+* Logged from:
+*     packages/modules/Bluetooth
+*/
+message RemoteDeviceInformationWithMetricId {
+  // Locally generated id for event matching
+  optional int32 metric_id = 1;
 
+  // Remote Device Information
+  optional BluetoothRemoteDeviceInformation remote_device_information = 7 [(log_mode) = MODE_BYTES];
+
+}
