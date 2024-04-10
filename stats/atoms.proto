@@ -5303,6 +5303,55 @@ message AppStartOccurred {
 
     // Reserved for b/281564325.
     reserved 26;
+
+    // Whether the device is in an interactive state.
+    optional bool is_interactive = 27;
+
+    // Whether the device is downloading anything.
+    optional bool is_downloading = 28;
+
+    // Whether the device is installing anything.
+    optional bool is_installing = 29;
+
+    /**
+     * Device throttling severity, keep in sync with
+     * hardware/interfaces/thermal/aidl/android/hardware/thermal/ThrottlingSeverity.aidl
+     */
+    enum ThermalState {
+        NONE = 0;
+        LIGHT = 1;
+        MODERATE = 2;
+        SEVERE = 3;
+        CRITICAL = 4;
+        EMERGENCY = 5;
+        SHUTDOWN = 6;
+    }
+    // The current thermal status of the device.
+    optional ThermalState thermal_status = 30;
+
+    /**
+     * Device current mem factor, keep in sync with
+     * frameworks/base/core/java/com/android/internal/app/procstats/ProcessStats.java
+     */
+    enum MemFactor {
+        ADJ_MEM_FACTOR_NOTHING = -1;
+        ADJ_MEM_FACTOR_NORMA = 0;
+        ADJ_MEM_FACTOR_MODERATE = 1;
+        ADJ_MEM_FACTOR_LOW = 2;
+        ADJ_MEM_FACTOR_CRITICAL = 3;
+    }
+    // The current mem factor of the device.
+    optional MemFactor mem_status = 31;
+
+    // Application version;
+    optional int64 app_version = 32;
+
+    // The package name of the application that installed this app.
+    // This identifies which market the app from.
+    optional string installer = 33;
+
+    // Whether ADB is enabled.
+    optional bool adb_enabled = 34;
 }
 
 message AppStartCanceled {
@@ -5379,6 +5428,55 @@ message AppStartFullyDrawn {
 
     // The timestamp(SystemClock#elapsedRealtime()) when starting activity.
     optional int64 activity_start_timestamp_millis = 14;
+
+    // Whether the device is in an interactive state.
+    optional bool is_interactive = 15;
+
+    // Whether the device is downloading anything.
+    optional bool is_downloading = 16;
+
+    // Whether the device is installing anything.
+    optional bool is_installing = 17;
+
+    /**
+     * Device throttling severity, keep in sync with
+     * hardware/interfaces/thermal/aidl/android/hardware/thermal/ThrottlingSeverity.aidl
+     */
+    enum ThermalState {
+        NONE = 0;
+        LIGHT = 1;
+        MODERATE = 2;
+        SEVERE = 3;
+        CRITICAL = 4;
+        EMERGENCY = 5;
+        SHUTDOWN = 6;
+    }
+    // The current thermal status of the device.
+    optional ThermalState thermal_status = 18;
+
+    /**
+     * Device current mem factor, keep in sync with
+     * frameworks/base/core/java/com/android/internal/app/procstats/ProcessStats.java
+     */
+    enum MemFactor {
+        ADJ_MEM_FACTOR_NOTHING = -1;
+        ADJ_MEM_FACTOR_NORMA = 0;
+        ADJ_MEM_FACTOR_MODERATE = 1;
+        ADJ_MEM_FACTOR_LOW = 2;
+        ADJ_MEM_FACTOR_CRITICAL = 3;
+    }
+    // The current mem factor of the device.
+    optional MemFactor mem_status = 19;
+
+    // Application version;
+    optional int64 app_version = 20;
+
+    // The package name of the application that installed this app.
+    // This identifies which market the app from.
+    optional string installer = 21;
+
+    // Whether ADB is enabled.
+    optional bool adb_enabled = 22;
 }
 
 /**
