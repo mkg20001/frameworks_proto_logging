@@ -32,7 +32,7 @@ extend Atom {
 /**
  * Logs each time the kernel's out-of-memory (OOM) killer claims a victim.
  * Logged from:
- *  frameworks/base/services/core/java/com/android/server/am/OomStatsReporter.java
+ *  frameworks/base/core/java/android/os/OomKillRecord.java
  */
 message KernelOomKillOccurred {
     // The uid if available. -1 means not available.
@@ -44,9 +44,24 @@ message KernelOomKillOccurred {
     // Recorded oom score when getting killed.
     optional int32 oom_score_adj = 3;
 
-    // Millisecond timestamp of when the kill was detected by the memhealth driver.
+    // Millisecond uptime timestamp of when the kill was detected by the memevents bpf-program.
     optional int64 timestamp_millis = 4;
 
     // Name of the killed process.
     optional string process_name = 5;
+
+    // OOM victim's virtual memory, which was freed up after the process' death.
+    optional int64 total_vm_kb = 6;
+
+    // OOM victim's anonymous RSS memory, which was freed up after the process' death.
+    optional int64 anon_rss_kb = 7;
+
+    // OOM victim's file-backed RSS memory, which was freed up after the process' death.
+    optional int64 file_rss_kb = 8;
+
+    // OOM victim's shared RSS memory, which was freed up after the process' death.
+    optional int64 shmem_rss_kb = 9;
+
+    // OOM victim's page tables, which was freed after the process' death
+    optional int64 pgtables_kb = 10;
 }
