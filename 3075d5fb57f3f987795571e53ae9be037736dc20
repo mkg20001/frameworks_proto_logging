@@ -16,6 +16,24 @@
       "message": "To ensure approval, consider adding a folder owner to the reviewer list.",
       "revId": "3075d5fb57f3f987795571e53ae9be037736dc20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "720de4c8_d7d5f163",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 8
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1972977
+      },
+      "writtenOn": "2024-04-12T17:38:33Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "4b35f87b_4fb9e131",
+      "revId": "3075d5fb57f3f987795571e53ae9be037736dc20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
