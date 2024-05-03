@@ -1141,6 +1141,8 @@ message Atom {
     extensions 873; // LeScanAbused le_scan_abused
     extensions 874; // LeAdvStateChanged le_adv_state_changed
     extensions 875; // LeAdvErrorReported le_adv_error_reported
+    extensions 876; // Reserved for b/333882013
+    extensions 877; // Reserved for b/333882013
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
