@@ -4464,6 +4464,11 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: V
     MEDIA_ROUTING_CONTROL = 2064;
+
+    // OPEN: Settings > Connected devices > Connection preferences > Thread
+    // CATEGORY: SETTINGS
+    // OS: V
+    CONNECTED_DEVICE_PREFERENCES_THREAD = 2065;
 }
 
 // Battery Saver schedule types.
