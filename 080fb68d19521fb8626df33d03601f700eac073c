@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e50eed0_6fca438e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3392411
+      },
+      "writtenOn": "2024-05-07T21:45:13Z",
+      "side": 1,
+      "message": "This patch is implemented https://android-review.googlesource.com/c/platform/frameworks/base/+/3077947",
+      "revId": "080fb68d19521fb8626df33d03601f700eac073c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
