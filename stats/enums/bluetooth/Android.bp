@@ -30,6 +30,8 @@ cc_library_static {
         "enums.proto",
         "hci/enums.proto",
         "hfp/enums.proto",
+        "le/enums.proto",
+        "rfcomm/enums.proto",
         "smp/enums.proto",
     ],
     apex_available: [
@@ -39,12 +41,21 @@ cc_library_static {
 }
 
 filegroup {
+  name: "srcs_bluetooth_protos_nfc",
+  srcs: [
+      "enums.proto",
+  ],
+}
+
+filegroup {
   name: "srcs_bluetooth_protos",
   srcs: [
       "a2dp/enums.proto",
       "enums.proto",
       "hci/enums.proto",
       "hfp/enums.proto",
+      "le/enums.proto",
+      "rfcomm/enums.proto",
       "smp/enums.proto",
   ],
 }

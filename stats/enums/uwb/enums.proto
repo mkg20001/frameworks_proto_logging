@@ -26,6 +26,7 @@ enum Profile {
     FIRA = 1;
     CCC = 2;
     CUSTOMIZED = 3;
+    ALIRO = 4;
 }
 // UWB scrambled timestamp sequence (STS) type
 enum Sts {
@@ -53,8 +54,8 @@ enum RangingStatus {
     RANGING_STATUS_UNKNOWN = 0;
     RANGING_SUCCESS = 1;
     RANGING_GENERAL_FAILURE = 2;
-    RANGING_BAD_PARAMs = 3;
-    RANGING_REJECTED = 4;
+    RANGING_REJECTED = 3;
+    RANGING_BAD_PARAMS = 4;
     TX_FAILED = 5;
     RX_PHY_DEC_FAILED = 6;
     RX_PHY_TOA_FAILED = 7;
@@ -91,4 +92,13 @@ enum Nlos {
     NLOS_UNKNOWN = 0;
     NLOS = 1;
     LOS = 2;
+}
+
+// UWB ranging measurement types
+enum RangingType {
+    TYPE_UNKNOWN = 0;
+    ONE_WAY = 1;
+    TWO_WAY = 2;
+    DL_TDOA = 3;
+    OWR_AOA = 4;
 }

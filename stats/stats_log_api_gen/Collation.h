@@ -31,7 +31,6 @@ namespace stats_log_api_gen {
 
 using google::protobuf::Descriptor;
 using google::protobuf::FieldDescriptor;
-using google::protobuf::OneofDescriptor;
 using std::map;
 using std::set;
 using std::shared_ptr;
@@ -61,11 +60,46 @@ enum AnnotationId : uint8_t {
     ANNOTATION_ID_DEFAULT_STATE = 6,
     ANNOTATION_ID_TRIGGER_STATE_RESET = 7,
     ANNOTATION_ID_STATE_NESTED = 8,
+    ANNOTATION_ID_RESTRICTION_CATEGORY = 9,
+    ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO = 10,
+    ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE = 11,
+    ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY = 12,
+    ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT = 13,
+    ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY = 14,
+    ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH = 15,
+    ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT = 16,
+    ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING = 17,
+    ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION = 18,
 };
 
 const int ATOM_ID_FIELD_NUMBER = -1;
 
 const char DEFAULT_MODULE_NAME[] = "DEFAULT";
+
+const std::string UINT_ATOM_ALLOWLIST[22] = {
+        "AppDied",
+        "DevicePolicyEvent",
+        "NfcErrorOccurred",
+        "NfcHceTransactionOccurred",
+        "ScreenTimeoutExtensionReported",
+        "ThreadnetworkTelemetryDataReported",
+        "ThreadnetworkTopoEntryRepeated",
+        "SubsystemSleepState",
+        "BluetoothActivityInfo",
+        "CpuTimePerFreq",
+        "CpuTimePerUid",
+        "CpuTimePerUidFreq",
+        "WifiActivityInfo",
+        "ModemActivityInfo",
+        "SystemElapsedRealtime",
+        "SystemUptime",
+        "CpuActiveTime",
+        "CpuClusterTime",
+        "DiskSpace",
+        "OnDevicePowerMeasurement",
+        "GeneralExternalStorageAccessStats",
+        "CpuTimePerClusterFreq",
+};
 
 /**
  * The types for atom parameters.
@@ -185,6 +219,7 @@ struct AtomDecl {
     int defaultState = INT_MAX;
     int triggerStateReset = INT_MAX;
     bool nested = true;
+    bool restricted = false;
 
     AtomDecl();
     AtomDecl(const AtomDecl& that);
@@ -215,8 +250,8 @@ struct Atoms {
 /**
  * Gather the information about the atoms.  Returns the number of errors.
  */
-int collate_atoms(const Descriptor* descriptor, const string& moduleName, Atoms* atoms);
-int collate_atom(const Descriptor* atom, AtomDecl* atomDecl, vector<java_type_t>* signature);
+int collate_atoms(const Descriptor& descriptor, const string& moduleName, Atoms& atoms);
+int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>& signature);
 
 }  // namespace stats_log_api_gen
 }  // namespace android

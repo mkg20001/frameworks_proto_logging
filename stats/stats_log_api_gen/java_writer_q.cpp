@@ -16,6 +16,9 @@
 
 #include "java_writer_q.h"
 
+#include <stdio.h>
+
+#include "Collation.h"
 #include "utils.h"
 
 namespace android {

@@ -1,23 +1,25 @@
 
-#include <getopt.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/stubs/common.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <cstdlib>
 #include <filesystem>
-#include <map>
-#include <set>
-#include <vector>
 
 #include "Collation.h"
 #include "frameworks/proto_logging/stats/atoms.pb.h"
 #include "frameworks/proto_logging/stats/attribution_node.pb.h"
 #include "java_writer.h"
-#include "java_writer_q.h"
 #include "native_writer.h"
 #include "rust_writer.h"
 #include "utils.h"
+
+#ifdef WITH_VENDOR
+#include "java_writer_vendor.h"
+#include "native_writer_vendor.h"
+#endif
 
 namespace android {
 namespace stats_log_api_gen {
@@ -58,16 +60,15 @@ static void print_usage() {
     fprintf(stderr,
             "  --worksource         Include support for logging WorkSource "
             "objects.\n");
-    fprintf(stderr,
-            "  --compileApiLevel API_LEVEL           specify which API level generated code is "
-            "compiled against. (Java only).\n");
     fprintf(stderr, "                                        Default is \"current\".\n");
     fprintf(stderr,
             "  --bootstrap          If this logging is from a bootstrap process. "
             "Only supported for cpp. Do not use unless necessary.\n");
+#ifdef WITH_VENDOR
     fprintf(stderr,
             "  --vendor-proto       Path to the proto file for vendor atoms logging\n"
             "code generation.\n");
+#endif
 }
 
 /**
@@ -88,7 +89,6 @@ static int run(int argc, char const* const* argv) {
     string vendorProto;
     bool supportWorkSource = false;
     int minApiLevel = API_LEVEL_CURRENT;
-    int compileApiLevel = API_LEVEL_CURRENT;
     bool bootstrap = false;
 
     int index = 1;
@@ -186,17 +186,9 @@ static int run(int argc, char const* const* argv) {
             if (0 != strcmp("current", argv[index])) {
                 minApiLevel = atoi(argv[index]);
             }
-        } else if (0 == strcmp("--compileApiLevel", argv[index])) {
-            index++;
-            if (index >= argc) {
-                print_usage();
-                return 1;
-            }
-            if (0 != strcmp("current", argv[index])) {
-                compileApiLevel = atoi(argv[index]);
-            }
         } else if (0 == strcmp("--bootstrap", argv[index])) {
             bootstrap = true;
+#ifdef WITH_VENDOR
         } else if (0 == strcmp("--vendor-proto", argv[index])) {
             index++;
             if (index >= argc) {
@@ -205,6 +197,7 @@ static int run(int argc, char const* const* argv) {
             }
 
             vendorProto = argv[index];
+#endif
         }
 
         index++;
@@ -220,16 +213,9 @@ static int run(int argc, char const* const* argv) {
         print_usage();
         return 1;
     }
-    if (DEFAULT_MODULE_NAME == moduleName &&
-        (minApiLevel != API_LEVEL_CURRENT || compileApiLevel != API_LEVEL_CURRENT)) {
+    if (DEFAULT_MODULE_NAME == moduleName && minApiLevel != API_LEVEL_CURRENT) {
         // Default module only supports current API level.
         fprintf(stderr, "%s cannot support older API levels\n", moduleName.c_str());
-        return 1;
-    }
-
-    if (compileApiLevel < API_R) {
-        // Cannot compile against pre-R.
-        fprintf(stderr, "compileApiLevel must be %d or higher.\n", API_R);
         return 1;
     }
 
@@ -239,21 +225,6 @@ static int run(int argc, char const* const* argv) {
         return 1;
     }
 
-    if (minApiLevel == API_LEVEL_CURRENT) {
-        if (minApiLevel > compileApiLevel) {
-            // If minApiLevel is not specified, assume it is not higher than compileApiLevel.
-            minApiLevel = compileApiLevel;
-        }
-    } else {
-        if (minApiLevel > compileApiLevel) {
-            // If specified, minApiLevel should always be lower than compileApiLevel.
-            fprintf(stderr,
-                    "Invalid minApiLevel or compileApiLevel. If minApiLevel and"
-                    " compileApiLevel are specified, minApiLevel should not be higher"
-                    " than compileApiLevel.\n");
-            return 1;
-        }
-    }
     if (bootstrap) {
         if (cppFilename.empty() && headerFilename.empty()) {
             fprintf(stderr, "Bootstrap flag can only be used for cpp/header files.\n");
@@ -263,7 +234,7 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Bootstrap flag does not support worksources");
             return 1;
         }
-        if ((minApiLevel != API_LEVEL_CURRENT) || (compileApiLevel != API_LEVEL_CURRENT)) {
+        if (minApiLevel != API_LEVEL_CURRENT) {
             fprintf(stderr, "Bootstrap flag does not support older API levels");
             return 1;
         }
@@ -279,7 +250,7 @@ static int run(int argc, char const* const* argv) {
     google::protobuf::compiler::Importer importer(&sourceTree, &errorCollector);
 
     if (vendorProto.empty()) {
-        errorCount = collate_atoms(Atom::descriptor(), moduleName, &atoms);
+        errorCount = collate_atoms(*Atom::descriptor(), moduleName, atoms);
     } else {
         const google::protobuf::FileDescriptor* fileDescriptor;
         sourceTree.MapPath("", fs::current_path().c_str());
@@ -296,7 +267,7 @@ static int run(int argc, char const* const* argv) {
 
         fileDescriptor = importer.Import(vendorProto);
         errorCount =
-                collate_atoms(fileDescriptor->FindMessageTypeByName("Atom"), moduleName, &atoms);
+                collate_atoms(*fileDescriptor->FindMessageTypeByName("Atom"), moduleName, atoms);
     }
 
     if (errorCount != 0) {
@@ -305,8 +276,8 @@ static int run(int argc, char const* const* argv) {
 
     AtomDecl attributionDecl;
     vector<java_type_t> attributionSignature;
-    collate_atom(android::os::statsd::AttributionNode::descriptor(), &attributionDecl,
-                 &attributionSignature);
+    collate_atom(*android::os::statsd::AttributionNode::descriptor(), attributionDecl,
+                 attributionSignature);
 
     // Write the .cpp file
     if (!cppFilename.empty()) {
@@ -321,7 +292,7 @@ static int run(int argc, char const* const* argv) {
             fprintf(stderr, "Must supply --headerImport if supplying a specific module\n");
             return 1;
         }
-        FILE* out = fopen(cppFilename.c_str(), "w");
+        FILE* out = fopen(cppFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", cppFilename.c_str());
             return 1;
@@ -331,8 +302,10 @@ static int run(int argc, char const* const* argv) {
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport, minApiLevel,
                     bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_cpp_vendor(
                     out, atoms, attributionDecl, cppNamespace, cppHeaderImport);
+#endif
         }
         fclose(out);
     }
@@ -343,7 +316,7 @@ static int run(int argc, char const* const* argv) {
         if (moduleName != DEFAULT_MODULE_NAME && cppNamespace == DEFAULT_CPP_NAMESPACE) {
             fprintf(stderr, "Must supply --namespace if supplying a specific module\n");
         }
-        FILE* out = fopen(headerFilename.c_str(), "w");
+        FILE* out = fopen(headerFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", headerFilename.c_str());
             return 1;
@@ -353,8 +326,10 @@ static int run(int argc, char const* const* argv) {
             errorCount = android::stats_log_api_gen::write_stats_log_header(
                     out, atoms, attributionDecl, cppNamespace, minApiLevel, bootstrap);
         } else {
+#ifdef WITH_VENDOR
             errorCount = android::stats_log_api_gen::write_stats_log_header_vendor(
                     out, atoms, attributionDecl, cppNamespace);
+#endif
         }
         fclose(out);
     }
@@ -371,20 +346,32 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        if (moduleName.empty()) {
+        if (moduleName.empty() || moduleName == DEFAULT_MODULE_NAME) {
             fprintf(stderr, "Must supply --module if supplying a Java filename");
             return 1;
         }
 
-        FILE* out = fopen(javaFilename.c_str(), "w");
+        FILE* out = fopen(javaFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", javaFilename.c_str());
             return 1;
         }
 
-        errorCount = android::stats_log_api_gen::write_stats_log_java(
-                out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel, compileApiLevel,
-                supportWorkSource);
+        if (vendorProto.empty()) {
+            errorCount = android::stats_log_api_gen::write_stats_log_java(
+                    out, atoms, attributionDecl, javaClass, javaPackage, minApiLevel,
+                    supportWorkSource);
+        } else {
+#ifdef WITH_VENDOR
+            if (supportWorkSource) {
+                fprintf(stderr, "The attribution chain is not supported for vendor atoms");
+                return 1;
+            }
+
+            errorCount = android::stats_log_api_gen::write_stats_log_java_vendor(out, atoms,
+                    javaClass, javaPackage);
+#endif
+        }
 
         fclose(out);
     }
@@ -396,7 +383,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        FILE* out = fopen(rustFilename.c_str(), "w");
+        FILE* out = fopen(rustFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", rustFilename.c_str());
             return 1;
@@ -415,7 +402,7 @@ static int run(int argc, char const* const* argv) {
             return 1;
         }
 
-        FILE* out = fopen(rustHeaderFilename.c_str(), "w");
+        FILE* out = fopen(rustHeaderFilename.c_str(), "we");
         if (out == nullptr) {
             fprintf(stderr, "Unable to open file for write: %s\n", rustHeaderFilename.c_str());
             return 1;

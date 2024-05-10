@@ -16,16 +16,28 @@
 
 #include "utils.h"
 
+#include <stdio.h>
+
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "Collation.h"
+#include "frameworks/proto_logging/stats/atom_field_options.pb.h"
+
 namespace android {
 namespace stats_log_api_gen {
+
+using std::map;
+using std::string;
+using std::vector;
 
 /**
  * Inlining this method because "android-base/strings.h" is not available on
  * google3.
  */
 static vector<string> Split(const string& s, const string& delimiters) {
-    GOOGLE_CHECK_NE(delimiters.size(), 0U);
-
     vector<string> result;
 
     size_t base = 0;
@@ -48,19 +60,81 @@ void build_non_chained_decl_map(const Atoms& atoms,
     }
 }
 
-const map<AnnotationId, string>& get_annotation_id_constants() {
-    static const map<AnnotationId, string>* ANNOTATION_ID_CONSTANTS = new map<AnnotationId, string>{
-            {ANNOTATION_ID_IS_UID, "ANNOTATION_ID_IS_UID"},
-            {ANNOTATION_ID_TRUNCATE_TIMESTAMP, "ANNOTATION_ID_TRUNCATE_TIMESTAMP"},
-            {ANNOTATION_ID_PRIMARY_FIELD, "ANNOTATION_ID_PRIMARY_FIELD"},
-            {ANNOTATION_ID_EXCLUSIVE_STATE, "ANNOTATION_ID_EXCLUSIVE_STATE"},
-            {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID, "ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID"},
-            {ANNOTATION_ID_DEFAULT_STATE, "ANNOTATION_ID_DEFAULT_STATE"},
-            {ANNOTATION_ID_TRIGGER_STATE_RESET, "ANNOTATION_ID_TRIGGER_STATE_RESET"},
-            {ANNOTATION_ID_STATE_NESTED, "ANNOTATION_ID_STATE_NESTED"},
-    };
+const map<AnnotationId, AnnotationStruct>& get_annotation_id_constants(const string& prefix) {
+    static const map<AnnotationId, AnnotationStruct>* ANNOTATION_ID_CONSTANTS =
+            new map<AnnotationId, AnnotationStruct>{
+                    {ANNOTATION_ID_IS_UID, AnnotationStruct(prefix + "IS_UID", API_S)},
+                    {ANNOTATION_ID_TRUNCATE_TIMESTAMP,
+                     AnnotationStruct(prefix + "TRUNCATE_TIMESTAMP", API_S)},
+                    {ANNOTATION_ID_PRIMARY_FIELD,
+                     AnnotationStruct(prefix + "PRIMARY_FIELD", API_S)},
+                    {ANNOTATION_ID_EXCLUSIVE_STATE,
+                     AnnotationStruct(prefix + "EXCLUSIVE_STATE", API_S)},
+                    {ANNOTATION_ID_PRIMARY_FIELD_FIRST_UID,
+                     AnnotationStruct(prefix + "PRIMARY_FIELD_FIRST_UID", API_S)},
+                    {ANNOTATION_ID_DEFAULT_STATE,
+                     AnnotationStruct(prefix + "DEFAULT_STATE", API_S)},
+                    {ANNOTATION_ID_TRIGGER_STATE_RESET,
+                     AnnotationStruct(prefix + "TRIGGER_STATE_RESET", API_S)},
+                    {ANNOTATION_ID_STATE_NESTED, AnnotationStruct(prefix + "STATE_NESTED", API_S)},
+                    {ANNOTATION_ID_RESTRICTION_CATEGORY,
+                     AnnotationStruct(prefix + "RESTRICTION_CATEGORY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_PERIPHERAL_DEVICE_INFO", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_APP_USAGE,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_APP_USAGE", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_APP_ACTIVITY,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_APP_ACTIVITY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_HEALTH_CONNECT,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_HEALTH_CONNECT", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_ACCESSIBILITY,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_ACCESSIBILITY", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_SYSTEM_SEARCH,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_SYSTEM_SEARCH", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_USER_ENGAGEMENT,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_USER_ENGAGEMENT", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_AMBIENT_SENSING,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_AMBIENT_SENSING", API_U)},
+                    {ANNOTATION_ID_FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION,
+                     AnnotationStruct(prefix + "FIELD_RESTRICTION_DEMOGRAPHIC_CLASSIFICATION",
+                                      API_U)},
+            };
 
     return *ANNOTATION_ID_CONSTANTS;
+}
+
+string get_java_build_version_code(int apiLevel) {
+    switch (apiLevel) {
+        case API_Q:
+            return "Build.VERSION_CODES.Q";
+        case API_R:
+            return "Build.VERSION_CODES.R";
+        case API_S:
+            return "Build.VERSION_CODES.S";
+        case API_S_V2:
+            return "Build.VERSION_CODES.S_V2";
+        case API_T:
+            return "Build.VERSION_CODES.TIRAMISU";
+        case API_U:
+            return "Build.VERSION_CODES.UPSIDE_DOWN_CAKE";
+        default:
+            return "Build.VERSION_CODES.CUR_DEVELOPMENT";
+    }
+}
+
+string get_restriction_category_str(int annotationValue) {
+    switch (annotationValue) {
+        case os::statsd::RestrictionCategory::RESTRICTION_DIAGNOSTIC:
+            return "RESTRICTION_CATEGORY_DIAGNOSTIC";
+        case os::statsd::RestrictionCategory::RESTRICTION_SYSTEM_INTELLIGENCE:
+            return "RESTRICTION_CATEGORY_SYSTEM_INTELLIGENCE";
+        case os::statsd::RestrictionCategory::RESTRICTION_AUTHENTICATION:
+            return "RESTRICTION_CATEGORY_AUTHENTICATION";
+        case os::statsd::RestrictionCategory::RESTRICTION_FRAUD_AND_ABUSE:
+            return "RESTRICTION_CATEGORY_FRAUD_AND_ABUSE";
+        default:
+            return "";
+    }
 }
 
 /**
@@ -173,10 +247,24 @@ bool is_repeated_field(java_type_t type) {
     }
 }
 
+bool is_primitive_field(java_type_t type) {
+    switch (type) {
+        case JAVA_TYPE_BOOLEAN:
+        case JAVA_TYPE_INT:
+        case JAVA_TYPE_LONG:
+        case JAVA_TYPE_FLOAT:
+        case JAVA_TYPE_STRING:
+        case JAVA_TYPE_ENUM:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // Native
 // Writes namespaces for the cpp and header files
 void write_namespace(FILE* out, const string& cppNamespaces) {
-    vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
+    const vector<string> cppNamespaceVec = Split(cppNamespaces, ",");
     for (const string& cppNamespace : cppNamespaceVec) {
         fprintf(out, "namespace %s {\n", cppNamespace.c_str());
     }
@@ -191,13 +279,13 @@ void write_closing_namespace(FILE* out, const string& cppNamespaces) {
 }
 
 static void write_cpp_usage(FILE* out, const string& method_name, const string& atom_code_name,
-                            const shared_ptr<AtomDecl> atom, const AtomDecl& attributionDecl,
+                            const AtomDecl& atom, const AtomDecl& attributionDecl,
                             bool isVendorAtomLogging = false) {
     const char* delimiterStr = method_name.find('(') == string::npos ? "(" : " ";
     fprintf(out, "     * Usage: %s%s%s", method_name.c_str(), delimiterStr, atom_code_name.c_str());
 
-    for (vector<AtomField>::const_iterator field = atom->fields.begin();
-         field != atom->fields.end(); field++) {
+    for (vector<AtomField>::const_iterator field = atom.fields.begin(); field != atom.fields.end();
+         field++) {
         if (field->javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
             for (const auto& chainField : attributionDecl.fields) {
                 if (chainField.javaType == JAVA_TYPE_STRING) {
@@ -231,15 +319,15 @@ void write_native_atom_constants(FILE* out, const Atoms& atoms, const AtomDecl& 
     // Print atom constants
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-        string constant = make_constant_name((*atomIt)->name);
+        const string constant = make_constant_name((*atomIt)->name);
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
-        write_cpp_usage(out, methodName, constant, *atomIt, attributionDecl, isVendorAtomLogging);
+        write_cpp_usage(out, methodName, constant, **atomIt, attributionDecl, isVendorAtomLogging);
 
         auto non_chained_decl = atom_code_to_non_chained_decl_map.find((*atomIt)->code);
         if (non_chained_decl != atom_code_to_non_chained_decl_map.end()) {
-            write_cpp_usage(out, methodName + "_non_chained", constant, *non_chained_decl->second,
+            write_cpp_usage(out, methodName + "_non_chained", constant, **non_chained_decl->second,
                             attributionDecl, isVendorAtomLogging);
         }
         fprintf(out, "     */\n");
@@ -277,6 +365,81 @@ void write_native_atom_enums(FILE* out, const Atoms& atoms) {
     }
 }
 
+void write_native_method_signature(FILE* out, const string& signaturePrefix,
+                                          const vector<java_type_t>& signature,
+                                          const AtomDecl& attributionDecl, const string& closer,
+                                          bool isVendorAtomLogging) {
+    fprintf(out, "%sint32_t code", signaturePrefix.c_str());
+    int argIndex = 1;
+    for (vector<java_type_t>::const_iterator arg = signature.begin(); arg != signature.end();
+         arg++) {
+        if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
+            for (const auto& chainField : attributionDecl.fields) {
+                if (chainField.javaType == JAVA_TYPE_STRING) {
+                    fprintf(out, ", const std::vector<%s>& %s",
+                            cpp_type_name(chainField.javaType, isVendorAtomLogging),
+                            chainField.name.c_str());
+                } else {
+                    fprintf(out, ", const %s* %s, size_t %s_length",
+                            cpp_type_name(chainField.javaType, isVendorAtomLogging),
+                            chainField.name.c_str(), chainField.name.c_str());
+                }
+            }
+        } else {
+            fprintf(out, ", %s arg%d", cpp_type_name(*arg, isVendorAtomLogging), argIndex);
+
+            if (*arg == JAVA_TYPE_BOOLEAN_ARRAY && !isVendorAtomLogging) {
+                fprintf(out, ", size_t arg%d_length", argIndex);
+            }
+        }
+        argIndex++;
+    }
+    fprintf(out, ")%s\n", closer.c_str());
+}
+
+void write_native_method_header(FILE* out, const string& methodName,
+                                       const SignatureInfoMap& signatureInfoMap,
+                                       const AtomDecl& attributionDecl,
+                                       bool isVendorAtomLogging) {
+    for (const auto& [signature, _] : signatureInfoMap) {
+        write_native_method_signature(out, methodName, signature, attributionDecl, ";",
+                                      isVendorAtomLogging);
+    }
+}
+
+void write_native_header_preamble(FILE* out, const string& cppNamespace, bool includePull,
+                                     bool isVendorAtomLogging) {
+    // Print prelude
+    fprintf(out, "// This file is autogenerated\n");
+    fprintf(out, "\n");
+    fprintf(out, "#pragma once\n");
+    fprintf(out, "\n");
+    fprintf(out, "#include <stdint.h>\n");
+    fprintf(out, "#include <vector>\n");
+    fprintf(out, "#include <map>\n");
+    fprintf(out, "#include <set>\n");
+    if (includePull) {
+        fprintf(out, "#include <stats_pull_atom_callback.h>\n");
+    }
+
+    if (isVendorAtomLogging) {
+        fprintf(out, "#include <aidl/android/frameworks/stats/VendorAtom.h>\n");
+    }
+
+    fprintf(out, "\n");
+
+    write_namespace(out, cppNamespace);
+    fprintf(out, "\n");
+    fprintf(out, "/*\n");
+    fprintf(out, " * API For logging statistics events.\n");
+    fprintf(out, " */\n");
+    fprintf(out, "\n");
+}
+
+void write_native_header_epilogue(FILE* out, const string& cppNamespace) {
+    write_closing_namespace(out, cppNamespace);
+}
+
 // Java
 void write_java_atom_codes(FILE* out, const Atoms& atoms) {
     fprintf(out, "    // Constants for atom codes.\n");
@@ -287,7 +450,7 @@ void write_java_atom_codes(FILE* out, const Atoms& atoms) {
     // Print constants for the atom codes.
     for (AtomDeclSet::const_iterator atomIt = atoms.decls.begin(); atomIt != atoms.decls.end();
          atomIt++) {
-        string constant = make_constant_name((*atomIt)->name);
+        const string constant = make_constant_name((*atomIt)->name);
         fprintf(out, "\n");
         fprintf(out, "    /**\n");
         fprintf(out, "     * %s %s<br>\n", (*atomIt)->message.c_str(), (*atomIt)->name.c_str());
@@ -322,6 +485,28 @@ void write_java_enum_values(FILE* out, const Atoms& atoms) {
             }
         }
     }
+}
+
+int write_java_method_signature(FILE* out, const vector<java_type_t>& signature,
+                                const AtomDecl& attributionDecl) {
+    int argIndex = 1;
+    for (vector<java_type_t>::const_iterator arg = signature.begin(); arg != signature.end();
+         arg++) {
+        if (*arg == JAVA_TYPE_ATTRIBUTION_CHAIN) {
+            if (attributionDecl.fields.empty()) {
+                fprintf(stderr, "Encountered incompatible attribution chain atom definition");
+                return 1;
+            }
+            for (const auto& chainField : attributionDecl.fields) {
+                fprintf(out, ", %s[] %s", java_type_name(chainField.javaType),
+                        chainField.name.c_str());
+            }
+        } else {
+            fprintf(out, ", %s arg%d", java_type_name(*arg), argIndex);
+        }
+        argIndex++;
+    }
+    return 0;
 }
 
 void write_java_usage(FILE* out, const string& method_name, const string& atom_code_name,
@@ -459,6 +644,55 @@ int write_java_work_source_methods(FILE* out, const SignatureInfoMap& signatureI
         fprintf(out, "    }\n");          // close method
     }
     return 0;
+}
+
+static bool contains_restricted(const AtomDeclSet& atomDeclSet) {
+    for (const auto& decl : atomDeclSet) {
+        if (decl->restricted) {
+            return true;
+        }
+    }
+    return false;
+}
+
+static bool contains_repeated_field(const vector<java_type_t>& signature) {
+    for (const java_type_t& javaType : signature) {
+        switch (javaType) {
+            case JAVA_TYPE_BOOLEAN_ARRAY:
+            case JAVA_TYPE_INT_ARRAY:
+            case JAVA_TYPE_FLOAT_ARRAY:
+            case JAVA_TYPE_LONG_ARRAY:
+            case JAVA_TYPE_STRING_ARRAY:
+                return true;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
+int get_max_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet,
+                               const vector<java_type_t>& signature) {
+    if (atomDeclSet != nullptr && contains_restricted(*atomDeclSet)) {
+        return API_U;
+    }
+    if (contains_repeated_field(signature)) {
+        return API_T;
+    }
+    if (minApiLevel <= API_Q) {
+        return API_Q;  // for StatsLog.writeRaw()
+    }
+    return 0;
+}
+
+AtomDeclSet get_annotations(int argIndex,
+                            const FieldNumberToAtomDeclSet& fieldNumberToAtomDeclSet) {
+    const FieldNumberToAtomDeclSet::const_iterator fieldNumberToAtomDeclSetIt =
+            fieldNumberToAtomDeclSet.find(argIndex);
+    if (fieldNumberToAtomDeclSet.end() == fieldNumberToAtomDeclSetIt) {
+        return AtomDeclSet();
+    }
+    return fieldNumberToAtomDeclSetIt->second;
 }
 
 }  // namespace stats_log_api_gen

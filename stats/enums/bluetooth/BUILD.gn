@@ -24,6 +24,8 @@ proto_library("libbt-platform-protos-lite") {
     "enums.proto",
     "hci/enums.proto",
     "hfp/enums.proto",
+    "le/enums.proto",
+    "rfcomm/enums.proto",
     "smp/enums.proto",
   ]
 

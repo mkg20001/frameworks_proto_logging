@@ -42,6 +42,7 @@ enum MediumType {
     REMOTE_SPEAKER = 402;
     REMOTE_GROUP = 500;
     REMOTE_DYNAMIC_GROUP = 501;
+    AVR = 600;
 };
 
 /**

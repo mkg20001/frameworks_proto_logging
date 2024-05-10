@@ -25,4 +25,5 @@ enum ScoCodec {
     SCO_CODEC_CVSD = 1;
     // Default codec behind Wide Band Speech
     SCO_CODEC_MSBC = 2;
+    SCO_CODEC_LC3 = 3;
 }

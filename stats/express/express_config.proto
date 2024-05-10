@@ -25,27 +25,37 @@ option java_multiple_files = true;
 enum MetricUnit {
     UNIT_UNKNOWN = 0;
     UNIT_COUNT = 1;
+    UNIT_TIME_MILLIS = 2;
+    UNIT_KILOBYTE = 3;
 }
 
 enum MetricType {
     METRIC_TYPE_UNKNOWN = 0;
     COUNTER = 1;
     HISTOGRAM = 2;
+    COUNTER_WITH_UID = 3;
+    HISTOGRAM_WITH_UID = 4;
 }
 
 message HistogramOptions {
 
     message UniformBinningOptions {
         optional int32 count = 1;
+
+        // Inclusive min value, values < min will go to underflow bin
         optional float min = 2;
+
+        // Exclusive max value, values >= max will go to overflow bin
         optional float max = 3;
     }
 
     message ScaledBinningOptions  {
         optional int32 count = 1;
-        optional float min = 2;
         optional float first_bin_width = 3;
         optional float scale = 4;
+        optional int32 min_value = 5;
+
+        reserved 2;
     }
 
     oneof options {
