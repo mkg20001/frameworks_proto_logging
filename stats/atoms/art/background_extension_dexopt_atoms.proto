@@ -11,6 +11,7 @@ option java_multiple_files = true;
 
 extend Atom {
     optional BackgroundDexoptJobEnded background_dexopt_job_ended = 467 [(module) = "art"];
+    optional PreRebootDexoptJobEnded prereboot_dexopt_job_ended = 883 [(module) = "art"];
 }
 
 /**
@@ -114,3 +115,48 @@ extend Atom {
 
     optional Pass pass = 8;
 }
+
+/**
+ * Logs when a pre-reboot dexopt job is ended.
+ *
+ * TODO(b/336239721): Mention the file containing the code logging this atom.
+ */
+message PreRebootDexoptJobEnded {
+    // Overall status of the job right before the reboot.
+    enum Status {
+        STATUS_UNKNOWN = 0;
+        STATUS_NOT_RUN = 1;
+        STATUS_FINISHED = 2;
+        STATUS_FAILED = 3;
+        STATUS_CANCELLED = 4;
+    }
+    optional Status status = 1;
+
+    // Number of packages successfully optimized.
+    optional int32 optimized_package_count = 2;
+    // Number of packages failed to optimize.
+    optional int32 failed_package_count = 3;
+    // Number of packages skipped.
+    optional int32 skipped_package_count = 4;
+    // Total number of packages scanned.
+    optional int32 total_package_count = 5;
+
+    // Duration of the job run (delta between when then job is run and when the
+    // job is finished or failed), in milliseconds.
+    optional int64 job_duration_millis = 6;
+    // Latency of the job run (delta between when the job is scheduled and when
+    // the job is finished or failed, including the time period between
+    // cancellations and reruns), in milliseconds.
+    optional int64 job_latency_millis = 7;
+
+    // Number of packages that have Pre-reboot Dexopt artifacts after the
+    // reboot. Normally, this should be equal to `optimized_package_count`, but
+    // artifacts may be lost due to bugs.
+    optional int32 packages_with_artifacts_after_reboot_count = 8;
+    // Number of packages that have Pre-reboot Dexopt artifacts that are usable
+    // after the reboot. Normally, this should be equal to
+    // `packages_with_artifacts_after_reboot_count`, but artifacts may be
+    // invalid due to bugs.
+    optional int32 packages_with_artifacts_usable_after_reboot_count = 9;
+}
+
