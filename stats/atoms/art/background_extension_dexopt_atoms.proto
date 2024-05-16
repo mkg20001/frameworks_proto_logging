@@ -125,10 +125,30 @@ message PreRebootDexoptJobEnded {
     // Overall status of the job right before the reboot.
     enum Status {
         STATUS_UNKNOWN = 0;
-        STATUS_NOT_RUN = 1;
-        STATUS_FINISHED = 2;
+        // The job is scheduled but is never run before the reboot.
+        // Package counts are not available.
+        STATUS_SCHEDULED = 1;
+        // The job is started but is interrupted by the reboot, when the job
+        // criteria is still met (e.g., adb reboot or unattended reboot).
+        // A user-requested reboot is probably not logged as this status because
+        // the device is probably not idle when the user requests the reboot,
+        // making the job cancelled.
+        // Package counts may or may not be available, depending on whether the
+        // job is interrupted before or after the package scanning.
+        STATUS_STARTED = 2;
+        // The job failed in an unexpected way.
+        // Package counts may or may not be available, depending on whether the
+        // job failed before or after the package scanning.
         STATUS_FAILED = 3;
-        STATUS_CANCELLED = 4;
+        // The job is finished. Some packages may be successfully optimized,
+        // while somees may failed to optimize.
+        // Package counts are available.
+        STATUS_FINISHED = 4;
+        // The job is cancelled. Some packages may be successfully optimized,
+        // while somees may failed to optimize.
+        // Package counts are available.
+        STATUS_CANCELLED = 5;
+
     }
     optional Status status = 1;
 
@@ -141,12 +161,11 @@ message PreRebootDexoptJobEnded {
     // Total number of packages scanned.
     optional int32 total_package_count = 5;
 
-    // Duration of the job run (delta between when then job is run and when the
-    // job is finished or failed), in milliseconds.
+    // Duration of the job run (delta between when then job is started and when
+    // the job is finished or failed), in milliseconds, in wall time.
     optional int64 job_duration_millis = 6;
     // Latency of the job run (delta between when the job is scheduled and when
-    // the job is finished or failed, including the time period between
-    // cancellations and reruns), in milliseconds.
+    // the job is started the first time), in milliseconds.
     optional int64 job_latency_millis = 7;
 
     // Number of packages that have Pre-reboot Dexopt artifacts after the
