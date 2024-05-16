@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "395b2c19_e8ccb9e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1948615
+      },
+      "writtenOn": "2024-05-16T15:08:52Z",
+      "side": 1,
+      "message": "As mentioned off-line, I _think_ this change should be OK as there is no code reporting this atom in the ART module yet - adding Rafal as reviewer for a more authoritative opinion.",
+      "revId": "fe7782ceaa4f66c01e84f159439f7271f3cfa1ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
