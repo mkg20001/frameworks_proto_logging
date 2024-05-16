@@ -16,6 +16,23 @@
       "message": "Hi, please review this CL. Thanks!",
       "revId": "611d460501c4915863f3063bacfceb9039122cea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfd61093_7e09ae87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-05-16T01:08:08Z",
+      "side": 1,
+      "message": "Renaming is fine here, but on the server might be trickier if there are usages. Could you also get +2 from someone on BT. I am giving owners.",
+      "revId": "611d460501c4915863f3063bacfceb9039122cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
