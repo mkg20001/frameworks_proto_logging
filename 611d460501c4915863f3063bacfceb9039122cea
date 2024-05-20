@@ -33,6 +33,23 @@
       "message": "Renaming is fine here, but on the server might be trickier if there are usages. Could you also get +2 from someone on BT. I am giving owners.",
       "revId": "611d460501c4915863f3063bacfceb9039122cea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28050f38_45ce2f47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1960535
+      },
+      "writtenOn": "2024-05-20T09:40:23Z",
+      "side": 1,
+      "message": "Hi Hyundo, the original author of this code is not in Android anymore. You are the last person to touch this file. Could you review or help me find someone that can review? Thanks!",
+      "revId": "611d460501c4915863f3063bacfceb9039122cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
