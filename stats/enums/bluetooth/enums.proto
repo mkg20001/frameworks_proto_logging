@@ -176,7 +176,7 @@ enum L2capCocConnectionResult {
 }
 
 enum CodePathCounterKeyEnum {
-    KEY_UNKNOWN = 0;
+    COUNTER_KEY_UNKNOWN = 0;
     // Reserver smaller counters for very important bt features
 
     // [100,000 - 120,000) profile connection related
