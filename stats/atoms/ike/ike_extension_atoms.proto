@@ -90,7 +90,7 @@ message NegotiatedSecurityAssociation {
     optional android.stats.ike.SessionType session_type = 2;
 
     /** Initial session setup or Rekey session */
-    optional android.stats.ike.SessionState session_state = 3;
+    optional android.stats.ike.IkeState ike_state = 3;
 
     /** negotiated DH-Groups */
     optional android.stats.ike.DhGroups dh_group = 4;

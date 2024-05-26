@@ -29,12 +29,6 @@ enum SessionType {
     SESSION_CHILD = 2;
 }
 
-enum SessionState {
-    SESSION_STATE_UNKNOWN = 0;
-    SESSION_STATE_INITIAL = 1;
-    SESSION_STATE_REKEY = 2;
-}
-
 enum IkeState {
     STATE_UNKNOWN = 0;
     STATE_IKE_KILL = 1;
