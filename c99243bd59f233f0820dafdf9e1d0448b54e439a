@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c5e296_6eedf4ed",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1076123
+      },
+      "writtenOn": "2024-06-03T21:29:10Z",
+      "side": 1,
+      "message": "shutdown_improperly?\nshutdown_unsuccessful?",
+      "range": {
+        "startLine": 90,
+        "startChar": 34,
+        "endLine": 90,
+        "endChar": 46
+      },
+      "revId": "c99243bd59f233f0820dafdf9e1d0448b54e439a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
