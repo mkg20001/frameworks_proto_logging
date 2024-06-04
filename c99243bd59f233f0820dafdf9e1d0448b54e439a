@@ -22,6 +22,30 @@
       },
       "revId": "c99243bd59f233f0820dafdf9e1d0448b54e439a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f800a81c_55567c5e",
+        "filename": "stats/express/catalog/bluetooth.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1881060
+      },
+      "writtenOn": "2024-06-04T00:47:24Z",
+      "side": 1,
+      "message": "I have updated with `kill_from_binder_thread`\n\nThis is the most explicit name.\n\nWdyt ?",
+      "parentUuid": "31c5e296_6eedf4ed",
+      "range": {
+        "startLine": 90,
+        "startChar": 34,
+        "endLine": 90,
+        "endChar": 46
+      },
+      "revId": "c99243bd59f233f0820dafdf9e1d0448b54e439a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
