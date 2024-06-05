@@ -928,6 +928,7 @@ message Atom {
             network_validation_failure_stats_daily_reported = 601 [(module) = "connectivity"];
         wearservices.WsComplicationTapped ws_complication_tapped = 602 [(module) = "wearservices"];
         wearservices.WsNotificationBlocking ws_notification_blocking = 780 [(module) = "wearservices"];
+        PostGCMemorySnapshot postgc_memory_snapshot = 884 [(module) = "framework"];
     }
 
     // Pushed atom extensions.
@@ -24838,4 +24839,47 @@ message UnsafeIntentEventReported {
  */
 message WsFavouriteWatchFaceListSnapshot {
   repeated string watch_face_component_name = 1;
+}
+
+/**
+ * Logs the post-GC memory state for a process
+ */
+message PostGCMemorySnapshot {
+    // The uid if available. -1 means not available.
+    optional int32 uid = 1 [(is_uid) = true];
+
+    // The process name.
+    // Usually package name or process cmdline.
+    // Provided by ActivityManagerService or read from /proc/PID/cmdline.
+    optional string process_name = 2;
+
+    // The pid of the process.
+    // Allows to disambiguate instances of the process.
+    optional int32 pid = 3;
+
+    // The current OOM score adjustment value.
+    // Read from ProcessRecord for managed processes.
+    // Placeholder -1001 (OOM_SCORE_ADJ_MIN - 1, outside of allowed range) for native ones.
+    optional int32 oom_score_adj = 4;
+
+    // The current RSS of the process.
+    // VmRSS from /proc/pid/status.
+    optional int32 rss_in_kb = 5;
+
+    // The current anon RSS of the process.
+    // RssAnon from /proc/pid/status.
+    optional int32 anon_rss_in_kb = 6;
+
+    // The current swap size of the process.
+    // VmSwap from /proc/pid/status.
+    optional int32 swap_in_kb = 7;
+
+    // The sum of rss_in_kilobytes and swap_in_kilobytes.
+    optional int32 anon_rss_and_swap_in_kb = 8;
+
+    repeated string native_allocation_class = 9;
+    repeated int64  native_allocation_count_malloced = 10;
+    repeated int64  native_allocation_total_malloced_kb = 11;
+    repeated int64  native_allocation_count_nonmalloced = 12;
+    repeated int64  native_allocation_total_nonmalloced_kb = 13;
 }
