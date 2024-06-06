@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f7f3737_d94e9692",
+        "filename": "stats/atoms/art/background_extension_dexopt_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2024-06-06T13:08:25Z",
+      "side": 1,
+      "message": "Grammar: \"that\"",
+      "range": {
+        "startLine": 160,
+        "startChar": 25,
+        "endLine": 160,
+        "endChar": 26
+      },
+      "revId": "19950d89dce70c18b17f421c4bd0a72323361a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a873557_022781f9",
+        "filename": "stats/atoms/art/background_extension_dexopt_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2024-06-06T13:08:25Z",
+      "side": 1,
+      "message": "\"that\" here too?",
+      "range": {
+        "startLine": 178,
+        "startChar": 49,
+        "endLine": 178,
+        "endChar": 50
+      },
+      "revId": "19950d89dce70c18b17f421c4bd0a72323361a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f2f6e7_28fb7ec8",
+        "filename": "stats/atoms/art/background_extension_dexopt_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2024-06-06T13:08:25Z",
+      "side": 1,
+      "message": "It\u0027s a bit unfortunate that we have this nuance that needs to be taken into account by adding an extra field.\n\nOne way to deal with it could be to simply count splits (or even `DexoptTarget`s) instead of packages everywhere. For dexopt metrics I reckon we\u0027re generally only interested in the optimised artifacts and the differences between their counts, not how many _packages_ as such there are.\n\nWorth a thought, although changing to that is arguably out of scope here, so not marking it as blocking.",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 53
+      },
+      "revId": "19950d89dce70c18b17f421c4bd0a72323361a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
