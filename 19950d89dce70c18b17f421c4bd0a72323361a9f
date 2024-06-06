@@ -157,6 +157,24 @@
       "message": "Assuming you want to keep the recount-from-scratch approach in https://r.android.com/c/3113502, please mention that this number is only valid if the status is `STATUS_FINISHED` or `STATUS_ABORTED_SYSTEM_REQUIREMENTS` (I believe).",
       "revId": "19950d89dce70c18b17f421c4bd0a72323361a9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28854457_334c4cc3",
+        "filename": "stats/atoms/art/background_extension_dexopt_atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2024-06-06T17:06:14Z",
+      "side": 1,
+      "message": "Since we are repurposing `STATUS_FINISHED`, even that won\u0027t provide the guarantee, the 100% progress will. I updated the comment.",
+      "parentUuid": "b648f676_17134e39",
+      "revId": "19950d89dce70c18b17f421c4bd0a72323361a9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
