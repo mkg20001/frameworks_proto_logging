@@ -10110,6 +10110,9 @@ message NetworkIpProvisioningReported {
 
     // The random number between 0 ~ 999 for sampling
     optional int32 random_number = 7;
+
+    // Check if DHCPv6 prefix delegation is used for IPv6 provisioning.
+    optional bool is_prefix_delegation_used = 8;
 }
 
 /**
