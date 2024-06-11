@@ -40,7 +40,6 @@ cc_library_host_shared {
         "libtextclassifier_hash_headers",
     ],
     static_libs: [
-        "libc++fs",
         "libtextclassifier_hash_static",
     ],
     shared_libs: [
