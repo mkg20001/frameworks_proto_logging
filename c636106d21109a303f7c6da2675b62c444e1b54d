@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db566902_1963b8eb",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-06-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09163e9f_59f9ac9d",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "c636106d21109a303f7c6da2675b62c444e1b54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d96d5c6_03853068",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-12T02:15:57Z",
       "side": 1,
       "message": "typo: PFLAG",
+      "range": {
+        "startLine": 37,
+        "startChar": 45,
+        "endLine": 37,
+        "endChar": 49
+      },
+      "revId": "c636106d21109a303f7c6da2675b62c444e1b54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c88b3b_4b855981",
+        "filename": "stats/enums/stats/connectivity/network_stack.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2024-06-12T02:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d96d5c6_03853068",
       "range": {
         "startLine": 37,
         "startChar": 45,
