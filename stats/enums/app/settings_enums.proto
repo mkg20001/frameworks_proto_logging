@@ -1480,34 +1480,114 @@ enum Action {
     ACTION_PRIVATE_SPACE_SETUP_CANCEL_CREATE_SPACE = 1888;
 
     // OPEN: Settings > Security&Privacy > Private Space >
-    // Set up > Wait 15 sec > Google account setup
+    // Set up > Screen lock setup > Google account setup > Sign in
     // CATEGORY: SETTINGS
     // OS: V
     ACTION_PRIVATE_SPACE_SETUP_ACCOUNT_LOGIN_SUCCESS = 1889;
 
     // OPEN: Settings > Security&Privacy > Private Space >
-    // Set up > Wait 15 sec > Google account setup error > Try again
+    // Set up > Screen lock setup > Google account setup error > Try again
     // CATEGORY: SETTINGS
     // OS: V
     ACTION_PRIVATE_SPACE_SETUP_TRY_CREATE_ACCOUNT_AGAIN = 1890;
 
     // OPEN: Settings > Security&Privacy > Private Space > Set up > Wait 15 sec >
-    // Google account setup  > Choose new lock
+    // >  Choose new lock
     // CATEGORY: SETTINGS
     // OS: V
     ACTION_PRIVATE_SPACE_SETUP_NEW_LOCK = 1891;
 
     // OPEN: Settings > Security&Privacy > Private Space > Set up > Wait 15 sec >
-    // Google account setup  > Use screen lock
+    // > Use screen lock
     // CATEGORY: SETTINGS
     // OS: V
     ACTION_PRIVATE_SPACE_SETUP_USE_SCREEN_LOCK = 1892;
 
     // OPEN: Settings > Security&Privacy > Private Space >
-    // Set up > Google account setup > Screen lock setup > Done
+    // Set up > Screen lock setup > Google account setup > Sign in > Done
     // CATEGORY: SETTINGS
     // OS: V
     ACTION_PRIVATE_SPACE_SETUP_DONE = 1893;
+
+    // OPEN: Settings > Security&Privacy > Private Space >
+    // Set up > Screen lock setup > Google account setup
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_ACCOUNT_LOGIN_START = 1894;
+
+    // ACTION: Pop up the language notification recommendation
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_NOTIFICATION_FOR_SYSTEM_LOCALE = 1895;
+
+    // ACTION: Click the language notification recommendation
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_NOTIFICATION_CLICK_FOR_SYSTEM_LOCALE = 1896;
+
+    // ACTION: Swipe out the language notification recommendation
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_NOTIFICATION_SWIPE_FOR_SYSTEM_LOCALE = 1897;
+
+    // ACTION: Add the recommendation locale
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_ADD_SYSTEM_LOCALE_FROM_RECOMMENDATION = 1898;
+
+    // ACTION: Cancel the recommendation locale
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_CANCEL_SYSTEM_LOCALE_FROM_RECOMMENDATION = 1899;
+
+    // Action: Settings > Sound & vibration > Vibration & haptics > Keyboard vibration
+    // VALUE: false is off, true is on
+    // OS: U-QPR3
+    ACTION_KEYBOARD_VIBRATION_CHANGED = 1900;
+
+    // ACTION: Settings > Accessibility > Easy read > Enable easy read
+    // VALUE: false is off, true is on
+    // OS: U-QPR3
+    ACTION_EASY_MODE_CHANGED = 1901;
+
+    // OPEN: Settings > Security&Privacy > Private Space >
+    // Set up > Screen lock setup > Google account setup error > Skip for now
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_PRIVATE_SPACE_SETUP_SKIP_ACCOUNT_LOGIN = 1902;
+
+    // Action: Settings > Battery settings > Battery tip > Wireless charging
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_WIRELESS_CHARGING_TIP = 1903;
+
+    // ACTION: Settings > Display > Screen timeout > Adaptive timeout
+    //  SUBTYPE: 0 is off, 1 is on
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_ADAPTIVE_TIMEOUT_CHANGED = 1904;
+
+    // ACTION: Settings > System > Languages > System Languages > Terms of address >
+    // > Change the system grammatical gender
+    // OS: V
+    ACTION_TERMS_OF_ADDRESS_SPECIFIED = 1905;
+
+    // ACTION: Settings > Battery > Battery Manager > Restricted apps
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_APP_RESTRICTED_LIST_MANAGED = 1906;
+
+    // ACTION: Allow or deny an app the run backup jobs permission
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACTION_RUN_BACKUP_TASKS_TOGGLE = 1907;
+
+    // ACTION: Settings > Security&Privacy > Private space
+    // > Lock private space automatically
+    // Subtype on_device_lock = 0, after_inactivity = 1, never = 2
+    // Category: SETTINGS
+    // OS: V
+    ACTION_SET_PRIVATE_SPACE_AUTOLOCK = 1908;
 }
 
 /**
@@ -4465,10 +4545,50 @@ enum PageId {
     // OS: V
     MEDIA_ROUTING_CONTROL = 2064;
 
+    // OPEN: Settings > Display > Touch sensitivity
+    // CATEGORY: SETTINGS
+    // OS: UQPR3
+    TOUCH_SENSITIVITY_SETTINGS = 2065;
+
+    // OPEN: Settings > Memory > Toggle "Enable memory profiling"
+    // CATEGORY: SETTINGS
+    // OS: UQPR3
+    DIALOG_FORCE_ENABLE_PSS_PROFILING = 2066;
+
+    // LEAVE: Settings > Battery > [App Usage details]
+    // CATEGORY: SETTINGS
+    // OS: V
+    LEAVE_APP_BATTERY_USAGE = 2067;
+
+    // OPEN: Settings > Battery > [App Usage details] > Manage background usage
+    // CATEGORY: SETTINGS
+    // OS: V
+    OPEN_POWER_USAGE_MANAGE_BACKGROUND = 2068;
+
+    // LEAVE: Settings > Battery > [App Usage details] > Manage background usage
+    // CATEGORY: SETTINGS
+    // OS: V
+    LEAVE_POWER_USAGE_MANAGE_BACKGROUND = 2069;
+
+    // OPEN: Settings > Accessibility > Easy read
+    // CATEGORY: SETTINGS
+    // OS: UQPR3
+    SETTINGS_EASY_PRESET = 2070;
+
+    // OPEN: Settings > Network & internet > SIMs > Satellite Messaging
+    // CATEGORY: SETTINGS
+    // OS: V
+    SATELLITE_SETTING = 2071;
+
+    // OPEN: Settings > Accessibility -> Color Contrast
+    // CATEGORY: SETTINGS
+    // OS: V
+    ACCESSIBILITY_COLOR_CONTRAST = 2072;
+
     // OPEN: Settings > Connected devices > Connection preferences > Thread
     // CATEGORY: SETTINGS
     // OS: V
-    CONNECTED_DEVICE_PREFERENCES_THREAD = 2065;
+    CONNECTED_DEVICE_PREFERENCES_THREAD = 2082;
 }
 
 // Battery Saver schedule types.

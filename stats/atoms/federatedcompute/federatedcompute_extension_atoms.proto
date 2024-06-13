@@ -60,7 +60,7 @@ message FederatedComputeApiCalled {
  * Logs when an federated computation training event occurs.
  */
 message FederatedComputeTrainingEventReported {
-  optional int64 client_version = 1; // [(datapol.semantic_type) = ST_SOFTWARE_ID]
+  optional int64 client_version = 1;
 
   // The kind of train event.
   optional android.federatedcompute.TrainingEventKind
@@ -91,4 +91,10 @@ message FederatedComputeTrainingEventReported {
 
   // Number of bytes sent from the server to the client.
   optional int64 bytes_downloaded = 8;
+
+  /////////////////////////////////////////////////////////
+  // Information about Authentication events.
+
+  // The wall time of generating keys and attestation record in milliseconds.
+  optional int64 key_attestation_latency_millis = 9;
 }

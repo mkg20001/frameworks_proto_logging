@@ -114,6 +114,7 @@ enum DataType {
   VO2_MAX = 32;
   WEIGHT = 33;
   WHEELCHAIR_PUSHES = 34;
+  SKIN_TEMPERATURE =  35;
 }
 
 enum ForegroundState {
