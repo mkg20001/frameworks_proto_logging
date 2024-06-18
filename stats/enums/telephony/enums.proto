@@ -656,3 +656,14 @@ enum FoldState {
     STATE_OPENED = 3;
     STATE_FLIPPED = 4;
 }
+
+/**
+ * enum for result of data network validation.
+ */
+enum NetworkValidationResult {
+    UNSPECIFIED = 0;
+    NOT_SUPPORTED = 1;
+    ALREADY_IN_PROGRESS = 2;
+    SUCCESS = 3;
+    FAILURE = 4;
+}

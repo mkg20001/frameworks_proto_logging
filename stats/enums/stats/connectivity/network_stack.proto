@@ -20,6 +20,23 @@ package android.stats.connectivity;
 option java_multiple_files = true;
 option java_outer_classname = "NetworkStackProto";
 
+enum Ipv6ProvisioningMode {
+    IPV6_PROV_MODE_UNKNOWN = 0;
+    // IPv6 provisioning is disabled.
+    IPV6_PROV_MODE_DISABLED = 1;
+    // IPv6 provisioning is triggered in link-local mode e.g. WiFi P2P.
+    IPV6_PROV_MODE_LINK_LOCAL = 2;
+    // IPv6 provisioning is triggered from RA autoconf.
+    IPV6_PROV_MODE_SLAAC = 3;
+    // IPv6 provisioning is triggered from heuristic DHCPv6 prefix delegation.
+    IPV6_PROV_MODE_DHCP6_PD_HEURISTIC = 4;
+    // IPv6 provisioning is triggered from PIO P-flag explicitly.
+    IPV6_PROV_MODE_DHCP6_PD_PFLAG = 5;
+    // IPv6 provisioning is triggered from both RA autoconf and PIO P-flag, e.g.
+    // from different PIOs.
+    IPV6_PROV_MODE_DHCP6_SLAAC_AND_DHCP6_PD_PFLAG = 6;
+}
+
 enum DhcpRenewResult {
     RR_UNKNOWN = 0;
     RR_SUCCESS = 1;
@@ -176,6 +193,7 @@ enum NetworkQuirkEvent {
     QE_APF_INSTALL_FAILURE = 2;
     QE_APF_OVER_SIZE_FAILURE = 3;
     QE_APF_GENERATE_FILTER_EXCEPTION = 4;
+    QE_DHCP6_HEURISTIC_TRIGGERED = 5;
 }
 
 enum IpType {

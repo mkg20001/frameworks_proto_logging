@@ -57,4 +57,7 @@ message ImeRequestFinished {
   // Last phased reached by the IME request, from
   // frameworks/proto_logging/stats/enums/view/inputmethod/enums.proto.
   optional android.view.inputmethod.ImeRequestPhaseEnum phase = 7;
+
+  // Whether this request was created directly from user interaction.
+  optional bool from_user = 8;
 }

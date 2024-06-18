@@ -580,3 +580,26 @@ enum TetherConfigurationStatus {
   // Depicts the watch is in restricted connection mode
   TETHER_CONFIGURATION_RESTRICTED = 3;
 }
+
+// This enum represents if watch is worn: is it on body, off body or state is unknown
+enum OnBodyState {
+  ON_BODY_STATE_UNKNOWN = 0;
+  ON_BODY_STATE_ON = 1;
+  ON_BODY_STATE_OFF = 2;
+}
+
+// Describes the watch face type.
+// Next ID: 4
+enum WatchFaceType {
+  // Unknown type.
+  WATCH_FACE_TYPE_UNKNOWN = 0;
+
+  // Wear support library compiled watch face type.
+  WATCH_FACE_TYPE_WSL = 1;
+
+  // Androidx compiled watch face type.
+  WATCH_FACE_TYPE_ANDROIDX = 2;
+
+  // Declarative watch face type.
+  WATCH_FACE_TYPE_DWF = 3;
+}

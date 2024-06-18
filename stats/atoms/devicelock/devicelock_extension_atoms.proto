@@ -31,6 +31,12 @@ extend Atom {
           [(module) = "devicelock"];
   optional DeviceLockKioskAppRequestReported device_lock_kiosk_app_request_reported = 728
           [(module) = "devicelock"];
+  optional CheckInRetryReported device_lock_check_in_retry_reported = 789
+          [(module) = "devicelock"];
+  optional ProvisionFailureReported device_lock_provision_failure_reported = 790
+          [(module) = "devicelock"];
+  optional LockUnlockDeviceFailureReported device_lock_lock_unlock_device_failure_reported = 791
+          [(module) = "devicelock"];
 }
 
 message DeviceLockCheckInRequestReported {
@@ -50,7 +56,7 @@ message DeviceLockCheckInRequestReported {
     IS_DEVICE_IN_APPROVED_COUNTRY = 5;
   }
 
-  optional RequestType type= 1;
+  optional RequestType type = 1;
 }
 
 message DeviceLockProvisioningCompleteReported {
@@ -59,4 +65,55 @@ message DeviceLockProvisioningCompleteReported {
 
 message DeviceLockKioskAppRequestReported {
   optional int32 kiosk_app_uid = 1 [(is_uid) = true];
+}
+
+message CheckInRetryReported {
+  enum RetryReason {
+    // Check-in retry happens because server did not specify next step.
+    RESPONSE_UNSPECIFIED = 0;
+    // Check-in retry happens due to provisioning configuration unavailable
+    COUNFIGURATION_UNAVAILABLE = 1;
+    // Check-in retry happens due to network time being unavailable
+    NETWORK_TIME_UNAVAILABLE = 2;
+    // Check-in retry happens due to an failure in the previous RPC
+    RPC_FAILURE = 3;
+  }
+
+  optional RetryReason reason= 1;
+}
+
+message ProvisionFailureReported {
+  enum FailureReason {
+    // Reason is unknown
+    UNKNOWN = 0;
+    // Failed due to play task unavailable
+    PLAY_TASK_UNAVAILABLE = 1;
+    // Failed due to installation from play unsuccessful
+    PLAY_INSTALLATION_FAILED = 2;
+    // Failed due to country eligibility unknown
+    COUNTRY_INFO_UNAVAILABLE = 3;
+    // Failed due to country not eligible
+    NOT_IN_ELIGIBLE_COUNTRY = 4;
+    // Failed due to unable to enforce policies
+    POLICY_ENFORCEMENT_FAILED = 5;
+  }
+
+  optional FailureReason reason = 1;
+}
+
+message LockUnlockDeviceFailureReported {
+  enum DeviceState {
+    // Device state is undefined.
+    UNDEFINED = 0;
+    // Device state is unlocked.
+    UNLOCKED = 1;
+    // Device state is locked.
+    LOCKED = 2;
+    // Device state is cleared.
+    CLEARED = 3;
+  }
+
+  // True if the command is lock; false if it is unlock.
+  optional bool is_lock = 1;
+  optional DeviceState state_post_command = 2;
 }

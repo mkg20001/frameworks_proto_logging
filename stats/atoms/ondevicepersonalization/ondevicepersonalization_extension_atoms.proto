@@ -44,6 +44,19 @@ message OnDevicePersonalizationApiCalled {
         SERVICE_ON_RENDER = 5;
         SERVICE_ON_EVENT = 6;
         SERVICE_ON_TRAINING_EXAMPLE = 7;
+        SERVICE_ON_WEB_TRIGGER = 8;
+        REMOTE_DATA_GET = 9;
+        REMOTE_DATA_KEYSET = 10;
+        LOCAL_DATA_GET = 11;
+        LOCAL_DATA_KEYSET = 12;
+        LOCAL_DATA_PUT = 13;
+        LOCAL_DATA_REMOVE = 14;
+        EVENT_URL_CREATE_WITH_RESPONSE = 15;
+        EVENT_URL_CREATE_WITH_REDIRECT = 16;
+        LOG_READER_GET_REQUESTS = 17;
+        LOG_READER_GET_JOINED_EVENTS = 18;
+        FEDERATED_COMPUTE_SCHEDULE = 19;
+        MODEL_MANAGER_RUN = 20;
     }
     optional OnDevicePersonalizationApiClassType api_class = 1;
     optional OnDevicePersonalizationApiName api_name = 2;

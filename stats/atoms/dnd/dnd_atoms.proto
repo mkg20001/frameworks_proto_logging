@@ -38,6 +38,10 @@ message DNDModeProto {
     optional string id = 5;
     optional int32 uid = 6 [(is_uid) = true]; // currently only SYSTEM_UID or 0 for other
     optional DNDPolicyProto policy = 7 [(log_mode) = MODE_BYTES];
+    optional int32 rule_modified_fields = 8;
+    optional int32 policy_modified_fields = 9;
+    optional int32 device_effects_modified_fields = 10;
+    optional android.stats.dnd.ActiveRuleType rule_type = 11;
 }
 
 /**
@@ -67,5 +71,5 @@ message DNDPolicyProto {
 
     optional android.stats.dnd.ConversationType allow_conversations_from = 19;
 
-    optional android.stats.dnd.ChannelType allow_channels = 20;
+    optional android.stats.dnd.ChannelPolicy allow_channels = 20;
 }

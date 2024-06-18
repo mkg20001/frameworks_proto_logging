@@ -38,6 +38,8 @@ enum MediaAction {
   // insteractions captured by wear media controls. For more information, see
   // https://developer.android.com/reference/android/media/session/PlaybackState.CustomAction
   CUSTOM_ACTION = 11;
+  SEEK_TO_MEDIA_ITEM = 12;
+  VOLUME_SET = 13;
 }
 
 // Indicates the type of launch source
