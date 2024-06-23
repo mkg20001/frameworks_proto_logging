@@ -103,6 +103,9 @@ enum Framerate {
     FRAMERATE_50 = 5000;
     FRAMERATE_60 = 6000;
     FRAMERATE_120 = 12000;
+    FRAMERATE_240 = 24000;
+    FRAMERATE_480 = 48000;
+    FRAMERATE_960 = 96000;
 }
 
 // Bitrate is relative to the codec, resolution and framerate using a lookup table.

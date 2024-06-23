@@ -153,6 +153,10 @@ message PreRebootDexoptJobEnded {
         // system requirements were not met.
         // Package counts are not available.
         STATUS_ABORTED_SYSTEM_REQUIREMENTS = 6;
+        // The job was not scheduled because it was disabled by build-time flag or phenotype flag.
+        STATUS_NOT_SCHEDULED_DISABLED = 7;
+        // The job was not scheduled because a job scheduler failure occurred.
+        STATUS_NOT_SCHEDULED_JOB_SCHEDULER = 8;
     }
     optional Status status = 1;
 

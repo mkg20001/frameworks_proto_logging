@@ -18,6 +18,7 @@ package {
 
 java_library_static {
     name: "textclassifierprotoslite",
+    sdk_version: "core_current",
     proto: {
         type: "lite",
     },
