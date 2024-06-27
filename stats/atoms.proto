@@ -24074,6 +24074,8 @@ message IwlanSetupDataCallResultReported {
   optional string iwlan_error_wrapped_stack_first_frame = 18;
   // Error count of the same error cause
   optional int32 error_count_of_same_cause = 19;
+  // Underlying network validation status
+  optional bool is_underlying_network_validated = 20;
 }
 
 /**
