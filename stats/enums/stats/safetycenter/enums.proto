@@ -30,6 +30,5 @@ enum SafetySourceProfileType {
     PROFILE_TYPE_UNKNOWN = 0;
     PROFILE_TYPE_PERSONAL = 1;
     PROFILE_TYPE_MANAGED = 2;
-    PROFILE_TYPE_PRIVATE = 3;
 }
 

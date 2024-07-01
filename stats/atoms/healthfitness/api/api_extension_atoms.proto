@@ -72,7 +72,7 @@ message HealthConnectUsageStats {
   optional int32 available_apps_count = 2;
 
   // Set true is the user has one app reading or writing in past 30 days
-  optional bool is_monthly_active_user = 3;
+  optional bool isMonthlyActiveUser = 3;
 }
 
 // Monitor Health Connect database

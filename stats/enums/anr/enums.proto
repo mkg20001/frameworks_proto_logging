@@ -34,5 +34,4 @@ enum AnrType {
     CONTENT_PROVIDER_NOT_RESPONDING = 6;
     SHORT_FGS_TIMEOUT = 7;
     JOB_SERVICE = 8;
-    FGS_TIMEOUT = 9;
 }

@@ -21,7 +21,7 @@ option java_outer_classname = "FederatedComputeProtoEnums";
 option java_multiple_files = true;
 
 // Enum used to track federated computation job stages.
-// Next Tag: 49
+// Next Tag: 45
 enum TrainingEventKind {
   // Undefined value.
   TRAIN_UNDEFINED = 0;
@@ -209,16 +209,4 @@ enum TrainingEventKind {
 
   // Client failed to initialize a component, and execution was halted.
   TRAIN_INITIALIZATION_ERROR_FATAL = 44;
-
-  // Client receives http status = 403 UNAUTHORIZED when creating task assignment.
-  TRAIN_TASK_ASSIGNMENT_UNAUTHORIZED= 45;
-
-  // Client is authorized to create task assignment.
-  TRAIN_TASK_ASSIGNMENT_AUTH_SUCCEEDED = 46;
-
-  // Client receives http status = 403 UNAUTHORIZED when reporting result.
-  TRAIN_REPORT_RESULT_UNAUTHORIZED= 47;
-
-  // Client is authorized to report result.
-  TRAIN_INITIATE_REPORT_RESULT_AUTH_SUCCEEDED = 48;
 }

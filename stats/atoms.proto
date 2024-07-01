@@ -29,6 +29,7 @@ import "frameworks/proto_logging/stats/atoms/corenetworking/connectivity/connect
 import "frameworks/proto_logging/stats/atoms/display/display_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/dnd/dnd_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/gps/gps_atoms.proto";
+import "frameworks/proto_logging/stats/atoms/grammaticalinflection/grammatical_inflection.proto";
 import "frameworks/proto_logging/stats/atoms/hardware/biometrics/biometrics_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/hotword/hotword_atoms.proto";
 import "frameworks/proto_logging/stats/atoms/input/input_atoms.proto";
@@ -209,6 +210,7 @@ message Atom {
         LmkKillOccurred lmk_kill_occurred = 51 [(module) = "framework"];
         PictureInPictureStateChanged picture_in_picture_state_changed = 52 [(module) = "framework"];
         WifiMulticastLockStateChanged wifi_multicast_lock_state_changed = 53 [(module) = "wifi"];
+        LmkStateChanged lmk_state_changed = 54 [(module) = "framework"];
         AppStartMemoryStateCaptured app_start_memory_state_captured = 55 [(module) = "framework"];
         ShutdownSequenceReported shutdown_sequence_reported = 56 [(module) = "framework"];
         BootSequenceReported boot_sequence_reported = 57;
@@ -908,6 +910,7 @@ message Atom {
         view.inputmethod.ImeRequestFinished ime_request_finished = 581 [(module) = "framework"];
         usb.UsbComplianceWarningsReported usb_compliance_warnings_reported = 582 [(module) = "framework"];
         locale.AppSupportedLocalesChanged app_supported_locales_changed = 583 [(module) = "framework"];
+        grammaticalinflection.ApplicationGrammaticalInflectionChanged grammatical_inflection_changed = 584 [(module) = "framework"];
         providers.mediaprovider.MediaProviderVolumeRecoveryReported
             media_provider_volume_recovery_reported = 586 [(module) = "mediaprovider"];
         hardware.biometrics.BiometricPropertiesCollected
@@ -942,7 +945,6 @@ message Atom {
     extensions 550; // ArtDeviceDatumReported art_device_datum_reported
     extensions 565; // ArtDatumDeltaReported art_datum_delta_reported
     extensions 579; // AppSearchSchemaMigrationStatsReported app_search_schema_migration_stats_reported
-    extensions 584; // ApplicationGrammaticalInflectionChanged application_grammatical_inflection_changed
     extensions 585; // CredentialManagerApiCalled credential_manager_api_called
     extensions 593; // ExpressHistogramSampleReported express_histogram_sample_reported
     extensions 598; // AdServicesBackCompatGetTopicsReported ad_services_back_compat_get_topics_reported
@@ -1128,43 +1130,6 @@ message Atom {
     extensions 781; // BluetoothContentProfileErrorReported bluetooth_content_profile_error_reported
     extensions 782; // BluetoothRfcommConnectionAttempted bluetooth_rfcomm_connection_attempted
     extensions 783; // NetworkStatsRecorderFileOperated network_stats_recorder_file_operated
-    extensions 784; // MediaProviderDatabaseRollbackReported media_provider_database_rollback_reported
-    extensions 785; // BackupSetupStatusReported backup_setup_status_reported
-    extensions 786; // SysproxyConnectionUpdated sysproxy_connection_updated
-    extensions 787; // WsOnBodyStateChanged ws_on_body_state_changed
-    extensions 788; // AppManifestConfigHelperCalled app_manifest_config_helper_called
-    extensions 789; // CheckInRetryReported device_lock_check_in_retry_reported
-    extensions 790; // ProvisionFailureReported device_lock_provision_failure_reported
-    extensions 791; // LockUnlockDeviceFailureReported device_lock_unlock_device_failure_reported
-    extensions 792; // DisplayModeDirectorVoteChanged display_mode_director_vote_changed
-    extensions 793; // AdFilteringProcessJoinCAReported ad_filtering_process_join_ca_reported
-    extensions 794; // AdFilteringProcessAdSelectionReported ad_filtering_process_ad_selection_reported
-    extensions 795; // AdCounterHistogramUpdaterReported ad_counter_histogram_updater_reported
-    extensions 796; // SdkSandboxRestrictedAccessInSession sdk_sandbox_restricted_access_in_session
-    extensions 797; // CarCalmModeEventReported car_calm_mode_event_reported
-    extensions 798; // MediaEditingEndedReported media_editing_ended_reported
-    extensions 799; // SELinux selinux_audit_log
-    extensions 800; // CellularIdentifierDisclosed cellular_identifier_disclosed
-    extensions 801; // LastScreenOnFragmentReported last_screen_on_fragment_reported
-    extensions 802; // WsWatchFaceRestrictedComplicationsImpacted ws_watch_face_restricted_complications_impacted
-    extensions 803; // WsWatchFaceDefaultRestrictedComplicationsRemoved ws_watch_face_default_restricted_complications_removed
-    extensions 804; // WsComplicationsImpactedNotificationEventReported ws_complications_impacted_notification_event_reported
-    extensions 805; // SoftApStateChanged soft_ap_state_changed
-    extensions 806; // ExternalDisplayStateChanged external_display_state_changed
-    extensions 807; // SignatureVerification signature_verification
-    extensions 808; // KAnonImmediateSignJoinStatusReported k_anon_immediate_sign_join_status_reported
-    extensions 809; // KAnonBackgroundJobStatusReported k_anon_background_job_status_reported
-    extensions 810; // KAnonInitializeStatusReported k_anon_initialize_status_reported
-    extensions 811; // KAnonSignStatusReported k_anon_sign_status_reported
-    extensions 812; // KAnonJoinStatusReported k_anon_join_status_reported
-    extensions 813; // KAnonKeyAttestationStatusReported k_anon_key_attestation_status_reported
-    extensions 814; // GetAdSelectionDataApiCalled get_ad_selection_data_api_called
-    extensions 815; // GetAdSelectionDataBuyerInputGenerated get_ad_selection_data_buyer_input_generated
-    extensions 816; // SystemGrammaticalInflectionChanged system_grammatical_inflection_changed
-    extensions 817; // BiometricFRRNotification biometric_frr_notification
-    extensions 818; // DesktopModeUIChanged desktop_mode_ui_changed
-    extensions 819; // DesktopModeSessionTaskUpdate desktop_mode_session_task_update
-    extensions 820; // AdaptiveAuthUnlockAfterLockReported adaptive_auth_unlock_after_lock_reported
     extensions 821; // NegotiatedSecurityAssociation negotiated_security_association
     extensions 850; // VpnConnectionStateChanged vpn_connection_state_changed
     extensions 851; // VpnConnectionReported vpn_connection_reported
@@ -1182,7 +1147,7 @@ message Atom {
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
 
     // Pulled events will start at field 10000.
-    // Next: 10208
+    // Next: 10206
     oneof pulled {
         WifiBytesTransfer wifi_bytes_transfer = 10000 [(module) = "framework"];
         WifiBytesTransferByFgBg wifi_bytes_transfer_by_fg_bg = 10001 [(module) = "framework"];
@@ -1422,16 +1387,14 @@ message Atom {
     extensions 10201; // ThermalHeadroomThresholds thermal_headroom_thresholds
     extensions 10202; // Reserved for b/308823939.
     extensions 10203; // Reserved for b/308823939.
-    extensions 10204; // MobileBytesTransferByProcState mobile_bytes_transfer_by_proc_state
+    extensions 10204; // Reserved for b/309512867.
     extensions 10205; // ArtDeviceStatus art_device_status
-    extensions 10206; // WsFavouriteWatchFaceSnapshot ws_favorite_watch_face_snapshot
-    extensions 10207; // DataNetworkValidation data_network_validation
     extensions 99999; // Atom99999 atom_99999
 
     // DO NOT USE field numbers above 100,000 in AOSP.
     // Field numbers 100,000 - 199,999 are reserved for non-AOSP (e.g. OEMs) to use.
     // Field numbers 200,000 and above are reserved for future use; do not use them at all.
-    reserved 54, 58, 83, 360 to 363, 492, 597, 10008, 10036, 10040, 10041, 21004, 21005;
+    reserved 58, 83, 360 to 363, 492, 597, 10008, 10036, 10040, 10041, 21004, 21005;
 }
 
 /*
@@ -1893,8 +1856,6 @@ message WifiConnectionResultReported {
     // carrier ID of the network
     optional int32 carrier_id = 17;
     optional android.net.wifi.TofuConfiguration tofu_configuration = 18;
-    // uid of the caller who initiated this connection
-    optional int32 connection_uid = 19 [(is_uid) = true];
 }
 
 /**
@@ -2012,8 +1973,6 @@ message WifiDisconnectReported {
         DISCONNECT_NEW_CONNECTION_USER = 10023;
         // New connection triggered by non-user
         DISCONNECT_NEW_CONNECTION_OTHERS = 10024;
-        // Wi-Fi 7 is enabled or disabled for this network
-        DISCONNECT_NETWORK_WIFI7_TOGGLED = 10025;
     }
 
     // How long the session lasted from successful connection to disconnect.
@@ -2401,7 +2360,7 @@ message DeferredJobStatsReported {
  *   frameworks/base/services/core/java/com/android/server/job/JobSchedulerService.java
  *   frameworks/base/services/core/java/com/android/server/job/JobServiceContext.java
  *
- * Next tag: 54
+ * Next tag: 41
  */
 message ScheduledJobStateChanged {
     repeated AttributionNode attribution_node = 1;
@@ -2464,7 +2423,6 @@ message ScheduledJobStateChanged {
     optional bool has_content_trigger_constraint = 14;
     optional bool is_prefetch = 18;
     optional bool is_periodic = 34;
-    optional bool has_flex_constraint = 47;
 
     // True if the app has requested this run as an expedited job.
     optional bool is_requested_expedited_job = 15;
@@ -2510,8 +2468,6 @@ message ScheduledJobStateChanged {
     optional bool is_connectivity_constraint_satisfied = 29;
 
     optional bool is_content_trigger_constraint_satisfied = 30;
-
-    optional bool is_flex_constraint_satisfied = 48;
 
     // The amount of time that elapsed between the job being scheduled (state = SCHEDULED)
     // and it being started (state = STARTED). Persisted jobs loaded at boot are considered
@@ -2560,36 +2516,6 @@ message ScheduledJobStateChanged {
     // uploaded over its runtime. Only valid for FINISHED
     // state. We measure here for the CALLING UID
     optional int64 system_measured_calling_upload_bytes = 44;
-
-    // Interval for the job to recur when it is set as periodic.
-    // Valid only if is_periodic is true
-    optional int64 periodic_job_interval_ms = 45;
-
-    // Flex interval for the periodic job. This value is set via the second
-    // parameter of JobInfo.Builder.setPeriodic(long, long). The job can
-    // execute at any time in a window flex length at the end of the period.
-    // Valid only if is_periodic is true
-    optional int64 periodic_job_flex_interval_ms = 46;
-
-    // Whether transport preference logic can be applied to this job with flex policy
-    optional bool can_apply_transport_affinities = 49;
-
-    // The number of flexible job constraints being applied to the job.
-    // num_required_flex_constraints = num_applied_flex_constraints - num_dropped_flex_constraints.
-    optional int32 num_applied_flex_constraints = 50;
-
-    // The number of required flexible job constraints that have been dropped for this job.
-    // num_required_flex_constraints = num_applied_flex_constraints - num_dropped_flex_constraints.
-    optional int32 num_dropped_flex_constraints = 51;
-
-    // Trace tag set via JobInfo.Builder.setTraceTag(). Basic PII filtering has been applied,
-    // but further filtering should be done by clients.
-    optional string filtered_trace_tag = 52;
-
-    // Set of tags set by the app to characterize the work being done. Set via
-    // JobInfo.Builder.addDebugTag(). Basic PII filtering has been applied,
-    // but further filtering should be done by clients.
-    repeated string filtered_debug_tags = 53;
 }
 
 /**
@@ -4670,22 +4596,18 @@ message BatteryCausedShutdown {
  *   frameworks/base/services/core/java/com/android/server/stats/StatsCompanionService.java
  */
 message ThermalThrottlingSeverityStateChanged {
-  // The type of temperature being reported (CPU, GPU, SKIN, etc)
-  optional android.os.TemperatureTypeEnum sensor_type = 1
-      [(state_field_option).primary_field = true];
+    // The type of temperature being reported (CPU, GPU, SKIN, etc)
+    optional android.os.TemperatureTypeEnum sensor_type = 1;
 
-  // The name of the temperature source. Eg. CPU0
-  optional string sensor_name = 2 [(state_field_option).primary_field = true];
+    // The name of the temperature source. Eg. CPU0
+    optional string sensor_name = 2;
 
-  // Temperature in tenths of a degree C.
-  // For BCL, it is decimillivolt, decimilliamps, and percentage * 10.
-  optional int32 temperature_deci_celsius = 3;
+    // Temperature in tenths of a degree C.
+    // For BCL, it is decimillivolt, decimilliamps, and percentage * 10.
+    optional int32 temperature_deci_celsius = 3;
 
-  // Relative severity of the throttling, see enum definition.
-  optional android.os.ThrottlingSeverityEnum severity = 4 [
-    (state_field_option).exclusive_state = true,
-    (state_field_option).nested = false
-  ];
+    // Relative severity of the throttling, see enum definition.
+    optional android.os.ThrottlingSeverityEnum severity = 4;
 }
 
 /**
@@ -4781,7 +4703,6 @@ message StyleUIChanged {
     optional bool toggle_on = 29;
     optional string shortcut = 30;
     optional string shortcut_slot_id = 31;
-    optional int32 lock_effect_id_hash = 32;
 }
 
 /**
@@ -5650,7 +5571,7 @@ message ForegroundServiceStateChanged {
         EXIT = 2;
         DENIED = 3;
         API_CALL = 4; // this event is to annotate API call.
-        TIMED_OUT = 5; // time-restricted fgs type timed out.
+        TIMED_OUT = 5; // SHORT_SERVICE timed out.
     }
     optional State state = 3;
 
@@ -5697,8 +5618,6 @@ message ForegroundServiceStateChanged {
         FOREGROUND_SERVICE_TYPE_REMOTE_MESSAGING = 0x0200; // 1 << 9
         FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED = 0x0400; // 1 << 10
         FOREGROUND_SERVICE_TYPE_SHORT_SERVICE = 0x0800; // 1 << 11
-        // 1 << 12 is being skipping since it was temporarily reserved for FILE_MANAGEMENT
-        FOREGROUND_SERVICE_TYPE_MEDIA_PROCESSING = 0x2000; // 1 << 13
         FOREGROUND_SERVICE_TYPE_SPECIAL_USE = 0x40000000; // 1 << 30
     }
 
@@ -5909,6 +5828,21 @@ message AppStartMemoryStateCaptured {
 
     // SWAP
     optional int64 swap_in_bytes = 8;
+}
+
+/*
+ * Logs the change in Low Memory Killer Daemon (LMKD) state which is used as start/stop boundaries
+ * for LMK event.
+ * Logged from:
+ *      system/core/lmkd/lmkd.c
+ */
+message LmkStateChanged {
+    enum State {
+        UNKNOWN = 0;
+        START = 1;
+        STOP = 2;
+    }
+    optional State state = 1;
 }
 
 /*
@@ -6375,10 +6309,7 @@ message BiometricEnrolled {
     optional int32 sensor_id = 5;
     // The ambient light lux when the user enrolled.
     optional float ambient_light_lux = 6;
-    // The source for where this enrollment came frame
-    optional android.hardware.biometrics.EnrollmentSourceEnum enroll_source = 7;
 }
-
 
 /*
  * Logs when one of the BiometricPrompt#authenticate() method variants is called.
@@ -10957,7 +10888,7 @@ message SplitscreenUIChanged {
         CHILD_TASK_ENTER_PIP = 9;
         RECREATE_SPLIT = 10;
         FULLSCREEN_SHORTCUT = 11;
-        DESKTOP_MODE = 12;
+        ENTER_DESKTOP = 12;
     }
 
     // The event action
@@ -13425,7 +13356,7 @@ message AppSearchInitializeStatsReported {
 /**
  * Logs detailed stats for querying in AppSearch
  *
- * Next tag: 34
+ * Next tag: 33
  */
 message AppSearchQueryStatsReported {
     // The sampling interval for this specific type of stats
@@ -13540,9 +13471,6 @@ message AppSearchQueryStatsReported {
 
     // Time taken to join child documents to parent documents.
     optional int32 native_join_latency_millis = 32;
-
-    //  The Hash of the tag to indicate the query source of this search
-    optional int32 query_source_log_tag = 33;
 }
 
 /**
@@ -14411,7 +14339,7 @@ message PerfettoUploaded {
     // "PERFETTO_CMD" prefix to make clear they are specific to perfetto_cmd.
     // This state exists because of legacy reasons (i.e. these values existed
     // before go/perfetto-monitoring was a thing).
-    // Next id: 55.
+    // Next id: 54.
     enum Event {
         PERFETTO_UNDEFINED = 0;
 
@@ -14463,7 +14391,6 @@ message PerfettoUploaded {
         PERFETTO_TRACED_ENABLE_TRACING_INVALID_FILTER = 47;
         PERFETTO_TRACED_ENABLE_TRACING_OOB_TARGET_BUFFER = 48;
         PERFETTO_TRACED_ENABLE_TRACING_INVALID_TRIGGER_MODE = 52;
-        PERFETTO_TRACED_ENABLE_TRACING_INVALID_BR_FILENAME = 54;
 
         // Checkpoints inside perfetto_cmd after tracing has finished.
         PERFETTO_ON_TRACING_DISABLED = 4;
@@ -16133,9 +16060,6 @@ message ImsRegistrationStats {
     // When the 'rat' field is IWLAN, indicates whether the ImsRegistrationTech is
     // REGISTRATION_TECH_CROSS_SIM.
     optional bool is_iwlan_cross_sim = 15;
-
-    // How many times IMS is registered
-    optional int32 registered_times = 16;
 }
 
 /*
@@ -16783,27 +16707,16 @@ message DisplayWakeReported {
 
 /**
  * Logs app usage events.
- *
- * Logged from:
- *  frameworks/base/services/usage/java/com/android/server/usage/UsageStatsService.java
  */
 message AppUsageEventOccurred {
     optional int32 uid = 1 [(is_uid) = true];
     optional string package_name = 2;
     optional string class_name = 3;
 
-    // Usage event types please refer to below file:
-    // frameworks/base/core/java/android/app/usage/UsageEvents.java
     enum EventType {
         NONE = 0;
-        MOVE_TO_FOREGROUND       = 1;
-        MOVE_TO_BACKGROUND       = 2;
-        USER_INTERACTION         = 7;
-        SHORTCUT_INVOCATION      = 8;
-        CHOOSER_ACTION           = 9;
-        STANDBY_BUCKET_CHANGED   = 11;
-        FOREGROUND_SERVICE_START = 19;
-        FOREGROUND_SERVICE_STOP  = 20;
+        MOVE_TO_FOREGROUND = 1;
+        MOVE_TO_BACKGROUND = 2;
     }
     optional EventType event_type = 4;
 }
@@ -20147,9 +20060,6 @@ message PrivacySensorToggleInteraction {
         ACTION_UNKNOWN = 0;
         TOGGLE_ON = 1;
         TOGGLE_OFF = 2;
-        AUTOMOTIVE_DRIVER_ASSISTANCE_HELPFUL_APPS = 3;
-        AUTOMOTIVE_DRIVER_ASSISTANCE_REQUIRED_APPS = 4;
-        AUTOMOTIVE_DRIVER_ASSISTANCE_APPS = 5;
     }
 
     // Action taken on sensor.
@@ -22056,9 +21966,6 @@ message AdServicesApiCalled {
     //  * reportInteraction()
     //  * updateAdCounterHistogram()
     //  * fetchAndJoinCustomAudience()
-    //  * getAdSelectionData()
-    //  * persistAdSelectionResult()
-    //  * scheduleCustomAudienceUpdate()
     //
     // Measurement - client side
     //   * register() : SOURCE
@@ -22078,9 +21985,6 @@ message AdServicesApiCalled {
     // AdExtDataService
     //   * onGetAdServicesExtData()
     //   * onPutAdServicesExtData()
-    //
-    // PAS
-    //   * updateSignals()
 
 
     enum AdServicesApiClassType {
@@ -22091,7 +21995,6 @@ message AdServicesApiCalled {
         ADID = 4;
         APPSETID = 5;
         ADEXT_DATA_SERVICE = 6;
-        COMMON = 7;
     }
 
     enum AdServicesApiName {
@@ -22124,11 +22027,6 @@ message AdServicesApiCalled {
         REGISTER_SOURCES = 26;
         GET_AD_SERVICES_EXT_DATA = 27;
         PUT_AD_SERVICES_EXT_DATA = 28;
-        GET_ADSERVICES_COMMON_STATES = 29;
-        GET_AD_SELECTION_DATA = 30;
-        PERSIST_AD_SELECTION_RESULT = 31;
-        UPDATE_SIGNALS = 32;
-        SCHEDULE_CUSTOM_AUDIENCE_UPDATE = 33;
     }
 
     optional AdServicesApiClassType api_class = 1 [deprecated = true];
@@ -22136,12 +22034,12 @@ message AdServicesApiCalled {
     // The actual name of the api within the 3 classes described above.
     optional AdServicesApiName  api_name = 2;
 
-    optional string app_package_name = 3;
+    optional string app_package_name = 3; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
     optional string sdk_package_name = 4;
 
     optional int32 latency_millis = 5;
 
-    // response_code is the error code for the given api.
+    // response_code is the error/failure code for the given api.
     optional int32 response_code = 6;
 }
 
@@ -22195,7 +22093,7 @@ message AdServicesMeasurementReportsUploaded {
     optional android.adservices.service.measurement.ReportUploadMethod upload_method = 4;
     // delay (in milliseconds) between scheduled delivery time and actual delivery time.
     optional int64 reporting_delay_millis = 5;
-    optional string app_package_name = 6;
+    optional string app_package_name = 6; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
     optional int32 retry_count = 7;
     optional int32 http_response_code = 8;
     optional bool is_marked_for_deletion = 9;
@@ -22220,7 +22118,7 @@ message AdServicesMeasurementRegistrations {
     optional android.adservices.service.measurement.RegistrationFailureType failure_type = 7;
     // delay (in milliseconds) between registration queue request and the time it gets processed
     optional int64 registration_delay_millis = 8;
-    optional string app_package_name = 9;
+    optional string app_package_name = 9; // [(datapol.semantic_type) = ST_SOFTWARE_ID, (contains_pii) = false]
     optional int32 retry_count = 10;
     optional int32 http_response_code = 11;
     optional bool is_redirect = 12;
@@ -22678,12 +22576,6 @@ message AutofillPresentationEventReported {
 
   // App package Uid
   optional int32 app_package_uid = 30 [(is_uid) = true];
-
-  // True if the request is directed to the credential autofill service.
-  optional bool is_credential_request = 31;
-
-  // True if the response is from webview requesting credential autofill service.
-  optional bool webview_requested_credential = 32;
 }
 
 // Tells how Autofill dataset was/will-be displayed.
@@ -23521,7 +23413,7 @@ message DisplayBrightnessChanged {
 
     // Physical display id, with format $ADAPTER_PREFIX:$ID, in this case
     // "local:$PHYSICAL_ID".
-    optional string physical_display_id = 4 [(state_field_option).primary_field = true];
+    optional string physical_display_id = 4;
 
     // Whether the short term model was active at the time of the event.
     optional bool short_term_model_active = 5;
@@ -23553,8 +23445,7 @@ message DisplayBrightnessChanged {
     optional android.display.DisplayBrightnessChangeReasonEnum entire_reason = 12;
 
     // New brightness bucket index, from frameworks/proto_logging/stats/enums/display/enums.proto.
-    optional android.display.DisplayBrightnessRangeEnum bucket_index = 13
-            [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
+    optional android.display.DisplayBrightnessRangeEnum bucket_index = 13;
 
     // Brightness is at maximum allowable value regarding the current context.
     optional bool brightness_at_max = 14;
@@ -23754,8 +23645,6 @@ message AdServicesSettingsUsageReported {
         PRIVACY_SANDBOX_ENTRY_POINT_CLICKED = 67;
         // daily maintenance job was run.
         DAILY_MAINTENANCE_JOB_FINISHED = 68;
-        // GA user clicked the 2nd additional info button on the landing page.
-        GA_UX_LANDING_PAGE_ADDITIONAL_INFO_2_CLICKED = 69;
     }
     // UI action performed by user.
     optional AdServiceSettingsName action = 2;
@@ -23829,8 +23718,6 @@ message AdServicesSettingsUsageReported {
         BETA_UX = 3;
         // UX for Android RVC.
         RVC_UX = 4;
-        // GA UX with Updated PAS APIs
-        GA_UX_WITH_PAS = 5;
     }
 
     // Type of privacy sandbox UX.
@@ -23854,10 +23741,6 @@ message AdServicesSettingsUsageReported {
         CONSENT_NOTIFICATION_RESET_CHANNEL = 6;
         // 2nd GA notification post R OTA.
         RVC_POST_OTA_NOTIFICATION_CHANNEL = 7;
-        // PAS first notification channel
-        PAS_FIRST_NOTIFICATION_CHANNEL = 8;
-        // PAS renotify notification channel
-        PAS_RENOTIFY_NOTIFICATION_CHANNEL = 9;
     }
 
     // Type of privacy sandbox enrollment channel.
@@ -24694,11 +24577,6 @@ message WsTileListChanged {
     // Where a tile has been changed from. When changed on the companion equals
     // to the phone source, otherwise watch source if it's changed from the watch.
     optional android.app.wearservices.RequestSource request_source = 4;
-
-    // The package name of the app where the tile change has originated from.
-    // Null for cases where the tile change originated from paired phone
-    // where request_source would be RequestSource.PHONE.
-    optional string origin_package_name = 5;
 }
 
 /**

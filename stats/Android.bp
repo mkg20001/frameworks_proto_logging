@@ -76,7 +76,6 @@ enum_protos = [
     "enums/telephony/*.proto",
     "enums/telephony/qns/*.proto",
     "enums/telephony/satellite/*.proto",
-    "enums/telephony/security/*.proto",
     "enums/transparency/*.proto",
     "enums/uwb/*.proto",
     "enums/view/**/*.proto",
@@ -153,7 +152,6 @@ atom_protos = [
     "atoms/memorysafety/*.proto",
     "atoms/wifi/*.proto",
     "atoms/telephony/satellite/*.proto",
-    "atoms/telephony/security/*.proto",
     "atoms/automotive/caruilib/*.proto",
     "atoms/uwb/*.proto",
     "atoms/ondevicepersonalization/*.proto",
@@ -162,12 +160,9 @@ atom_protos = [
     "atoms/devicelock/*.proto",
     "atoms/cpu/*.proto",
     "atoms/sdksandbox/*.proto",
-    "atoms/selinux/*.proto",
     "atoms/threadnetwork/*.proto",
     "atoms/automotive/carlauncher/*.proto",
     "atoms/transparency/*.proto",
-    "atoms/desktopmode/*.proto",
-    "atoms/adaptiveauth/*.proto",
 ]
 
 cc_library_host_shared {
