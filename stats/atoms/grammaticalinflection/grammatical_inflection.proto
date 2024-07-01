@@ -18,18 +18,10 @@ syntax = "proto2";
 
 package android.os.statsd.grammaticalinflection;
 
-import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 
 option java_package = "com.android.os.grammaticalinflection";
 option java_multiple_files = true;
-
-extend Atom {
-  optional ApplicationGrammaticalInflectionChanged application_grammatical_inflection_changed
-      = 584 [(module) = "framework"];
-  optional SystemGrammaticalInflectionChanged system_grammatical_inflection_changed
-      = 816 [(module) = "framework"];
-}
 
 /**
  * Logs when app grammatical inflection changed.
@@ -59,29 +51,5 @@ message ApplicationGrammaticalInflectionChanged {
 
     // Apps invoke this API.
     OTHERS = 2;
-  }
-}
-
-message SystemGrammaticalInflectionChanged {
-  // The id for which component invokes this API.
-  optional SourceId source_id = 1;
-
-  // Android user id, e.g. 0 is the owners.
-  optional int32 user_id = 2;
-
-  // Indicate if the grammatical gender is specified in this change. For example, user sets the
-  // grammatical gender to neutral, feminine or masculine from not_specified.
-  optional bool is_grammatical_gender_specified = 3;
-
-  // Indicate if the grammatical gender was specified before this change. For example, user sets the
-  // grammatical gender to not_specified from neutral, feminine or masculine.
-  optional bool was_grammatical_gender_specified = 4;
-
-  // The caller id
-  enum SourceId {
-    UNKNOWN = 0;
-
-    // System invokes this API.
-    SYSTEM = 1;
   }
 }

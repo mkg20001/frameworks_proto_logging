@@ -21,13 +21,8 @@ package android.os.statsd.power;
 import "frameworks/proto_logging/stats/atoms.proto";
 import "frameworks/proto_logging/stats/atom_field_options.proto";
 
-option java_package = "com.android.os.power";
-option java_multiple_files = true;
-
 extend Atom {
   optional ScreenOffReported screen_off_reported = 776 [(module) = "framework"];
-  optional LastScreenOnFragmentReported last_screen_on_fragment_reported
-      = 801 [(module) = "framework"];
 }
 
 /**
@@ -51,35 +46,4 @@ message ScreenOffReported {
   optional Reason screen_off_reason = 1;
   optional TimeoutReason timeout_reason = 2;
   optional int64 millis_until_normal_timeout = 3;
-}
-
-/**
- * Logs For Last Screen On Fragment.
- *
- * Logged from:
- *   frameworks/base/services/core/java/com/android/server/power/AttentionDetector.java
- */
-message LastScreenOnFragmentReported {
-  enum ScreenOffReason {
-    UNKNOWN = 0;
-    TIMEOUT = 1;
-    POWER_BTN = 2;
-  }
-  enum UserActivity {
-    UNSET = 0;
-    BUTTON = 1;
-    TOUCH = 2;
-    ACCESSBILITY = 3;
-    ATTENTION = 4;
-    FACE_DOWN = 5;
-    DEVICE_STATE = 6;
-  }
-  // Log the reason to off the screen this time
-  optional ScreenOffReason screen_off_reason = 1;
-  // Total time for this screen on to off
-  optional int64 screen_on_duration_millis = 2;
-  // Log the last user activity on this time
-  optional UserActivity last_user_activity = 3;
-  // Duration of last screen on fragment
-  optional int64 last_screen_on_fragment_millis = 4;
 }

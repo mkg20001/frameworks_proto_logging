@@ -29,8 +29,7 @@ extend Atom {
   optional SandboxApiCalled sandbox_api_called = 488 [(module) = "sdksandbox"];
   optional SandboxActivityEventOccurred sandbox_activity_event_occurred = 735
       [(module) = "sdksandbox", (truncate_timestamp) = true];
-  optional SdkSandboxRestrictedAccessInSession sdk_sandbox_restricted_access_in_session = 796
-      [(module) = "sdksandbox", (truncate_timestamp) = true];
+
 
   // Pulled atoms
   optional SandboxSdkStorage sandbox_sdk_storage = 10159 [(module) = "sdksandbox"];
@@ -152,62 +151,4 @@ message SandboxActivityEventOccurred {
 
   // Uid of the SDK that's loaded into client's sandbox process and for which the activity is created
   optional int32 sdk_uid = 5;
-}
-
-message ActivityStartRequest {
-  optional string intent_action = 1;
-  optional int32 access_count = 2;
-}
-
-message RepeatedActivityStartRequest {
-  repeated ActivityStartRequest activity_start_request = 1;
-}
-
-message ContentProviderAccessRequest {
-  optional string authority = 1;
-  optional int32 access_count = 2;
-}
-
-message RepeatedContentProviderAccessRequest {
-  repeated ContentProviderAccessRequest content_provider_access_request = 1;
-}
-
-message BroadcastReceiverRegisterRequest {
-  optional string intent_actions = 1;
-  optional int32 access_count = 2;
-}
-
-message RepeatedBroadcastReceiverRegisterRequest {
-  repeated BroadcastReceiverRegisterRequest broadcast_receiver_register_request = 1;
-}
-
-message ServiceStartOrBindRequest {
-  optional string action = 1;
-  optional string package_name = 2;
-  optional string component_class_name = 3;
-  optional string component_package_name = 4;
-  optional int32 access_count = 5;
-}
-
-message RepeatedServiceStartOrBindRequest {
-  repeated ServiceStartOrBindRequest service_start_or_bind_request = 1;
-}
-
-/**
- * Logs information around SDKs using ContentProviders, BroadcastReceivers,
- * Activities, and Services from their allow lists.
- */
-message SdkSandboxRestrictedAccessInSession {
-  // List of all the SDKs that were loaded in that session
-  repeated string loaded_sdks = 1;
-  // The effective target SDK version
-  optional int32 effective_target_sdk_version = 2;
-  // List of all the ContentProviders that were requested to be accessed
-  optional RepeatedContentProviderAccessRequest content_providers_access_request = 3 [(log_mode) = MODE_BYTES];
-  // List of the broadcastReceivers that were requested to be registered
-  optional RepeatedBroadcastReceiverRegisterRequest broadcast_receivers_register_request = 4 [(log_mode) = MODE_BYTES];
-  // List of all the activities that were requested to be started
-  optional RepeatedActivityStartRequest activities_start_request = 5 [(log_mode) = MODE_BYTES];
-  // List of all the services that were requested to be started or bound
-  optional RepeatedServiceStartOrBindRequest services_start_or_bind_request = 6 [(log_mode) = MODE_BYTES];
 }

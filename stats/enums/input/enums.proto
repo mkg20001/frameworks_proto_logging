@@ -110,10 +110,6 @@ enum KeyboardSystemEvent {
     LAUNCH_DEFAULT_FITNESS = 46;
     // Launch application by package name defined by custom overlays for OEM specific shortcuts
     LAUNCH_APPLICATION_BY_PACKAGE_NAME = 47;
-    // Enter desktop mode
-    DESKTOP_MODE = 48;
-    // Navigate to/from a multiwindow mode
-    MULTI_WINDOW_NAVIGATION = 49;
 }
 
 /**
