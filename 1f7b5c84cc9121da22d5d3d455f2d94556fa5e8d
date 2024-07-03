@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9896e694_c3916b57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1827146
+      },
+      "writtenOn": "2024-07-03T21:45:42Z",
+      "side": 1,
+      "message": "nit: use the same change-id here as you have in internal main branch:\n\n```\nMerged-In: Ia2916aa91f94a7c4f5273b68875426f3ff5d931b\nChange-Id: Ia2916aa91f94a7c4f5273b68875426f3ff5d931b\n```",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 52
+      },
+      "revId": "1f7b5c84cc9121da22d5d3d455f2d94556fa5e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
