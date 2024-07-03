@@ -1177,6 +1177,7 @@ message Atom {
     extensions 874; // LeAdvStateChanged le_adv_state_changed
     extensions 875; // LeAdvErrorReported le_adv_error_reported
     extensions 883; // PreRebootDexoptJobEnded pre_reboot_dexopt_job_ended
+    extensions 904; // A2dpSession a2dp_session
     extensions 9999; // Atom9999 atom_9999
     // StatsdStats tracks platform atoms with ids up to 900.
     // Update StatsdStats::kMaxPushedAtomId when atom ids here approach that value.
