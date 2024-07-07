@@ -62,6 +62,8 @@ extend Atom {
         = 874 [(module) = "bluetooth"];
     optional LeAdvErrorReported le_adv_error_reported
         = 875 [(module) = "bluetooth"];
+    optional A2dpSessionReported a2dp_session_reported
+        = 904 [(module) = "bluetooth"];
 }
 
 /**
@@ -466,4 +468,45 @@ message LeAdvErrorReported {
   optional android.bluetooth.le.LeAdvOpCode le_adv_op_code = 2;
   // The status code of internal state.
   optional android.bluetooth.le.LeAdvStatusCode status_code = 3;
+}
+
+/**
+ * Logs A2DP session information when the session ends.
+ *
+ * Logged from:
+ *     packages/modules/Bluetooth
+ */
+message A2dpSessionReported {
+  // Full duration of the session in milliseconds.
+  optional int64 duration_ms = 1;
+  // Minimum duration of the media timer in milliseconds.
+  optional int32 min_timer_duration_ms = 2;
+  // Maximum duration of the media timer in milliseconds.
+  optional int32 max_timer_duration_ms = 3;
+  // Average duration of the media timer in milliseconds.
+  optional int32 average_timer_duration_ms = 4;
+  // Total number of times the media timer was scheduled.
+  optional int32 total_scheduling_count = 5;
+  // Counts the maximum number of audio frames dropped simultaneously due
+  // to TX buffer overruns during the session.
+  optional int32 max_buffer_overrun = 6;
+  // Counts the total number of audio frames that were dropped due to TX buffer
+  // overruns during the session.
+  optional int32 total_buffer_overrun = 7;
+  // Counts the average number of bytes of underflow when reading fromt the
+  // PCM audio stream.
+  optional float average_buffer_underrun = 8;
+  // Total number of bytes of underflow when reading from the PCM audio stream.
+  optional int32 total_buffer_underrun = 9;
+  // Unique identifier of the codec used for the session. The codec identifier
+  // is 40 bits,
+  // - Bits 0-7: Audio Codec ID, as defined by [ID 6.5.1]
+  //    0x00: SBC
+  //    0x02: AAC
+  //    0xFF: Vendor
+  // - Bits 8-23: Company ID, set to 0, if octet 0 is not 0xFF.
+  // - Bits 24-39: Vendor-defined codec ID, set to 0, if octet 0 is not 0xFF.
+  optional int64 codec_id = 10;
+  // Indicates whether the session is offloaded or not.
+  optional bool offload = 11;
 }
