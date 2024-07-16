@@ -247,15 +247,6 @@ bool is_repeated_field(java_type_t type) {
     }
 }
 
-static bool contains_repeated_field(const vector<java_type_t>& signature) {
-    for (const java_type_t& javaType : signature) {
-        if (is_repeated_field(javaType)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool is_primitive_field(java_type_t type) {
     switch (type) {
         case JAVA_TYPE_BOOLEAN:
@@ -411,9 +402,7 @@ void write_native_method_header(FILE* out, const string& methodName,
                                        const AtomDecl& attributionDecl,
                                        bool isVendorAtomLogging) {
     for (const auto& [signature, _] : signatureInfoMap) {
-        string closer = contains_repeated_field(signature) ?
-                            "\n__INTRODUCED_IN(__ANDROID_API_T__);" : ";";
-        write_native_method_signature(out, methodName, signature, attributionDecl, closer,
+        write_native_method_signature(out, methodName, signature, attributionDecl, ";",
                                       isVendorAtomLogging);
     }
 }
@@ -661,6 +650,22 @@ static bool contains_restricted(const AtomDeclSet& atomDeclSet) {
     for (const auto& decl : atomDeclSet) {
         if (decl->restricted) {
             return true;
+        }
+    }
+    return false;
+}
+
+static bool contains_repeated_field(const vector<java_type_t>& signature) {
+    for (const java_type_t& javaType : signature) {
+        switch (javaType) {
+            case JAVA_TYPE_BOOLEAN_ARRAY:
+            case JAVA_TYPE_INT_ARRAY:
+            case JAVA_TYPE_FLOAT_ARRAY:
+            case JAVA_TYPE_LONG_ARRAY:
+            case JAVA_TYPE_STRING_ARRAY:
+                return true;
+            default:
+                break;
         }
     }
     return false;
