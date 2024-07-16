@@ -64,6 +64,8 @@ extend Atom {
         = 875 [(module) = "bluetooth"];
     optional A2dpSessionReported a2dp_session_reported
         = 904 [(module) = "bluetooth"];
+    optional BluetoothEventReported bluetooth_event_reported
+        = 905 [(module) = "bluetooth"];
 }
 
 /**
@@ -509,4 +511,28 @@ message A2dpSessionReported {
   optional int64 codec_id = 10;
   // Indicates whether the session is offloaded or not.
   optional bool offload = 11;
+}
+
+/**
+  * Logs a Bluetooth Event
+  *
+  * Logged from:
+  *     packages/modules/Bluetooth
+*/
+message BluetoothEventReported {
+  // Type of Bluetooth Event
+  required android.bluetooth.EventType event_type = 1;
+
+  // Addition Details about the event, specific to the event type
+  required android.bluetooth.State state = 2;
+
+  // Identifier for the remote device/metric id
+  required int32 remote_device_id = 4;
+
+  // Identifier for the app that initiates the CUJ (if applicable)
+  optional int32 uid = 3 [(is_uid) = true];
+
+  // Remote Device Information
+  optional BluetoothRemoteDeviceInformation remote_device_information = 5
+     [(log_mode) = MODE_BYTES];
 }
