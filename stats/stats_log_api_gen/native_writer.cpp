@@ -460,7 +460,7 @@ int write_stats_log_cpp(FILE* out, const Atoms& atoms, const AtomDecl& attributi
 int write_stats_log_header(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
                            const string& cppNamespace, const int minApiLevel, bool bootstrap) {
     const bool includePull = !atoms.pulledAtomsSignatureInfoMap.empty() && !bootstrap;
-    write_native_header_preamble(out, cppNamespace, includePull, bootstrap);
+    write_native_header_preamble(out, cppNamespace, includePull);
     write_native_atom_constants(out, atoms, attributionDecl);
     write_native_atom_enums(out, atoms);
 
