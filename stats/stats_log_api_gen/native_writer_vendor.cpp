@@ -319,8 +319,7 @@ int write_stats_log_cpp_vendor(FILE* out, const Atoms& atoms, const AtomDecl& at
 
 int write_stats_log_header_vendor(FILE* out, const Atoms& atoms, const AtomDecl& attributionDecl,
                                   const string& cppNamespace) {
-    write_native_header_preamble(out, cppNamespace, /*includePull=*/false, /*bootstrap=*/false,
-                                 /*isVendorAtomLogging=*/true);
+    write_native_header_preamble(out, cppNamespace, false, /*isVendorAtomLogging=*/true);
     write_native_atom_constants(out, atoms, attributionDecl, "createVendorAtom(",
                                 /*isVendorAtomLogging=*/true);
 

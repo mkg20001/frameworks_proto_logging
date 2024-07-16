@@ -97,7 +97,7 @@ void write_native_method_header(FILE* out, const string& methodName,
                                 const AtomDecl& attributionDecl, bool isVendorAtomLogging = false);
 
 void write_native_header_preamble(FILE* out, const string& cppNamespace, bool includePull,
-                                  bool bootstrap, bool isVendorAtomLogging = false);
+                                  bool isVendorAtomLogging = false);
 
 void write_native_header_epilogue(FILE* out, const string& cppNamespace);
 
