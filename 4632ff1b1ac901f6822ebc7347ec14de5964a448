@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "118b9b02_cb939883",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 24885,
+      "author": {
+        "id": 1850729
+      },
+      "writtenOn": "2024-07-19T23:03:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1bf32cd2_b631f953",
+      "range": {
+        "startLine": 24879,
+        "startChar": 0,
+        "endLine": 24885,
+        "endChar": 47
+      },
+      "revId": "4632ff1b1ac901f6822ebc7347ec14de5964a448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3f25f6f_d5fc1e93",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-07-19T13:26:01Z",
       "side": 1,
       "message": "Let\u0027s reorder this, move it after anon_rss_in_kilobytes. Also let\u0027s name everything consistently (either _in_kilobytes, or _kb for all)",
+      "range": {
+        "startLine": 24886,
+        "startChar": 0,
+        "endLine": 24888,
+        "endChar": 33
+      },
+      "revId": "4632ff1b1ac901f6822ebc7347ec14de5964a448",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cf18520_bdaea5ac",
+        "filename": "stats/atoms.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 24888,
+      "author": {
+        "id": 1850729
+      },
+      "writtenOn": "2024-07-19T23:03:33Z",
+      "side": 1,
+      "message": "actually removed this field don\u0027t think it\u0027s needed for now, they were copied from `ProcessMemoryState`, that\u0027s why :-)\n\nAnd yes - renamed kilobytes into kb for consistency",
+      "parentUuid": "a3f25f6f_d5fc1e93",
       "range": {
         "startLine": 24886,
         "startChar": 0,
