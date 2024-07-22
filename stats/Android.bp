@@ -128,6 +128,7 @@ atom_protos = [
     "atoms/wearsysui/*.proto",
     "atoms/location/*.proto",
     "atoms/view/inputmethod/*.proto",
+    "atoms/nfc/*.proto",
     "atoms/permissioncontroller/*.proto",
     "atoms/placeholder/*.proto",
     "atoms/power/*.proto",
