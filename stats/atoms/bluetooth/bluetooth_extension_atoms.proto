@@ -289,6 +289,9 @@ message BluetoothRemoteDeviceInformation {
 
   // The first three bytes of MAC address
   optional int32 oui = 3;
+
+  // Device type metadata
+  optional android.bluetooth.RemoteDeviceTypeMetadata device_type_metadata = 4;
 }
 
 /**
