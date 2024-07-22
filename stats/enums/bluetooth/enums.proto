@@ -548,3 +548,14 @@ enum ContentProfileFileName {
 
   // Will be added more if needed in future.
 }
+
+enum RemoteDeviceTypeMetadata {
+    WATCH = 0;
+    UNTETHERED_HEADSET = 1;
+    STYLUS = 2;
+    SPEAKER = 3;
+    HEADSET = 4;
+    CARKIT = 5;
+    DEFAULT = 6;
+    NOT_AVAILABLE = 7;
+}
