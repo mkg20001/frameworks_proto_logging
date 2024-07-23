@@ -16,6 +16,24 @@
       "message": "why not use the same change-id?",
       "revId": "fb9bcb1486266102320a838d96d1052538ea41c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f5f674_17947827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1938031
+      },
+      "writtenOn": "2024-07-23T22:56:00Z",
+      "side": 1,
+      "message": "That wasn\u0027t something I thought of before. I\u0027ll keep it in mind for next time.",
+      "parentUuid": "0988fc37_427cdb99",
+      "revId": "fb9bcb1486266102320a838d96d1052538ea41c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
