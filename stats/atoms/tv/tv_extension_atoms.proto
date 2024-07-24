@@ -26,6 +26,7 @@ option java_multiple_files = true;
 
 extend Atom {
   optional TvLowPowerStandbyPolicy tv_low_power_standby_policy = 679 [(module) = "tv_settings"];
+  optional ExternalTvInputEvent external_tv_input_event = 717 [(module) = "framework"];
 }
 
 /**
@@ -37,4 +38,59 @@ message TvLowPowerStandbyPolicy {
    optional int32 allowed_reasons = 3;
    repeated string allowed_features = 4;
    optional bool is_selected = 5;
+}
+
+/**
+ * Logs external TV input events.
+ */
+message ExternalTvInputEvent {
+    enum EventType {
+        UNKNOWN = 0;
+        // a specific input is selected by user/TV App to be displayed on the screen.
+        TUNED = 1;
+        // the currently tuned input is released from the screen by selecting a
+        // new input, TV powering off, going to Home screen, etc.
+        RELEASED = 2;
+        // connection state of the current input is changed,
+        // e.g. connecting/disconnecting the cable.
+        CONNECTION_STATE_CHANGED = 3;
+        // device info is updated for the currently selected HDMI-CEC input.
+        DEVICE_INFO_UPDATED = 4;
+    }
+    enum InputState {
+        // keep in sync with TvInputManager.InputState.
+        CONNECTED = 0;
+        CONNECTED_STANDBY = 1;
+        DISCONNECTED = 2;
+    }
+    enum InputType {
+        // keep in sync with TvinputInfo.Type.
+        TUNER = 0;
+        OTHER = 1000;
+        COMPOSITE = 1001;
+        SVIDEO = 1002;
+        SCART = 1003;
+        COMPONENT = 1004;
+        VGA = 1005;
+        DVI = 1006;
+        HDMI = 1007;
+        DISPLAY_PORT = 1008;
+    }
+    // Type of the event.
+    optional EventType event_type = 1;
+    // Connection state of this input.
+    optional InputState input_state = 2;
+    // type of the input.
+    optional InputType input_type = 3;
+    // Vendor id of the external device for HDMI-CEC input.
+    // For non-CEC input, the value is 0xFFFFFF (16777215 in decimal).
+    optional int32 device_vendor_id = 4;
+    // HDMI port number on TV for HDMI input.
+    // For non-HDMI input, the value is -1.
+    optional int32 hdmi_port = 5;
+    // ID of this TIF (TV Input Framework) session.
+    optional string tif_session_id = 6;
+    // OSD display name of the external device for HDMI-CEC input,
+    // or user-displayed label for other TV inputs.
+    optional string display_name = 7;
 }

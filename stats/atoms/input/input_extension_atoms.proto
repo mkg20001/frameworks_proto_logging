@@ -96,6 +96,7 @@ message KeyboardSystemsEventReported {
     optional android.input.KeyboardSystemEvent keyboard_system_event = 3;
     // Key pressed to trigger the keyboard event
     repeated int32 key_code = 4;
+    // Flag based modifier state when keyboard event was triggered
     // This field represents the decimal version of the flag in binary
     optional int32 modifier_state = 5;
     // The Input Device Bus ID
@@ -125,19 +126,21 @@ message InputDeviceUsageReported {
     // The Input Device Bus ID
     optional android.input.InputDeviceBus device_bus = 4;
 
-    // The duration of the aggregated usage session for this Input Device.
+    // The duration of the aggregated usage session for this Input Device, in
+    // milliseconds.
     // (The int32_t will overflow at ~25 days)
     optional int32 usage_duration_millis = 5;
 
     // The breakdown of this usage session by source.
     repeated android.input.InputDeviceUsageType usage_sources = 6;
     // The breakdown of usage duration for each of the {@link usage_sources}
-    // reported above.
+    // reported above, in milliseconds.
     repeated int32 usage_durations_per_source = 7;
 
     // The breakdown of this usage session by uid.
     repeated int32 uids = 8 [(is_uid) = true];
-    // The breakdown of usage duration for each of the {@link uids} reported above.
+    // The breakdown of usage duration for each of the {@link uids} reported
+    // above, in milliseconds.
     repeated int32 usage_durations_per_uid = 9;
 }
 

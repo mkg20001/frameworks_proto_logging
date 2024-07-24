@@ -48,10 +48,6 @@ cc_binary_host {
         "libbase",
     ],
 
-    whole_static_libs: [
-        "libc++fs",
-    ],
-
     proto: {
         type: "full",
     },
@@ -120,10 +116,6 @@ cc_test_host {
         "libstats_proto_host",
         "libprotobuf-cpp-full",
         "libstatslog",
-    ],
-
-    whole_static_libs: [
-        "libc++fs",
     ],
 
     proto: {

@@ -150,4 +150,10 @@ message SatelliteSosMessageRecommender {
   optional android.telephony.ServiceStateEnum cellular_service_state = 4;
   // Total count of times this event has occurred.
   optional int32 count = 5;
+  // Whether the device supports multiple SIMs.
+  optional bool is_multi_sim = 6;
+  // Handover type from emergency call to satellite messaging
+  optional android.telephony.RecommendingHandoverType recommending_handover_type = 7;
+  // Whether satellite communication is allowed in current location.
+  optional bool is_satellite_allowed_in_current_location = 8;
 }

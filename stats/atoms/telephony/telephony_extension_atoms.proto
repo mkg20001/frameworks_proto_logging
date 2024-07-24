@@ -26,7 +26,14 @@ option java_package = "com.android.os.telephony";
 option java_multiple_files = true;
 
 extend Atom {
+    optional CellularRadioPowerStateChanged cellular_radio_power_state_changed = 713 [(module) = "telephony"];
     optional EmergencyNumbersInfo emergency_numbers_info = 10180 [(module) = "telephony"];
+    optional DataNetworkValidation data_network_validation = 10207 [(module) = "telephony"];
+}
+
+message CellularRadioPowerStateChanged {
+    optional android.telephony.CellularRadioPowerStateEnum state = 1
+            [(state_field_option).exclusive_state = true, (state_field_option).nested = false];
 }
 
 /**
@@ -64,3 +71,35 @@ message EmergencyNumbersInfo {
     repeated android.telephony.Source sources = 10;
 }
 
+/**
+ * Pulls information for a data network validation
+ *
+ * Each pull creates multiple atoms, one for each data network validation.
+ *
+ * Pulled from:
+ *   frameworks/opt/telephony/src/java/com/android/internal/telephony/metrics/MetricsCollector.java
+ */
+message DataNetworkValidation {
+    // Data RAT when network validation was performed
+    // Used as a dimension
+    optional android.telephony.NetworkTypeEnum network_type = 1;
+
+    // APN type bitmask where network verification was performed
+    // @ApnType in frameworks/base/telephony/java/android/telephony/Annotation.java
+    optional int32 apn_type_bitmask = 2;
+
+    // Signal strength when network validation was performed
+    optional android.telephony.SignalStrengthEnum signal_strength = 3;
+
+    // Result of network validation for one request
+    optional android.telephony.NetworkValidationResult validation_result = 4;
+
+    // The time in milliseconds from requesting network validation to receiving
+    optional int64 elapsed_time_in_millis = 5;
+
+    // Boolean that handover attempted during validation.
+    optional bool handover_attempted = 6;
+
+    // Number of network validation
+    optional int32 network_validation_count = 7;
+}

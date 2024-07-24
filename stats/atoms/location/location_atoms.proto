@@ -30,6 +30,8 @@ option java_multiple_files = true;
  *   frameworks/base/services/core/java/com/android/server/location/LocationManagerService.java
  */
 message LocationEnabledStateChanged {
-  optional bool location_enabled = 1
-                [(state_field_option).exclusive_state = true];
+  optional bool location_enabled = 1 [
+     (state_field_option).exclusive_state = true,
+     (state_field_option).nested = false
+  ];
 }

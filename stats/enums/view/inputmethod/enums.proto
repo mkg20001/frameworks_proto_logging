@@ -62,6 +62,23 @@ enum SoftInputShowHideReasonEnum {
     REASON_REMOVE_IME_SCREENSHOT_FROM_IMMS = 35;
     REASON_UPDATE_IME_PARENT_FROM_IMMS = 36;
     REASON_HIDE_WHEN_INPUT_TARGET_INVISIBLE = 37;
+    REASON_HIDE_CLOSE_CURRENT_SESSION = 38;
+    REASON_HIDE_SOFT_INPUT_FROM_VIEW = 39;
+    REASON_SHOW_SOFT_INPUT_LEGACY_DIRECT = 40;
+    REASON_HIDE_SOFT_INPUT_LEGACY_DIRECT = 41;
+    REASON_SHOW_WINDOW_LEGACY_DIRECT = 42;
+    REASON_HIDE_WINDOW_LEGACY_DIRECT = 43;
+    REASON_RESET_NEW_CONFIGURATION = 44;
+    REASON_UPDATE_CANDIDATES_VIEW_VISIBILITY = 45;
+    REASON_CONTROLS_CHANGED = 46;
+    REASON_DISPLAY_CONFIGURATION_CHANGED = 47;
+    REASON_DISPLAY_INSETS_CHANGED = 48;
+    REASON_DISPLAY_CONTROLS_CHANGED = 49;
+    REASON_UNBIND_CURRENT_METHOD = 50;
+    REASON_HIDE_SOFT_INPUT_ON_ANIMATION_STATE_CHANGED = 51;
+    REASON_HIDE_SOFT_INPUT_REQUEST_HIDE_WITH_CONTROL = 52;
+    REASON_SHOW_SOFT_INPUT_IME_TOGGLE_SOFT_INPUT = 53;
+    REASON_SHOW_SOFT_INPUT_IMM_DEPRECATION = 54;
 }
 
 // The type of the IME request, used by android/view/inputmethod/ImeTracker.java.
@@ -95,13 +112,21 @@ enum ImeRequestOriginEnum {
     // IME request origin not set.
     ORIGIN_NOT_SET = 0;
     // The IME show request originated in the client.
-    ORIGIN_CLIENT_SHOW_SOFT_INPUT = 1;
+    ORIGIN_CLIENT_SHOW_SOFT_INPUT = 1 [deprecated = true];
     // The IME hide request originated in the client.
-    ORIGIN_CLIENT_HIDE_SOFT_INPUT = 2;
+    ORIGIN_CLIENT_HIDE_SOFT_INPUT = 2 [deprecated = true];
     // The IME show request originated in the server.
-    ORIGIN_SERVER_START_INPUT = 3;
+    ORIGIN_SERVER_START_INPUT = 3 [deprecated = true];
     // The IME hide request originated in the server.
-    ORIGIN_SERVER_HIDE_INPUT = 4;
+    ORIGIN_SERVER_HIDE_INPUT = 4 [deprecated = true];
+    // The IME request originated in the client.
+    ORIGIN_CLIENT = 5;
+    // The IME request originated in the server.
+    ORIGIN_SERVER = 6;
+    // The IME request originated in the IME.
+    ORIGIN_IME = 7;
+    // The IME request originated in the WindowManager Shell.
+    ORIGIN_WM_SHELL = 8;
 }
 
 enum ImeRequestPhaseEnum {
@@ -131,17 +156,17 @@ enum ImeRequestPhaseEnum {
     PHASE_IME_WRAPPER = 11;
     // Dispatched from the IME wrapper to the IME.
     PHASE_IME_WRAPPER_DISPATCH = 12;
-    // Reached the IME' showSoftInput method.
+    // Reached the IME's showSoftInput method.
     PHASE_IME_SHOW_SOFT_INPUT = 13;
-    // Reached the IME' hideSoftInput method.
+    // Reached the IME's hideSoftInput method.
     PHASE_IME_HIDE_SOFT_INPUT = 14;
     // The server decided the IME should be shown.
     PHASE_IME_ON_SHOW_SOFT_INPUT_TRUE = 15;
     // Requested applying the IME visibility in the insets source consumer.
-    PHASE_IME_APPLY_VISIBILITY_INSETS_CONSUMER = 16;
+    PHASE_IME_APPLY_VISIBILITY_INSETS_CONSUMER = 16 [deprecated = true];
     // Applied the IME visibility.
     PHASE_SERVER_APPLY_IME_VISIBILITY = 17;
-    // Created the show IME runner.
+    // Started the show IME runner.
     PHASE_WM_SHOW_IME_RUNNER = 18;
     // Ready to show IME.
     PHASE_WM_SHOW_IME_READY = 19;
@@ -174,7 +199,7 @@ enum ImeRequestPhaseEnum {
     // Started the IME window insets show animation.
     PHASE_CLIENT_CONTROL_ANIMATION = 33;
     // Checked that the IME is controllable.
-    PHASE_CLIENT_DISABLED_USER_ANIMATION = 34;
+    PHASE_CLIENT_DISABLED_USER_ANIMATION = 34 [deprecated = true];
     // Collecting insets source controls.
     PHASE_CLIENT_COLLECT_SOURCE_CONTROLS = 35;
     // Reached the insets source consumer's show request method.
@@ -191,4 +216,15 @@ enum ImeRequestPhaseEnum {
     PHASE_CLIENT_ANIMATION_FINISHED_SHOW = 41;
     // Finished the IME window insets hide animation.
     PHASE_CLIENT_ANIMATION_FINISHED_HIDE = 42;
+    // Aborted the request to show the IME post layout.
+    PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT = 43;
+    // Reached the IME's showWindow method.
+    PHASE_IME_SHOW_WINDOW = 44;
+    // Reached the IME's hideWindow method.
+    PHASE_IME_HIDE_WINDOW = 45;
+    // Reached the InputMethodPrivilegedOperations handler.
+    PHASE_IME_PRIVILEGED_OPERATIONS = 46;
+    // Checked that the calling IME is the currently active IME.
+    PHASE_SERVER_CURRENT_ACTIVE_IME = 47;
 }
+

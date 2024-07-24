@@ -87,8 +87,12 @@ message StateAtomFieldOption {
     // BLE scans are to be turned off.
     optional int32 trigger_state_reset_value = 5;
 
-    // If the state change needs to count nesting.
-    optional bool nested = 6 [default = true];
+    // If the state change needs to count nesting. For example, given an exclusive_state field with
+    // possible states of OFF and ON, a sequence of N OFF events will require N ON events for the
+    // tracked state to change back to ON.
+    // Note: only valid for fields marked with exclusive_state where there are only 2 possible
+    // states.
+    optional bool nested = 6 [default = false];
 }
 
 // Used to generate StatsLog.write APIs.

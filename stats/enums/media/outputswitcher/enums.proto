@@ -55,6 +55,7 @@ enum MediumType {
   MEDIUMTYPE_CAST_OUTPUT = 2;
   MEDIUMTYPE_PROPRIETARY_OUTPUT = 3;
   MEDIUMTYPE_UNKNOWN = 4;
+  MEDIUMTYPE_BLE = 5;
 }
 
 // Indicates the scan state of list of available devices.
@@ -69,4 +70,5 @@ enum MediaDeviceType {
   MEDIADEVICETYPE_BLUETOOTH = 0;
   MEDIADEVICETYPE_FASTPAIR = 1;
   MEDIADEVICETYPE_BUILTIN_SPEAKER = 2;
+  MEDIADEVICETYPE_SASS = 3;
 }

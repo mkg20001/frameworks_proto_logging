@@ -98,7 +98,7 @@ static void print_error(const FieldDescriptor& field, const char* format, ...) {
 /**
  * Convert a protobuf type into a java type.
  */
-static java_type_t java_type(const FieldDescriptor& field) {
+static java_type_t java_type(const FieldDescriptor& field, const bool isUintAllowed) {
     const int protoType = field.type();
     const bool isRepeatedField = field.is_repeated();
 
@@ -130,9 +130,10 @@ static java_type_t java_type(const FieldDescriptor& field) {
         case FieldDescriptor::TYPE_BYTES:
             return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_BYTE_ARRAY;
         case FieldDescriptor::TYPE_UINT64:
-            return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_LONG;
+            return isRepeatedField || !isUintAllowed ? JAVA_TYPE_UNKNOWN_OR_INVALID
+                                                     : JAVA_TYPE_LONG;
         case FieldDescriptor::TYPE_UINT32:
-            return isRepeatedField ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_INT;
+            return isRepeatedField || !isUintAllowed ? JAVA_TYPE_UNKNOWN_OR_INVALID : JAVA_TYPE_INT;
         default:
             return JAVA_TYPE_UNKNOWN_OR_INVALID;
     }
@@ -390,6 +391,11 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
         expectedNumber++;
     }
 
+    // Check if atom is in uint type allowlist.
+    std::string atomName = atom.name();
+    bool isUintAllowed = !(find(begin(UINT_ATOM_ALLOWLIST), end(UINT_ATOM_ALLOWLIST), atomName) ==
+                           end(UINT_ATOM_ALLOWLIST));
+
     // Check that only allowed types are present. Remove any invalid ones.
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
@@ -397,15 +403,15 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
         const bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
                                    os::statsd::LogMode::MODE_BYTES;
 
-        const java_type_t javaType = java_type(field);
+        const java_type_t javaType = java_type(field, isUintAllowed);
 
         if (javaType == JAVA_TYPE_UNKNOWN_OR_INVALID) {
             if (field.is_repeated()) {
-                print_error(field, "Repeated field type %d is not allowed for field: %s\n",
-                            field.type(), field.name().c_str());
+                print_error(field, "Repeated field type %s is not allowed for field: %s\n",
+                            field.type_name(), field.name().c_str());
             } else {
-                print_error(field, "Field type %d is not allowed for field: %s\n", field.type(),
-                            field.name().c_str());
+                print_error(field, "Field type %s is not allowed for field: %s\n",
+                            field.type_name(), field.name().c_str());
             }
             errorCount++;
             continue;
@@ -441,7 +447,7 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
         const int number = it->first;
         if (number != 1) {
             const FieldDescriptor& field = *it->second;
-            const java_type_t javaType = java_type(field);
+            const java_type_t javaType = java_type(field, isUintAllowed);
             if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
                 print_error(field,
                             "AttributionChain fields must have field id 1, in message: '%s'\n",
@@ -455,7 +461,7 @@ int collate_atom(const Descriptor& atom, AtomDecl& atomDecl, vector<java_type_t>
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
         const FieldDescriptor& field = *it->second;
-        const java_type_t javaType = java_type(field);
+        const java_type_t javaType = java_type(field, isUintAllowed);
         const bool isBinaryField = field.options().GetExtension(os::statsd::log_mode) ==
                                    os::statsd::LogMode::MODE_BYTES;
 
@@ -509,7 +515,7 @@ bool get_non_chained_node(const Descriptor& atom, AtomDecl& atomDecl,
     for (map<int, const FieldDescriptor*>::const_iterator it = fields.begin(); it != fields.end();
          it++) {
         const FieldDescriptor& field = *it->second;
-        const java_type_t javaType = java_type(field);
+        const java_type_t javaType = java_type(field, true);
         if (javaType == JAVA_TYPE_ATTRIBUTION_CHAIN) {
             atomDecl.fields.insert(atomDecl.fields.end(), attributionDecl.fields.begin(),
                                    attributionDecl.fields.end());

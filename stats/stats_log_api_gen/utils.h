@@ -97,7 +97,7 @@ void write_native_method_header(FILE* out, const string& methodName,
                                 const AtomDecl& attributionDecl, bool isVendorAtomLogging = false);
 
 void write_native_header_preamble(FILE* out, const string& cppNamespace, bool includePull,
-                                  bool isVendorAtomLogging = false);
+                                  bool bootstrap, bool isVendorAtomLogging = false);
 
 void write_native_header_epilogue(FILE* out, const string& cppNamespace);
 
@@ -124,7 +124,8 @@ public:
     }
 };
 
-int get_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet);
+int get_max_requires_api_level(int minApiLevel, const AtomDeclSet* atomDeclSet,
+                               const vector<java_type_t>& signature);
 
 }  // namespace stats_log_api_gen
 }  // namespace android

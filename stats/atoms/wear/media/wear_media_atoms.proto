@@ -36,4 +36,6 @@ message MediaSessionUpdated {
   optional string media_player_package_name = 1;
   // Depicts source of the request. Values : (PHONE/WATCH)
   optional android.app.wearservices.RequestSource source = 2;
+  // Version of the media session apk installed in the device.
+  optional int64 version_code = 3;
 }

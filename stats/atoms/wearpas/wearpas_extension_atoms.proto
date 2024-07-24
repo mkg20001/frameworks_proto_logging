@@ -162,36 +162,38 @@ message WearPowerAnomalyServiceEventStatsReported {
   }
 
   enum Status {
+    STATUS_UNSPECIFIED = 0;
+
     /**
      * If the triggered anomaly rule does not have additional reactions beyond
      * "WW stats" and "bugreport", this will be sent once upon detection.
      */
-    NEW_NO_REACTIONS = 0;
+    NEW_NO_REACTIONS = 1;
 
     /**
      * If the triggered anomaly rule does have additional reactions, this will
      * be sent once upon detection and be followed by one of
      * {RESOLVED_POST_REACTIONS, UNRESOLVED_POST_REACTIONS}
      */
-    NEW_REACTIONS_PENDING = 1;
+    NEW_REACTIONS_PENDING = 2;
 
     /**
      * Following an anomaly with additional reactions, this will be sent if the
      * reactions have resolved the anomaly.
      */
-    RESOLVED_POST_REACTIONS = 2;
+    RESOLVED_POST_REACTIONS = 3;
 
     /**
      * Following an anomaly with additional reactions, this will be sent if the
      * reactions have not resolved the anomaly.
      */
-    UNRESOLVED_POST_REACTIONS = 3;
+    UNRESOLVED_POST_REACTIONS = 4;
 
     /**
      * Following an anomaly with bugreport triggering enabled, this will be sent
      * if a bugreport is actually triggered (e.g. if rate limiting allows).
      */
-    BUGREPORT_TRIGGERED = 4;
+    BUGREPORT_TRIGGERED = 5;
   }
 
   /* Power entity type for which an anomaly was detected */
@@ -207,7 +209,7 @@ message WearPowerAnomalyServiceEventStatsReported {
   optional int32 rule_id = 3;
 
   /**
-   * Resource ID for standard Google stock apps/resources
+   * Resource ID (cross-device) for standard Google stock apps/resources
    * (ONLY FACTORY GOOGLE FLASHED APPS). Mapping is stored server-side.
    */
   optional int32 resource_holder_id = 4;
