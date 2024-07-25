@@ -16,6 +16,24 @@
       "message": "why not reuse the same change-id, it helps with tracking purposes.",
       "revId": "93d98d0f57913fd921dc9c7395269511f76cedf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0554d5_646db927",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1972977
+      },
+      "writtenOn": "2024-07-25T23:43:46Z",
+      "side": 1,
+      "message": "I tried using the same change ID initially but builds failed due to merge conflicts, mainly because a change in internal wasn\u0027t merged in aosp. Hence, switched to the current change ID, which the internal was merged with.\n\nThis is an edge case but agreed, same change ID helps.",
+      "parentUuid": "3ac149c0_366c3d46",
+      "revId": "93d98d0f57913fd921dc9c7395269511f76cedf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
