@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ac149c0_366c3d46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1286922
+      },
+      "writtenOn": "2024-07-25T22:27:11Z",
+      "side": 1,
+      "message": "why not reuse the same change-id, it helps with tracking purposes.",
+      "revId": "93d98d0f57913fd921dc9c7395269511f76cedf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
