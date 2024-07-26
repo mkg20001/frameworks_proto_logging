@@ -579,3 +579,14 @@ enum State {
   REPEATED_ATTEMPTS = 11;
   PAIRING_NOT_ALLOWED = 12;
 }
+
+enum RemoteDeviceTypeMetadata {
+    WATCH = 0;
+    UNTETHERED_HEADSET = 1;
+    STYLUS = 2;
+    SPEAKER = 3;
+    HEADSET = 4;
+    CARKIT = 5;
+    DEFAULT = 6;
+    NOT_AVAILABLE = 7;
+}

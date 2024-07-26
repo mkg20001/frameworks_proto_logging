@@ -1169,6 +1169,10 @@ message Atom {
     extensions 850; // VpnConnectionStateChanged vpn_connection_state_changed
     extensions 851; // VpnConnectionReported vpn_connection_reported
     extensions 853; // ExcessiveBinderProxyCountReported excessive_binder_proxy_count_reported
+    extensions 855; // NfcObserveModeStateChanged nfc_observe_mode_state_changed
+    extensions 856; // NfcFieldChanged nfc_field_changed
+    extensions 857; // NfcPollingLoopNotificationReported nfc_polling_loop_notification_reported
+    extensions 858; // NfcProprietaryCapabilitiesReported nfc_proprietary_capabilities_reported
     extensions 862; // RemoteDeviceInformationWithMetricId remote_device_information_with_metric_id
     extensions 870; // LeAppScanStateChanged le_app_scan_state_changed
     extensions 871; // LeRadioScanStopped le_radio_scan_stopped
