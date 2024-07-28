@@ -64,6 +64,8 @@ extend Atom {
         = 875 [(module) = "bluetooth"];
     optional A2dpSessionReported a2dp_session_reported
         = 904 [(module) = "bluetooth"];
+    optional BluetoothCrossLayerEventReported bluetooth_cross_layer_event_reported
+        = 916 [(module) = "bluetooth"];
 }
 
 /**
@@ -287,6 +289,9 @@ message BluetoothRemoteDeviceInformation {
 
   // The first three bytes of MAC address
   optional int32 oui = 3;
+
+  // Device type metadata
+  optional android.bluetooth.RemoteDeviceTypeMetadata device_type_metadata = 4;
 }
 
 /**
@@ -510,3 +515,28 @@ message A2dpSessionReported {
   // Indicates whether the session is offloaded or not.
   optional bool offload = 11;
 }
+
+/**
+  * Logs a Bluetooth Event
+  *
+  * Logged from:
+  *     packages/modules/Bluetooth
+*/
+message BluetoothCrossLayerEventReported {
+  // Type of Bluetooth Event
+  optional android.bluetooth.EventType event_type = 1;
+
+  // Addition Details about the event, specific to the event type
+  optional android.bluetooth.State state = 2;
+
+  // Identifier for the app that initiates the CUJ (if applicable)
+  optional int32 uid = 3 [(is_uid) = true];
+
+  // Identifier for the remote device/metric id
+  optional int32 metric_id = 4;
+
+  // Remote Device Information
+  optional BluetoothRemoteDeviceInformation remote_device_information = 5
+     [(log_mode) = MODE_BYTES];
+}
+
